@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view"
+    >
+
+    <group android:checkableBehavior="single">
+         <item
+            android:id="@+id/nav_myorder"
+            android:title="My Orders"
+             />
+        <item
+            android:id="@+id/nav_myitems"
+
+            android:title="My Items" />
+        <!--android:icon="@mipmap/inbox"-->
+        <item
+            android:id="@+id/nav_activity"
+
+            android:title="Activity" />
+        <item
+            android:id="@+id/nav_mycustomers"
+
+            android:title="My Customers" />
+        <item
+            android:id="@+id/nav_invitefriends"
+
+            android:title="Invite Friends" />
+    </group>
+<hr></hr>
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/nav_settings"
+
+                android:title="Settings" />
+            <item
+                android:id="@+id/rateus"
+
+                android:title="Rate Us" />
+
+        </menu>
+    </item>
+
+</menu>
