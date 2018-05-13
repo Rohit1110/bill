@@ -147,7 +147,7 @@ public class LoginActivity extends AppCompatActivity implements
                             edit.putString("userphone",user.getPhoneNumber());
                             edit.commit();
 
-                            startActivity(new Intent(LoginActivity.this, VenderRegistration.class));
+                            startActivity(new Intent(LoginActivity.this, VendorRegistration.class));
                             finish();
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -201,7 +201,7 @@ public class LoginActivity extends AppCompatActivity implements
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            startActivity(new Intent(LoginActivity.this, VenderRegistration.class));
+            startActivity(new Intent(LoginActivity.this, VendorRegistration.class));
             finish();
         }
     }

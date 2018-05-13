@@ -10,7 +10,7 @@
     <string name="resend_phone_auth">Resend</string>
     <string name="login_text">Login</string>
     <string name="title_activity_main2">Main2Activity</string>
-    <string name="title_activity_vender_registration">VenderRegistration</string>
+    <string name="title_activity_vendor_registration">VenderRegistration</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

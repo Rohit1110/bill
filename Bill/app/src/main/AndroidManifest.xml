@@ -17,8 +17,8 @@
 
         </activity>
         <activity
-            android:name=".VenderRegistration"
-            android:label="@string/title_activity_vender_registration"
+            android:name=".VendorRegistration"
+            android:label="@string/title_activity_vendor_registration"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

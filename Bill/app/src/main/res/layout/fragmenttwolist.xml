@@ -116,10 +116,10 @@
         android:layout_below="@+id/linearlistthree">
 
         <TextView
+            style="@style/net_payble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Net Payable"
-            style="@style/net_payble"/>
+            android:text="Net Payable"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
