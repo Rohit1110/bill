@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <ScrollView
-    android:layout_height="wrap_content"
+    <RelativeLayout
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
    >
 
-<RelativeLayout
+<!--<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 
-    >
+    >-->
 
 
 
 
 
-    <LinearLayout
+   <!-- <LinearLayout
         android:id="@+id/linearorders"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,70 +39,22 @@
             android:text="13/05/2018"
             style="@style/v_total_orders"/>
 
-    </LinearLayout>
+    </LinearLayout>-->
     <LinearLayout
         android:id="@+id/linearlistone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-       android:layout_marginTop="@dimen/fab_margin"
         android:orientation="horizontal"
-        android:layout_below="@+id/linearorders">
-      <ImageView
-          android:layout_width="207dp"
-          android:layout_height="69.46dp"
-          android:background="@drawable/shape"
-          android:src="@drawable/sakal"/>
+        android:layout_below="@+id/linearlistnetpay"
+       >
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-           style="@style/v_order_qty"
-            android:layout_margin="@dimen/fab_margin"
-            android:text="545 pcs"/>
-    </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:id="@+id/linearlisttwo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/fab_margin"
-        android:orientation="horizontal"
-        android:layout_below="@+id/linearlistone">
-        <ImageView
-            android:layout_width="207dp"
-            android:layout_height="69.46dp"
-            android:background="@drawable/shape"
-            android:src="@drawable/loksatta"/>
+        </android.support.v7.widget.RecyclerView>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/v_order_qty"
-            android:layout_margin="@dimen/fab_margin"
-            android:text="254 pcs"/>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/linearlistthree"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/fab_margin"
-        android:orientation="horizontal"
-        android:layout_below="@+id/linearlisttwo">
-        <ImageView
-            android:layout_width="207dp"
-            android:layout_height="69.46dp"
-            android:background="@drawable/shape"
-            android:src="@drawable/times"
-           />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/v_order_qty"
-            android:layout_margin="@dimen/fab_margin"
-            android:text="195 pcs"/>
     </LinearLayout>
 
 
@@ -110,16 +62,17 @@
         android:id="@+id/linearlistnetpay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/fab_margin"
         android:orientation="vertical"
-        android:background="#00A6FF"
-        android:layout_below="@+id/linearlistthree">
+        android:background="@color/bgGray"
+        android:padding="10dp"
+        >
 
         <TextView
             style="@style/net_payble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Net Payable"/>
+            android:text="Net Payable"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -131,10 +84,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fab_margin"
             android:text="Go to todays orders"
-            style="@style/amount"/>
+            style="@style/net_payble"/>
     </LinearLayout>
 
 
 
 </RelativeLayout>
-</ScrollView>
+

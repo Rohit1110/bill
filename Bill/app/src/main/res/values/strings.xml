@@ -16,5 +16,13 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_dashboard">Dashboard</string>
 
-
+    <string-array name="country_arrays">
+        <item>2018</item>
+        <item>2017</item>
+        <item>2016</item>
+        <item>2015</item>
+        <item>2014</item>
+    </string-array>
+    <string name="title_activity_vendor_dash_board">VendorDashBoard</string>
+    <string name="title_activity_add_newspapers">AddNewspapers</string>
 </resources>

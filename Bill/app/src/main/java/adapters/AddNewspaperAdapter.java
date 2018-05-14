@@ -14,18 +14,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.ListTwo;
-import model.Listone;
 
 /**
  * Created by Rohit on 5/10/2018.
  */
 
-public class ListTwoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
-List<ListTwo> items = new ArrayList<ListTwo>();
+public class AddNewspaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    List<ListTwo> items = new ArrayList<ListTwo>();
 
-    public ListTwoAdapter(List<ListTwo> items) {
+    public AddNewspaperAdapter(List<ListTwo> items) {
         this.items = items;
     }
+
     class ViewHolder1 extends RecyclerView.ViewHolder {
         private TextView txtpcs;
         private ImageView newspaperimg;
@@ -34,26 +34,27 @@ List<ListTwo> items = new ArrayList<ListTwo>();
         public ViewHolder1(View itemView) {
             super(itemView);
             //txtName=(TextView)itemView.findViewById(R.id.txt_name);
-            newspaperimg=(ImageView)itemView.findViewById(R.id.img_newspaper);
-            txtpcs=(TextView)itemView.findViewById(R.id.txt_newspaper_pcs);
+            newspaperimg = (ImageView) itemView.findViewById(R.id.img_addnewspaper);
+            txtpcs = (TextView) itemView.findViewById(R.id.txt_newspaper_rates);
 
 
         }
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View item = inflater.inflate(R.layout.list_two_row, parent, false);
+        View item = inflater.inflate(R.layout.add_newspaper_row, parent, false);
         return new ViewHolder1(item);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ListTwo listTwo =(ListTwo)items.get(position);
+        ListTwo listTwo = (ListTwo) items.get(position);
         ViewHolder1 gholder = (ViewHolder1) holder;
         gholder.newspaperimg.setBackgroundResource(listTwo.getImgUrl());
-        gholder.txtpcs.setText(listTwo.getNewspaperpcs());
+        gholder.txtpcs.setText(listTwo.getRates());
         //qImageView.setBackgroundResource(R.drawable.thumbs_down);
 
     }

@@ -12,7 +12,7 @@ tools:context="com.reso.bill.Dashboard">
     android:theme="@style/AppTheme.AppBarOverlay">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/tabtwo_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
@@ -22,7 +22,7 @@ tools:context="com.reso.bill.Dashboard">
 
     <include layout="@layout/fragmenttwolist" />
 
-<android.support.design.widget.FloatingActionButton
+<!--<android.support.design.widget.FloatingActionButton
     android:id="@+id/fab"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -30,7 +30,7 @@ tools:context="com.reso.bill.Dashboard">
     android:layout_margin="@dimen/fab_margin"
     app:backgroundTint="#343F4B"
     android:tint="#00A6FF"
-    app:srcCompat="@android:drawable/ic_media_play" />
+    app:srcCompat="@android:drawable/ic_media_play" />-->
 
 
     <!--

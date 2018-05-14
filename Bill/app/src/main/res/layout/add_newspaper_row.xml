@@ -6,23 +6,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
         android:orientation="horizontal">
 
    <ImageView
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
-       android:id="@+id/img_newspaper"
+       android:id="@+id/img_addnewspaper"
        />
 
     <TextView
-        android:id="@+id/txt_newspaper_pcs"
+        android:id="@+id/txt_newspaper_rates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:singleLine="true"
         android:layout_gravity="center_vertical"
-        style="@style/v_order_qty"
-        android:textSize="18dp"
-        android:layout_margin="20dp"
+        android:background="@color/colorPrimary"
+        android:singleLine="true"
+        android:textSize="14dp"
+        android:layout_margin="10dp"
         android:text="255 pcs" />
     </LinearLayout>
     <LinearLayout

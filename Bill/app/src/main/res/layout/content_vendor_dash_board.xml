@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.reso.bill.VendorDashBoard"
+    tools:showIn="@layout/activity_vendor_dash_board">
+
+    <LinearLayout
+        android:id="@+id/layout_totalorder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bgGray"
+        android:orientation="vertical">
+<TextView
+    android:id="@+id/txt_vendor_total_order"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Total orders for today"
+    style="@style/basic_text_field"/>
+        <TextView
+            android:id="@+id/txt_vendor_total_orderdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="13/04/2018"
+            style="@style/basic_sub_text_field"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_managenewspaper"
+        android:layout_below="@+id/layout_totalorder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bgGray"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/txt_vendor_manage_newspaper"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manage NewsPaper"
+            style="@style/basic_text_field"/>
+        <TextView
+            android:id="@+id/txt_vendor_retes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rates / Margins"
+            style="@style/basic_sub_text_field"/>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_below="@+id/layout_managenewspaper"
+        android:id="@+id/layout_accounts"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bgGray"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/txt_vendor_accounting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accounting"
+            style="@style/basic_text_field"/>
+        <TextView
+            android:id="@+id/txt_vendor_manage_finance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Manage finances"
+            style="@style/basic_sub_text_field"/>
+
+
+    </LinearLayout>
+
+
+
+
+
+</RelativeLayout>

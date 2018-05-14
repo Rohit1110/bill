@@ -10,18 +10,15 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/fab_margin"
         android:id="@+id/txt_months"
-        style="@style/paymonths"
+        style="@style/basic_text_field"
         android:text="Rohit"/>
 
     <TextView
         android:id="@+id/txt_amount"
-        style="@style/payamount"
+        style="@style/basic_sub_text_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/txt_months"
-        android:layout_alignStart="@+id/txt_months"
         android:layout_below="@+id/txt_months"
         android:text="Rohit" />
 
@@ -29,8 +26,8 @@
         android:id="@+id/status_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/txt_months"
         android:layout_marginEnd="31dp"
+        android:layout_centerVertical="true"
         android:layout_marginRight="31dp"
         android:layout_toLeftOf="@+id/status"
         android:layout_toStartOf="@+id/status"
@@ -41,9 +38,9 @@
         style="@style/paystatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/status_img"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
         android:text="Rohit" />

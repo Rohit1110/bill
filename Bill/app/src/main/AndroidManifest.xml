@@ -9,13 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
-
-        </activity>
-        <activity android:name=".MainActivity">
-
-
-        </activity>
+        <activity android:name=".LoginActivity" />
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".VendorRegistration"
             android:label="@string/title_activity_vendor_registration"
@@ -25,14 +20,19 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".Dashboard"
             android:label="@string/title_activity_dashboard"
-            android:theme="@style/AppTheme">
-
-        </activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".VendorDashBoard"
+            android:label="@string/title_activity_vendor_dash_board"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".AddNewspapers"
+            android:label="@string/title_activity_add_newspapers"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

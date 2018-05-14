@@ -42,7 +42,7 @@ public class VendorRegistration extends AppCompatActivity {
         rgister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               Intent i = new Intent(getApplicationContext(),Dashboard.class);
+               Intent i = new Intent(getApplicationContext(),VendorDashBoard.class);
                startActivity(i);
             }
         });
