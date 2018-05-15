@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"></activity>
         <activity
             android:name=".VendorRegistration"
             android:label="@string/title_activity_vendor_registration"
@@ -32,6 +32,20 @@
         <activity
             android:name=".AddNewspapers"
             android:label="@string/title_activity_add_newspapers"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".SelectNewspaper"
+            android:label="@string/title_activity_select_newspaper"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2"></activity>
+        <activity android:name=".Main3Activity">
+
+        </activity>
+        <activity
+            android:name=".AddSubcription"
+            android:label="@string/title_activity_add_subcription"
             android:theme="@style/AppTheme"></activity>
     </application>
 

@@ -5,4 +5,6 @@
     <color name="colorAccent">#8492A6</color>
     <color name="white">#ffffffff</color>
     <color name="bgGray">#FFDCDCDC</color>
+    <color name="bgcolor">#DCDCDC</color>
+    <color name="drewerbg">#263445</color>
 </resources>

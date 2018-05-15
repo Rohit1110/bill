@@ -20,9 +20,17 @@ public class VendorDashBoard extends AppCompatActivity {
         setContentView(R.layout.activity_vendor_dash_board);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        toolbar.setNavigationIcon(R.mipmap.backarrow);
         layout_total_orders=(LinearLayout)findViewById(R.id.layout_totalorder);
         layout_manage_newspapers=(LinearLayout)findViewById(R.id.layout_managenewspaper);
         layout_accounting=(LinearLayout)findViewById(R.id.layout_accounts);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(VendorDashBoard.this,Main3Activity.class);
+                startActivity(i);
+            }
+        });
 
        /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

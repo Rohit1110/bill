@@ -15,6 +15,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_dashboard">Dashboard</string>
+    <color name="colorbackground">@color/bgcolor</color>
 
     <string-array name="country_arrays">
         <item>2018</item>
@@ -25,4 +26,6 @@
     </string-array>
     <string name="title_activity_vendor_dash_board">VendorDashBoard</string>
     <string name="title_activity_add_newspapers">AddNewspapers</string>
+    <string name="title_activity_select_newspaper">SelectNewspaper</string>
+    <string name="title_activity_add_subcription">AddSubcription</string>
 </resources>

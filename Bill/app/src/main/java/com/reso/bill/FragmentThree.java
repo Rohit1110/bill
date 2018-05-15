@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,8 +71,9 @@ public class FragmentThree extends Fragment {
         sp.setAdapter(dataAdapter);
 
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.tabthree_toolbar);
-        toolbar.setTitle("Title");
-        toolbar.setNavigationIcon(R.mipmap.backarrow);
+       /* toolbar.setTitle("Title");
+        toolbar.setNavigationIcon(R.mipmap.backarrow);*/
+        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Three</font>"));
         return rootView;
     }
 

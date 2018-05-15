@@ -42,8 +42,8 @@ public class Dashboard extends AppCompatActivity {
                         selectedFragment = Fragmenttwo.newInstance();
                         break;
                     case R.id.action_item3:
-                        selectedFragment = FragmentThree.newInstance();
-                        //selectedFragment = CustomerProfileFragment.newInstance();
+                        //selectedFragment = FragmentThree.newInstance();
+                        selectedFragment = AddSubcription.newInstance();
                         break;
                 }
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

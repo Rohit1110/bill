@@ -9,6 +9,8 @@ public class ListTwo {
     private int imgUrl;
     private String newspaperpcs;
     private String rates;
+    private  boolean expanded;
+    private String newsPaperInfo;
 
     public String getName() {
         return name;
@@ -40,5 +42,21 @@ public class ListTwo {
 
     public void setNewspaperpcs(String newspaperpcs) {
         this.newspaperpcs = newspaperpcs;
+    }
+
+    public boolean isExpanded() {
+        return expanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        this.expanded = expanded;
+    }
+
+    public String getNewsPaperInfo() {
+        return newsPaperInfo;
+    }
+
+    public void setNewsPaperInfo(String newsPaperInfo) {
+        this.newsPaperInfo = newsPaperInfo;
     }
 }

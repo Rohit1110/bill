@@ -44,11 +44,11 @@ public class Fragmenttwo extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tab_two, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_order);
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Total</font>"));
+        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Total Orders</font>"));
 
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.tabtwo_toolbar);
-        toolbar.setTitle("Title");
-        toolbar.setNavigationIcon(R.mipmap.backarrow);
+       /* toolbar.setTitle("Title");
+        toolbar.setNavigationIcon(R.mipmap.backarrow);*/
         return rootView;
 
 

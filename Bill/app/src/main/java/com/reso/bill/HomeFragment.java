@@ -26,7 +26,7 @@ import model.Listone;
  */
 
 public class HomeFragment extends Fragment {
-    List<Listone> list = list = new ArrayList<>();
+    List<Listone> list = new ArrayList<>();
     RecyclerView recyclerView;
     ListOneAdapter adapter;
     public static HomeFragment newInstance() {
@@ -48,8 +48,8 @@ public class HomeFragment extends Fragment {
       recyclerView = (RecyclerView)rootView.findViewById(R.id.recycler_view);
      // getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-        toolbar.setTitle("Title");
-        toolbar.setNavigationIcon(R.mipmap.backarrow);
+       /* toolbar.setTitle("Title");
+        toolbar.setNavigationIcon(R.mipmap.backarrow);*/
 
       return rootView;
 
