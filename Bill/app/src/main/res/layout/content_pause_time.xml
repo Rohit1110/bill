@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+    <LinearLayout
+        android:id="@+id/flayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bgGray">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/basic_text_field"
+            android:text="Ajinkya Kulkarni"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/imglayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/flayout">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:src="@drawable/sakal"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/bgGray"
+        android:layout_below="@+id/imglayout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="from"
+            android:layout_marginLeft="@dimen/fab_margin"
+            style="@style/basic_sub_text_field"/>
+        <TextView
+            android:id="@+id/txt_from_date"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Select date"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="to"
+            android:layout_marginLeft="@dimen/fab_margin"
+            style="@style/basic_sub_text_field"/>
+        <TextView
+            android:id="@+id/txt_to_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="select date"
+            android:layout_marginLeft="@dimen/fab_margin"
+            style="@style/basic_sub_text_field"/>
+        <TextView
+            android:id="@+id/txt_pause_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:text="Pause delivery for 2 days"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

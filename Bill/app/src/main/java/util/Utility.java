@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -103,5 +104,19 @@ public class Utility {
         }
         return b;
     }
+    @NonNull
+    public static String createDate(int day, int month, int year) {
+        month++;
+        String dayString = "" + day;
+        if (day < 10) {
+            dayString = "0" + day;
+        }
 
+        String monthString = "" + month;
+        if (month < 10) {
+            monthString = "0" + month;
+        }
+
+        return year + "-" + monthString + "-" + dayString;
+    }
 }
