@@ -26,12 +26,12 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_margin="@dimen/fab_margin"
                 style="@style/basic_text_field"/>
 
-            <TextView
+           <!-- <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/fab_margin"
                 android:text="Bills by Year"
-                style="@style/basic_text_field"/>
+                style="@style/basic_text_field"/>-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

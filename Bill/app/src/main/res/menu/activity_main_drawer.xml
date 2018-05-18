@@ -7,12 +7,12 @@
     <group android:checkableBehavior="single">
          <item
             android:id="@+id/nav_myorder"
-            android:title="My Orders"
+            android:title="Customers dashboard"
              />
         <item
             android:id="@+id/nav_myitems"
 
-            android:title="My Items" />
+            android:title="Vendor Dashboard" />
         <!--android:icon="@mipmap/inbox"-->
         <item
             android:id="@+id/nav_activity"

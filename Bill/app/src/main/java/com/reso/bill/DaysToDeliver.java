@@ -36,7 +36,7 @@ TextView txtmon,txttue,txtwed,txtthu,txtfri,txtsat,txtsun;
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_days_todeliver, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Home</font>"));
+        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Days To Deliver</font>"));
         txtmon=(TextView)rootView.findViewById(R.id.txt_mon);
         txttue=(TextView)rootView.findViewById(R.id.txt_tue);
         txtwed=(TextView)rootView.findViewById(R.id.txt_wed);

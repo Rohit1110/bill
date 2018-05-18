@@ -37,7 +37,7 @@ public class DisContinue extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_discontinue, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Home</font>"));
+        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Discontinue Times of India</font>"));
         txtfromdate = (TextView) rootView.findViewById(R.id.txt_from_date);
         txtfromdate.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -41,7 +41,7 @@ public class ChangeQuantity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_change_quantity, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Home</font>"));
+        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Change Quantity</font>"));
         txtselectdate=(TextView)rootView.findViewById(R.id.txt_date_select);
         txtselectdate.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,12 +7,16 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.reso.bill.MainActivity"
     tools:showIn="@layout/app_bar_main"
-    android:theme="@style/AppTheme">
+    android:background="@color/white"
+    android:theme="@style/AppTheme"
+    android:layout_above="@+id/layout_bottom_nav">
 
     <FrameLayout
-    android:id="@+id/content_frame"
+    android:id="@+id/frame_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="wrap_content"
+
+        />
 
 
 

@@ -2,6 +2,7 @@ package com.reso.bill;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,6 +30,7 @@ public class HomeFragment extends Fragment {
     List<Listone> list = new ArrayList<>();
     RecyclerView recyclerView;
     ListOneAdapter adapter;
+
     public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
         return fragment;
@@ -44,14 +46,14 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tab_one, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Home</font>"));
-      recyclerView = (RecyclerView)rootView.findViewById(R.id.recycler_view);
-     // getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-       /* toolbar.setTitle("Title");
+        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Deliveries 14/2/18</font>"));
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
+        // getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+        //Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+       /* toolbar.setTitle("Title")
         toolbar.setNavigationIcon(R.mipmap.backarrow);*/
 
-      return rootView;
+        return rootView;
 
     }
 
@@ -60,7 +62,7 @@ public class HomeFragment extends Fragment {
         super.onResume();
 
         Listone lone = new Listone();
-        for(int i =0; i<15;i++) {
+        for (int i = 0; i < 15; i++) {
             System.out.println(i);
             lone.setName("Ajinkya kulkarni");
             lone.setAddress("B504, ABC apartments, Sadashiv peth, Pune 411010 ");

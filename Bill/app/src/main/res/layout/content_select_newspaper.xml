@@ -7,10 +7,27 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.reso.bill.SelectNewspaper"
     tools:showIn="@layout/activity_select_newspaper">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/layout_select_newspaper"
+
+        android:background="@color/bgGray">
+
+    <TextView
+        android:id="@+id/txt_selected_newspaper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/fab_margin"
+        android:background="@color/bgGray"
+        style="@style/basic_text_field"
+        android:text="loksatta,ToI"/>
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_select_newspaper"
         android:id="@+id/recycler_view_select_newspaper">
 
     </android.support.v7.widget.RecyclerView>

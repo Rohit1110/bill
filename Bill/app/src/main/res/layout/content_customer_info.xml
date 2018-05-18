@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -17,7 +17,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bgGray">
+        android:background="@color/bgGray"
+        android:orientation="vertical">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -25,10 +26,13 @@
             android:layout_marginLeft="@dimen/fab_margin"
             android:text="Customer \nInformation"
             />
+
     </LinearLayout>
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            >
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -102,14 +106,30 @@
             style="@style/regedittext"
             android:hint="Enter Registration Date"
             />
+        <LinearLayout
+            android:id="@+id/layout_subscriptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:background="#ffffff">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/basic_text_field"
+                android:text="Add Subscriptions"/>
 
+        </LinearLayout>
 
 
 
     </LinearLayout>
+
+
         </android.support.v4.widget.NestedScrollView>
+
+
     </LinearLayout>
 
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

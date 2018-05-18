@@ -34,7 +34,7 @@ public class PauseTime extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_pause_time, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Home</font>"));
+        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Pause Times of India</font>"));
         txtfromdate=(TextView)rootView.findViewById(R.id.txt_from_date);
         txttodate=(TextView)rootView.findViewById(R.id.txt_to_date);
         txtfromdate.setOnClickListener(new View.OnClickListener() {

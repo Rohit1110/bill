@@ -22,6 +22,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/txt_papername1"
             android:layout_marginLeft="@dimen/fab_margin"
+            android:textColor="#000000"
             android:text="Sakal: 1"/>
         <View
             android:layout_width="1dp"
@@ -34,6 +35,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/txt_papername2"
             android:layout_marginLeft="10dp"
+            android:textColor="#000000"
             android:text="Times of india: 2"/>
 
         <View
@@ -46,6 +48,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/txt_papername3"
             android:layout_marginLeft="10dp"
+            android:textColor="#000000"
             android:text="Lokmat : 1 "/>
 
     </LinearLayout>

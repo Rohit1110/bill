@@ -70,10 +70,10 @@ public class FragmentThree extends Fragment {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp.setAdapter(dataAdapter);
 
-        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.tabthree_toolbar);
+        //Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.tabthree_toolbar);
        /* toolbar.setTitle("Title");
         toolbar.setNavigationIcon(R.mipmap.backarrow);*/
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Three</font>"));
+        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Bill by Year</font>"));
         return rootView;
     }
 

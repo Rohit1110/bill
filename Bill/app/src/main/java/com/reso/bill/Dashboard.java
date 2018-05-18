@@ -24,13 +24,14 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         setContentView(R.layout.activity_dashboard);
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        ActionBar actionBar = getSupportActionBar();
+        setSupportActionBar(toolbar);
+        /*ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setTitle("Deliveries 2018/05/14");
             System.out.println("Set action bar title ..");
-        }
+        }*/
 
 
 
@@ -62,9 +63,9 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                         selectedFragment = Fragmenttwo.newInstance();
                         break;
                     case R.id.action_item3:
-                        //selectedFragment = FragmentThree.newInstance();
+                        selectedFragment = FragmentThree.newInstance();
                         //selectedFragment = AddSubcription.newInstance();
-                        selectedFragment = DaysToDeliver.newInstance();
+                        //selectedFragment = DaysToDeliver.newInstance();
                         break;
 
 
@@ -98,8 +99,11 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         switch (item.getItemId()) {
 
             case R.id.nav_myorder:
-                Toast.makeText(Dashboard.this, "Click", Toast.LENGTH_LONG).show();
+               Toast.makeText(Dashboard.this, "Click", Toast.LENGTH_LONG).show();
                 fragment = new CustomerList();
+                break;
+            case R.id.nav_myitems:
+                fragment=new VendorDashBoard();
 
 
         }

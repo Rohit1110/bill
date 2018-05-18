@@ -46,7 +46,7 @@ public class Fragmenttwo extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_order);
         getActivity().setTitle(Html.fromHtml("<font color='#000000'>Total Orders</font>"));
 
-        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.tabtwo_toolbar);
+       // Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.tabtwo_toolbar);
        /* toolbar.setTitle("Title");
         toolbar.setNavigationIcon(R.mipmap.backarrow);*/
         return rootView;
