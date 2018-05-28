@@ -54,14 +54,16 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                 Fragment selectedFragment = null;
                 switch (item.getItemId()) {
                     case R.id.action_item1:
-                        selectedFragment = HomeFragment.newInstance();
+                        //selectedFragment = HomeFragment.newInstance();
+                        selectedFragment = Fragment_Bill_Edit.newInstance();
                         break;
                     case R.id.action_item2:
-                        selectedFragment = Fragmenttwo.newInstance();
+                        //selectedFragment = Fragmenttwo.newInstance();
+                        selectedFragment = MV_BillDetails_two.newInstance();
                         break;
                     case R.id.action_item3:
                         selectedFragment = FragmentThree.newInstance();
-                        //selectedFragment = AddSubcription.newInstance();
+
                         //selectedFragment = DaysToDeliver.newInstance();
                         break;
 
@@ -77,7 +79,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
         //Manually displaying the first fragment - one time only
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, HomeFragment.newInstance());
+        transaction.replace(R.id.frame_layout, Fragment_Bill_Edit.newInstance());
         transaction.commit();
 
 

@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.reso.bill.MainActivity">
+    tools:context="com.reso.bill.MainActivity"
+    android:layout_above="@+id/layout_bottom_nav"
+   >
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"

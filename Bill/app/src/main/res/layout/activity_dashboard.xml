@@ -5,6 +5,7 @@
     android:id="@+id/drawertest_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="com.reso.bill.Dashboard">
 
     <include layout="@layout/app_bar_main" />

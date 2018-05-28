@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
+
+        <LinearLayout
+            android:id="@+id/linearorders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bgGray"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/order_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ajinkya kulkarni"
+                android:layout_margin="5dp"
+                style="@style/basic_text_field"/>
+
+            <!-- <TextView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_margin="@dimen/fab_margin"
+                 android:text="Bills by Year"
+                 style="@style/basic_text_field"/>-->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Month"
+                style="@style/basic_sub_text_field" />
+            <Spinner
+                android:id="@+id/spinner1"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout_netpay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearorders"
+            android:background="@color/bgGray"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:text="Net Amount"
+
+                style="@style/basic_sub_text_field"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="320.00"
+                android:textSize="12sp"
+                style="@style/basic_sub_text_field"
+                android:layout_marginBottom="3dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:paddingRight="@dimen/fab_margin"
+                style="@style/basic_text_button"
+                android:text="Go to payment"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_netpay">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_bill_two"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                android:fadeScrollbars="true">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+
+
