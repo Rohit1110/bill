@@ -2,11 +2,8 @@ package com.reso.bill;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +12,8 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import adapters.ListOneAdapter;
 import adapters.ListTwoAdapter;
 import model.ListTwo;
-import model.Listone;
 
 /**
  * Created by Rohit on 5/8/2018.

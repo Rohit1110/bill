@@ -14,14 +14,14 @@
 
         android:background="@color/bgGray">
 
-    <TextView
+    <!--<TextView
         android:id="@+id/txt_selected_newspaper"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/fab_margin"
         android:background="@color/bgGray"
         style="@style/basic_text_field"
-        android:text="loksatta,ToI"/>
+        android:text="loksatta,ToI"/>-->
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
@@ -46,6 +46,7 @@
             />
 
         <TextView
+            android:id="@+id/txt_selected_items"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Selected Newspapers"

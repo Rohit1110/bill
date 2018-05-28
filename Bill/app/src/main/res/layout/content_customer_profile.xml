@@ -52,6 +52,7 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 />
 
             <TextView
+                android:id="@+id/btn_edit_profile"
                 android:layout_height="wrap_content"
                 style="@style/basic_text_button"
                 android:layout_width="match_parent"

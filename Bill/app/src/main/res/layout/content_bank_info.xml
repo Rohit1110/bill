@@ -19,130 +19,76 @@
             android:layout_height="wrap_content"
             android:background="@color/bgGray"
             android:orientation="vertical">
-
             <TextView
-                style="@style/basic_text_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/basic_text_field"
                 android:layout_marginLeft="@dimen/fab_margin"
-                android:text="Customer \nInformation"
+                android:text="Bank Information"
                 />
 
         </LinearLayout>
-
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
             >
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 >
-
                 <TextView
-                    style="@style/textviewtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Name"/>
-
+                    style="@style/textviewtitle"
+                    android:text="Bank Name"/>
                 <EditText
-                    android:id="@+id/et_customer_name"
-                    style="@style/regedittext"
+                    android:id="@+id/et_bank_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Name"
+                    style="@style/regedittext"
+                    android:hint="Bank Name"
 
                     />
-
-
                 <TextView
-                    style="@style/textviewtitle"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Contact"/>
-
+                    style="@style/textviewtitle"
+                    android:text="Account Number"/>
                 <EditText
-                    android:id="@+id/et_customer_phone"
-                    style="@style/regedittext"
+                    android:id="@+id/et_account_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Enter Contact"
+                    style="@style/regedittext"
+                    android:hint="Account number"
                     />
-
                 <TextView
-                    style="@style/textviewtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Email ID"/>
-
+                    style="@style/textviewtitle"
+                    android:text="IFSC Code"/>
                 <EditText
-                    android:id="@+id/et_customer_email"
-                    style="@style/regedittext"
+                    android:id="@+id/et_ifsc_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
-                    android:hint="Enter Email ID"
-                    />
-
-                <TextView
-                    style="@style/textviewtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Area"/>
-
-                <Spinner
-                    android:id="@+id/sp_customer_area"
                     style="@style/regedittext"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-
+                    android:hint="Enter IFSC Code"
                     />
-
                 <TextView
-                    style="@style/textviewtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Customer Address"/>
-
+                    style="@style/textviewtitle"
+                    android:text="Bank Address"/>
                 <EditText
-                    android:id="@+id/et_customer_address"
+                    android:id="@+id/et_bank_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     style="@style/regedittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Enter Customer Address"
+
+                    android:hint="Enter Branch address"
                     />
-
-                <TextView
-                    style="@style/textviewtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Service charge monthly Rs."/>
-
-                <EditText
-                    android:id="@+id/et_customer_service_charge"
-                    style="@style/regedittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Enter Service Charge monthly"
-                    />
-
-                <!--<LinearLayout
-                    android:id="@+id/layout_subscriptions"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/fab_margin"
-                    android:background="#ffffff">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/basic_text_field"
-                        android:text="Add Subscriptions"/>
-
-                </LinearLayout>-->
-
 
             </LinearLayout>
 
@@ -151,6 +97,7 @@
 
 
     </LinearLayout>
+
 
 
 </RelativeLayout>

@@ -1,33 +1,28 @@
 package com.reso.bill;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.rns.web.billapp.service.bo.domain.BillUser;
+
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 
 import adapters.ListOneAdapter;
-import model.Listone;
+import model.BillCustomer;
 
 /**
  * Created by Rohit on 5/8/2018.
  */
 
 public class HomeFragment extends Fragment {
-    List<Listone> list = new ArrayList<>();
+    List<BillCustomer> list = new ArrayList<>();
     RecyclerView recyclerView;
     ListOneAdapter adapter;
 
@@ -61,11 +56,12 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
-        Listone lone = new Listone();
+        BillCustomer lone = new BillCustomer();
         for (int i = 0; i < 15; i++) {
-            System.out.println(i);
-            lone.setName("Ajinkya kulkarni");
-            lone.setAddress("B504, ABC apartments, Sadashiv peth, Pune 411010 ");
+            BillUser user = new BillUser();
+            user.setName("Ajinkya kulkarni");
+            user.setAddress("B504, ABC apartments, Sadashiv peth, Pune 411010 ");
+            lone.setUser(user);
             list.add(lone);
         }
 

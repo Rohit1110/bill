@@ -60,7 +60,7 @@
         android:layout_marginRight="@dimen/fab_margin"
         android:background="#7E55F3" />
     <LinearLayout
-        android:id="@+id/sub_item"
+        android:id="@+id/customer_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFDCDCDC"

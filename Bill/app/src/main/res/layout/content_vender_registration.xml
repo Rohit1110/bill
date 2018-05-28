@@ -40,29 +40,37 @@
             style="@style/textviewtitle"
             android:text="Name"/>
         <EditText
+            android:id="@+id/et_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/regedittext"
             android:hint="Enter Name"
 
             />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/textviewtitle"
-            android:text="Area"/>
+            android:text="Email"/>
+
         <EditText
+            android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/regedittext"
-            android:hint="Enter Area"
+            android:hint="Enter Email address"
+
             />
+
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/textviewtitle"
             android:text="Contact"/>
         <EditText
+            android:id="@+id/et_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/regedittext"
@@ -74,6 +82,7 @@
             style="@style/textviewtitle"
             android:text="Pan ID"/>
         <EditText
+            android:id="@+id/et_pan_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/regedittext"
@@ -86,6 +95,7 @@
             style="@style/textviewtitle"
             android:text="Adhar Number"/>
         <EditText
+            android:id="@+id/et_aadhar_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/regedittext"
@@ -98,12 +108,31 @@
             style="@style/textviewtitle"
             android:text="Business Name"/>
         <EditText
+            android:id="@+id/et_business_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/regedittext"
             android:hint="Enter Business Name"
             />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/textviewtitle"
+            android:text="Locations"/>
+
+        <!--<Spinner
+            android:id="@+id/sp_area"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100px"
+            android:drawSelectorOnTop="true" />-->
+
+        <com.reso.bill.components.MultiSelectionSpinner
+            android:id="@+id/sp_area"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp" />
 
 
 

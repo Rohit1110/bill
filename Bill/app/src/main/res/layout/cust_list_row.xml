@@ -20,11 +20,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_papername1"
+            android:id="@+id/txt_customer_row_item_name"
             android:layout_marginLeft="@dimen/fab_margin"
             android:textColor="#000000"
             android:text="Sakal: 1"/>
-        <View
+        <!--<View
             android:layout_width="1dp"
             android:layout_height="20dp"
             android:layout_marginLeft="15dp"
@@ -49,7 +49,7 @@
             android:id="@+id/txt_papername3"
             android:layout_marginLeft="10dp"
             android:textColor="#000000"
-            android:text="Lokmat : 1 "/>
+            android:text="Lokmat : 1 "/>-->
 
     </LinearLayout>
     <View
@@ -60,7 +60,7 @@
         android:layout_marginRight="@dimen/fab_margin"
         android:background="#7E55F3" />
     <LinearLayout
-        android:id="@+id/sub_item"
+        android:id="@+id/customer_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFDCDCDC"

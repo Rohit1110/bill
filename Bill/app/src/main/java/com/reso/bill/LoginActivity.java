@@ -28,9 +28,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 
-import util.*;
-
 import java.util.concurrent.TimeUnit;
+
+import util.Utility;
 
 import static android.view.View.VISIBLE;
 
@@ -38,18 +38,18 @@ import static android.view.View.VISIBLE;
 public class LoginActivity extends AppCompatActivity implements
         View.OnClickListener {
 
-    EditText mPhoneNumberField, mVerificationField;
-    TextView mCodeNumberField;
-    Button mVerifyButton, mResendButton;
-    ProgressDialog proDialog;
-    FloatingActionButton mStartButton;
+    private EditText mPhoneNumberField, mVerificationField;
+    private TextView mCodeNumberField;
+    private Button mVerifyButton, mResendButton;
+    private ProgressDialog proDialog;
+    private FloatingActionButton mStartButton;
 
     private FirebaseAuth mAuth;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
-    String mVerificationId;
-    LinearLayout layoutvarification;
-    LinearLayout phoneAuth,layOutReg;
+    private String mVerificationId;
+    private LinearLayout layoutvarification;
+    private LinearLayout phoneAuth,layOutReg;
 
     private static final String TAG = "PhoneAuthActivity";
 
@@ -120,12 +120,6 @@ public class LoginActivity extends AppCompatActivity implements
                 mStartButton.setVisibility(View.GONE);
                 //layOutReg.setVisibility(View.GONE);
                 layoutvarification.setVisibility(VISIBLE);
-
-                    /*Intent intent = new Intent(PhoneAuthActivity.this,CodeVariFication.class);
-                    Bundle bundle =new Bundle();
-                    bundle.putString("varificationid",verificationId);
-                   // bundle.putString("token",PhoneAuthProvider.ForceResendingToken);
-                    startActivity(intent);*/
 
             }
         };
@@ -210,6 +204,7 @@ public class LoginActivity extends AppCompatActivity implements
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.button_start_verification:
+                System.out.println("Login button clicked");
                 if(Utility.isInternetOn(LoginActivity.this)) {
                     proDialog = new ProgressDialog(LoginActivity.this);
                     proDialog.setMessage("please wait....");

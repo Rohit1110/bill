@@ -1,19 +1,35 @@
 package com.reso.bill;
 
-import android.support.annotation.NonNull;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.rns.web.billapp.service.bo.domain.BillUser;
+import com.rns.web.billapp.service.domain.BillServiceRequest;
+import com.rns.web.billapp.service.domain.BillServiceResponse;
+import com.rns.web.billapp.service.util.BillConstants;
+
+import util.FirebaseUtil;
+import util.ServiceUtil;
+import util.Utility;
 
 public class MainActivity extends AppCompatActivity  {
+
     private Toolbar toolbar;
+    private ProgressDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,29 +58,72 @@ public class MainActivity extends AppCompatActivity  {
 
         ft.commit();
 
+        if(FirebaseUtil.getPhone() != null) {
+            //Phone number already given
+            loadProfile(FirebaseUtil.getPhone());
+        } else {
+            startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        }
 
-       /* bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+    }
+
+    void loadProfile(String phone) {
+
+        pDialog = Utility.getProgressDialogue("Loading Profile", MainActivity.this);
+        BillServiceRequest request = new BillServiceRequest();
+        BillUser user = new BillUser();
+        user.setPhone(phone);
+        request.setUser(user);
+        StringRequest myReq = ServiceUtil.getStringRequest("loadProfile", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, MainActivity.this), request);
+        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+        queue.add(myReq);
+    }
+
+    private Response.Listener<String> createMyReqSuccessListener() {
+        return new Response.Listener<String>() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Fragment selectedFragment = null;
-                switch (item.getItemId()) {
-                    case R.id.action_item1:
-                        selectedFragment = HomeFragment.newInstance();
-                        break;
-                    case R.id.action_item2:
-                        selectedFragment = Fragmenttwo.newInstance();
-                        break;
-                    case R.id.action_item3:
-                        //selectedFragment = FragmentThree.newInstance();
-                        selectedFragment = CustomerProfileFragment.newInstance();
-                        break;
+            public void onResponse(String response) {
+                System.out.println("## response:" + response);
+                pDialog.dismiss();
+
+                BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
+                if (serviceResponse != null && serviceResponse.getStatus() == 200) {
+                    System.out.println("Profile loaded successfully!");
+                    Utility.writeObject(MainActivity.this, Utility.USER_KEY, serviceResponse.getUser());
+                    if(serviceResponse.getWarningCode() != null) {
+                        //Utility.createAlert(MainActivity.this, serviceResponse.getWarningText(), "Warning");
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+                        alertDialogBuilder.setTitle("Warning");
+                        alertDialogBuilder.setMessage(serviceResponse.getWarningText());
+                        alertDialogBuilder.setPositiveButton("ok",
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface arg0, int arg1) {
+                                        startActivity(new Intent(MainActivity.this, Dashboard.class));
+                                    }
+                                });
+
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        alertDialog.show();
+                    } else {
+                        startActivity(new Intent(MainActivity.this, Dashboard.class));
+                    }
+
+                } else {
+                    System.out.println("Error .." + serviceResponse.getResponse());
+                    if(serviceResponse.getStatus() == BillConstants.ERROR_CODE_GENERIC) {
+                        startActivity(new Intent(MainActivity.this, VendorRegistration.class));
+                    } else if (serviceResponse.getStatus() == -222) {
+                        Utility.createAlert(MainActivity.this, serviceResponse.getResponse(), "Profile Not Approved");
+                    } else {
+                        Utility.createAlert(MainActivity.this, "Something went wrong! Please try again!", "Error");
+                    }
                 }
-               *//* FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layout, selectedFragment);
-                transaction.commit();*//*
-                return true;
+
+
             }
-        });*/
+
+        };
     }
 }
 

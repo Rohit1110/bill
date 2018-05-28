@@ -1,8 +1,5 @@
 package adapters;
 
-import android.app.Activity;
-import android.app.FragmentManager;
-
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentTransaction;
@@ -19,45 +16,47 @@ import com.reso.bill.DaysToDeliver;
 import com.reso.bill.DisContinue;
 import com.reso.bill.PauseTime;
 import com.reso.bill.R;
+import com.rns.web.billapp.service.bo.domain.BillItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import model.CustomerSubscription;
-import model.ListTwo;
+import util.Utility;
 
 /**
  * Created by Rohit on 5/10/2018.
  */
 
-public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
+public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    List<CustomerSubscription> items = new ArrayList<CustomerSubscription>();
-Context activity;
+    List<BillItem> items = new ArrayList<BillItem>();
+    Context activity;
 
-    public CustomerSubcriptionAdapter(List<CustomerSubscription> items,Context activity) {
+    public CustomerSubcriptionAdapter(List<BillItem> items, Context activity) {
         this.items = items;
-        this.activity=activity;
+        this.activity = activity;
     }
+
     class ViewHolder1 extends RecyclerView.ViewHolder {
         private TextView txtnewpaperqty;
         private ImageView newspaperimg;
-        private  TextView txtweekdays;
-        private ImageView imgpause,imgdiscontinue;
+        private TextView txtweekdays;
+        private ImageView imgpause, imgdiscontinue;
         //View appointmentindicator;
 
         public ViewHolder1(View itemView) {
             super(itemView);
             //txtName=(TextView)itemView.findViewById(R.id.txt_name);
-            newspaperimg=(ImageView)itemView.findViewById(R.id.img_newspaper);
-            txtnewpaperqty=(TextView)itemView.findViewById(R.id.txt_newspaperqty);
-            txtweekdays=(TextView)itemView.findViewById(R.id.txt_weekdays);
-            imgpause=(ImageView)itemView.findViewById(R.id.img_paus);
-            imgdiscontinue=(ImageView)itemView.findViewById(R.id.img_cross);
+            newspaperimg = (ImageView) itemView.findViewById(R.id.img_newspaper);
+            txtnewpaperqty = (TextView) itemView.findViewById(R.id.txt_newspaperqty);
+            txtweekdays = (TextView) itemView.findViewById(R.id.txt_weekdays);
+            imgpause = (ImageView) itemView.findViewById(R.id.img_paus);
+            imgdiscontinue = (ImageView) itemView.findViewById(R.id.img_cross);
 
 
         }
     }
+
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -68,14 +67,17 @@ Context activity;
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        CustomerSubscription customerSubscription =(CustomerSubscription)items.get(position);
+        BillItem customerSubscription = (BillItem) items.get(position);
         final ViewHolder1 gholder = (ViewHolder1) holder;
-        gholder.newspaperimg.setBackgroundResource(customerSubscription.getImgUrl());
+        //gholder.newspaperimg.setImageURI(Utility.getItemImageURL(customerSubscription.getParentItemId()));
+
+        Utility.downloadImage(gholder.newspaperimg, activity, Utility.getItemImageURL(customerSubscription.getParentItemId()));
+
         gholder.txtnewpaperqty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ChangeQuantity fragment = new ChangeQuantity();
-                FragmentTransaction ft =((AppCompatActivity) activity).getSupportFragmentManager().beginTransaction();
+                FragmentTransaction ft = ((AppCompatActivity) activity).getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.frame_layout, fragment);
                 ft.commit();
 

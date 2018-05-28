@@ -23,9 +23,9 @@ import model.Listone;
 
 
 public class ListOneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
-List<Listone> items = new ArrayList<Listone>();
+List<BillCustomer> items = new ArrayList<BillCustomer>();
 
-    public ListOneAdapter(List<Listone> items) {
+    public ListOneAdapter(List<BillCustomer> items) {
         this.items = items;
     }
     class ViewHolder1 extends RecyclerView.ViewHolder {
@@ -49,7 +49,7 @@ List<Listone> items = new ArrayList<Listone>();
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Listone listone =(Listone)items.get(position);
+        BillCustomer listone =(BillCustomer)items.get(position);
         ViewHolder1 gholder = (ViewHolder1) holder;
         gholder.txtName.setText(listone.getName());
 
@@ -74,13 +74,13 @@ import com.reso.bill.R;
 
 import java.util.List;
 
-import model.Listone;
+import model.BillCustomer;
 
 public class ListOneAdapter extends RecyclerView.Adapter<ListOneAdapter.RecViewHolder> {
 
-    private List<Listone> list;
+    private List<BillCustomer> list;
 
-    public ListOneAdapter(List<Listone> list) {
+    public ListOneAdapter(List<BillCustomer> list) {
         this.list = list;
     }
 
@@ -94,7 +94,7 @@ public class ListOneAdapter extends RecyclerView.Adapter<ListOneAdapter.RecViewH
 
     @Override
     public void onBindViewHolder(RecViewHolder holder, final int position) {
-        final Listone movie = list.get(position);
+        final BillCustomer movie = list.get(position);
 
         holder.bind(movie);
 
@@ -126,21 +126,21 @@ public class ListOneAdapter extends RecyclerView.Adapter<ListOneAdapter.RecViewH
             super(itemView);
             txtName=(TextView)itemView.findViewById(R.id.txt_name);
             txtAddress=(TextView)itemView.findViewById(R.id.sub_item_address);
-            subItem = itemView.findViewById(R.id.sub_item);
+            subItem = itemView.findViewById(R.id.customer_details);
             /*title = itemView.findViewById(R.id.item_title);
             genre = itemView.findViewById(R.id.sub_item_genre);
             year = itemView.findViewById(R.id.sub_item_year);
             subItem = itemView.findViewById(R.id.sub_item);*/
         }
 
-        private void bind(Listone movie) {
-            boolean expanded = movie.isExpanded();
+        private void bind(BillCustomer customer) {
+            boolean expanded = customer.isExpanded();
 
             subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
 
-            txtName.setText(movie.getName());
-            txtAddress.setText(movie.getAddress());
-            //year.setText("Year: " + movie.getYear());
+            txtName.setText(customer.getUser().getName());
+            txtAddress.setText(customer.getUser().getAddress());
+            //year.setText("Year: " + customer.getYear());
         }
     }
 }

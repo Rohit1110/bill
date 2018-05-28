@@ -1,6 +1,5 @@
 package com.reso.bill;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -9,14 +8,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +37,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         *//*upArrow.setColorFilter(Color.parseColor(""), PorterDuff.Mode.SRC_ATOP);*//*
         getSupportActionBar().setHomeAsUpIndicator(upArrow);*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawertest_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
 
         toggle.syncState();
@@ -69,6 +66,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                         break;
 
 
+
                 }
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 transaction.replace(R.id.frame_layout, selectedFragment);
@@ -81,7 +79,6 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, HomeFragment.newInstance());
         transaction.commit();
-
 
 
         //Used to select an item programmatically
@@ -99,11 +96,15 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         switch (item.getItemId()) {
 
             case R.id.nav_myorder:
-               Toast.makeText(Dashboard.this, "Click", Toast.LENGTH_LONG).show();
+                Toast.makeText(Dashboard.this, "Click", Toast.LENGTH_LONG).show();
                 fragment = new CustomerList();
                 break;
             case R.id.nav_myitems:
-                fragment=new VendorDashBoard();
+                fragment = new VendorDashBoard();
+                break;
+            case R.id.nav_bank_info:
+                fragment = new BankDetailsFragment();
+                break;
 
 
         }

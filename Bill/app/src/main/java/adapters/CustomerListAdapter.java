@@ -23,9 +23,9 @@ import model.Listone;
 
 
 public class ListOneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
-List<Listone> items = new ArrayList<Listone>();
+List<BillCustomer> items = new ArrayList<BillCustomer>();
 
-    public ListOneAdapter(List<Listone> items) {
+    public ListOneAdapter(List<BillCustomer> items) {
         this.items = items;
     }
     class ViewHolder1 extends RecyclerView.ViewHolder {
@@ -49,7 +49,7 @@ List<Listone> items = new ArrayList<Listone>();
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Listone listone =(Listone)items.get(position);
+        BillCustomer listone =(BillCustomer)items.get(position);
         ViewHolder1 gholder = (ViewHolder1) holder;
         gholder.txtName.setText(listone.getName());
 
@@ -64,9 +64,8 @@ List<Listone> items = new ArrayList<Listone>();
 
 
 package adapters;
-import android.app.Activity;
-import android.content.Context;
-import android.support.v4.app.FragmentTransaction;
+
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -75,35 +74,35 @@ import android.widget.TextView;
 
 import com.reso.bill.CustomerProfileFragment;
 import com.reso.bill.R;
+import com.rns.web.billapp.service.bo.domain.BillItem;
+import com.rns.web.billapp.service.bo.domain.BillUser;
 
 import java.util.List;
 
-import model.Listone;
+import model.BillCustomer;
+import util.Utility;
 
 public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapter.RecViewHolder> {
 
-    private List<Listone> list;
-    Activity context;
+    private List<BillCustomer> list;
+    private FragmentActivity context;
 
-    public CustomerListAdapter(List<Listone> list,Activity context) {
+    public CustomerListAdapter(List<BillCustomer> list, FragmentActivity context) {
         this.list = list;
-        this.context=context;
+        this.context = context;
     }
 
     @Override
     public RecViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.cust_list_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cust_list_row, parent, false);
         return new RecViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecViewHolder holder, final int position) {
-        final Listone movie = list.get(position);
+        final BillCustomer movie = list.get(position);
 
         holder.bind(movie);
-
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -123,37 +122,46 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
 
     public class RecViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView txtName;
-        private TextView txtAddress,txtViewprofile;
+        private TextView txtName, txtItemName;
+        private TextView txtAddress, txtViewprofile;
         private TextView year;
         private View subItem;
 
         public RecViewHolder(View itemView) {
             super(itemView);
-            txtName=(TextView)itemView.findViewById(R.id.txt_name);
-            txtAddress=(TextView)itemView.findViewById(R.id.sub_item_address);
-            subItem = itemView.findViewById(R.id.sub_item);
-            txtViewprofile=(TextView)itemView.findViewById(R.id.sub_item_viewprofile);
-            /*title = itemView.findViewById(R.id.item_title);
-            genre = itemView.findViewById(R.id.sub_item_genre);
-            year = itemView.findViewById(R.id.sub_item_year);
-            subItem = itemView.findViewById(R.id.sub_item);*/
+            txtName = (TextView) itemView.findViewById(R.id.txt_name);
+            txtItemName = (TextView) itemView.findViewById(R.id.txt_customer_row_item_name);
+            txtAddress = (TextView) itemView.findViewById(R.id.sub_item_address);
+            subItem = itemView.findViewById(R.id.customer_details);
+            txtViewprofile = (TextView) itemView.findViewById(R.id.sub_item_viewprofile);
+
         }
 
-        private void bind(Listone movie) {
-            boolean expanded = movie.isExpanded();
+        private void bind(final BillCustomer customer) {
+            boolean expanded = customer.isExpanded();
 
             subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
 
-            txtName.setText(movie.getName());
-            txtAddress.setText(movie.getAddress());
-            //year.setText("Year: " + movie.getYear());
+            final BillUser customerUser = customer.getUser();
+            txtName.setText(customerUser.getName());
+            txtAddress.setText(customerUser.getAddress());
+            //year.setText("Year: " + customer.getYear());
             txtViewprofile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+                    Utility.nextFragment(context, CustomerProfileFragment.newInstance(customerUser));
                 }
             });
+
+            txtItemName.setText("");
+            if (customerUser.getCurrentSubscription() != null && customerUser.getCurrentSubscription().getItems() != null && customerUser.getCurrentSubscription().getItems().size() > 0) {
+                for (BillItem subscribed : customerUser.getCurrentSubscription().getItems()) {
+                    txtItemName.setText(txtItemName.getText().toString().concat(subscribed.getName() + " | "));
+                }
+            } else {
+                txtItemName.setText("No subscriptions");
+            }
+
         }
     }
 }
