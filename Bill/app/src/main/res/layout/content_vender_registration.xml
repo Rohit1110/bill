@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.reso.bill.VendorRegistration"
+    android:layout_above="@+id/fab_vregister"
     tools:showIn="@layout/activity_vender_registration">
 
 
@@ -14,25 +15,16 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bgGray">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            style="@style/basic_text_field"
-            android:layout_marginLeft="@dimen/fab_margin"
-            android:text="Vender \nInformation"
-            />
-    </LinearLayout>
+
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/bgGray">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@color/white"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -130,9 +122,14 @@
 
         <com.reso.bill.components.MultiSelectionSpinner
             android:id="@+id/sp_area"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp" />
+            android:layout_margin="2dp"
+            android:background="@drawable/spinner"
+
+
+
+                       />
 
 
 

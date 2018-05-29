@@ -1,6 +1,7 @@
 package com.reso.bill;
 
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -10,8 +11,10 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,6 +26,10 @@ import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 import adapters.LocationAdapter;
 import util.FirebaseUtil;
 import util.ServiceUtil;
@@ -30,13 +37,16 @@ import util.Utility;
 
 public class VendorRegistration extends AppCompatActivity {
 
+    private static final int PICK_PHOTO_FOR_AVATAR = 1;
     private FloatingActionButton register;
     private EditText name, panNumber, aadharNumber, email, phone, businessName;
     private MultiSelectionSpinner areas;
     private LocationAdapter adapter;
     private ProgressDialog pDialog;
     private boolean saveRequest;
-
+    private static final int REQUEST_PICK_FILE = 1;
+    private File selectedFile;
+    String identy;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,9 +97,97 @@ public class VendorRegistration extends AppCompatActivity {
         areas = (MultiSelectionSpinner) findViewById(R.id.sp_area);
         //adapter = new LocationAdapter(this, R.layout.spinner_multi_select, new ArrayList<BillLocation>(), VendorRegistration.this);
         //areas.setAdapter(adapter);
+        aadharNumber.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (aadharNumber.getRight() - aadharNumber.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        Utility.checkcontactPermission(VendorRegistration.this);
+                        pickImage();
+                        identy="aadhar";
+                       // aadharNumber.setText(identy);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+
+        panNumber.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if(event.getAction() == MotionEvent.ACTION_UP) {
+                    if(event.getRawX() >= (panNumber.getRight() - panNumber.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        Utility.checkcontactPermission(VendorRegistration.this);
+                        pickImage();
+                        identy="pan";
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
+
+
 
 
         loadLocations();
+
+
+
+    }
+
+    public void pickImage() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+      startActivityForResult(intent, PICK_PHOTO_FOR_AVATAR);
+    }
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_PHOTO_FOR_AVATAR && resultCode == Activity.RESULT_OK) {
+            if (data == null) {
+                //Display an error
+                return;
+            }
+            try {
+                InputStream inputStream = VendorRegistration.this.getContentResolver().openInputStream(data.getData());
+                System.out.println("SSSSSSSSSSSS "+data.getData().getPath());
+                if(identy.equals("aadhar")) {
+                    //aadharNumber.setText(data.getData().getPath());
+                    String filename=data.getData().getPath().substring(data.getData().getPath().lastIndexOf("/")+1);
+                    aadharNumber.setText(filename);
+                }
+                if(identy.equals("pan")) {
+                   // panNumber.setText(data.getData().getPath());
+                    String filename=data.getData().getPath().substring(data.getData().getPath().lastIndexOf("/")+1);
+                    panNumber.setText(filename);
+                }
+
+                identy = data.getData().getPath();
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            //Now you can do whatever you want with your inpustream, save it as file, upload to a server, decode a bitmap...
+        }
     }
 
     private void saveUserInfo(BillUser user) {
