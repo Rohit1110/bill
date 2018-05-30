@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:app="http://schemas.android.com/apk/res-auto"
           package="com.reso.bill">
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -14,13 +15,19 @@
         <activity android:name=".LoginActivity"/>
         <activity android:name=".MainActivity">
 
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
 
         </activity>
+        <activity android:name=".FilePicker"></activity>
         <activity
             android:name=".VendorRegistration"
             android:label="@string/title_activity_vendor_registration"
             >
+
 
         </activity>
         <activity
@@ -30,11 +37,7 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             >
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
 
         </activity>
         <!--<activity
