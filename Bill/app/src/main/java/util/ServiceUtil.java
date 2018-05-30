@@ -39,7 +39,10 @@ public class ServiceUtil {
     public static String ADMIN_URL = HOST + "admin/";
 
 
-    public static BillSector NEWSPAPER_SECTOR = new BillSector(2);
+    //public static final int SECTOR_ID = 2;
+    public static final int SECTOR_ID = 4; //For Prod
+
+    public static BillSector NEWSPAPER_SECTOR = new BillSector(SECTOR_ID);
 
     public static StringRequest getStringRequest(String method, com.android.volley.Response.Listener<String> successListener, Response.ErrorListener errorListener, final BillServiceRequest request) {
         StringRequest volleyRequest = getRequest(ROOT_URL + method, successListener, errorListener, request);
