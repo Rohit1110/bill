@@ -24,7 +24,6 @@ import model.Listone;
 
 package adapters;
 
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,11 +34,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.reso.bill.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import model.BillItemHolder;
-import util.ServiceUtil;
+import util.Utility;
 
 public class SelectNewsPaperAdapter extends RecyclerView.Adapter<SelectNewsPaperAdapter.RecViewHolder> {
 
@@ -105,7 +105,10 @@ public class SelectNewsPaperAdapter extends RecyclerView.Adapter<SelectNewsPaper
 
             subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
 
-            imageView.setImageURI(Uri.parse(ServiceUtil.ADMIN_URL + "getParentItemImage/" + mainItem.getItem().getId()));
+            //imageView.setImageURI(Uri.parse(ServiceUtil.ADMIN_URL + "getParentItemImage/" + ));
+
+            Picasso.get().load(Utility.getItemImageURL(mainItem.getItem().getId())).into(imageView);
+
             txtNewsPaperInfo.setText(mainItem.getItem().getDescription());
             txtName.setText(mainItem.getItem().getName());
             checkBox.setChecked(list.get(pos).isSelected());

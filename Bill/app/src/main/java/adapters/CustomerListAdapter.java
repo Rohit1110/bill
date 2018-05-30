@@ -159,7 +159,11 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
             txtItemName.setText("");
             if (customerUser.getCurrentSubscription() != null && customerUser.getCurrentSubscription().getItems() != null && customerUser.getCurrentSubscription().getItems().size() > 0) {
                 for (BillItem subscribed : customerUser.getCurrentSubscription().getItems()) {
-                    txtItemName.setText(txtItemName.getText().toString().concat(subscribed.getName() + " | "));
+                    String name = subscribed.getName();
+                    if(name == null) {
+                        name = subscribed.getParentItem().getName();
+                    }
+                    txtItemName.setText(txtItemName.getText().toString().concat(name + " | "));
                 }
             } else {
                 txtItemName.setText("No subscriptions");

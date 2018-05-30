@@ -63,7 +63,11 @@ public class AddNewspaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         //Utility.downloadImage(gholder.image, activity, Utility.getItemImageURL(item.getId()));
 
-        Picasso.get().load(Utility.getItemImageURL(item.getId())).into(gholder.image);
+        Integer itemId = item.getId();
+        if(item.getParentItem() != null) {
+            itemId = item.getParentItem().getId();
+        }
+        Picasso.get().load(Utility.getItemImageURL(itemId)).into(gholder.image);
 
         if (item.getParentItem() == null) {
             gholder.name.setText(item.getName());
