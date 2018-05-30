@@ -45,6 +45,7 @@ public class Utility {
    /* public  FirebaseFirestore db = FirebaseFirestore.getInstance();*/
 
     public static final String USER_KEY = "billUser";
+    public static final String COLOR_BLUE = "#00A6FF";
 
     public static void createAlert(Context context, String message, String title) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -180,39 +181,6 @@ public class Utility {
         ft.commit();
     }
 
-    public static List<String> convertToStringArrayList(List<?> objects) {
-        if (objects == null || objects.size() == 0) {
-            return new ArrayList<>();
-        }
-        List<String> stringList = new ArrayList<>();
-        for (Object o : objects) {
-            if (o instanceof BillItem) {
-                BillItem item = (BillItem) o;
-                stringList.add(((BillItem) o).getName());
-            }
-        }
-        return stringList;
-    }
-
-    public static Object findInStringList(List<Object> objects, String selected) {
-        if (objects == null || objects.size() == 0 || selected == null) {
-            return null;
-        }
-        for (Object o : objects) {
-            if (o instanceof BillItem) {
-                BillItem item = (BillItem) o;
-                if (item.getName().equals(selected)) {
-                    return item;
-                }
-            }
-        }
-        return null;
-    }
-
-    public static String getItemImageURL(Integer parentItemId) {
-        return ServiceUtil.ADMIN_URL + "getParentItemImage/" + parentItemId;
-    }
-
     public static void downloadImage(final ImageView mImageView, Context activity, String url) {
         ImageRequest request = new ImageRequest(url, new Response.Listener<Bitmap>() {
             @Override
@@ -232,7 +200,6 @@ public class Utility {
     }
 
 
-
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static boolean checkcontactPermission(Activity activity) {
         int currentAPIVersion = Build.VERSION.SDK_INT;
@@ -246,6 +213,61 @@ public class Utility {
         } else {
             return true;
         }
+    }
+
+    public static List<String> convertToStringArrayList(List<?> objects) {
+        if (objects == null || objects.size() == 0) {
+            return new ArrayList<>();
+        }
+        List<String> stringList = new ArrayList<>();
+        for (Object o : objects) {
+            if (o instanceof BillItem) {
+                BillItem item = (BillItem) o;
+                if (item.getParentItem() != null && item.getParentItem().getName() != null) {
+                    stringList.add(item.getParentItem().getName());
+                } else {
+                    stringList.add(item.getName());
+                }
+
+            }
+        }
+        return stringList;
+    }
+
+    public static Object findInStringList(List<?> objects, String selected) {
+        if (objects == null || objects.size() == 0 || selected == null) {
+            return null;
+        }
+        for (Object o : objects) {
+            if (o instanceof BillItem) {
+                BillItem item = (BillItem) o;
+                String itemName = item.getName();
+                if (item.getParentItem() != null && item.getParentItem().getName() != null) {
+                    itemName = item.getParentItem().getName();
+                }
+                if (itemName != null && itemName.equals(selected)) {
+                    return item;
+                }
+            }
+        }
+        return null;
+    }
+
+    public static String getItemImageURL(Integer parentItemId) {
+        return ServiceUtil.ADMIN_URL + "getParentItemImage/" + parentItemId;
+    }
+
+
+    public static Integer getRootItemId(BillItem subItem) {
+        Integer itemId;
+        if (subItem.getParentItemId() != null) {
+            itemId = subItem.getParentItemId();
+        } else if (subItem.getParentItem() != null) {
+            itemId = subItem.getParentItem().getId();
+        } else {
+            itemId = subItem.getId();
+        }
+        return itemId;
     }
 
 }

@@ -8,4 +8,5 @@
     <color name="bgcolor">#DCDCDC</color>
     <color name="drewerbg">#263445</color>
     <color name="red">#FFEC2E18</color>
+    <color name="buttonColor">#00A6FF</color>
 </resources>

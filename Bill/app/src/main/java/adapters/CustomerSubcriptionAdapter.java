@@ -1,26 +1,38 @@
 package adapters;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.reso.bill.ChangeQuantity;
 import com.reso.bill.DaysToDeliver;
-import com.reso.bill.DisContinue;
 import com.reso.bill.PauseTime;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillItem;
+import com.rns.web.billapp.service.bo.domain.BillUser;
+import com.rns.web.billapp.service.domain.BillServiceRequest;
+import com.rns.web.billapp.service.domain.BillServiceResponse;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import util.ServiceUtil;
 import util.Utility;
 
 /**
@@ -29,12 +41,17 @@ import util.Utility;
 
 public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    List<BillItem> items = new ArrayList<BillItem>();
-    Context activity;
+    private final Activity parent;
+    private List<BillItem> items = new ArrayList<BillItem>();
+    private Context activity;
+    private BillUser customer;
+    private ProgressDialog pDialog;
 
-    public CustomerSubcriptionAdapter(List<BillItem> items, Context activity) {
+    public CustomerSubcriptionAdapter(List<BillItem> items, Context activity, BillUser customer, Activity parent) {
         this.items = items;
         this.activity = activity;
+        this.customer = customer;
+        this.parent = parent;
     }
 
     class ViewHolder1 extends RecyclerView.ViewHolder {
@@ -67,29 +84,59 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        BillItem customerSubscription = (BillItem) items.get(position);
+        final BillItem customerSubscription = (BillItem) items.get(position);
         final ViewHolder1 gholder = (ViewHolder1) holder;
         //gholder.newspaperimg.setImageURI(Utility.getItemImageURL(customerSubscription.getParentItemId()));
 
+        String weekDays = customerSubscription.getWeekDays();
+        if(weekDays == null) {
+            weekDays = customerSubscription.getParentItem().getWeekDays();
+        }
+
+        if (weekDays != null && weekDays.contains(",")) {
+            String[] days = weekDays.split(",");
+            String txtWeekDays = gholder.txtweekdays.getText().toString();
+            for (String day : days) {
+                if (day.contains("1")) {
+                    txtWeekDays = txtWeekDays.replace("su", "<font color='" + Utility.COLOR_BLUE + "'>su</font>");
+                } else if (day.contains("2")) {
+                    txtWeekDays = txtWeekDays.replace("mo", "<font color='" + Utility.COLOR_BLUE + "'>mo</font>");
+                } else if (day.contains("3")) {
+                    txtWeekDays = txtWeekDays.replace("tu", "<font color='" + Utility.COLOR_BLUE + "'>tu</font>");
+                } else if (day.contains("4")) {
+                    txtWeekDays = txtWeekDays.replace("we", "<font color='" + Utility.COLOR_BLUE + "'>we</font>");
+                } else if (day.contains("5")) {
+                    txtWeekDays = txtWeekDays.replace("th", "<font color='" + Utility.COLOR_BLUE + "'>th</font>");
+                } else if (day.contains("6")) {
+                    txtWeekDays = txtWeekDays.replace("fr", "<font color='" + Utility.COLOR_BLUE + "'>fr</font>");
+                } else if (day.contains("7")) {
+                    txtWeekDays = txtWeekDays.replace("sa", "<font color='" + Utility.COLOR_BLUE + "'>sa</font>");
+                }
+            }
+            System.out.println("Week Days ==>" + txtWeekDays);
+            gholder.txtweekdays.setText(Html.fromHtml(txtWeekDays));
+        }
+
+
+
         Utility.downloadImage(gholder.newspaperimg, activity, Utility.getItemImageURL(customerSubscription.getParentItemId()));
+        gholder.txtnewpaperqty.setText("0");
+
+        if (customerSubscription.getQuantity() != null) {
+            gholder.txtnewpaperqty.setText(customerSubscription.getQuantity().toString());
+        }
 
         gholder.txtnewpaperqty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ChangeQuantity fragment = new ChangeQuantity();
-                FragmentTransaction ft = ((AppCompatActivity) activity).getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frame_layout, fragment);
-                ft.commit();
+                Utility.nextFragment((FragmentActivity) activity, ChangeQuantity.newInstance(customer, customerSubscription));
 
             }
         });
         gholder.txtweekdays.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DaysToDeliver fragment = new DaysToDeliver();
-                FragmentTransaction ft = ((AppCompatActivity) activity).getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frame_layout, fragment);
-                ft.commit();
+                Utility.nextFragment((FragmentActivity) activity, DaysToDeliver.newInstance(customer, customerSubscription));
             }
         });
         gholder.imgpause.setOnClickListener(new View.OnClickListener() {
@@ -105,10 +152,24 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
         gholder.imgdiscontinue.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DisContinue fragment = new DisContinue();
-                FragmentTransaction ft = ((AppCompatActivity) activity).getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frame_layout, fragment);
-                ft.commit();
+                android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(activity);
+                alertDialogBuilder.setTitle("Suspend subscription");
+                alertDialogBuilder.setMessage("Are you sure you want to suspend this subscription?");
+                alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        suspend(customerSubscription);
+                    }
+                });
+                alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                android.app.AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
 
             }
         });
@@ -117,8 +178,44 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
 
     }
 
+    private void suspend(BillItem customerSubscription) {
+        BillServiceRequest request = new BillServiceRequest();
+        request.setUser(customer);
+        customerSubscription.setStatus("D");
+        request.setItem(customerSubscription);
+        pDialog = Utility.getProgressDialogue("Saving..", parent);
+        StringRequest myReq = ServiceUtil.getStringRequest("updateCustomerItem", createMyReqSuccessListener(customerSubscription), ServiceUtil.createMyReqErrorListener(pDialog, parent), request);
+        RequestQueue queue = Volley.newRequestQueue(parent);
+        queue.add(myReq);
+    }
+
+    private Response.Listener<String> createMyReqSuccessListener(final BillItem customerSubscription) {
+        return new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println("## response:" + response);
+                pDialog.dismiss();
+
+                BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
+                if (serviceResponse != null && serviceResponse.getStatus() == 200) {
+                    Utility.createAlert(activity, "Subscription suspended successfully!", "Done");
+                    items.remove(customerSubscription);
+                } else {
+                    System.out.println("Error .." + serviceResponse.getResponse());
+                    Utility.createAlert(parent, serviceResponse.getResponse(), "Error");
+                }
+
+
+            }
+
+        };
+    }
+
     @Override
     public int getItemCount() {
+        if (items == null) {
+            return 0;
+        }
         return items.size();
     }
 }

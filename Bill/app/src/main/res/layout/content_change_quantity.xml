@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:background="@color/bgGray">
         <TextView
+            android:id="@+id/txt_change_quantity_customer_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/basic_text_field"
@@ -24,6 +25,7 @@
         android:layout_below="@+id/flayout">
 
         <ImageView
+            android:id="@+id/img_change_quantity_sub_item"
             android:layout_width="match_parent"
             android:layout_height="230dp"
             android:src="@drawable/sakal"
@@ -43,6 +45,7 @@
             android:layout_marginLeft="@dimen/fab_margin"
             style="@style/basic_sub_text_field"/>
         <EditText
+            android:id="@+id/et_change_quantity"
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
@@ -53,7 +56,7 @@
             android:text="Quantity"
             android:layout_marginLeft="@dimen/fab_margin"
             style="@style/basic_sub_text_field"/>
-        <TextView
+        <!--<TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Change Quantity from"
@@ -64,7 +67,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/fab_margin"
-            android:text="Select Date"/>
+            android:text="Select Date"/>-->
+
+        <Button
+            android:id="@+id/btn_change_quantity"
+            style="@style/basic_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="Save" />
 
     </LinearLayout>
 

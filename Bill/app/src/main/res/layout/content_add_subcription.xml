@@ -42,12 +42,21 @@
             style="@style/basic_sub_text_field"
             android:text="Enter Quantity"/>
         <EditText
+            android:id="@+id/et_add_quantity"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/fab_margin"
             />
+
+        <CheckBox android:id="@+id/chk_subscription_scheme"
+                  style="@style/basic_sub_text_field"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Free of Cost (e.g. Scheme)"
+                  />
+
         <android.support.design.widget.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/fab_add_customer_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

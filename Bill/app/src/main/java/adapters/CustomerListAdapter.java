@@ -86,10 +86,12 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
 
     private List<BillCustomer> list;
     private FragmentActivity context;
+    private BillUser currentUser;
 
-    public CustomerListAdapter(List<BillCustomer> list, FragmentActivity context) {
+    public CustomerListAdapter(List<BillCustomer> list, FragmentActivity context, BillUser user) {
         this.list = list;
         this.context = context;
+        this.currentUser = user;
     }
 
     @Override
@@ -149,6 +151,7 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
             txtViewprofile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    customerUser.setCurrentBusiness(currentUser.getCurrentBusiness());
                     Utility.nextFragment(context, CustomerProfileFragment.newInstance(customerUser));
                 }
             });

@@ -13,6 +13,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.android.volley.RequestQueue;
@@ -33,12 +34,13 @@ import util.ServiceUtil;
 import util.Utility;
 
 public class AddNewspapers extends Fragment {
-    RecyclerView recyclerView;
-    List<ListTwo> list = new ArrayList<>();
-    LinearLayout layoutaddnewspaper;
+    private RecyclerView recyclerView;
+    private List<ListTwo> list = new ArrayList<>();
+    private LinearLayout layoutaddnewspaper;
     private BillUser user;
     private ProgressDialog pDialog;
     private List<BillItem> businessItems;
+
 
     @Nullable
     @Override
@@ -63,6 +65,8 @@ public class AddNewspapers extends Fragment {
             }
         });
 
+
+
         user = (BillUser) Utility.readObject(getContext(), Utility.USER_KEY);
 
 
@@ -73,7 +77,7 @@ public class AddNewspapers extends Fragment {
     public void onResume() {
         super.onResume();
 
-        if(user == null || user.getCurrentBusiness() == null) {
+        if (user == null || user.getCurrentBusiness() == null) {
             Utility.createAlert(getContext(), "Please complete your profile first!", "Error");
             return;
         }

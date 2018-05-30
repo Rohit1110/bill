@@ -27,9 +27,9 @@
         <item name="color">@android:color/black</item>
     </style>
 
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
 
-    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
     <style name="MyActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
         <item name="titleTextStyle">@style/textviewstyle</item>
@@ -202,6 +202,16 @@
         <item name="android:textColor">#FF00A6FF</item>
         <item name="android:textSize">14sp</item>
         <item name="android:lineSpacingMultiplier">1.3</item>
+    </style>
+
+    <style name="basic_button">
+        <item name="android:fontFamily">Lato</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:background">@color/buttonColor</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:lineSpacingMultiplier">1.3</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
     </style>
 
 </resources>

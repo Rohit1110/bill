@@ -98,7 +98,7 @@ public class CustomerList extends Fragment {
                             list.add(new BillCustomer(user));
                         }
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        recyclerView.setAdapter(new CustomerListAdapter(list, getActivity()));
+                        recyclerView.setAdapter(new CustomerListAdapter(list, getActivity(), user));
                     }
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());

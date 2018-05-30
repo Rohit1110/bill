@@ -50,14 +50,14 @@ public class ServiceUtil {
         return getRequest(ROOT_ADMIN_URL + method, successListener, errorListener, request);
     }*/
 
-    public static StringRequest getRequest(String method, Response.Listener<String> successListener, Response.ErrorListener errorListener, final BillServiceRequest request) {
-        System.out.print("Calling method " + method);
+    public static StringRequest getRequest(final String method, Response.Listener<String> successListener, Response.ErrorListener errorListener, final BillServiceRequest request) {
+        //System.out.print("Calling method " + method);
         return new StringRequest(Request.Method.POST, method, successListener, errorListener) {
 
             @Override
             public byte[] getBody() throws com.android.volley.AuthFailureError {
                 String str = toJson(request);
-                System.out.println("Request == " + str);
+                System.out.println("Method -- " + method + " -- Request == " + str);
                 return str.getBytes();
             }
 

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillItem;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +61,9 @@ public class AddNewspaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         //gholder.image.setBackgroundResource();
         //gholder.image.setImageURI(Utility.getItemImageURL(item));
 
-        Utility.downloadImage(gholder.image, activity, Utility.getItemImageURL(item.getId()));
+        //Utility.downloadImage(gholder.image, activity, Utility.getItemImageURL(item.getId()));
+
+        Picasso.get().load(Utility.getItemImageURL(item.getId())).into(gholder.image);
 
         if (item.getParentItem() == null) {
             gholder.name.setText(item.getName());

@@ -51,9 +51,10 @@
 
             <TextView
                 android:id="@+id/txt_weekdays"
+                style="@style/basic_sub_text_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="m|t|w|t|f|s|s|"
+                android:text="mo|tu|we|th|fr|sa|su|"
                 android:layout_below="@+id/img_cross"/>
         </RelativeLayout>
 
