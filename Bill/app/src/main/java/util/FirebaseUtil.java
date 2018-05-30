@@ -9,7 +9,10 @@ import com.google.firebase.auth.FirebaseAuth;
 public class FirebaseUtil {
 
     public static String getPhone() {
-        return FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
+        if(FirebaseAuth.getInstance().getCurrentUser() != null) {
+            return FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
+        }
+        return  null;
         //return "9923283604";
         //return "9423040642";
     }
