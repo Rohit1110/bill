@@ -12,6 +12,7 @@
         <item name="windowNoTitle">true</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="android:textColorHint">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@color/colorAccent</item>
 
     </style>
 

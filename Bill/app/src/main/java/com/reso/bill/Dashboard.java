@@ -98,7 +98,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         switch (item.getItemId()) {
 
             case R.id.nav_myorder:
-                Toast.makeText(Dashboard.this, "Click", Toast.LENGTH_LONG).show();
+                //Toast.makeText(Dashboard.this, "Click", Toast.LENGTH_LONG).show();
                 fragment = new CustomerList();
                 break;
             case R.id.nav_myitems:

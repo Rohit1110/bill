@@ -13,7 +13,7 @@
         android:id="@+id/layout_addnewspaper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bgGray"
+       android:background="@color/white"
         android:orientation="vertical">
 
         <TextView
@@ -34,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:foregroundTint="@color/bgGray"
             android:layout_marginLeft="@dimen/fab_margin"
             />
         <TextView
@@ -55,13 +56,22 @@
                   android:text="Free of Cost (e.g. Scheme)"
                   />
 
-        <android.support.design.widget.FloatingActionButton
+        <!--<android.support.design.widget.FloatingActionButton
             android:id="@+id/fab_add_customer_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_marginRight="@dimen/fab_margin"
-            app:srcCompat="@android:drawable/ic_menu_add" />
+            app:srcCompat="@android:drawable/ic_menu_add" />-->
+        <Button
+            android:id="@+id/fab_add_customer_item"
+            style="@style/basic_button"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="10dp"
+            android:text="Add" />
 
     </LinearLayout>
     <LinearLayout

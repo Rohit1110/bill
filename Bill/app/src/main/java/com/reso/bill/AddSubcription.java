@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -50,7 +51,7 @@ public class AddSubcription extends Fragment {
     private BillUser customer;
     private ProgressDialog profileLoader;
     private ProgressDialog itemLoader;
-    private FloatingActionButton fabAddCustomerItem;
+   private Button fabAddCustomerItem;
     private List<BillItem> businessItems;
     private CheckBox scheme;
 
@@ -70,7 +71,7 @@ public class AddSubcription extends Fragment {
         // getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         sp = (Spinner) rootView.findViewById(R.id.spinner_newspaper);
-        fabAddCustomerItem = (FloatingActionButton) rootView.findViewById(R.id.fab_add_customer_item);
+        fabAddCustomerItem = (Button) rootView.findViewById(R.id.fab_add_customer_item);
         fabAddCustomerItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
