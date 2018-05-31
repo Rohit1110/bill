@@ -34,8 +34,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:foregroundTint="@color/bgGray"
             android:layout_marginLeft="@dimen/fab_margin"
+
+            android:foreground="#FF343F4B"
             />
         <TextView
             android:layout_width="wrap_content"
@@ -46,7 +47,9 @@
             android:id="@+id/et_add_quantity"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
+            android:textColor="#FF343F4B"
             android:layout_marginLeft="@dimen/fab_margin"
+
             />
 
         <CheckBox android:id="@+id/chk_subscription_scheme"
@@ -69,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:layout_margin="10dp"
-            android:layout_gravity="bottom|end"
+            android:layout_gravity="bottom"
             android:layout_marginBottom="10dp"
             android:text="Add" />
 

@@ -13,13 +13,22 @@
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
         <item name="android:textColorHint">@color/colorAccent</item>
         <item name="android:textColorSecondary">@color/colorAccent</item>
+        <item name="android:spinnerItemStyle">@style/MooSpinnerItem</item>
 
+    </style>
+    <style name="MooSpinnerItem" parent="android:Widget.TextView.SpinnerItem">
+        <item name="android:textAppearance">@style/MooTextAppearanceSpinnerItem</item>
+    </style>
+
+    <style name="MooTextAppearanceSpinnerItem" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="android:textColor">#FF343F4B</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+
 
 
     </style>
