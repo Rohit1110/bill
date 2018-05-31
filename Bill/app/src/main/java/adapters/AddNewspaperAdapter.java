@@ -2,6 +2,8 @@ package adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.reso.bill.PauseTime;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.squareup.picasso.Picasso;
@@ -32,16 +35,19 @@ public class AddNewspaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
     class ViewHolder1 extends RecyclerView.ViewHolder {
-        private TextView price;
+        //private TextView price;
         private ImageView image;
         private TextView name;
+        ImageView iv;
+
         //View appointmentindicator;
 
         public ViewHolder1(View itemView) {
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.img_addnewspaper);
-            price = (TextView) itemView.findViewById(R.id.txt_newspaper_rates);
+            //price = (TextView) itemView.findViewById(R.id.txt_newspaper_rates);
             name = (TextView) itemView.findViewById(R.id.txt_newspaper_name);
+            iv=(ImageView)itemView.findViewById(R.id.btn_paus);
 
         }
     }
@@ -74,7 +80,15 @@ public class AddNewspaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         } else {
             gholder.name.setText(item.getParentItem().getName());
         }
-
+        gholder.iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PauseTime fragment = new PauseTime();
+                FragmentTransaction ft = ((AppCompatActivity) activity).getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.frame_layout, fragment);
+                ft.commit();
+            }
+        });
         //gholder.price.setText(item.getPrice());
         //qImageView.setBackgroundResource(R.drawable.thumbs_down);
 

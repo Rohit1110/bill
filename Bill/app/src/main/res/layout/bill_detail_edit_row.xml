@@ -71,7 +71,6 @@
                 android:gravity="right"
                 android:layout_marginRight="10dp"
                 android:text="INR 05.00"
-
                 android:textSize="15sp" />
                 <ImageView
                     android:id="@+id/edit_bill"

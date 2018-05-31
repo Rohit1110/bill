@@ -1,5 +1,6 @@
 package com.reso.bill;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -106,6 +107,10 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                 break;
             case R.id.nav_bank_info:
                 fragment = new BankDetailsFragment();
+                break;
+            case R.id.nav_profile:
+                Intent i = new Intent(Dashboard.this,VendorRegistration.class);
+                startActivity(i);
                 break;
 
 

@@ -27,12 +27,12 @@
     <include layout="@layout/fragment_customer_list" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_vregister"
+        android:id="@+id/fab_addcustomer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-
+          android:tint="@color/white"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@mipmap/mark" />
+        app:srcCompat="@android:drawable/ic_input_add" />
 
 </android.support.design.widget.CoordinatorLayout>

@@ -10,6 +10,8 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,8 @@ import model.Bill_details;
 public class MV_BillDetails_two extends Fragment {
     RecyclerView recyclerView;
     private List<Bill_details> list= new ArrayList<>();
+    private Spinner monthspinner;
+
     public static MV_BillDetails_two newInstance() {
         MV_BillDetails_two fragment = new MV_BillDetails_two();
         return fragment;
@@ -39,6 +43,10 @@ public class MV_BillDetails_two extends Fragment {
         //Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
        /* toolbar.setTitle("Title")
         toolbar.setNavigationIcon(R.mipmap.backarrow);*/
+        monthspinner= (Spinner)rootView.findViewById(R.id.spinner_months);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,getResources().getStringArray(R.array.months_arrays));
+
+        monthspinner.setAdapter(adapter);
 
         return rootView;
 

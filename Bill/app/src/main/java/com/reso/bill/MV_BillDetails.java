@@ -10,6 +10,8 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,7 @@ import model.ListThree;
 
 public class MV_BillDetails extends Fragment {
     RecyclerView recyclerView;
+    Spinner monthspinner;
     private List<Bill_details> list= new ArrayList<>();
     public static MV_BillDetails newInstance() {
         MV_BillDetails fragment = new MV_BillDetails();
@@ -35,12 +38,15 @@ public class MV_BillDetails extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_mv_bill_details, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Bill Details</font>"));
+        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Bill Details111</font>"));
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_bill);
+        monthspinner= (Spinner)rootView.findViewById(R.id.spinner_months);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,getResources().getStringArray(R.array.months_arrays));
         // getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         //Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
        /* toolbar.setTitle("Title")
         toolbar.setNavigationIcon(R.mipmap.backarrow);*/
+       monthspinner.setAdapter(adapter);
 
         return rootView;
 

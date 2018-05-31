@@ -34,7 +34,7 @@
 
         </LinearLayout>
 
-        <TextView
+        <!--<TextView
             android:id="@+id/txt_newspaper_rates"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -45,7 +45,18 @@
             android:singleLine="true"
             android:gravity="right"
             android:text="255 pcs"
-            android:textSize="14dp"/>
+            android:textSize="14dp"/>-->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:layout_toRightOf="@+id/txt_newspaperqty"
+            android:id="@+id/btn_paus"
+
+            android:src="@android:drawable/ic_media_pause"
+
+            />
 
 
     </LinearLayout>

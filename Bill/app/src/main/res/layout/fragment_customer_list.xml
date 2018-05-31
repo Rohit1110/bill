@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     >
-    <LinearLayout
+<!--    <LinearLayout
         android:id="@+id/layout_add_cust"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,13 +18,12 @@
             style="@style/basic_text_field"
             android:text="Add new Customer"/>
 
-    </LinearLayout>
+    </LinearLayout>-->
 
 
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_cust_list"
-        android:layout_below="@+id/layout_add_cust"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scrollbars="vertical"

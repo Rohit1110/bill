@@ -62,14 +62,19 @@ List<Bill_details> items = new ArrayList<>();
             public void onClick(View view) {
                 if( gholder.txtqty.isEnabled()==false) {
                     gholder.txtqty.setEnabled(true);
+                    //gholder.txtqty.setFocusable(true);
+                    gholder.txtpaper.setFocusable(false);
                 }else{
                     gholder.txtqty.setEnabled(false);
+                    gholder.txtqty.setFocusable(false);
                 }
 
                 if(  gholder.txtaperbill.isEnabled()==false) {
                     gholder.txtaperbill.setEnabled(true);
+                    gholder.txtpaper.setFocusable(false);
                 }else{
                     gholder.txtaperbill.setEnabled(false);
+                    gholder.txtaperbill.setFocusable(false);
                 }
                 //gholder.txtaperbill.setEnabled(true);
 

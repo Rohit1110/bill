@@ -28,14 +28,14 @@
         />
 
 
-    <TextView
+    <!--<TextView
         android:id="@+id/txtprofile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="20dp"
         style="@style/dreawerheaderprofile"
         android:text="Profile"
-        />
+        />-->
 
 
 

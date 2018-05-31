@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -40,6 +41,7 @@ public class CustomerList extends Fragment {
     private LinearLayout layout;
     private ProgressDialog pDialog;
     private BillUser user;
+    FloatingActionButton addcust;
 
     public static CustomerList newInstance() {
         CustomerList fragment = new CustomerList();
@@ -52,8 +54,9 @@ public class CustomerList extends Fragment {
         View rootView = inflater.inflate(R.layout.customer_list_main, container, false);
         getActivity().setTitle(Html.fromHtml("<font color='#000000'>Customer List</font>"));
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_cust_list);
-        layout = (LinearLayout) rootView.findViewById(R.id.layout_add_cust);
-        layout.setOnClickListener(new View.OnClickListener() {
+        addcust=(FloatingActionButton)rootView.findViewById(R.id.fab_addcustomer);
+        //layout = (LinearLayout) rootView.findViewById(R.id.layout_add_cust);
+        addcust.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Utility.nextFragment(getActivity(), new CustomerInfo());

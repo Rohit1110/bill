@@ -24,6 +24,26 @@
         <item>2015</item>
         <item>2014</item>
     </string-array>
+    <string-array name="paymode">
+        <item>Cash</item>
+        <item>Online</item>
+    </string-array>
+    <string-array name="months_arrays">
+        <item>Jan</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Apr</item>
+        <item>May</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Aug</item>
+        <item>Sept</item>
+        <item>Oct</item>
+        <item>Nov</item>
+        <item>Dec</item>
+    </string-array>
+
+
     <string name="title_activity_vendor_dash_board">VendorDashBoard</string>
     <string name="title_activity_add_newspapers">AddNewspapers</string>
     <string name="title_activity_select_newspaper">SelectNewspaper</string>
