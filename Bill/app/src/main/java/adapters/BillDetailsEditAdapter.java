@@ -27,14 +27,20 @@ List<Bill_details> items = new ArrayList<>();
         this.items = items;
     }
     class ViewHolder1 extends RecyclerView.ViewHolder {
-        private EditText txtdate;
+        private EditText txtqty,txtaperbill;
+        private  TextView txtpaper;
         ImageView iv;
         //private TextView time, name;
         //View appointmentindicator;
 
         public ViewHolder1(View itemView) {
             super(itemView);
-            txtdate=(EditText)itemView.findViewById(R.id.txt_date);
+            txtpaper=(TextView) itemView.findViewById(R.id.txt_paper);
+            txtqty=(EditText)itemView.findViewById(R.id.txt_paperqty);
+            txtaperbill=(EditText)itemView.findViewById(R.id.txt_paperbill);
+            iv=(ImageView)itemView.findViewById(R.id.edit_bill);
+            txtqty.setEnabled(false);
+            txtaperbill.setEnabled(false);
 
         }
     }
@@ -49,8 +55,26 @@ List<Bill_details> items = new ArrayList<>();
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Bill_details listthree =(Bill_details)items.get(position);
-        ViewHolder1 gholder = (ViewHolder1) holder;
-        gholder.txtdate.setText(listthree.getDate());
+        final ViewHolder1 gholder = (ViewHolder1) holder;
+        gholder.txtpaper.setText(listthree.getDate());
+        gholder.iv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if( gholder.txtqty.isEnabled()==false) {
+                    gholder.txtqty.setEnabled(true);
+                }else{
+                    gholder.txtqty.setEnabled(false);
+                }
+
+                if(  gholder.txtaperbill.isEnabled()==false) {
+                    gholder.txtaperbill.setEnabled(true);
+                }else{
+                    gholder.txtaperbill.setEnabled(false);
+                }
+                //gholder.txtaperbill.setEnabled(true);
+
+            }
+        });
 
     }
 
