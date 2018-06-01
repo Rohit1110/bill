@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -142,10 +140,7 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
         gholder.imgpause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PauseTime fragment = new PauseTime();
-                FragmentTransaction ft = ((AppCompatActivity) activity).getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frame_layout, fragment);
-                ft.commit();
+                Utility.nextFragment((FragmentActivity) activity, PauseTime.newInstance(customer, customerSubscription));
 
             }
         });

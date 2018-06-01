@@ -31,7 +31,7 @@ import util.Utility;
 public class BankDetailsFragment extends Fragment {
 
     private FloatingActionButton fabsubscription;
-    private EditText bankName, accountNumber, ifscCode, address;
+    private EditText bankName, accountNumber, ifscCode, address, accountHolder;
     private BillUser user;
     private ProgressDialog pDialog;
 
@@ -63,6 +63,7 @@ public class BankDetailsFragment extends Fragment {
                 user.getFinancialDetails().setAccountNumber(accountNumber.getText().toString());
                 user.getFinancialDetails().setBankAddress(address.getText().toString());
                 user.getFinancialDetails().setIfscCode(ifscCode.getText().toString());
+                user.getFinancialDetails().setAccountHolderName(accountHolder.getText().toString());
                 saveBankDetails();
 
             }
@@ -72,6 +73,7 @@ public class BankDetailsFragment extends Fragment {
         ifscCode = (EditText) rootView.findViewById(R.id.et_ifsc_code);
         accountNumber = (EditText) rootView.findViewById(R.id.et_account_number);
         address = (EditText) rootView.findViewById(R.id.et_bank_address);
+        accountHolder = (EditText) rootView.findViewById(R.id.et_account_holder);
 
         user = (BillUser) Utility.readObject(getContext(), Utility.USER_KEY);
         if (user != null && user.getFinancialDetails() != null) {
@@ -79,7 +81,7 @@ public class BankDetailsFragment extends Fragment {
             ifscCode.setText(user.getFinancialDetails().getIfscCode());
             accountNumber.setText(user.getFinancialDetails().getAccountNumber());
             address.setText(user.getFinancialDetails().getBankAddress());
-
+            accountHolder.setText(user.getFinancialDetails().getAccountHolderName());
         }
 
         return rootView;

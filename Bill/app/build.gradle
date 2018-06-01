@@ -37,6 +37,12 @@ dependencies {
     compile files('libs/bill.jar')
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    compile 'com.fasterxml.jackson.core:jackson-core:2.9.1'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.1'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.1'
+
+
+
 }
 
 

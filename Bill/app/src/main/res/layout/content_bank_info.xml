@@ -64,6 +64,21 @@
                     style="@style/regedittext"
                     android:hint="Account number"
                     />
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/textviewtitle"
+                    android:text="Account Holder Name"/>
+                <EditText
+                    android:id="@+id/et_account_holder"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/regedittext"
+                    android:hint="Account Holder Name"
+                    />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

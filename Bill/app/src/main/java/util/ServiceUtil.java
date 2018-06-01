@@ -33,14 +33,14 @@ import java.util.Date;
 
 public class ServiceUtil {
 
-    public static String HOST = "http://173.255.197.204:8080/billapp/"; //PROD IMP
-    //public static String HOST = "http://192.168.1.16:8080/billapp-service/";
+    //public static String HOST = "http://173.255.197.204:8080/billapp/"; //PROD IMP
+    public static String HOST = "http://192.168.0.102:8080/billapp-service/";
     public static String ROOT_URL = HOST + "user/";
     public static String ADMIN_URL = HOST + "admin/";
 
 
-    //public static final int SECTOR_ID = 2;
-    public static final int SECTOR_ID = 4; //For Prod
+    public static final int SECTOR_ID = 2;
+    //public static final int SECTOR_ID = 4; //For Prod
 
     public static BillSector NEWSPAPER_SECTOR = new BillSector(SECTOR_ID);
 
