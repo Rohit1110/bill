@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -56,15 +57,24 @@ public class BankDetailsFragment extends Fragment {
                 if (user == null) {
                     user = new BillUser();
                 }
+
                 if (user.getFinancialDetails() == null) {
                     user.setFinancialDetails(new BillFinancialDetails());
                 }
-                user.getFinancialDetails().setBankName(bankName.getText().toString());
-                user.getFinancialDetails().setAccountNumber(accountNumber.getText().toString());
-                user.getFinancialDetails().setBankAddress(address.getText().toString());
-                user.getFinancialDetails().setIfscCode(ifscCode.getText().toString());
-                user.getFinancialDetails().setAccountHolderName(accountHolder.getText().toString());
-                saveBankDetails();
+                if (!bankName.getText().toString().equals("") && !accountNumber.getText().toString().equals("") && !address.getText().toString().equals("") && !ifscCode.getText().toString().equals("")) {
+                    if(accountNumber.getText().toString().length() < 10){
+                        accountNumber.setError("Enter valid A/C number");
+                    } else if(ifscCode.getText().toString().length() < 11&& ifscCode.getText().toString().length() > 11){
+                        ifscCode.setError("enter valid ifsc code");
+                    }else {
+                        user.getFinancialDetails().setBankName(bankName.getText().toString());
+                        user.getFinancialDetails().setAccountNumber(accountNumber.getText().toString());
+                        user.getFinancialDetails().setBankAddress(address.getText().toString());
+                        user.getFinancialDetails().setIfscCode(ifscCode.getText().toString());
+                        saveBankDetails();
+
+                    }
+                }
 
             }
         });

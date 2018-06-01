@@ -65,13 +65,16 @@ List<BillCustomer> items = new ArrayList<BillCustomer>();
 
 package adapters;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.reso.bill.CustomerInfo;
 import com.reso.bill.CustomerProfileFragment;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillItem;
@@ -153,6 +156,14 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
                 public void onClick(View view) {
                     customerUser.setCurrentBusiness(currentUser.getCurrentBusiness());
                     Utility.nextFragment(context, CustomerProfileFragment.newInstance(customerUser));
+                    /*Fragment fragment = new CustomerProfileFragment();
+                    FragmentTransaction ft = context.getSupportFragmentManager().beginTransaction();
+                    ft.replace(R.id.frame_layout, fragment);
+                    ft.addToBackStack(null);
+                    ft.commit();*/
+                    /*Fragment videoFragment = new CustomerProfileFragment();
+                    FragmentTransaction transaction = context.getChildFragmentManager().beginTransaction();
+                    transaction.add(R.id.frame_layout, videoFragment).commit();*/
                 }
             });
 

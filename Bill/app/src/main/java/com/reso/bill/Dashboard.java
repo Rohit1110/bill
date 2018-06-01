@@ -17,6 +17,10 @@ import android.widget.Toast;
 
 public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
+    private static final int TIME_DELAY = 2000;
+    private static long back_pressed;
+    Fragment fragment = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +49,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
         /*FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_frame, new CustomerList());
         ft.commit();*/
@@ -60,10 +65,10 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                         break;
                     case R.id.action_item2:
                         //selectedFragment = Fragmenttwo.newInstance();
-                        selectedFragment = MV_BillDetails_two.newInstance();
+                        fragment = MV_BillDetails_two.newInstance();
                         break;
                     case R.id.action_item3:
-                        selectedFragment = FragmentThree.newInstance();
+                        fragment = FragmentThree.newInstance();
 
                         //selectedFragment = DaysToDeliver.newInstance();
                         break;
@@ -71,8 +76,10 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
 
                 }
+
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layout, selectedFragment);
+                transaction.replace(R.id.frame_layout, fragment);
+               /* transaction.addToBackStack(null);*/
                 transaction.commit();
                 return true;
             }
@@ -81,6 +88,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         //Manually displaying the first fragment - one time only
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_layout, Fragment_Bill_Edit.newInstance());
+       /* transaction.addToBackStack(null);*/
         transaction.commit();
 
 
@@ -92,10 +100,11 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         getSupportActionBar().setTitle(title);
     }
 
+
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-        Fragment fragment = null;
+
         switch (item.getItemId()) {
 
             case R.id.nav_myorder:
@@ -118,10 +127,77 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         if (fragment != null) {
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.frame_layout, fragment);
+            /*ft.addToBackStack(null);*/
             ft.commit();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawertest_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawertest_layout);
+
+        
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        }/* else if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
+            super.onBackPressed();
+        } else {
+            Toast.makeText(getBaseContext(), "Press once again to exit!",
+                    Toast.LENGTH_SHORT).show();
+            back_pressed = System.currentTimeMillis();
+        }*/
+        else{
+            if(fragment instanceof Fragment_Bill_Edit){
+                super.onBackPressed();
+            }else {
+                if(fragment instanceof CustomerList){
+
+                    fragment = new Fragment_Bill_Edit();
+                    if (fragment != null) {
+                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.frame_layout, fragment);
+                        /*ft.addToBackStack(null);*/
+                        ft.commit();
+                    }
+
+                }
+
+                if(fragment instanceof VendorDashBoard){
+                    //Toast.makeText(Dashboard.this,"Back click",Toast.LENGTH_LONG).show();
+                    fragment = new Fragment_Bill_Edit();
+                    if (fragment != null) {
+                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.frame_layout, fragment);
+                        /*ft.addToBackStack(null);*/
+                        ft.commit();
+                    }
+
+                }
+
+                if(fragment instanceof BankDetailsFragment){
+                    //Toast.makeText(Dashboard.this,"Back click",Toast.LENGTH_LONG).show();
+                    fragment = new Fragment_Bill_Edit();
+                    if (fragment != null) {
+                        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                        ft.replace(R.id.frame_layout, fragment);
+                        /*ft.addToBackStack(null);*/
+                        ft.commit();
+                    }
+
+                }
+            }
+
+        }
+
+
+
+
+    }
+
+
+
+
 }

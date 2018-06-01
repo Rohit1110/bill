@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -76,17 +77,22 @@ public class VendorRegistration extends AppCompatActivity {
                 if(requestUser != null) {
                     requestUser.setId(user.getId());
                 }
-                requestUser.setName(name.getText().toString());
-                requestUser.setEmail(email.getText().toString());
-                requestUser.setPanDetails(panNumber.getText().toString());
-                requestUser.setPhone(FirebaseUtil.getPhone());
-                requestUser.setAadharNumber(aadharNumber.getText().toString());
-                BillBusiness business = new BillBusiness();
-                business.setName(businessName.getText().toString());
-                business.setBusinessLocations(areas.selectedLocations());
-                business.setBusinessSector(ServiceUtil.NEWSPAPER_SECTOR);
-                requestUser.setCurrentBusiness(business);
-                saveUserInfo(requestUser);
+                if(!name.getText().toString().equals("")&&!panNumber.getText().toString().equals("")&&!aadharNumber.getText().toString().equals("")&&!businessName.getText().toString().equals("")) {
+                    BillUser user = new BillUser();
+                    user.setName(name.getText().toString());
+                    user.setPanDetails(panNumber.getText().toString());
+                    user.setPhone(FirebaseUtil.getPhone());
+                    user.setAadharNumber(aadharNumber.getText().toString());
+                    BillBusiness business = new BillBusiness();
+                    business.setName(businessName.getText().toString());
+                    business.setBusinessLocations(areas.selectedLocations());
+                    business.setBusinessSector(ServiceUtil.NEWSPAPER_SECTOR);
+                    user.setCurrentBusiness(business);
+                    saveUserInfo(user);
+                }else {
+                    Toast.makeText(VendorRegistration.this,"All fields are compulsary",Toast.LENGTH_LONG).show();
+                }
+                //saveUserInfo(requestUser);
             }
         });
 

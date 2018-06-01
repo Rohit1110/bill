@@ -48,6 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/regedittext"
+                    android:maxLength="40"
                     android:hint="Bank Name"
 
                     />
@@ -61,6 +62,7 @@
                     android:id="@+id/et_account_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLength="20"
                     style="@style/regedittext"
                     android:hint="Account number"
                     />
@@ -75,6 +77,7 @@
                     android:id="@+id/et_account_holder"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     style="@style/regedittext"
                     android:hint="Account Holder Name"
                     />
@@ -89,6 +92,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/regedittext"
+                    android:maxLength="11"
                     android:hint="Enter IFSC Code"
                     />
                 <TextView

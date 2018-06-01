@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -49,7 +50,7 @@ public class CustomerInfo extends Fragment {
 
     public static CustomerInfo newInstance(BillUser selectedCustomer) {
         CustomerInfo fragment = new CustomerInfo();
-        if(selectedCustomer != null) {
+        if (selectedCustomer != null) {
             fragment.setCustomer(selectedCustomer);
         }
         return fragment;
@@ -70,24 +71,52 @@ public class CustomerInfo extends Fragment {
             @Override
             public void onClick(View view) {
                 BillSubscription subscription = null;
-                if(customer == null) {
+                if (customer == null) {
                     customer = new BillUser();
                     subscription = new BillSubscription();
                 } else {
                     subscription = customer.getCurrentSubscription();
                 }
-                customer.setName(name.getText().toString());
-                customer.setEmail(email.getText().toString());
-                customer.setPhone(contact.getText().toString());
-                customer.setAddress(address.getText().toString());
-                subscription.setServiceCharge(new BigDecimal(serviceCharge.getText().toString()));
-                if(areas.getSelectedItem() == null || areas.getSelectedItem().toString().trim().length() == 0) {
-                    Utility.createAlert(getContext(), "Please select a location!", "Error");
-                    return;
+                if(!name.getText().toString().equals("")&&!email.getText().toString().equals("")&&!contact.getText().toString().equals("")&&!address.getText().toString().equals("")&&!serviceCharge.getText().toString().equals("")) {
+                    if(!Utility.isValidEmail(email.getText().toString())){
+                        email.setError("Enter valid email");
+                    }else if(contact.getText().toString().length() < 10){
+                        contact.setError("Enter valid contact");
+                    }else{
+
+                        customer.setName(name.getText().toString());
+
+
+
+
+                        customer.setEmail(email.getText().toString());
+
+
+
+
+
+                        customer.setPhone(contact.getText().toString());
+
+
+
+                        customer.setAddress(address.getText().toString());
+
+
+
+                        subscription.setServiceCharge(new BigDecimal(serviceCharge.getText().toString()));
+
+                        if (areas.getSelectedItem() == null || areas.getSelectedItem().toString().trim().length() == 0) {
+                            Utility.createAlert(getContext(), "Please select a location!", "Error");
+                            return;
+                        }
+                        subscription.setArea(findArea());
+                        customer.setCurrentSubscription(subscription);
+                        saveCustomer();
+
+                    }
+
+
                 }
-                subscription.setArea(findArea());
-                customer.setCurrentSubscription(subscription);
-                saveCustomer();
             }
         });
 
@@ -115,9 +144,9 @@ public class CustomerInfo extends Fragment {
     }
 
     private BillLocation findArea() {
-        if(user != null && user.getCurrentBusiness() != null && user.getCurrentBusiness().getBusinessLocations() != null) {
-            for(BillLocation loc: user.getCurrentBusiness().getBusinessLocations()) {
-                if(loc.getName().equals(areas.getSelectedItem().toString())) {
+        if (user != null && user.getCurrentBusiness() != null && user.getCurrentBusiness().getBusinessLocations() != null) {
+            for (BillLocation loc : user.getCurrentBusiness().getBusinessLocations()) {
+                if (loc.getName().equals(areas.getSelectedItem().toString())) {
                     return loc;
                 }
             }

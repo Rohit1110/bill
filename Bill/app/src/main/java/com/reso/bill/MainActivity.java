@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity  {
             loadProfile(FirebaseUtil.getPhone());
         } else {
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
+            finish();
         }
 
     }
@@ -100,6 +101,7 @@ public class MainActivity extends AppCompatActivity  {
                                     @Override
                                     public void onClick(DialogInterface arg0, int arg1) {
                                         startActivity(new Intent(MainActivity.this, Dashboard.class));
+                                        finish();
                                     }
                                 });
 
@@ -107,12 +109,14 @@ public class MainActivity extends AppCompatActivity  {
                         alertDialog.show();
                     } else {
                         startActivity(new Intent(MainActivity.this, Dashboard.class));
+                        finish();
                     }
 
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
                     if(serviceResponse.getStatus() == BillConstants.ERROR_CODE_GENERIC) {
                         startActivity(new Intent(MainActivity.this, VendorRegistration.class));
+                        finish();
                     } else if (serviceResponse.getStatus() == -222) {
                         Utility.createAlert(MainActivity.this, serviceResponse.getResponse(), "Profile Not Approved");
                     } else {
