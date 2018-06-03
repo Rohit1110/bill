@@ -19,7 +19,7 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/order_title"
+                android:id="@+id/txt_customer_invoices_customer_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ajinkya kulkarni"
@@ -53,7 +53,7 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linearorders">
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view_bill_details"
+                android:id="@+id/recycler_view_customer_bill_details"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="vertical"

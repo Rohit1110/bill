@@ -27,7 +27,7 @@ public class CustomerProfileFragment extends Fragment {
     private BillUser selectedCustomer;
     private TextView name, email, phone, address;
     private View manageSubscriptions;
-    private TextView editProfile;
+    private TextView editProfile, billDetails;
 
     private List<ListThree> list = new ArrayList<>();
 
@@ -70,6 +70,15 @@ public class CustomerProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Utility.nextFragment(getActivity(), AddSubcription.newInstance(selectedCustomer));
+            }
+        });
+
+        billDetails = (TextView) rootView.findViewById(R.id.btn_view_customer_bills);
+
+        billDetails.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utility.nextFragment(getActivity(), FragmentCustomerInvoices.newInstance(selectedCustomer));
             }
         });
 

@@ -17,9 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapters.BillDetailsAdapter;
-import adapters.ListThreeAdapter;
 import model.Bill_details;
-import model.ListThree;
 
 /**
  * Created by Rohit on 5/28/2018.

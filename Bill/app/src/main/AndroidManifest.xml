@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:app="http://schemas.android.com/apk/res-auto"
           package="com.reso.bill">
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"></uses-permission>
 
     <application
@@ -30,14 +31,13 @@
 
 
         </activity>
+
+        <!-- android:windowSoftInputMode="stateAlwaysHidden|adjustResize" -->
         <activity
             android:name=".Dashboard"
             android:label="@string/title_activity_dashboard"
-
-            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            android:windowSoftInputMode="adjustPan"
             >
-
-
 
         </activity>
         <!--<activity

@@ -13,7 +13,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -61,18 +60,17 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                 switch (item.getItemId()) {
                     case R.id.action_item1:
                         //selectedFragment = HomeFragment.newInstance();
-                        selectedFragment = Fragment_Bill_Edit.newInstance();
+                        //selectedFragment = FragmentEditInvoice.newInstance();
                         break;
                     case R.id.action_item2:
                         //selectedFragment = Fragmenttwo.newInstance();
                         fragment = MV_BillDetails_two.newInstance();
                         break;
                     case R.id.action_item3:
-                        fragment = FragmentThree.newInstance();
+                        //fragment = FragmentCustomerInvoices.newInstance();
 
                         //selectedFragment = DaysToDeliver.newInstance();
                         break;
-
 
 
                 }
@@ -85,15 +83,6 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
             }
         });
 
-        //Manually displaying the first fragment - one time only
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_layout, Fragment_Bill_Edit.newInstance());
-       /* transaction.addToBackStack(null);*/
-        transaction.commit();
-
-
-        //Used to select an item programmatically
-        //bottomNavigationView.getMenu().getItem(2).setChecked(true);
     }
 
     public void setTitle(String title) {
@@ -118,7 +107,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                 fragment = new BankDetailsFragment();
                 break;
             case R.id.nav_profile:
-                Intent i = new Intent(Dashboard.this,VendorRegistration.class);
+                Intent i = new Intent(Dashboard.this, VendorRegistration.class);
                 startActivity(i);
                 break;
 
@@ -139,7 +128,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawertest_layout);
 
-        
+
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }/* else if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
@@ -148,14 +137,13 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
             Toast.makeText(getBaseContext(), "Press once again to exit!",
                     Toast.LENGTH_SHORT).show();
             back_pressed = System.currentTimeMillis();
-        }*/
-        else{
-            if(fragment instanceof Fragment_Bill_Edit){
+        }*/ else {
+            if (fragment instanceof FragmentEditInvoice) {
                 super.onBackPressed();
-            }else {
-                if(fragment instanceof CustomerList){
+            } else {
+                if (fragment instanceof CustomerList) {
 
-                    fragment = new Fragment_Bill_Edit();
+                    fragment = new FragmentEditInvoice();
                     if (fragment != null) {
                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         ft.replace(R.id.frame_layout, fragment);
@@ -165,9 +153,9 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
                 }
 
-                if(fragment instanceof VendorDashBoard){
+                if (fragment instanceof VendorDashBoard) {
                     //Toast.makeText(Dashboard.this,"Back click",Toast.LENGTH_LONG).show();
-                    fragment = new Fragment_Bill_Edit();
+                    fragment = new FragmentEditInvoice();
                     if (fragment != null) {
                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         ft.replace(R.id.frame_layout, fragment);
@@ -177,9 +165,9 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
                 }
 
-                if(fragment instanceof BankDetailsFragment){
+                if (fragment instanceof BankDetailsFragment) {
                     //Toast.makeText(Dashboard.this,"Back click",Toast.LENGTH_LONG).show();
-                    fragment = new Fragment_Bill_Edit();
+                    fragment = new FragmentEditInvoice();
                     if (fragment != null) {
                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         ft.replace(R.id.frame_layout, fragment);
@@ -193,11 +181,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         }
 
 
-
-
     }
-
-
 
 
 }

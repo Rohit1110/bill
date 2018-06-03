@@ -42,7 +42,7 @@ public class CustomerList extends Fragment {
     private LinearLayout layout;
     private ProgressDialog pDialog;
     private BillUser user;
-    FloatingActionButton addcust;
+    private FloatingActionButton addcust;
 
     public static CustomerList newInstance() {
         CustomerList fragment = new CustomerList();

@@ -2,26 +2,20 @@ package com.reso.bill;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.DrawerBuilder;
-import com.mikepenz.materialdrawer.model.DividerDrawerItem;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SecondaryDrawerItem;
-import com.mikepenz.materialdrawer.model.SectionDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.ncapdevi.fragnav.FragNavController;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabClickListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main3Activity extends AppCompatActivity {
     private BottomBar mBottomBar;
@@ -39,20 +33,6 @@ public class Main3Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main3);
 
-        //FragNav
-        //list of fragments
-        List<Fragment> fragments = new ArrayList<>(3);
-
-        //add fragments to list
-        fragments.add(HomeFragment.newInstance());
-        fragments.add(Fragmenttwo.newInstance());
-        fragments.add(FragmentThree.newInstance());
-
-        //link fragments to container
-        fragNavController = new FragNavController(getSupportFragmentManager(),R.id.container,fragments);
-        //End of FragNav
-
-        //BottomBar menu
         mBottomBar = BottomBar.attach(this, savedInstanceState);
         mBottomBar.setItems(R.menu.bottombar_menu);
        /* mBottomBar.setBackgroundColor(R.color.bgcolor);*/

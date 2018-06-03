@@ -92,6 +92,7 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 />
 
             <TextView
+                android:id="@+id/btn_view_customer_bills"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
                 android:gravity="right"
