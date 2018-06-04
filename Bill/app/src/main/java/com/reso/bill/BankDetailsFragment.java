@@ -10,6 +10,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.android.volley.RequestQueue;
@@ -30,7 +31,7 @@ import util.Utility;
 
 public class BankDetailsFragment extends Fragment {
 
-    private FloatingActionButton fabsubscription;
+    private Button fabsubscription;
     private EditText bankName, accountNumber, ifscCode, address, accountHolder;
     private BillUser user;
     private ProgressDialog pDialog;
@@ -45,7 +46,7 @@ public class BankDetailsFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_bank_details, container, false);
         getActivity().setTitle(Html.fromHtml("<font color='#000000'>Bank Details</font>"));
-        fabsubscription = (FloatingActionButton) rootView.findViewById(R.id.fab_bank_details);
+        fabsubscription = (Button) rootView.findViewById(R.id.fab_bank_details);
         fabsubscription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

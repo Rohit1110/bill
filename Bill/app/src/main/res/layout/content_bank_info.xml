@@ -17,7 +17,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/bgGray"
+            android:background="@color/white"
             android:orientation="vertical">
             <TextView
                 android:layout_width="match_parent"
@@ -26,6 +26,14 @@
                 android:layout_marginLeft="@dimen/fab_margin"
                 android:text="Bank Information"
                 />
+
+            <Button
+                android:id="@+id/fab_bank_details"
+                style="@style/basic_button"
+                android:layout_width="wrap_content"
+                android:layout_gravity="top|right"
+                android:layout_marginRight="10dp"
+                android:text="Save"/>
 
         </LinearLayout>
         <android.support.v4.widget.NestedScrollView

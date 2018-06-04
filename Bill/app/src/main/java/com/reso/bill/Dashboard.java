@@ -148,7 +148,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
             } else {
                 if (fragment instanceof CustomerList) {
 
-                    fragment = new FragmentEditInvoice();
+                    fragment = new MV_BillDetails_two();
                     if (fragment != null) {
                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         ft.replace(R.id.frame_layout, fragment);
@@ -160,7 +160,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
                 if (fragment instanceof VendorDashBoard) {
                     //Toast.makeText(Dashboard.this,"Back click",Toast.LENGTH_LONG).show();
-                    fragment = new FragmentEditInvoice();
+                    fragment = new MV_BillDetails_two();
                     if (fragment != null) {
                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         ft.replace(R.id.frame_layout, fragment);
@@ -172,7 +172,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
                 if (fragment instanceof BankDetailsFragment) {
                     //Toast.makeText(Dashboard.this,"Back click",Toast.LENGTH_LONG).show();
-                    fragment = new FragmentEditInvoice();
+                    fragment = new MV_BillDetails_two();
                     if (fragment != null) {
                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         ft.replace(R.id.frame_layout, fragment);

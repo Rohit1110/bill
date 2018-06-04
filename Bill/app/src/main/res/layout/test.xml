@@ -7,27 +7,10 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
-
-    <LinearLayout
-        android:id="@+id/status_indicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/status_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="31dp"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="31dp"
-            android:src="@mipmap/home" />
-
-    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txt_months"
-        android:layout_toRightOf="@+id/status_indicator"
         style="@style/basic_text_field"
         android:text="Rohit"/>
 
@@ -37,10 +20,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_months"
-        android:layout_toRightOf="@+id/status_indicator"
         android:text="Rohit" />
 
-
+    <ImageView
+        android:id="@+id/status_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="31dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="31dp"
+        android:layout_toLeftOf="@+id/status"
+        android:layout_toStartOf="@+id/status"
+        android:src="@mipmap/home" />
 
     <TextView
         android:id="@+id/status"

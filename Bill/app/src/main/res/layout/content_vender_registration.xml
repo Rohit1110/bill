@@ -7,6 +7,7 @@
                                              android:layout_above="@+id/fab_vregister"
                                              app:layout_behavior="@string/appbar_scrolling_view_behavior"
                                              tools:context="com.reso.bill.VendorRegistration"
+                                               android:background="@color/white"
                                              tools:showIn="@layout/activity_vender_registration">
 
 
@@ -14,24 +15,36 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+        <Button
+            android:id="@+id/fab_vregister"
+            style="@style/basic_button"
+            android:layout_width="wrap_content"
+            android:layout_gravity="top|right"
+            android:layout_marginRight="10dp"
+            android:text="Save"/>
 
 
         <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/bgGray">
+            android:layout_marginTop="5dp"
+            android:background="@color/white">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical"
+                android:layout_margin="5dp"
                 >
 
                 <TextView
-                    style="@style/textviewtitle"
+                    style="@style/basic_sub_text_field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:layout_marginLeft="@dimen/margin"
+
                     android:text="Name"/>
 
                 <EditText
@@ -44,9 +57,11 @@
                     />
 
                 <TextView
-                    style="@style/textviewtitle"
+                    style="@style/basic_sub_text_field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:layout_marginLeft="@dimen/margin"
                     android:text="Email"/>
 
                 <EditText
@@ -60,9 +75,11 @@
 
 
                 <TextView
-                    style="@style/textviewtitle"
+                    style="@style/basic_sub_text_field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:layout_marginLeft="@dimen/margin"
                     android:text="Contact"/>
 
                 <EditText
@@ -74,9 +91,11 @@
                     />
 
                 <TextView
-                    style="@style/textviewtitle"
+                    style="@style/basic_sub_text_field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin"
+                    android:textSize="13sp"
                     android:text="Pan ID"/>
 
                 <EditText
@@ -84,14 +103,16 @@
                     style="@style/regedittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@mipmap/home"
+                    android:drawableRight="@mipmap/attchment"
                     android:hint="Enter Pan ID"
                     />
 
                 <TextView
-                    style="@style/textviewtitle"
+                    style="@style/basic_sub_text_field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:layout_marginLeft="@dimen/margin"
                     android:text="Adhar Number"/>
 
                 <EditText
@@ -99,14 +120,16 @@
                     style="@style/regedittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@mipmap/home"
+                    android:drawableRight="@mipmap/attchment"
                     android:hint="Enter Adhar number"
                     />
 
                 <TextView
-                    style="@style/textviewtitle"
+                    style="@style/basic_sub_text_field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:layout_marginLeft="@dimen/margin"
                     android:text="Business Name"/>
 
                 <EditText
@@ -118,9 +141,11 @@
                     />
 
                 <TextView
-                    style="@style/textviewtitle"
+                    style="@style/basic_sub_text_field"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:layout_marginLeft="@dimen/margin"
                     android:text="Locations"/>
 
                 <!--<Spinner
@@ -134,8 +159,8 @@
                     android:id="@+id/sp_area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:background="@drawable/spinner"
+                    android:layout_marginLeft="5dp"
+                    android:padding="@dimen/margin"
 
 
                     />

@@ -185,6 +185,7 @@ public class Utility {
     public static void nextFragment(FragmentActivity activity, Fragment fragment) {
         FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frame_layout, fragment);
+        ft.addToBackStack(null);
         ft.commit();
     }
 

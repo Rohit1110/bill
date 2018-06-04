@@ -32,19 +32,26 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_margin="@dimen/fab_margin"
                 android:text="Bills by Year"
                 style="@style/basic_text_field"/>-->
-            <!--<TextView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Select Year for Bill Details"
-                style="@style/basic_sub_text_field" />-->
-            <!--<Spinner
+                style="@style/basic_sub_text_field" />
+            <Spinner
                 android:id="@+id/spinner1"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="@dimen/fab_margin"
-                />-->
+                />
+            <Button
+                android:id="@+id/fab_add_invoice"
+                style="@style/basic_button"
+                android:layout_width="wrap_content"
+                android:layout_gravity="top|right"
+                android:layout_marginRight="10dp"
+                android:text="Save"/>
 
         </LinearLayout>
 

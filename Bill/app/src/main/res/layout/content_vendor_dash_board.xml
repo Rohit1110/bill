@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.reso.bill.VendorDashBoard"
+    android:background="@color/white"
     tools:showIn="@layout/activity_vendor_dash_board">
 
     <LinearLayout
         android:id="@+id/layout_totalorder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bgGray"
+        android:background="@color/white"
         android:orientation="vertical">
 <TextView
     android:id="@+id/txt_vendor_total_order"
@@ -24,9 +25,16 @@
             android:id="@+id/txt_vendor_total_orderdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="13/04/2018"
             style="@style/basic_sub_text_field"/>
 
+
+        <View
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bgGray"/>
 
     </LinearLayout>
 
@@ -35,7 +43,7 @@
         android:layout_below="@+id/layout_totalorder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bgGray"
+        android:background="@color/white"
         android:layout_marginTop="@dimen/fab_margin"
         android:orientation="vertical">
         <TextView
@@ -48,8 +56,14 @@
             android:id="@+id/txt_vendor_retes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:text="Rates / Margins"
             style="@style/basic_sub_text_field"/>
+        <View
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bgGray"/>
 
 
     </LinearLayout>
@@ -58,7 +72,7 @@
         android:id="@+id/layout_accounts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bgGray"
+        android:background="@color/white"
         android:layout_marginTop="@dimen/fab_margin"
         android:orientation="vertical">
         <TextView
@@ -72,7 +86,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Manage finances"
+            android:layout_marginTop="10dp"
             style="@style/basic_sub_text_field"/>
+        <View
+            android:layout_marginTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bgGray"/>
 
 
     </LinearLayout>

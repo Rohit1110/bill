@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -39,7 +40,7 @@ import util.Utility;
  */
 
 public class CustomerInfo extends Fragment {
-    private FloatingActionButton fabsubscription;
+    private Button fabsubscription;
     private List<BillCustomer> list = new ArrayList<>();
     private LinearLayout layout;
     private BillUser customer;
@@ -66,7 +67,7 @@ public class CustomerInfo extends Fragment {
         View rootView = inflater.inflate(R.layout.customer_info_main, container, false);
         getActivity().setTitle(Html.fromHtml("<font color='#000000'>Add Customer</font>"));
         //layout = (LinearLayout) rootView.findViewById(R.id.layout_subscriptions);
-        fabsubscription = (FloatingActionButton) rootView.findViewById(R.id.fab_save_customer);
+        fabsubscription = (Button) rootView.findViewById(R.id.fab_save_customer);
         fabsubscription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

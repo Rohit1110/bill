@@ -6,13 +6,13 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -40,7 +40,7 @@ import util.Utility;
 public class VendorRegistration extends AppCompatActivity {
 
     private static final int PICK_PHOTO_FOR_AVATAR = 1;
-    private FloatingActionButton register;
+    private Button register;
     private EditText name, panNumber, aadharNumber, email, phone, businessName;
     private MultiSelectionSpinner areas;
     private LocationAdapter adapter;
@@ -57,38 +57,59 @@ public class VendorRegistration extends AppCompatActivity {
         setContentView(R.layout.activity_vender_registration);
         Toolbar toolbar = (Toolbar) findViewById(R.id.vtoolbar);
         setSupportActionBar(toolbar);
-        register = (FloatingActionButton) findViewById(R.id.fab_vregister);
+        register = (Button) findViewById(R.id.fab_vregister);
 
-        ActionBar actionBar = getSupportActionBar();
+        /*ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-
+        }*/
+/*
         final Drawable upArrow = getResources().getDrawable(R.mipmap.backarrow);
-        /*upArrow.setColorFilter(Color.parseColor(""), PorterDuff.Mode.SRC_ATOP);*/
-        getSupportActionBar().setHomeAsUpIndicator(upArrow);
+        *//*upArrow.setColorFilter(Color.parseColor(""), PorterDuff.Mode.SRC_ATOP);*//*
+
+        getSupportActionBar().setHomeAsUpIndicator(upArrow);*/
+
+        //toolbar.setTitle("Registration11");
+        toolbar.setNavigationIcon(R.mipmap.backarrow);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(VendorRegistration.this,Dashboard.class);
+                startActivity(i);
+
+            }
+        });
+
+
 
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                BillUser requestUser = new BillUser();
+                /*BillUser requestUser = new BillUser();
                 if(requestUser != null) {
                     requestUser.setId(user.getId());
-                }
+                }*/
                 if(!name.getText().toString().equals("")&&!panNumber.getText().toString().equals("")&&!aadharNumber.getText().toString().equals("")&&!businessName.getText().toString().equals("")) {
-                    BillUser user = new BillUser();
-                    user.setName(name.getText().toString());
-                    user.setPanDetails(panNumber.getText().toString());
-                    user.setPhone(FirebaseUtil.getPhone());
-                    user.setAadharNumber(aadharNumber.getText().toString());
+                    if (Utility.isValidEmail(email.getText().toString())){
+                        BillUser requestUser = new BillUser();
+                        if(user!=null){
+                            requestUser.setId(user.getId());
+                        }
+                    requestUser.setName(name.getText().toString());
+                    requestUser.setPanDetails(panNumber.getText().toString());
+                    requestUser.setPhone(FirebaseUtil.getPhone());
+                    requestUser.setAadharNumber(aadharNumber.getText().toString());
                     BillBusiness business = new BillBusiness();
                     business.setName(businessName.getText().toString());
                     business.setBusinessLocations(areas.selectedLocations());
                     business.setBusinessSector(ServiceUtil.NEWSPAPER_SECTOR);
-                    user.setCurrentBusiness(business);
-                    saveUserInfo(user);
+                    requestUser.setCurrentBusiness(business);
+                    saveUserInfo(requestUser);
+                }else{
+                        Toast.makeText(VendorRegistration.this,"Enter valid emailid",Toast.LENGTH_LONG).show();
+                    }
                 }else {
                     Toast.makeText(VendorRegistration.this,"All fields are compulsary",Toast.LENGTH_LONG).show();
                 }

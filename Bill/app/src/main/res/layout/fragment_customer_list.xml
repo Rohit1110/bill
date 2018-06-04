@@ -6,19 +6,21 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     >
-<!--    <LinearLayout
+    <LinearLayout
         android:id="@+id/layout_add_cust"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bgcolor">
-        <TextView
-            android:id="@+id/txt_add_customer"
+        android:gravity="right"
+        android:background="@color/white">
+        <Button
+            android:id="@+id/fab_addcustomer"
+            style="@style/basic_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/basic_text_field"
-            android:text="Add new Customer"/>
+            android:layout_gravity="top|right"
+            android:layout_marginRight="10dp"
+            android:text="add"/>
 
-    </LinearLayout>-->
+    </LinearLayout>
 
 
 
@@ -26,6 +28,7 @@
         android:id="@+id/recycler_view_cust_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_add_cust"
         android:scrollbars="vertical"
         android:fadeScrollbars="true"
          />
