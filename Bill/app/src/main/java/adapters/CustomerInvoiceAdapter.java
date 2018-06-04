@@ -14,6 +14,7 @@ import com.reso.bill.FragmentEditInvoice;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillInvoice;
+import com.rns.web.billapp.service.util.BillConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,9 +79,9 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         BillInvoice invoice = (BillInvoice) items.get(position);
         ViewHolder1 gholder = (ViewHolder1) holder;
-        gholder.txtMonths.setText(invoice.getMonth() + " - " + invoice.getYear());
+        gholder.txtMonths.setText(BillConstants.MONTHS[invoice.getMonth() -1] + " " + invoice.getYear());
         if (invoice.getAmount() != null) {
-            gholder.txtamount.setText(invoice.getAmount().toString());
+            gholder.txtamount.setText("INR " + invoice.getAmount().toString());
         }
         gholder.txtstatus.setText(invoice.getStatus());
         gholder.bind(invoice);

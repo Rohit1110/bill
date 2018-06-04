@@ -54,8 +54,9 @@ public class FragmentEditInvoice extends Fragment {
     private String[] monthsArray;
     private List<String> yearsList;
     private Spinner yearsSpinner;
-    private EditText amount;
+    private EditText amount, serviceCharge;
     private FloatingActionButton save;
+    private Button send;
 
     public static FragmentEditInvoice newInstance(BillUser customer, BillInvoice invoice) {
         FragmentEditInvoice fragment = new FragmentEditInvoice();
@@ -92,23 +93,19 @@ public class FragmentEditInvoice extends Fragment {
 
         amount = (EditText) rootView.findViewById(R.id.et_bill_details_amount);
         amount.setEnabled(true);
-        amount.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                amount.setEnabled(!amount.isEnabled());
-                return true;
-            }
-        });
 
-        amount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                amount.setEnabled(!amount.isEnabled());
-            }
-        });
 
         if (invoice.getAmount() != null) {
             amount.setText(invoice.getAmount().toString());
+        }
+
+        serviceCharge = (EditText) rootView.findViewById(R.id.et_bill_details_amount);
+        serviceCharge.setEnabled(true);
+
+        if (invoice.getServiceCharge() != null) {
+            serviceCharge.setText(invoice.getServiceCharge().toString());
+        } else if (customer.getServiceCharge() != null) {
+            serviceCharge.setText(customer.getServiceCharge().toString());
         }
 
         save = (FloatingActionButton) rootView.findViewById(R.id.fab_save_invoice);
@@ -116,6 +113,14 @@ public class FragmentEditInvoice extends Fragment {
             @Override
             public void onClick(View view) {
                 saveInvoice();
+            }
+        });
+
+        send = (Button) rootView.findViewById(R.id.btn_send_invoice);
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                sendInvoice();
             }
         });
 
@@ -195,6 +200,11 @@ public class FragmentEditInvoice extends Fragment {
             return;
         }
         invoice.setAmount(new BigDecimal(amount.getText().toString()));
+
+        if (serviceCharge.getText() != null && serviceCharge.getText().toString().trim().length() > 0) {
+            invoice.setServiceCharge(new BigDecimal(serviceCharge.getText().toString()));
+        }
+
         //}
         BillServiceRequest request = new BillServiceRequest();
         invoice.setInvoiceItems(getInvoiceItems());
@@ -261,4 +271,39 @@ public class FragmentEditInvoice extends Fragment {
 
         };
     }
+
+    private void sendInvoice() {
+        if(invoice.getId() == null) {
+            Utility.createAlert(getContext(),"Please save the invoice first!","Error");
+            return;
+        }
+        BillServiceRequest request = new BillServiceRequest();
+        request.setRequestType("EMAIL");
+        request.setInvoice(invoice);
+        pDialog = Utility.getProgressDialogue("Sending Invoice..", getActivity());
+        StringRequest myReq = ServiceUtil.getStringRequest("sendInvoice", invoiceSendResponse(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(myReq);
+
+    }
+
+    private Response.Listener<String> invoiceSendResponse() {
+        return new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println("## response:" + response);
+                pDialog.dismiss();
+                BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
+                if (serviceResponse != null && serviceResponse.getStatus() == 200) {
+                    Utility.createAlert(getContext(), "Invoice sent to customer successfully!", "Done");
+                } else {
+                    System.out.println("Error .." + serviceResponse.getResponse());
+                    Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
+                }
+
+            }
+
+        };
+    }
+
 }

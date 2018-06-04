@@ -11,8 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -37,10 +35,10 @@ import util.Utility;
 
 public class FragmentCustomerInvoices extends Fragment {
     private RecyclerView recyclerView;
-    private Spinner sp;
+    //private Spinner sp;
     private List<ListThree> list = new ArrayList<>();
     private BillUser customer;
-    private TextView customerName;
+    //private TextView customerName;
     private ProgressDialog pDialog;
     private FloatingActionButton addInvoice;
 
@@ -59,21 +57,21 @@ public class FragmentCustomerInvoices extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_customer_invoices, container, false);
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_customer_bill_details);
-        sp = (Spinner) rootView.findViewById(R.id.spinner1);
+        //sp = (Spinner) rootView.findViewById(R.id.spinner1);
         List<String> list = new ArrayList<String>();
         list.add("2018");
         list.add("2017");
         list.add("2016");
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sp.setAdapter(dataAdapter);
+        //sp.setAdapter(dataAdapter);
 
         //Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.tabthree_toolbar);
        /* toolbar.setTitle("Title");
         toolbar.setNavigationIcon(R.mipmap.backarrow);*/
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Bill by Year</font>"));
+        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Bill by Year - " + customer.getName() + "</font>"));
 
-        customerName = (TextView) rootView.findViewById(R.id.txt_customer_invoices_customer_name);
+        //customerName = (TextView) rootView.findViewById(R.id.txt_customer_invoices_customer_name);
         addInvoice = (FloatingActionButton) rootView.findViewById(R.id.fab_add_invoice);
         addInvoice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,7 +86,7 @@ public class FragmentCustomerInvoices extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        customerName.setText(customer.getName());
+        //customerName.setText(customer.getName());
         loadCustomerInvoices();
 
     }

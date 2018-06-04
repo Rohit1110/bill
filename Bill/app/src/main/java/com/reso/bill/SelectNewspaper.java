@@ -4,13 +4,13 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -37,7 +37,7 @@ public class SelectNewspaper extends Fragment {
     private BillUser user;
     private List<BillItem> selectedItems;
     private TextView txtSelectedItems;
-    private FloatingActionButton save;
+    private Button save;
 
     public void setSelectedItems(List<BillItem> selectedItems) {
         this.selectedItems = selectedItems;
@@ -49,7 +49,7 @@ public class SelectNewspaper extends Fragment {
         View rootView = inflater.inflate(R.layout.activity_select_newspaper, container, false);
         //getActivity().setTitle(Html.fromHtml("<font color='#000000'>Home</font>"));
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_select_newspaper);
-        save = (FloatingActionButton) rootView.findViewById(R.id.fab_save_business_items);
+        save = (Button) rootView.findViewById(R.id.btn_save_business_items);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
