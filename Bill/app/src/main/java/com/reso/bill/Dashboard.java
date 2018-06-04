@@ -14,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import util.Utility;
+
 public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int TIME_DELAY = 2000;
@@ -61,6 +63,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                     case R.id.action_item1:
                         //selectedFragment = HomeFragment.newInstance();
                         //selectedFragment = FragmentEditInvoice.newInstance();
+                        fragment = HomeFragment.newInstance();
                         break;
                     case R.id.action_item2:
                         //selectedFragment = Fragmenttwo.newInstance();
@@ -75,10 +78,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
                 }
 
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_layout, fragment);
-               /* transaction.addToBackStack(null);*/
-                transaction.commit();
+                Utility.nextFragment(Dashboard.this, fragment);
                 return true;
             }
         });
