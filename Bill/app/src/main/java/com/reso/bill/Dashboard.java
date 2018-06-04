@@ -14,6 +14,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.rns.web.billapp.service.bo.domain.BillUser;
+
 import util.Utility;
 
 public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -21,6 +23,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     private static final int TIME_DELAY = 2000;
     private static long back_pressed;
     Fragment fragment = null;
+    private BillUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +54,8 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        user = (BillUser) Utility.readObject(Dashboard.this, Utility.USER_KEY);
+
         /*FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.content_frame, new CustomerList());
         ft.commit();*/
@@ -63,7 +68,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                     case R.id.action_item1:
                         //selectedFragment = HomeFragment.newInstance();
                         //selectedFragment = FragmentEditInvoice.newInstance();
-                        fragment = HomeFragment.newInstance();
+                        fragment = HomeFragment.newInstance(user);
                         break;
                     case R.id.action_item2:
                         //selectedFragment = Fragmenttwo.newInstance();
