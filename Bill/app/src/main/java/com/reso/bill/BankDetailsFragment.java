@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -118,7 +117,7 @@ public class BankDetailsFragment extends Fragment {
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     Utility.createAlert(getContext(), "Bank details updated successfully!", "Done");
                     Utility.writeObject(getContext(), Utility.USER_KEY, user);
-                    Utility.nextFragment(getActivity(), HomeFragment.newInstance());
+                    Utility.nextFragment(getActivity(), HomeFragment.newInstance(user));
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
                     Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
