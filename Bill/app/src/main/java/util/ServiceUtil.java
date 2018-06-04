@@ -39,8 +39,8 @@ public class ServiceUtil {
     public static String ADMIN_URL = HOST + "admin/";
 
 
-    public static final int SECTOR_ID = 2;
-    //public static final int SECTOR_ID = 4; //For Prod
+    //public static final int SECTOR_ID = 2;
+    public static final int SECTOR_ID = 4; //For Prod
 
     public static BillSector NEWSPAPER_SECTOR = new BillSector(SECTOR_ID);
 
