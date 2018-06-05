@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -15,7 +14,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -27,7 +25,6 @@ import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,7 +60,7 @@ public class CustomerInfo extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.customer_info_main, container, false);
         getActivity().setTitle(Html.fromHtml("<font color='#000000'>Add Customer</font>"));
         //layout = (LinearLayout) rootView.findViewById(R.id.layout_subscriptions);
@@ -78,47 +75,31 @@ public class CustomerInfo extends Fragment {
                 } else {
                     subscription = customer.getCurrentSubscription();
                 }
-                if(!name.getText().toString().equals("")&&!email.getText().toString().equals("")&&!contact.getText().toString().equals("")&&!address.getText().toString().equals("")&&!serviceCharge.getText().toString().equals("")) {
-                    if(!Utility.isValidEmail(email.getText().toString())){
-                        email.setError("Enter valid email");
-                    }else if(contact.getText().toString().length() < 10){
-                        contact.setError("Enter valid contact");
-                    }else{
-
-                        customer.setName(name.getText().toString());
-
-
-
-
-                        customer.setEmail(email.getText().toString());
-
-
-
-
-
-                        customer.setPhone(contact.getText().toString());
-
-
-
-                        customer.setAddress(address.getText().toString());
-
-
-
-                        subscription.setServiceCharge(new BigDecimal(serviceCharge.getText().toString()));
-
-                        if (areas.getSelectedItem() == null || areas.getSelectedItem().toString().trim().length() == 0) {
-                            Utility.createAlert(getContext(), "Please select a location!", "Error");
-                            return;
-                        }
-                        subscription.setArea(findArea());
-                        customer.setCurrentSubscription(subscription);
-                        saveCustomer();
-
-                    }
-
-
+                if (!Utility.isValidEmail(email.getText().toString())) {
+                    email.setError("Please enter a valid email");
+                    return;
                 }
+                if (!Utility.textViewFilled(contact) || contact.getText().toString().length() < 10) {
+                    contact.setError("Please enter a valid mobile number");
+                    return;
+                }
+                customer.setName(name.getText().toString());
+                customer.setEmail(email.getText().toString());
+                customer.setPhone(contact.getText().toString());
+                customer.setAddress(address.getText().toString());
+                subscription.setServiceCharge(Utility.getDecimal(serviceCharge));
+
+                if (areas.getSelectedItem() == null || areas.getSelectedItem().toString().trim().length() == 0) {
+                    Utility.createAlert(getContext(), "Please select a location!", "Error");
+                    return;
+                }
+                subscription.setArea(findArea());
+                customer.setCurrentSubscription(subscription);
+                saveCustomer();
+
             }
+
+
         });
 
         /*layout.setOnClickListener(new View.OnClickListener() {
@@ -140,6 +121,17 @@ public class CustomerInfo extends Fragment {
         serviceCharge = (EditText) rootView.findViewById(R.id.et_customer_service_charge);
 
         user = (BillUser) Utility.readObject(getContext(), Utility.USER_KEY);
+
+        if(customer != null) {
+            name.setText(customer.getName());
+            email.setText(customer.getEmail());
+            contact.setText(customer.getPhone());
+            address.setText(customer.getAddress());
+            if(customer.getServiceCharge() != null) {
+                serviceCharge.setText(customer.getServiceCharge().toString());
+            }
+
+        }
 
         return rootView;
     }
@@ -170,6 +162,9 @@ public class CustomerInfo extends Fragment {
             ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, locationsList); //selected item will look like a spinner set from XML
             spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             areas.setAdapter(spinnerArrayAdapter);
+            if(customer != null && customer.getCurrentSubscription() != null && customer.getCurrentSubscription().getArea() != null) {
+                areas.setSelection(locationsList.indexOf(customer.getCurrentSubscription().getArea().getName()));
+            }
         }
     }
 

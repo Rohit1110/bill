@@ -141,7 +141,7 @@ public class LoginActivity extends AppCompatActivity implements
                             edit.putString("userphone",user.getPhoneNumber());
                             edit.commit();
 
-                            startActivity(new Intent(LoginActivity.this, VendorRegistration.class));
+                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
                             finish();
                         } else {
                             Log.w(TAG, "signInWithCredential:failure", task.getException());

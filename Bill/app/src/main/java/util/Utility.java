@@ -20,6 +20,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -35,6 +36,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +71,17 @@ public class Utility {
 
     public static boolean isValidEmail(String email) {
         return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    public static boolean textViewFilled(TextView txtView) {
+        return txtView.getText() != null && !TextUtils.isEmpty(txtView.getText());
+    }
+
+    public static BigDecimal getDecimal(TextView textView) {
+        if (TextUtils.isEmpty(textView.getText())) {
+            return null;
+        }
+        return new BigDecimal(textView.getText().toString());
     }
 
 
