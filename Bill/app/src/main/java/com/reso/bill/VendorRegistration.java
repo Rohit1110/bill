@@ -4,9 +4,7 @@ package com.reso.bill;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -75,13 +73,11 @@ public class VendorRegistration extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(VendorRegistration.this,Dashboard.class);
+                Intent i = new Intent(VendorRegistration.this, Dashboard.class);
                 startActivity(i);
 
             }
         });
-
-
 
 
         register.setOnClickListener(new View.OnClickListener() {
@@ -91,27 +87,28 @@ public class VendorRegistration extends AppCompatActivity {
                 if(requestUser != null) {
                     requestUser.setId(user.getId());
                 }*/
-                if(!name.getText().toString().equals("")&&!panNumber.getText().toString().equals("")&&!aadharNumber.getText().toString().equals("")&&!businessName.getText().toString().equals("")) {
-                    if (Utility.isValidEmail(email.getText().toString())){
+                if (!name.getText().toString().equals("") && !panNumber.getText().toString().equals("") && !aadharNumber.getText().toString().equals("") && !businessName.getText().toString().equals("")) {
+                    if (Utility.isValidEmail(email.getText().toString())) {
                         BillUser requestUser = new BillUser();
-                        if(user!=null){
+                        if (user != null) {
                             requestUser.setId(user.getId());
                         }
-                    requestUser.setName(name.getText().toString());
-                    requestUser.setPanDetails(panNumber.getText().toString());
-                    requestUser.setPhone(FirebaseUtil.getPhone());
-                    requestUser.setAadharNumber(aadharNumber.getText().toString());
-                    BillBusiness business = new BillBusiness();
-                    business.setName(businessName.getText().toString());
-                    business.setBusinessLocations(areas.selectedLocations());
-                    business.setBusinessSector(ServiceUtil.NEWSPAPER_SECTOR);
-                    requestUser.setCurrentBusiness(business);
-                    saveUserInfo(requestUser);
-                }else{
-                        Toast.makeText(VendorRegistration.this,"Enter valid emailid",Toast.LENGTH_LONG).show();
+                        requestUser.setName(name.getText().toString());
+                        requestUser.setEmail(email.getText().toString());
+                        requestUser.setPanDetails(panNumber.getText().toString());
+                        requestUser.setPhone(FirebaseUtil.getPhone());
+                        requestUser.setAadharNumber(aadharNumber.getText().toString());
+                        BillBusiness business = new BillBusiness();
+                        business.setName(businessName.getText().toString());
+                        business.setBusinessLocations(areas.selectedLocations());
+                        business.setBusinessSector(ServiceUtil.NEWSPAPER_SECTOR);
+                        requestUser.setCurrentBusiness(business);
+                        saveUserInfo(requestUser);
+                    } else {
+                        Toast.makeText(VendorRegistration.this, "Enter valid emailid", Toast.LENGTH_LONG).show();
                     }
-                }else {
-                    Toast.makeText(VendorRegistration.this,"All fields are compulsary",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(VendorRegistration.this, "All fields are compulsary", Toast.LENGTH_LONG).show();
                 }
                 //saveUserInfo(requestUser);
             }
@@ -178,16 +175,16 @@ public class VendorRegistration extends AppCompatActivity {
         loadLocations();
 
         Object o = Utility.readObject(VendorRegistration.this, Utility.USER_KEY);
-        if(o != null) {
+        if (o != null) {
             user = (BillUser) o;
         }
 
-        if(user != null) {
+        if (user != null) {
             name.setText(user.getName());
             email.setText(user.getEmail());
             aadharNumber.setText(user.getAadharNumber());
             panNumber.setText(user.getPanDetails());
-            if(user.getCurrentBusiness() != null) {
+            if (user.getCurrentBusiness() != null) {
                 businessName.setText(user.getCurrentBusiness().getName());
             }
         }
@@ -282,6 +279,10 @@ public class VendorRegistration extends AppCompatActivity {
                         List<BillLocation> locations = prepareLocations(serviceResponse);
                         adapter = new LocationAdapter(VendorRegistration.this, R.layout.spinner_multi_select, locations, VendorRegistration.this);
                         areas.setLocations(locations);
+
+                        if(user.getCurrentBusiness() != null &&  user.getCurrentBusiness().getBusinessLocations() != null & user.getCurrentBusiness().getBusinessLocations().size() > 0) {
+                            areas.setSelection(Utility.convertToStringArrayList(user.getCurrentBusiness().getBusinessLocations()));
+                        }
                     }
 
                 } else {
@@ -298,16 +299,16 @@ public class VendorRegistration extends AppCompatActivity {
     }
 
     private List<BillLocation> prepareLocations(BillServiceResponse serviceResponse) {
-        if(serviceResponse == null || serviceResponse.getLocations() == null) {
+        if (serviceResponse == null || serviceResponse.getLocations() == null) {
             return null;
         }
-        if(user == null || user.getCurrentBusiness() == null || user.getCurrentBusiness().getBusinessLocations() == null || user.getCurrentBusiness().getBusinessLocations().size() == 0) {
+        if (user == null || user.getCurrentBusiness() == null || user.getCurrentBusiness().getBusinessLocations() == null || user.getCurrentBusiness().getBusinessLocations().size() == 0) {
             return serviceResponse.getLocations();
         }
 
-        for(BillLocation original: serviceResponse.getLocations()) {
-            for(BillLocation loc: user.getCurrentBusiness().getBusinessLocations()) {
-                if(original.getId() == loc.getId()) {
+        for (BillLocation original : serviceResponse.getLocations()) {
+            for (BillLocation loc : user.getCurrentBusiness().getBusinessLocations()) {
+                if (original.getId() == loc.getId()) {
                     original.setStatus("Selected");
                 }
             }

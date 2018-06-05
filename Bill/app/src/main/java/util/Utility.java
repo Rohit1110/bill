@@ -29,6 +29,7 @@ import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillItem;
+import com.rns.web.billapp.service.bo.domain.BillLocation;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -250,6 +251,9 @@ public class Utility {
                     stringList.add(item.getName());
                 }
 
+            } else if (o instanceof BillLocation) {
+                BillLocation loc = (BillLocation) o;
+                stringList.add(loc.getName());
             }
         }
         return stringList;
