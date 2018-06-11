@@ -6,15 +6,19 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rns.web.billapp.service.bo.domain.BillUser;
+
+import java.util.List;
 
 import util.Utility;
 
@@ -24,27 +28,17 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     private static long back_pressed;
     Fragment fragment = null;
     private BillUser user;
+    private BottomNavigationView bottomNavigationView;
+    private TextView username, businessName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        /*ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setTitle("Deliveries 2018/05/14");
-            System.out.println("Set action bar title ..");
-        }*/
 
-
-
-       /*final Drawable upArrow = getResources().getDrawable(R.mipmap.backarrow);
-        *//*upArrow.setColorFilter(Color.parseColor(""), PorterDuff.Mode.SRC_ATOP);*//*
-        getSupportActionBar().setHomeAsUpIndicator(upArrow);*/
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawertest_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -56,31 +50,20 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
         user = (BillUser) Utility.readObject(Dashboard.this, Utility.USER_KEY);
 
-        /*FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.content_frame, new CustomerList());
-        ft.commit();*/
-
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 Fragment selectedFragment = null;
                 switch (item.getItemId()) {
                     case R.id.action_item1:
-                        //selectedFragment = HomeFragment.newInstance();
-                        //selectedFragment = FragmentEditInvoice.newInstance();
                         fragment = HomeFragment.newInstance(user);
                         break;
                     case R.id.action_item2:
-                        //selectedFragment = Fragmenttwo.newInstance();
-                        fragment = MV_BillDetails_two.newInstance();
+                        fragment = DailySummaryFragment.newInstance();
                         break;
                     case R.id.action_item3:
-                        //fragment = FragmentCustomerInvoices.newInstance();
-
-                        //selectedFragment = DaysToDeliver.newInstance();
+                        fragment = FragmentInvoiceSummary.newInstance(user);
                         break;
-
-
                 }
 
                 Utility.nextFragment(Dashboard.this, fragment);
@@ -88,6 +71,26 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
             }
         });
 
+        bottomNavigationView.setSelectedItemId(R.id.action_item1);
+
+        View hView = navigationView.getHeaderView(0);
+        username = hView.findViewById(R.id.txt_drawer_user_name);
+        businessName = hView.findViewById(R.id.txt_drawer_business_name);
+
+    }
+
+    @Override
+    protected void onResume() {
+        if (fragment == null) {
+            bottomNavigationView.setSelectedItemId(R.id.action_item1);
+        }
+        if (user != null) {
+            username.setText(user.getName());
+            if (user.getCurrentBusiness() != null) {
+                businessName.setText(user.getCurrentBusiness().getName());
+            }
+        }
+        super.onResume();
     }
 
     public void setTitle(String title) {
@@ -119,10 +122,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
         }
         if (fragment != null) {
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.frame_layout, fragment);
-            /*ft.addToBackStack(null);*/
-            ft.commit();
+            Utility.nextFragment(Dashboard.this, fragment);
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawertest_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -131,18 +131,27 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawertest_layout);
+
+
+        if (homeFragmentActive()) {
+            Toast.makeText(Dashboard.this, "Cannot Go Back now!!", Toast.LENGTH_LONG);
+            super.onBackPressed();
+        } else {
+            getSupportFragmentManager().popBackStack();
+        }
+
+        /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawertest_layout);
 
 
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }/* else if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
+        }*//* else if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
             super.onBackPressed();
         } else {
             Toast.makeText(getBaseContext(), "Press once again to exit!",
                     Toast.LENGTH_SHORT).show();
             back_pressed = System.currentTimeMillis();
-        }*/ else {
+        }*//* else {
             if (fragment instanceof FragmentEditInvoice) {
                 super.onBackPressed();
             } else {
@@ -152,7 +161,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                     if (fragment != null) {
                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         ft.replace(R.id.frame_layout, fragment);
-                        /*ft.addToBackStack(null);*/
+                        *//*ft.addToBackStack(null);*//*
                         ft.commit();
                     }
 
@@ -164,7 +173,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                     if (fragment != null) {
                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         ft.replace(R.id.frame_layout, fragment);
-                        /*ft.addToBackStack(null);*/
+                        *//*ft.addToBackStack(null);*//*
                         ft.commit();
                     }
 
@@ -176,16 +185,30 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                     if (fragment != null) {
                         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                         ft.replace(R.id.frame_layout, fragment);
-                        /*ft.addToBackStack(null);*/
+                        *//*ft.addToBackStack(null);*//*
                         ft.commit();
                     }
 
                 }
             }
 
+        }*/
+
+
+    }
+
+    private boolean homeFragmentActive() {
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        if (fragments != null && fragments.size() > 0) {
+            for (Fragment frag : fragments) {
+                if (frag.isVisible() && frag instanceof HomeFragment) {
+                    return true;
+                }
+            }
+        } else {
+            return true;
         }
-
-
+        return false;
     }
 
 

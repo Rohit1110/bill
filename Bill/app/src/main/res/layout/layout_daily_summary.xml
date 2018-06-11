@@ -60,15 +60,16 @@
 
 
     <LinearLayout
+
         android:id="@+id/linearlistnetpay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="@color/bgGray"
+        android:background="@color/white"
         android:padding="10dp"
         >
 
-        <TextView
+        <!--<TextView
             style="@style/net_payble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -85,7 +86,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fab_margin"
             android:text="Go to todays orders"
-            style="@style/net_payble"/>
+            style="@style/net_payble"/>-->
     </LinearLayout>
 
 

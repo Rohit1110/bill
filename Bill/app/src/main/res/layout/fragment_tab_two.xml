@@ -20,7 +20,7 @@ tools:context="com.reso.bill.Dashboard">
 
 </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/fragmenttwolist" />
+    <include layout="@layout/layout_daily_summary" />
 
 <!--<android.support.design.widget.FloatingActionButton
     android:id="@+id/fab"
@@ -42,7 +42,7 @@ tools:context="com.reso.bill.Dashboard">
 
 
 
-    <include layout="@layout/fragmenttwolist" />
+    <include layout="@laylayout_daily_summarylist" />
 
 </RelativeLayout>-->
 

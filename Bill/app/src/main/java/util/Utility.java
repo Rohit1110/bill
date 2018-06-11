@@ -199,7 +199,7 @@ public class Utility {
     public static void nextFragment(FragmentActivity activity, Fragment fragment) {
         FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.frame_layout, fragment);
-        ft.addToBackStack(null);
+        ft.addToBackStack(fragment.getClass().getName());
         ft.commit();
     }
 
@@ -294,5 +294,19 @@ public class Utility {
         }
         return itemId;
     }
+
+    public static String getCustomerItemString(List<BillItem> items) {
+        String result = "";
+        for (BillItem subscribed : items) {
+            String name = subscribed.getName();
+            if (name == null) {
+                name = subscribed.getParentItem().getName();
+            }
+            result = result.concat(name + " | ");
+            //txtItemName.setText(txtItemName.getText().toString().concat(name + " | "));
+        }
+        return result;
+    }
+
 
 }

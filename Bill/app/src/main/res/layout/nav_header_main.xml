@@ -13,18 +13,18 @@
    >
 
     <TextView
-        android:id="@+id/txtname"
+        android:id="@+id/txt_drawer_user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/dreawerheader"
-        android:text="Rohit Jadhav"
+        android:text="User"
         />
     <TextView
-        android:id="@+id/txtbuness"
+        android:id="@+id/txt_drawer_business_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
        style="@style/dreawerheadersub"
-        android:text="Android"
+        android:text=""
         />
 
 

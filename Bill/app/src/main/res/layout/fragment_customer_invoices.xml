@@ -42,7 +42,7 @@
 
 
 
-    <include layout="@layout/fragmenttwolist" />
+    <include layout="@laylayout_daily_summarylist" />
 
 </RelativeLayout>-->
 

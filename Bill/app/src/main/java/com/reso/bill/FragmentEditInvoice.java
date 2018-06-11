@@ -99,7 +99,7 @@ public class FragmentEditInvoice extends Fragment {
             amount.setText(invoice.getAmount().toString());
         }
 
-        serviceCharge = (EditText) rootView.findViewById(R.id.et_bill_details_amount);
+        serviceCharge = (EditText) rootView.findViewById(R.id.et_bill_details_service_charge);
         serviceCharge.setEnabled(true);
 
         if (invoice.getServiceCharge() != null) {
@@ -125,6 +125,15 @@ public class FragmentEditInvoice extends Fragment {
         });
 
         vendor = (BillUser) Utility.readObject(getContext(), Utility.USER_KEY);
+
+        if(invoice.getYear() != null) {
+            yearsSpinner.setSelection(yearsList.indexOf(invoice.getYear().toString()));
+            yearsSpinner.setEnabled(false);
+        }
+        if(invoice.getMonth() != null) {
+            monthspinner.setSelection(invoice.getMonth() - 1);
+            monthspinner.setEnabled(false);
+        }
         return rootView;
     }
 

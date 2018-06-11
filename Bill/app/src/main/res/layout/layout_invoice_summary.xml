@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    >
+
+
+    <!--<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/radio_order_type"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_deliveries"
+            style="@style/basic_sub_text_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deliveries"/>
+
+        <RadioButton
+            android:id="@+id/radio_no_deliveries"
+            style="@style/basic_sub_text_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Deliveries"/>
+    </RadioGroup>-->
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/radio_order_type"
+        android:fadeScrollbars="true"
+        android:scrollbars="vertical"
+        />
+
+</RelativeLayout>

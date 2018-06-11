@@ -65,6 +65,7 @@ List<BillCustomer> items = new ArrayList<BillCustomer>();
 
 package adapters;
 
+import android.app.Activity;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -81,36 +82,50 @@ import java.util.List;
 import model.BillCustomer;
 import util.Utility;
 
-public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapter.RecViewHolder> {
+public class DeliveriesAdapter extends RecyclerView.Adapter<DeliveriesAdapter.RecViewHolder> {
 
     private List<BillCustomer> list;
-    private FragmentActivity context;
+    private Activity activity;
     private BillUser currentUser;
 
-    public CustomerListAdapter(List<BillCustomer> list, FragmentActivity context, BillUser user) {
+    public DeliveriesAdapter(List<BillCustomer> list, Activity activity, BillUser vendor) {
         this.list = list;
-        this.context = context;
-        this.currentUser = user;
+        this.activity = activity;
+        this.currentUser = vendor;
     }
 
     @Override
     public RecViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cust_list_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_customer_order, parent, false);
         return new RecViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecViewHolder holder, final int position) {
-        final BillCustomer movie = list.get(position);
+        final BillCustomer customer = list.get(position);
 
-        holder.bind(movie);
+        /*if (customer.getUser() != null && customer.getUser().getCurrentSubscription() != null && customer.getUser().getCurrentSubscription().getStatus() != null && customer.getUser().getCurrentSubscription().getStatus().equals("D")) {
+            if (!showHolidays) {
+                holder.itemView.setVisibility(View.GONE);
+            } else {
+                holder.itemView.setVisibility(View.VISIBLE);
+            }
+        } else {
+            if (showHolidays) {
+                holder.itemView.setVisibility(View.GONE);
+            } else {
+                holder.itemView.setVisibility(View.VISIBLE);
+            }
+        }*/
+
+        holder.bind(customer);
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean expanded = movie.isExpanded();
-                movie.setExpanded(!expanded);
+                boolean expanded = customer.isExpanded();
+                customer.setExpanded(!expanded);
                 notifyItemChanged(position);
             }
         });
@@ -123,22 +138,24 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
 
     public class RecViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView txtName, txtItemName;
-        private TextView txtAddress, txtViewprofile;
+        private TextView viewProfile;
+        private TextView items;
+        private TextView txtName;
+        private TextView txtAddress;
         private TextView year;
         private View subItem;
 
         public RecViewHolder(View itemView) {
             super(itemView);
             txtName = (TextView) itemView.findViewById(R.id.txt_order_customer_name);
-            txtItemName = (TextView) itemView.findViewById(R.id.txt_customer_row_item_name);
             txtAddress = (TextView) itemView.findViewById(R.id.txt_order_customer_address);
             subItem = itemView.findViewById(R.id.customer_details);
-            txtViewprofile = (TextView) itemView.findViewById(R.id.btn_order_view_profile);
-
+            items = (TextView) itemView.findViewById(R.id.txt_order_items);
+            viewProfile = (TextView) itemView.findViewById(R.id.btn_order_view_profile);
         }
 
         private void bind(final BillCustomer customer) {
+
             boolean expanded = customer.isExpanded();
 
             subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
@@ -146,24 +163,21 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
             final BillUser customerUser = customer.getUser();
             txtName.setText(customerUser.getName());
             txtAddress.setText(customerUser.getAddress());
-            //year.setText("Year: " + customer.getYear());
-            txtViewprofile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    customerUser.setCurrentBusiness(currentUser.getCurrentBusiness());
-                    Utility.nextFragment(context, CustomerProfileFragment.newInstance(customerUser));
 
-                }
-            });
-
-            txtItemName.setText("");
             if (customerUser.getCurrentSubscription() != null && customerUser.getCurrentSubscription().getItems() != null && customerUser.getCurrentSubscription().getItems().size() > 0) {
-                txtItemName.setText(Utility.getCustomerItemString(customerUser.getCurrentSubscription().getItems()));
+                items.setText(Utility.getCustomerItemString(customerUser.getCurrentSubscription().getItems()));
             } else {
-                txtItemName.setText("No subscriptions");
+                items.setText("No subscriptions");
             }
 
+            viewProfile.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CustomerProfileFragment fragment = CustomerProfileFragment.newInstance(customerUser);
+                    customerUser.setCurrentBusiness(currentUser.getCurrentBusiness());
+                    Utility.nextFragment((FragmentActivity) activity, fragment);
+                }
+            });
         }
-
     }
 }

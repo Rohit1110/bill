@@ -28,7 +28,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/fragmentonelist" />
+    <include layout="@layout/layout_todays_orders" />
 
 
     <!-- <android.support.design.widget.FloatingActionButton
@@ -51,7 +51,7 @@
 
 
 
-    <include layout="@layout/fragmenttwolist" />
+    <include layout="@laylayout_daily_summarylist" />
 
 </RelativeLayout>-->
 

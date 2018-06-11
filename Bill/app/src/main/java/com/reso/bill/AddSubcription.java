@@ -4,12 +4,12 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapters.CustomerSubcriptionAdapter;
-import adapters.ListOneAdapter;
+import adapters.DeliveriesAdapter;
 import model.CustomerSubscription;
 import util.ServiceUtil;
 import util.Utility;
@@ -44,14 +44,14 @@ public class AddSubcription extends Fragment {
 
     private List<CustomerSubscription> list = new ArrayList<>();
     private RecyclerView recyclerView;
-    private ListOneAdapter adapter;
+    private DeliveriesAdapter adapter;
     private Spinner sp;
-    private TextView quantity, txtweekdays;
+    private TextView quantity, txtweekdays, customerName;
     private ImageView imgpause, imgdiscontinue;
     private BillUser customer;
     private ProgressDialog profileLoader;
     private ProgressDialog itemLoader;
-   private Button fabAddCustomerItem;
+    private Button fabAddCustomerItem;
     private List<BillItem> businessItems;
     private CheckBox scheme;
 
@@ -83,7 +83,10 @@ public class AddSubcription extends Fragment {
 
         quantity = (EditText) rootView.findViewById(R.id.et_add_quantity);
         quantity.setText("0");
-
+        customerName = (TextView) rootView.findViewById(R.id.txt_add_subscription_customer_name);
+        if(customer != null) {
+            customerName.setText(customer.getName());
+        }
         return rootView;
     }
 
@@ -95,7 +98,7 @@ public class AddSubcription extends Fragment {
         BillItem selectedItem = new BillItem();
         selectedItem.setQuantity(new BigDecimal(quantity.getText().toString()));
         selectedItem.setParentItem((BillItem) Utility.findInStringList(businessItems, sp.getSelectedItem().toString()));
-        if(scheme.isChecked()) {
+        if (scheme.isChecked()) {
             selectedItem.setPrice(BigDecimal.ZERO);
         }
         BillServiceRequest request = new BillServiceRequest();
@@ -149,7 +152,13 @@ public class AddSubcription extends Fragment {
     private void loadCustomerProfile() {
 
         BillServiceRequest request = new BillServiceRequest();
-        request.setUser(customer);
+        BillUser user = new BillUser();
+        if (customer.getCurrentSubscription() != null) {
+            user.setId(customer.getCurrentSubscription().getId());
+        } else {
+            user.setId(customer.getId());
+        }
+        request.setUser(user);
         profileLoader = Utility.getProgressDialogue("Loading..", getActivity());
         StringRequest myReq = ServiceUtil.getStringRequest("getCustomerProfile", customerProfileLoader(), ServiceUtil.createMyReqErrorListener(profileLoader, getActivity()), request);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
@@ -165,6 +174,9 @@ public class AddSubcription extends Fragment {
 
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
+                    if(TextUtils.isEmpty(customerName.getText())) {
+                        customerName.setText(serviceResponse.getUser().getName());
+                    }
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     recyclerView.setAdapter(new CustomerSubcriptionAdapter(serviceResponse.getUser().getCurrentSubscription().getItems(), getActivity(), customer, getActivity()));
                 } else {

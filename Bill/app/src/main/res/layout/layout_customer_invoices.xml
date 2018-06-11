@@ -51,7 +51,7 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_width="wrap_content"
                 android:layout_gravity="top|right"
                 android:layout_marginRight="10dp"
-                android:text="Save"/>
+                android:text="NEW"/>
 
         </LinearLayout>
 

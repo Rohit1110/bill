@@ -8,7 +8,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/txt_name"
+        android:id="@+id/txt_order_customer_name"
         style="@style/rownametitle"
         android:layout_margin="@dimen/fab_margin"
         android:text="Ajinkya Kulkarni"/>
@@ -67,14 +67,14 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/sub_item_address"
+            android:id="@+id/txt_order_customer_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:textSize="18sp"
             tools:text="Pune" />
         <TextView
-            android:id="@+id/sub_item_viewprofile"
+            android:id="@+id/btn_order_view_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"

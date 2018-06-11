@@ -19,13 +19,13 @@ import com.android.volley.toolbox.Volley;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
-import com.rns.web.billapp.service.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import adapters.DeliveriesAdapter;
+import adapters.InvoicesAdapter;
 import model.BillCustomer;
 import util.ServiceUtil;
 import util.Utility;
@@ -34,7 +34,7 @@ import util.Utility;
  * Created by Rohit on 5/8/2018.
  */
 
-public class HomeFragment extends Fragment {
+public class FragmentInvoiceSummary extends Fragment {
     private List<BillCustomer> orders = new ArrayList<>();
     private List<BillCustomer> noOrders = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -48,8 +48,8 @@ public class HomeFragment extends Fragment {
     private RadioButton noDeliveries;
 
 
-    public static HomeFragment newInstance(BillUser user) {
-        HomeFragment fragment = new HomeFragment();
+    public static FragmentInvoiceSummary newInstance(BillUser user) {
+        FragmentInvoiceSummary fragment = new FragmentInvoiceSummary();
         fragment.user = user;
         return fragment;
     }
@@ -62,11 +62,11 @@ public class HomeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_tab_one, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_invoice_summary, container, false);
         date = new Date();
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Deliveries " + CommonUtils.convertDate(date) + "</font>"));
+        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Invoice Summary</font>"));
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        deliveries = (RadioButton) rootView.findViewById(R.id.radio_deliveries);
+        /*deliveries = (RadioButton) rootView.findViewById(R.id.radio_deliveries);
 
         deliveries.setSelected(true);
         deliveries.setChecked(true);
@@ -85,7 +85,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        noOrdersMessage = (TextView) rootView.findViewById(R.id.txt_no_orders);
+        noOrdersMessage = (TextView) rootView.findViewById(R.id.txt_no_orders);*/
         return rootView;
 
     }
@@ -93,15 +93,15 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        loadDeliveries();
+        loadInvoiceSummary();
     }
 
-    private void loadDeliveries() {
+    private void loadInvoiceSummary() {
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
         request.setRequestedDate(date);
         pDialog = Utility.getProgressDialogue("Loading..", getActivity());
-        StringRequest myReq = ServiceUtil.getStringRequest("getDeliveries", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
+        StringRequest myReq = ServiceUtil.getStringRequest("getInvoiceSummary", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(myReq);
     }
@@ -115,8 +115,8 @@ public class HomeFragment extends Fragment {
 
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
-                    users = serviceResponse.getUsers();
-                    addUsers();
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                    recyclerView.setAdapter(new InvoicesAdapter(serviceResponse.getUsers(), getActivity()));
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
                     Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
@@ -126,30 +126,6 @@ public class HomeFragment extends Fragment {
             }
 
         };
-    }
-
-    private void addUsers() {
-        orders = new ArrayList<>();
-        if (users != null && users.size() > 0) {
-            noOrdersMessage.setVisibility(View.GONE);
-            for (BillUser user : users) {
-                if(user.getCurrentSubscription() != null && user.getCurrentSubscription().getStatus() != null && user.getCurrentSubscription().getStatus().equals("D")) {
-                    noOrders.add(new BillCustomer(user));
-                } else {
-                    orders.add(new BillCustomer(user));
-                }
-            }
-            setDeliveriesListView(orders);
-        } else {
-            noOrdersMessage.setVisibility(View.VISIBLE);
-            noOrdersMessage.setText("No orders today");
-        }
-    }
-
-    private void setDeliveriesListView(List<BillCustomer> list) {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new DeliveriesAdapter(list, getActivity(), user);
-        recyclerView.setAdapter(adapter);
     }
 
 

@@ -61,6 +61,12 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:text="Edit Profile"
                 />
 
+            <View
+                android:layout_marginTop="15dp"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/bgGray"/>
+
 
         </LinearLayout>
 
@@ -99,6 +105,12 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_marginRight="10dp"
                 android:text="View Details"
                 style="@style/basic_text_button"/>
+
+            <View
+                android:layout_marginTop="15dp"
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/bgGray"/>
 
 
         </LinearLayout>

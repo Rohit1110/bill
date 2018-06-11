@@ -2,69 +2,61 @@ package com.reso.bill;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
+import com.rns.web.billapp.service.util.CommonUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import adapters.AddNewspaperAdapter;
+import adapters.VendorItemSummaryAdapter;
 import model.ListTwo;
 import util.ServiceUtil;
 import util.Utility;
 
-public class AddNewspapers extends Fragment {
+/**
+ * Created by Rohit on 5/8/2018.
+ */
+
+public class DailySummaryFragment extends Fragment {
     private RecyclerView recyclerView;
-    private List<ListTwo> list = new ArrayList<>();
-    private LinearLayout layoutaddnewspaper;
+    List<ListTwo> list = new ArrayList<>();
     private BillUser user;
     private ProgressDialog pDialog;
-    private List<BillItem> businessItems;
-    private Button add;
+    private Date date;
 
 
-    @Nullable
+    public static DailySummaryFragment newInstance() {
+        DailySummaryFragment fragment = new DailySummaryFragment();
+        return fragment;
+    }
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_add_newspapers, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Add Newspapers</font>"));
-        //recyclerView = (RecyclerView)rootView.findViewById(R.id.recycler_view);
-        // getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-       /* toolbar.setTitle("Title");
-        toolbar.setNavigationIcon(R.mipmap.backarrow);*/
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_newspaper);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
-        add = (Button) rootView.findViewById(R.id.btn_add_business_item);
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SelectNewspaper fragment = new SelectNewspaper();
-                Utility.nextFragment(getActivity(), fragment);
-            }
-        });
-
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_tab_two, container, false);
+        date = new Date();
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_order);
+        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Total Orders - " + CommonUtils.convertDate(date) + "</font>"));
         user = (BillUser) Utility.readObject(getContext(), Utility.USER_KEY);
-
         return rootView;
     }
 
@@ -73,23 +65,23 @@ public class AddNewspapers extends Fragment {
         super.onResume();
 
         if (user == null || user.getCurrentBusiness() == null) {
-            Utility.createAlert(getContext(), "Please complete your profile first!", "Error");
+            Utility.createAlert(getContext(), "Please complete your profile information first!", "Error");
             return;
         }
 
-        loadNewsPapers();
+        loadDailySummary();
 
     }
 
-    private void loadNewsPapers() {
+    private void loadDailySummary() {
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
+        request.setRequestedDate(date);
         pDialog = Utility.getProgressDialogue("Loading..", getActivity());
-        StringRequest myReq = ServiceUtil.getStringRequest("loadBusinessItems", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
+        StringRequest myReq = ServiceUtil.getStringRequest("getOrderSummary", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(myReq);
     }
-
 
     private Response.Listener<String> createMyReqSuccessListener() {
         return new Response.Listener<String>() {
@@ -101,8 +93,7 @@ public class AddNewspapers extends Fragment {
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    businessItems = serviceResponse.getItems();
-                    recyclerView.setAdapter(new AddNewspaperAdapter(serviceResponse.getItems(), getContext()));
+                    recyclerView.setAdapter(new VendorItemSummaryAdapter(serviceResponse.getItems()));
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
                     Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
@@ -113,4 +104,5 @@ public class AddNewspapers extends Fragment {
 
         };
     }
+
 }

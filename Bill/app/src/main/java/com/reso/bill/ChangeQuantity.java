@@ -23,6 +23,7 @@ import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
+import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 
@@ -101,9 +102,7 @@ public class ChangeQuantity extends Fragment {
         changeQuantity = (Button) rootView.findViewById(R.id.btn_change_quantity);
 
         customerName.setText(customer.getName());
-        Integer itemId = null;
-        itemId = Utility.getRootItemId(subItem);
-        Utility.downloadImage(subItemIcon, getContext(), Utility.getItemImageURL(itemId));
+        Picasso.get().load(Utility.getItemImageURL(Utility.getRootItemId(subItem))).into(subItemIcon);
         quantity.setText("0");
         if (subItem.getQuantity() != null) {
             quantity.setText(subItem.getQuantity().toString());
@@ -113,7 +112,7 @@ public class ChangeQuantity extends Fragment {
         changeQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(quantity.getText().toString() == null || quantity.getText().toString().trim().length() == 0) {
+                if (quantity.getText().toString() == null || quantity.getText().toString().trim().length() == 0) {
                     Utility.createAlert(getContext(), "Please select the quantity", "Error");
                     return;
                 }

@@ -25,6 +25,7 @@ import com.rns.web.billapp.service.bo.domain.BillUserLog;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
 import com.rns.web.billapp.service.util.BillConstants;
+import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.text.ParseException;
@@ -150,7 +151,7 @@ public class PauseTime extends Fragment {
         customerName.setText(customer.getName());
 
         itemIcon = (ImageView) rootView.findViewById(R.id.img_pause_delivery_item_icon);
-        Utility.downloadImage(itemIcon, getContext(), Utility.getItemImageURL(subscribedItem.getParentItemId()));
+        Picasso.get().load(Utility.getItemImageURL(Utility.getRootItemId(subscribedItem))).into(itemIcon);
 
         pausedDays = (TextView) rootView.findViewById(R.id.txt_paused_days);
 

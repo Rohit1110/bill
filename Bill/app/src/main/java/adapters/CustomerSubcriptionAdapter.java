@@ -40,6 +40,7 @@ import util.Utility;
 public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final Activity parent;
+    private TextView txtName;
     private List<BillItem> items = new ArrayList<BillItem>();
     private Context activity;
     private BillUser customer;
@@ -61,8 +62,8 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
 
         public ViewHolder1(View itemView) {
             super(itemView);
-            //txtName=(TextView)itemView.findViewById(R.id.txt_name);
-            newspaperimg = (ImageView) itemView.findViewById(R.id.img_newspaper);
+            txtName = (TextView) itemView.findViewById(R.id.txt_customer_subscription_item_name);
+            newspaperimg = (ImageView) itemView.findViewById(R.id.img_customer_subscription_item_icon);
             txtnewpaperqty = (TextView) itemView.findViewById(R.id.txt_newspaperqty);
             txtweekdays = (TextView) itemView.findViewById(R.id.txt_weekdays);
             imgpause = (ImageView) itemView.findViewById(R.id.img_paus);
@@ -87,7 +88,7 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
         //gholder.newspaperimg.setImageURI(Utility.getItemImageURL(customerSubscription.getParentItemId()));
 
         String weekDays = customerSubscription.getWeekDays();
-        if(weekDays == null) {
+        if (weekDays == null) {
             weekDays = customerSubscription.getParentItem().getWeekDays();
         }
 
@@ -114,7 +115,6 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
             System.out.println("Week Days ==>" + txtWeekDays);
             gholder.txtweekdays.setText(Html.fromHtml(txtWeekDays));
         }
-
 
 
         Utility.downloadImage(gholder.newspaperimg, activity, Utility.getItemImageURL(customerSubscription.getParentItemId()));
@@ -168,6 +168,13 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
 
             }
         });
+
+        if (customerSubscription.getParentItem() != null) {
+            txtName.setText(customerSubscription.getParentItem().getName());
+        } else {
+            txtName.setText(customerSubscription.getName());
+        }
+
         //gholder.txtpcs.setText(customerSubscription.getNewspaperpcs());
         //qImageView.setBackgroundResource(R.drawable.thumbs_down);
 

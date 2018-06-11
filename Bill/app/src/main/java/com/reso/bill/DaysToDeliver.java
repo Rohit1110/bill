@@ -22,6 +22,7 @@ import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
+import com.squareup.picasso.Picasso;
 
 import util.ServiceUtil;
 import util.Utility;
@@ -78,22 +79,21 @@ public class DaysToDeliver extends Fragment implements View.OnClickListener {
         customerName.setText(customer.getName());
         Integer itemId = null;
         itemId = Utility.getRootItemId(subscribedItem);
-        Utility.downloadImage(itemIcon, getContext(), Utility.getItemImageURL(itemId));
         txtSelectedDays.setText("Days to deliver - ");
 
         selectedDays = subscribedItem.getWeekDays();
-        if(selectedDays == null) {
+        if (selectedDays == null) {
             selectedDays = "";
         }
 
-        if(selectedDays.trim().length() > 0) {
-            initDay(txtsun,"1");
-            initDay(txtmon,"2");
-            initDay(txttue,"3");
-            initDay(txtwed,"4");
-            initDay(txtthu,"5");
-            initDay(txtfri,"6");
-            initDay(txtsat,"7");
+        if (selectedDays.trim().length() > 0) {
+            initDay(txtsun, "1");
+            initDay(txtmon, "2");
+            initDay(txttue, "3");
+            initDay(txtwed, "4");
+            initDay(txtthu, "5");
+            initDay(txtfri, "6");
+            initDay(txtsat, "7");
         }
 
         saveDays.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +107,12 @@ public class DaysToDeliver extends Fragment implements View.OnClickListener {
 
     }
 
+    @Override
+    public void onResume() {
+
+        Picasso.get().load(Utility.getItemImageURL(Utility.getRootItemId(subscribedItem))).into(itemIcon);
+        super.onResume();
+    }
 
     @Override
     public void onClick(View view) {
@@ -158,28 +164,28 @@ public class DaysToDeliver extends Fragment implements View.OnClickListener {
     }
 
     private String getDayName(String dayValue) {
-        if(dayValue == null) {
+        if (dayValue == null) {
             return "";
         }
-        if(dayValue.equals("1")) {
+        if (dayValue.equals("1")) {
             return "Sunday";
         }
-        if(dayValue.equals("2")) {
+        if (dayValue.equals("2")) {
             return "Monday";
         }
-        if(dayValue.equals("3")) {
+        if (dayValue.equals("3")) {
             return "Tuesday";
         }
-        if(dayValue.equals("4")) {
+        if (dayValue.equals("4")) {
             return "Wednesday";
         }
-        if(dayValue.equals("5")) {
+        if (dayValue.equals("5")) {
             return "Thursday";
         }
-        if(dayValue.equals("6")) {
+        if (dayValue.equals("6")) {
             return "Friday";
         }
-        if(dayValue.equals("7")) {
+        if (dayValue.equals("7")) {
             return "Saturday";
         }
         return "";

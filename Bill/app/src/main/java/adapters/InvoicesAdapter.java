@@ -22,10 +22,10 @@ import model.Listone;
  *//*
 
 
-public class ListOneAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
+public class DeliveriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
 List<BillCustomer> items = new ArrayList<BillCustomer>();
 
-    public ListOneAdapter(List<BillCustomer> items) {
+    public DeliveriesAdapter(List<BillCustomer> items) {
         this.items = items;
     }
     class ViewHolder1 extends RecyclerView.ViewHolder {
@@ -43,7 +43,7 @@ List<BillCustomer> items = new ArrayList<BillCustomer>();
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View item = inflater.inflate(R.layout.list_one_row, parent, false);
+        View item = inflater.inflate(R.layout.row_customer_order, parent, false);
         return new ViewHolder1(item);
     }
 
@@ -64,48 +64,47 @@ List<BillCustomer> items = new ArrayList<BillCustomer>();
 
 
 package adapters;
+
+import android.app.Activity;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.reso.bill.FragmentCustomerInvoices;
 import com.reso.bill.R;
+import com.rns.web.billapp.service.bo.domain.BillUser;
 
 import java.util.List;
 
-import model.BillCustomer;
+import util.Utility;
 
-public class ListOneAdapter extends RecyclerView.Adapter<ListOneAdapter.RecViewHolder> {
+public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecViewHolder> {
 
-    private List<BillCustomer> list;
+    private List<BillUser> list;
+    private Activity activity;
 
-    public ListOneAdapter(List<BillCustomer> list) {
+    public InvoicesAdapter(List<BillUser> list, Activity activity) {
+        this.activity = activity;
         this.list = list;
     }
 
     @Override
     public RecViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater
-                .from(parent.getContext())
-                .inflate(R.layout.list_one_row, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_customer_invoice_summary, parent, false);
         return new RecViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(RecViewHolder holder, final int position) {
-        final BillCustomer movie = list.get(position);
-
-        holder.bind(movie);
-
-
-
+        final BillUser customer = list.get(position);
+        holder.bind(customer);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean expanded = movie.isExpanded();
-                movie.setExpanded(!expanded);
-                notifyItemChanged(position);
+                Utility.nextFragment((FragmentActivity) activity, FragmentCustomerInvoices.newInstance(customer));
             }
         });
     }
@@ -117,30 +116,22 @@ public class ListOneAdapter extends RecyclerView.Adapter<ListOneAdapter.RecViewH
 
     public class RecViewHolder extends RecyclerView.ViewHolder {
 
+        private TextView amount;
         private TextView txtName;
-        private TextView txtAddress;
-        private TextView year;
-        private View subItem;
+
 
         public RecViewHolder(View itemView) {
             super(itemView);
-            txtName=(TextView)itemView.findViewById(R.id.txt_name);
-            txtAddress=(TextView)itemView.findViewById(R.id.sub_item_address);
-            subItem = itemView.findViewById(R.id.customer_details);
-            /*title = itemView.findViewById(R.id.item_title);
-            genre = itemView.findViewById(R.id.sub_item_genre);
-            year = itemView.findViewById(R.id.sub_item_year);
-            subItem = itemView.findViewById(R.id.sub_item);*/
+            txtName = (TextView) itemView.findViewById(R.id.txt_invoice_summary_customer_name);
+            amount = (TextView) itemView.findViewById(R.id.txt_invoice_summary_amount);
         }
 
-        private void bind(BillCustomer customer) {
-            boolean expanded = customer.isExpanded();
+        private void bind(BillUser customerUser) {
+            txtName.setText(customerUser.getName());
+            if (customerUser.getCurrentInvoice() != null && customerUser.getCurrentInvoice().getAmount() != null) {
+                amount.setText("INR " + customerUser.getCurrentInvoice().getAmount().toString());
+            }
 
-            subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
-
-            txtName.setText(customer.getUser().getName());
-            txtAddress.setText(customer.getUser().getAddress());
-            //year.setText("Year: " + customer.getYear());
         }
     }
 }

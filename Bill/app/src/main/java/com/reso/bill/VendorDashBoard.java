@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import util.Utility;
+
 public class VendorDashBoard extends Fragment {
     LinearLayout layout_total_orders, layout_manage_newspapers, layout_accounting;
 
@@ -34,9 +36,7 @@ public class VendorDashBoard extends Fragment {
             @Override
             public void onClick(View view) {
                 AddNewspapers fragment = new AddNewspapers();
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frame_layout, fragment);
-                ft.commit();
+                Utility.nextFragment(getActivity(), fragment);
             }
         });
 

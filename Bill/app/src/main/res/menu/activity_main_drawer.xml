@@ -11,21 +11,21 @@
             />
         <item
             android:id="@+id/nav_myorder"
-            android:title="Customers dashboard"
+            android:title="Customers"
             />
         <item
             android:id="@+id/nav_myitems"
 
             android:title="Vendor Dashboard"/>
         <!--android:icon="@mipmap/inbox"-->
-        <item
+        <!--<item
             android:id="@+id/nav_activity"
 
             android:title="Activity"/>
         <item
             android:id="@+id/nav_mycustomers"
 
-            android:title="My Customers"/>
+            android:title="My Customers"/>-->
         <item
             android:id="@+id/nav_bank_info"
             android:title="Bank Information"/>

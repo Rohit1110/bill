@@ -2,8 +2,7 @@ package adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,8 +45,8 @@ public class AddNewspaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.img_addnewspaper);
             //price = (TextView) itemView.findViewById(R.id.txt_newspaper_rates);
-            name = (TextView) itemView.findViewById(R.id.txt_newspaper_name);
-            iv=(ImageView)itemView.findViewById(R.id.btn_paus);
+            name = (TextView) itemView.findViewById(R.id.txt_daily_summary_item_name);
+            iv = (ImageView) itemView.findViewById(R.id.btn_paus);
 
         }
     }
@@ -70,7 +69,7 @@ public class AddNewspaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         //Utility.downloadImage(gholder.image, activity, Utility.getItemImageURL(item.getId()));
 
         Integer itemId = item.getId();
-        if(item.getParentItem() != null) {
+        if (item.getParentItem() != null) {
             itemId = item.getParentItem().getId();
         }
         Picasso.get().load(Utility.getItemImageURL(itemId)).into(gholder.image);
@@ -84,9 +83,7 @@ public class AddNewspaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             @Override
             public void onClick(View view) {
                 PauseTime fragment = new PauseTime();
-                FragmentTransaction ft = ((AppCompatActivity) activity).getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frame_layout, fragment);
-                ft.commit();
+                Utility.nextFragment((FragmentActivity) activity, fragment);
             }
         });
         //gholder.price.setText(item.getPrice());
