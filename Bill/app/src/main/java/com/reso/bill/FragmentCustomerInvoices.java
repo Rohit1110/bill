@@ -2,7 +2,6 @@ package com.reso.bill;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,8 +17,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillUser;
-import com.rns.web.billapp.service.domain.BillInvoice;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
 
@@ -78,7 +77,7 @@ public class FragmentCustomerInvoices extends Fragment {
         addInvoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.nextFragment(getActivity(), FragmentEditInvoice.newInstance(customer, new BillInvoice()));
+                Utility.nextFragment(getActivity(), FragmentEditInvoice.newInstance(customer, new BillInvoice() ));
             }
         });
 

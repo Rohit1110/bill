@@ -73,7 +73,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.reso.bill.FragmentCustomerInvoices;
+import com.reso.bill.CustomerProfileFragment;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 
@@ -104,7 +104,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.nextFragment((FragmentActivity) activity, FragmentCustomerInvoices.newInstance(customer));
+                Utility.nextFragment((FragmentActivity) activity, CustomerProfileFragment.newInstance(customer));
             }
         });
     }

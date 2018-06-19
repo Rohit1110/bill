@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -71,6 +70,7 @@ public class BankDetailsFragment extends Fragment {
                         user.getFinancialDetails().setAccountNumber(accountNumber.getText().toString());
                         user.getFinancialDetails().setBankAddress(address.getText().toString());
                         user.getFinancialDetails().setIfscCode(ifscCode.getText().toString());
+                        user.getFinancialDetails().setAccountHolderName(accountHolder.getText().toString());
                         saveBankDetails();
 
                     }

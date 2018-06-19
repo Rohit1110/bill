@@ -45,7 +45,7 @@ public class AddNewspaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             super(itemView);
             image = (ImageView) itemView.findViewById(R.id.img_addnewspaper);
             //price = (TextView) itemView.findViewById(R.id.txt_newspaper_rates);
-            name = (TextView) itemView.findViewById(R.id.txt_daily_summary_item_name);
+            name = (TextView) itemView.findViewById(R.id.txt_add_subscription_item_name);
             iv = (ImageView) itemView.findViewById(R.id.btn_paus);
 
         }

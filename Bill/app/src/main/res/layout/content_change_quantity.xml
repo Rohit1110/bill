@@ -31,12 +31,12 @@
             android:src="@drawable/sakal"
             />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="@color/bgGray"
-        android:layout_below="@+id/imglayout">
+        android:layout_below="@+id/imglayout"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
@@ -46,16 +46,47 @@
             style="@style/basic_sub_text_field"/>
         <EditText
             android:id="@+id/et_change_quantity"
+            style="@style/basic_text_field"
             android:layout_marginLeft="@dimen/fab_margin"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="2"/>
-        <TextView
+
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imglayout"
+        android:orientation="horizontal">
+
+
+        <CheckBox android:id="@+id/chk_subscription_scheme"
+                  style="@style/basic_sub_text_field"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Monthly Scheme"
+            />
+
+        <EditText
+            android:id="@+id/et_scheme_price"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:textColor="#FF343F4B"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:visibility="invisible"
+            />
+
+    </LinearLayout>
+
+       <!-- <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Quantity"
             android:layout_marginLeft="@dimen/fab_margin"
-            style="@style/basic_sub_text_field"/>
+            style="@style/basic_sub_text_field"/>-->
         <!--<TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -59,7 +59,7 @@ public class CustomerProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_customer_profile, container, false);
         //recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_bill_details);
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Customer Profile</font>"));
+        getActivity().setTitle(Html.fromHtml("<font color='#343F4B'>Customer Profile</font>"));
 
         name = (TextView) rootView.findViewById(R.id.txt_profile_customer_name);
         email = (TextView) rootView.findViewById(R.id.txt_profile_customer_email);
@@ -142,6 +142,7 @@ public class CustomerProfileFragment extends Fragment {
                 if (serviceResponse != null && serviceResponse.getStatus() == 200 && serviceResponse.getUser() != null && serviceResponse.getUser().getCurrentSubscription() != null) {
                     billsDue.setText(serviceResponse.getUser().getCurrentSubscription().getBillsDue() + " Bills Due");
                     lastPaid.setText("Last paid on " + CommonUtils.convertDate(serviceResponse.getUser().getCurrentSubscription().getLastBillPaid()));
+                    selectedCustomer = serviceResponse.getUser();
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
                     Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");

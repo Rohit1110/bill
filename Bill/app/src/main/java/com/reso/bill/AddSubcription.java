@@ -15,8 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -46,14 +44,14 @@ public class AddSubcription extends Fragment {
     private RecyclerView recyclerView;
     private DeliveriesAdapter adapter;
     private Spinner sp;
-    private TextView quantity, txtweekdays, customerName;
+    private TextView txtweekdays, customerName;
     private ImageView imgpause, imgdiscontinue;
     private BillUser customer;
     private ProgressDialog profileLoader;
     private ProgressDialog itemLoader;
     private Button fabAddCustomerItem;
     private List<BillItem> businessItems;
-    private CheckBox scheme;
+
 
     public static AddSubcription newInstance(BillUser user) {
         AddSubcription fragment = new AddSubcription();
@@ -79,28 +77,19 @@ public class AddSubcription extends Fragment {
             }
         });
 
-        scheme = (CheckBox) rootView.findViewById(R.id.chk_subscription_scheme);
 
-        quantity = (EditText) rootView.findViewById(R.id.et_add_quantity);
-        quantity.setText("0");
         customerName = (TextView) rootView.findViewById(R.id.txt_add_subscription_customer_name);
-        if(customer != null) {
+        if (customer != null) {
             customerName.setText(customer.getName());
         }
         return rootView;
     }
 
     private void addCustomerItem() {
-        if (quantity.getText() == null || quantity.getText().toString().trim().length() == 0) {
-            Utility.createAlert(getContext(), "Please select the quantity!", "Error");
-            return;
-        }
+
         BillItem selectedItem = new BillItem();
-        selectedItem.setQuantity(new BigDecimal(quantity.getText().toString()));
+        selectedItem.setQuantity(new BigDecimal(1));
         selectedItem.setParentItem((BillItem) Utility.findInStringList(businessItems, sp.getSelectedItem().toString()));
-        if (scheme.isChecked()) {
-            selectedItem.setPrice(BigDecimal.ZERO);
-        }
         BillServiceRequest request = new BillServiceRequest();
         request.setUser(customer);
         request.setItem(selectedItem);
@@ -142,6 +131,12 @@ public class AddSubcription extends Fragment {
 
     private void loadNewsPapers() {
         BillServiceRequest request = new BillServiceRequest();
+        if (customer.getCurrentBusiness() == null) {
+            BillUser vendor = (BillUser) Utility.readObject(getContext(), Utility.USER_KEY);
+            if (vendor != null) {
+                customer.setCurrentBusiness(vendor.getCurrentBusiness());
+            }
+        }
         request.setBusiness(customer.getCurrentBusiness());
         itemLoader = Utility.getProgressDialogue("Loading..", getActivity());
         StringRequest myReq = ServiceUtil.getStringRequest("loadBusinessItems", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(profileLoader, getActivity()), request);
@@ -174,7 +169,7 @@ public class AddSubcription extends Fragment {
 
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
-                    if(TextUtils.isEmpty(customerName.getText())) {
+                    if (TextUtils.isEmpty(customerName.getText())) {
                         customerName.setText(serviceResponse.getUser().getName());
                     }
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));

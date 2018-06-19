@@ -50,6 +50,8 @@ public class Utility {
 
     public static final String USER_KEY = "billUser";
     public static final String COLOR_BLUE = "#00A6FF";
+    public static final String TITLE_FONT = "#343F4B";
+
 
     public static void createAlert(Context context, String message, String title) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);

@@ -16,9 +16,8 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:id="@+id/layout_profile_customer_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="vertical"
-            android:paddingTop="40dp">
+            android:layout_marginTop="24dp">
 
             <TextView
                 android:id="@+id/txt_profile_customer_name"
@@ -58,14 +57,21 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_width="match_parent"
                 android:gravity="right"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="Edit Profile"
                 />
 
-            <View
+            <!--<View
                 android:layout_marginTop="15dp"
                 android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="@color/bgGray"/>
+                android:background="@color/bgGray"/>-->
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                layout="@layout/layout_line" />
 
 
         </LinearLayout>
@@ -75,11 +81,8 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_below="@id/layout_profile_customer_info"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="24dp"
             >
 
             <TextView
@@ -103,14 +106,15 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_width="match_parent"
                 android:gravity="right"
                 android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
                 android:text="View Details"
                 style="@style/basic_text_button"/>
 
-            <View
-                android:layout_marginTop="15dp"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@color/bgGray"/>
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                layout="@layout/layout_line" />
 
 
         </LinearLayout>
@@ -121,9 +125,7 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="24dp"
             >
 
             <TextView
@@ -138,14 +140,14 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 style="@style/basic_sub_text_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-4dp"
+                android:layout_marginBottom="24dp"
                 android:text="Add/Remove/Pause delivery"/>
 
-            <View
-                android:layout_marginTop="15dp"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@color/bgGray"/>
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                layout="@layout/layout_line" />
 
 
         </LinearLayout>
@@ -156,9 +158,7 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="24dp"
             >
 
             <TextView
@@ -173,14 +173,14 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 style="@style/basic_sub_text_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="-4dp"
+                android:layout_marginBottom="24dp"
                 android:text="View cancellations/changes"/>
 
-            <View
-                android:layout_marginTop="15dp"
-                android:layout_width="fill_parent"
-                android:layout_height="1dp"
-                android:background="@color/bgGray"/>
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                layout="@layout/layout_line" />
 
 
         </LinearLayout>

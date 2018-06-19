@@ -280,7 +280,7 @@ public class VendorRegistration extends AppCompatActivity {
                         adapter = new LocationAdapter(VendorRegistration.this, R.layout.spinner_multi_select, locations, VendorRegistration.this);
                         areas.setLocations(locations);
 
-                        if(user.getCurrentBusiness() != null &&  user.getCurrentBusiness().getBusinessLocations() != null & user.getCurrentBusiness().getBusinessLocations().size() > 0) {
+                        if(user != null && user.getCurrentBusiness() != null &&  user.getCurrentBusiness().getBusinessLocations() != null && user.getCurrentBusiness().getBusinessLocations().size() > 0) {
                             areas.setSelection(Utility.convertToStringArrayList(user.getCurrentBusiness().getBusinessLocations()));
                         }
                     }

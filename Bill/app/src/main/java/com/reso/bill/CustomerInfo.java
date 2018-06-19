@@ -74,6 +74,9 @@ public class CustomerInfo extends Fragment {
                     subscription = new BillSubscription();
                 } else {
                     subscription = customer.getCurrentSubscription();
+                    if(subscription == null) {
+                        subscription = new BillSubscription();
+                    }
                 }
                 if (!Utility.isValidEmail(email.getText().toString())) {
                     email.setError("Please enter a valid email");

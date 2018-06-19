@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -37,6 +36,13 @@ public class VendorDashBoard extends Fragment {
             public void onClick(View view) {
                 AddNewspapers fragment = new AddNewspapers();
                 Utility.nextFragment(getActivity(), fragment);
+            }
+        });
+
+        layout_total_orders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utility.nextFragment(getActivity(), DailySummaryFragment.newInstance());
             }
         });
 

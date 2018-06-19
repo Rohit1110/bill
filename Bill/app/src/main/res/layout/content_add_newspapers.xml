@@ -8,9 +8,40 @@
                 tools:context="com.reso.bill.AddNewspapers"
                 tools:showIn="@layout/activity_add_newspapers">
 
-
     <LinearLayout
         android:id="@+id/layout_addnewspaper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:background="@color/white">
+            <Button
+                android:id="@+id/btn_add_business_item"
+                style="@style/basic_button"
+                android:layout_width="wrap_content"
+                android:layout_gravity="top|right"
+                android:layout_margin="10dp"
+                android:text="add"/>
+
+
+
+        </LinearLayout>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/layout_add_cust"
+            layout="@layout/layout_line" />
+
+    </LinearLayout>
+
+<!--
+    <LinearLayout
+        android:id="@+id/"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -19,7 +50,7 @@
 
 
         <Button
-            android:id="@+id/btn_add_business_item"
+            android:id="@+id/"
             style="@style/basic_button"
             android:layout_width="wrap_content"
             android:layout_gravity="top|right"
@@ -33,9 +64,9 @@
             android:background="@color/bgGray"/>
 
 
-    </LinearLayout>
+    </LinearLayout>-->
 
-    <LinearLayout
+   <!-- <LinearLayout
         android:id="@+id/textlayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -43,14 +74,13 @@
         android:layout_marginTop="5dp"
         android:background="@color/bgGray">
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/layout_addnewspaper_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textlayout"
-        android:layout_marginTop="@dimen/fab_margin"
+        android:layout_below="@+id/layout_addnewspaper"
         android:background="@color/bgGray"
         android:orientation="vertical">
 

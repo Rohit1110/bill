@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.reso.bill.FragmentEditInvoice;
 import com.reso.bill.R;
+import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillUser;
-import com.rns.web.billapp.service.domain.BillInvoice;
 import com.rns.web.billapp.service.util.BillConstants;
 
 import java.util.ArrayList;
