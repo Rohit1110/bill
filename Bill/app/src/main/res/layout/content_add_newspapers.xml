@@ -6,6 +6,7 @@
                 android:layout_height="match_parent"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:context="com.reso.bill.AddNewspapers"
+                 android:background="@color/white"
                 tools:showIn="@layout/activity_add_newspapers">
 
     <LinearLayout
