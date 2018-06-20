@@ -4,15 +4,15 @@
         android:id="@+id/action_item1"
         android:title=""
 
-        android:icon="@mipmap/menu"/>
+        android:icon="@mipmap/list"/>
     <item
         android:id="@+id/action_item2"
-
         android:title=""
-        android:icon="@mipmap/home"/>
+        android:icon="@mipmap/cart"
+        />
     <!--android:icon="@drawable/ic_account_circle_black_24dp"-->
     <item
         android:id="@+id/action_item3"
         android:title=""
-        android:icon="@drawable/ic_wallet_icon"/>
+        android:icon="@drawable/wallet_icon"/>
 </menu>

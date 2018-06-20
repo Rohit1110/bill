@@ -19,6 +19,12 @@ android {
     }
 }
 
+android {
+    lintOptions {
+        disable 'RestrictedApi'
+    }
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:27.1.1'
@@ -45,6 +51,7 @@ dependencies {
 
 
 }
+
 
 
 

@@ -24,19 +24,19 @@
         android:text="loksatta,ToI"/>-->
     </LinearLayout>
 
-    <LinearLayout
+ <!--   <LinearLayout
         android:id="@+id/layout_selected_items"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layout_select_newspaper"
         android:background="@color/white"
         android:orientation="vertical">
-        <!--<TextView
+        &lt;!&ndash;<TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Selected Newspapers"
             style="@style/basic_text_field"
-            />-->
+            />&ndash;&gt;
 
         <TextView
             android:id="@+id/txt_selected_items"
@@ -61,6 +61,46 @@
             android:layout_height="1dp"
             android:background="@color/bgGray"/>
 
+
+    </LinearLayout>-->
+
+    <LinearLayout
+        android:id="@+id/layout_selected_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:background="@color/white"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/txt_selected_items"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Selected Newspapers"
+                style="@style/basic_sub_text_field"
+                />
+            <Button
+                android:id="@+id/btn_save_business_items"
+                style="@style/basic_button"
+                android:layout_width="wrap_content"
+                android:layout_gravity="top|right"
+                android:layout_margin="10dp"
+                android:text="Save"/>
+
+
+
+        </LinearLayout>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/layout_add_cust"
+            layout="@layout/layout_line" />
 
     </LinearLayout>
 

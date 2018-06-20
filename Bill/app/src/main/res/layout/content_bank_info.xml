@@ -27,13 +27,6 @@
                 android:text="Bank Information"
                 />
 
-            <Button
-                android:id="@+id/fab_bank_details"
-                style="@style/basic_button"
-                android:layout_width="wrap_content"
-                android:layout_gravity="top|right"
-                android:layout_marginRight="10dp"
-                android:text="Save"/>
 
         </LinearLayout>
         <android.support.v4.widget.NestedScrollView
@@ -117,6 +110,15 @@
 
                     android:hint="Enter Branch address"
                     />
+
+                <Button
+                    android:id="@+id/fab_bank_details"
+                    style="@style/basic_button"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_marginRight="10dp"
+                    android:text="Save"/>
+
 
             </LinearLayout>
 

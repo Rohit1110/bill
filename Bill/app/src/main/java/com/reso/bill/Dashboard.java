@@ -20,6 +20,7 @@ import com.rns.web.billapp.service.bo.domain.BillUser;
 
 import java.util.List;
 
+import adapters.BottomNavigationViewHelper;
 import util.Utility;
 
 public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,7 +39,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawertest_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -117,6 +118,9 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
             case R.id.nav_profile:
                 Intent i = new Intent(Dashboard.this, VendorRegistration.class);
                 startActivity(i);
+                break;
+            case R.id.nav_activity:
+                fragment = new ActivityScreen();
                 break;
 
 
