@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,6 +14,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -214,6 +218,56 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         }
         return false;
     }
+    private ViewTreeObserver.OnGlobalLayoutListener keyboardLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+        @Override
+        public void onGlobalLayout() {
+            int heightDiff = bottomNavigationView.getRootView().getHeight() - bottomNavigationView.getHeight();
+            int contentViewTop = getWindow().findViewById(Window.ID_ANDROID_CONTENT).getTop();
+
+            LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(Dashboard.this);
+
+            if(heightDiff <= contentViewTop){
+                onHideKeyboard();
+
+                Intent intent = new Intent("KeyboardWillHide");
+                broadcastManager.sendBroadcast(intent);
+            } else {
+                int keyboardHeight = heightDiff - contentViewTop;
+                onShowKeyboard(keyboardHeight);
+
+                Intent intent = new Intent("KeyboardWillShow");
+                intent.putExtra("KeyboardHeight", keyboardHeight);
+                broadcastManager.sendBroadcast(intent);
+            }
+        }
+    };
+
+    private boolean keyboardListenersAttached = false;
+    //private ViewGroup rootLayout;
 
 
+    protected void onShowKeyboard(int keyboardHeight) {}
+    protected void onHideKeyboard() {}
+
+    protected void attachKeyboardListeners() {
+        if (keyboardListenersAttached) {
+            return;
+        }
+
+        //rootLayout = (ViewGroup) findViewById(R.id.rootLayout);
+        bottomNavigationView.getViewTreeObserver().addOnGlobalLayoutListener(keyboardLayoutListener);
+
+        keyboardListenersAttached = true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (keyboardListenersAttached) {
+            bottomNavigationView.getViewTreeObserver().removeGlobalOnLayoutListener(keyboardLayoutListener);
+        }
+    }
 }
+
+
