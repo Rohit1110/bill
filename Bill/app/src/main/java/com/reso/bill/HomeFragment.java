@@ -97,6 +97,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadDeliveries() {
+        if(user == null) {
+            Utility.createAlert(getContext(), "Profile not set correctly! Please login to the app again!", "Error");
+            return;
+        }
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
         request.setRequestedDate(date);
