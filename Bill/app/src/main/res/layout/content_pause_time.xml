@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
@@ -22,12 +23,14 @@
         android:id="@+id/imglayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/flayout">
+        android:layout_below="@+id/flayout"
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/img_pause_delivery_item_icon"
-            android:layout_width="match_parent"
+            android:layout_width="350dp"
             android:layout_height="230dp"
+            android:layout_gravity="center"
             android:src="@drawable/sakal"
             />
     </LinearLayout>
@@ -41,7 +44,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="from"
+            android:text="Pause Delivery from"
             android:layout_marginLeft="@dimen/fab_margin"
             style="@style/basic_sub_text_field"/>
         <TextView
@@ -53,7 +56,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="to"
+            android:text="Pause Delivery to"
             android:layout_marginLeft="@dimen/fab_margin"
             style="@style/basic_sub_text_field"/>
         <TextView
@@ -67,8 +70,18 @@
             android:id="@+id/txt_paused_days"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/fab_margin"
-            android:text="Pause delivery for 2 days"/>
+            android:layout_margin="@dimen/fab_margin"
+            android:text="Pause delivery for 2 days"
+            android:textStyle="bold"
+            style="@style/basic_sub_text_field"/>
+
+        <Button
+            android:id="@+id/fab_add_customer_item"
+            style="@style/basic_button"
+            android:layout_width="wrap_content"
+            android:layout_gravity="top|right"
+            android:layout_margin="10dp"
+            android:text="save"/>
 
     </LinearLayout>
 

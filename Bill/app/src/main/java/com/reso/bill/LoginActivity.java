@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity implements
     private TextView mCodeNumberField;
     private Button mVerifyButton, mResendButton;
     private ProgressDialog proDialog;
-    private FloatingActionButton mStartButton;
+    private Button mStartButton;
 
     private FirebaseAuth mAuth;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
@@ -75,7 +75,7 @@ public class LoginActivity extends AppCompatActivity implements
         mCodeNumberField=(TextView) findViewById(R.id.field_code_number);
 
 
-        mStartButton = (FloatingActionButton) findViewById(R.id.button_start_verification);
+        mStartButton = (Button) findViewById(R.id.button_start_verification);
         mVerifyButton = (Button) findViewById(R.id.button_verify_phone);
         mResendButton = (Button) findViewById(R.id.button_resend);
         layoutvarification=(LinearLayout)findViewById(R.id.layoutvarification);
@@ -114,6 +114,7 @@ public class LoginActivity extends AppCompatActivity implements
             public void onCodeSent(String verificationId,
                                    PhoneAuthProvider.ForceResendingToken token) {
                 Log.d(TAG, "onCodeSent:" + verificationId);
+                proDialog.dismiss();
                 mVerificationId = verificationId;
                 mResendToken = token;
                 phoneAuth.setVisibility(View.GONE);
@@ -155,7 +156,7 @@ public class LoginActivity extends AppCompatActivity implements
 
 
     private void startPhoneNumberVerification(String phoneNumber) {
-        proDialog.dismiss();
+        //proDialog.dismiss();
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phoneNumber,        // Phone number to verify
                 60,                 // Timeout duration
@@ -205,17 +206,27 @@ public class LoginActivity extends AppCompatActivity implements
         switch (view.getId()) {
             case R.id.button_start_verification:
                 System.out.println("Login button clicked");
-                if(Utility.isInternetOn(LoginActivity.this)) {
                     proDialog = new ProgressDialog(LoginActivity.this);
-                    proDialog.setMessage("please wait....");
+                    proDialog.setMessage("Signing in....");
                     proDialog.setCancelable(false);
                     proDialog.show();
+                if(Utility.isInternetOn(LoginActivity.this)) {
+                    phoneAuth.setVisibility(View.GONE);
+                    mStartButton.setVisibility(View.GONE);
+                    //layOutReg.setVisibility(View.GONE);
+                    layoutvarification.setVisibility(view.VISIBLE);
+
                     if (!validatePhoneNumber()) {
+                        phoneAuth.setVisibility(view.VISIBLE);
+                        mStartButton.setVisibility(View.VISIBLE);
+                        //layOutReg.setVisibility(View.GONE);
+                        layoutvarification.setVisibility(view.GONE);
                         proDialog.dismiss();
                         return;
                     }
                     startPhoneNumberVerification(mCodeNumberField.getText().toString() + mPhoneNumberField.getText().toString());
                 }else{
+                    proDialog.dismiss();
                     Toast.makeText(LoginActivity.this,"Check Internet Connection..!!",Toast.LENGTH_LONG).show();
                 }
 

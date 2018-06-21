@@ -8,12 +8,12 @@
 
     <include layout="@layout/content_days_todeliver" />
 
-    <android.support.design.widget.FloatingActionButton
+ <!--   <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_save_days"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@mipmap/mark" />
+        app:srcCompat="@mipmap/mark" />-->
 
 </android.support.design.widget.CoordinatorLayout>

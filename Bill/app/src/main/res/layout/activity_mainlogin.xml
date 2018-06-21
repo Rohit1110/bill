@@ -22,7 +22,7 @@
 
     <include layout="@layout/activity_login" />
 
-    <android.support.design.widget.FloatingActionButton
+   <!-- <android.support.design.widget.FloatingActionButton
         android:id="@+id/button_start_verification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,6 +30,6 @@
         android:layout_margin="@dimen/fab_margin"
         android:tint="#00A6FF"
         android:background="@android:color/black"
-        app:srcCompat="@mipmap/mark" />
+        app:srcCompat="@mipmap/mark" />-->
 
 </android.support.design.widget.CoordinatorLayout>

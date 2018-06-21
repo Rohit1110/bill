@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          xmlns:app="http://schemas.android.com/apk/res-auto"
-          package="com.reso.bill">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    package="com.reso.bill">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -12,26 +12,26 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity"/>
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+        <activity android:name=".LoginActivity" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
-        <activity android:name=".FilePicker"/>
+        <activity android:name=".MainActivity">
+
+        </activity>
+        <activity android:name=".FilePicker" />
         <activity
             android:name=".VendorRegistration"
-            android:label="@string/title_activity_vendor_registration">
-        </activity>
+            android:label="@string/title_activity_vendor_registration"></activity>
 
         <!-- android:windowSoftInputMode="stateAlwaysHidden|adjustResize" -->
         <activity
             android:name=".Dashboard"
             android:label="@string/title_activity_dashboard"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <!--
         <activity
             android:name=".VendorDashBoard"
@@ -48,9 +48,8 @@
         -->
         <activity
             android:name=".Main2Activity"
-            android:label="@string/title_activity_main2"/>
-        <activity android:name=".Main3Activity">
-        </activity>
+            android:label="@string/title_activity_main2" />
+        <activity android:name=".Main3Activity"></activity>
         <!--
              <activity
              android:name=".AddSubcription"
@@ -60,11 +59,13 @@
         <activity
             android:name=".DashboardActivity"
             android:label="@string/title_activity_dashboard"
-            android:theme="@style/AppTheme">
-        </activity>
+            android:theme="@style/AppTheme"></activity>
+
         <meta-data
             android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts"/>
+            android:resource="@array/preloaded_fonts" />
+
+
     </application>
 
 </manifest>
