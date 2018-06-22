@@ -76,7 +76,7 @@
             style="@style/basic_sub_text_field"/>
 
         <Button
-            android:id="@+id/fab_add_customer_item"
+            android:id="@+id/fab_pause_time"
             style="@style/basic_button"
             android:layout_width="wrap_content"
             android:layout_gravity="top|right"

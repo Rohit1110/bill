@@ -43,13 +43,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
+                android:layout_marginLeft="10dp"
                 >
 
                 <TextView
                     style="@style/textviewtitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Name"/>
+                    android:text="Name"
+                    android:layout_marginLeft="15dp"/>
 
                 <EditText
                     android:id="@+id/et_customer_name"
@@ -57,15 +59,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter Name"
+                    android:layout_marginRight="10dp"
 
                     />
 
 
                 <TextView
                     style="@style/textviewtitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Contact"/>
+                    android:text="Contact"
+                    android:layout_marginLeft="10dp"/>
 
                 <EditText
                     android:id="@+id/et_customer_phone"
@@ -73,42 +77,46 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter Contact"
+                    android:layout_marginRight="10dp"
                     />
 
                 <TextView
                     style="@style/textviewtitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Email ID"/>
+                    android:text="Email ID"
+                    android:layout_marginLeft="10dp"/>
 
                 <EditText
                     android:id="@+id/et_customer_email"
                     style="@style/regedittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-
+                    android:layout_marginRight="10dp"
                     android:hint="Enter Email ID"
                     />
 
                 <TextView
                     style="@style/textviewtitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Area"/>
+                    android:text="Area"
+                    android:layout_marginLeft="10dp"/>
 
                 <Spinner
                     android:id="@+id/sp_customer_area"
                     style="@style/regedittext"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-
+                    android:layout_marginRight="10dp"
                     />
 
                 <TextView
                     style="@style/textviewtitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Customer Address"/>
+                    android:text="Customer Address"
+                    android:layout_marginLeft="10dp"/>
 
                 <EditText
                     android:id="@+id/et_customer_address"
@@ -116,13 +124,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter Customer Address"
+                    android:layout_marginRight="10dp"
                     />
 
                 <TextView
                     style="@style/textviewtitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Service charge monthly Rs."/>
+                    android:text="Service charge monthly Rs."
+                    android:layout_marginLeft="10dp"/>
 
                 <EditText
                     android:id="@+id/et_customer_service_charge"
@@ -130,6 +140,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter Service Charge monthly"
+                    android:layout_marginRight="10dp"
                     />
 
                 <!--<LinearLayout

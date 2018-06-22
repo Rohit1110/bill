@@ -11,6 +11,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,7 +48,7 @@ public class PauseTime extends Fragment {
     private BillUser customer;
     private BillItem subscribedItem;
     private ProgressDialog pDialog;
-    private FloatingActionButton pause;
+    private Button pause;
     private TextView pausedDays;
     private Date fromDate, toDate;
 
@@ -137,7 +138,7 @@ public class PauseTime extends Fragment {
             }
         });
 
-        pause = (FloatingActionButton) rootView.findViewById(R.id.fab_pause_time);
+        pause = (Button) rootView.findViewById(R.id.fab_pause_time);
 
 
         pause.setOnClickListener(new View.OnClickListener() {

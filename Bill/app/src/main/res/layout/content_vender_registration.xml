@@ -29,15 +29,15 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical"
-                android:layout_margin="5dp"
+                android:layout_margin="10dp"
                 >
 
                 <TextView
                     style="@style/basic_sub_text_field"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
-                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginLeft="10dp"
 
                     android:text="Name"/>
 
@@ -47,15 +47,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter Name"
+                    android:layout_marginRight="10dp"
 
                     />
 
                 <TextView
                     style="@style/basic_sub_text_field"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
-                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginLeft="10dp"
                     android:text="Email"/>
 
                 <EditText
@@ -64,16 +65,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter Email address"
-
+                    android:layout_marginRight="10dp"
                     />
 
 
                 <TextView
                     style="@style/basic_sub_text_field"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
-                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginLeft="10dp"
                     android:text="Contact"/>
 
                 <EditText
@@ -82,13 +83,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter Contact"
+                    android:layout_marginRight="10dp"
                     />
 
                 <TextView
                     style="@style/basic_sub_text_field"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginLeft="10dp"
                     android:textSize="13sp"
                     android:text="Pan ID"/>
 
@@ -99,14 +101,15 @@
                     android:layout_height="wrap_content"
                     android:drawableRight="@mipmap/attchment"
                     android:hint="Enter Pan ID"
+                    android:layout_marginRight="10dp"
                     />
 
                 <TextView
                     style="@style/basic_sub_text_field"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
-                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginLeft="10dp"
                     android:text="Adhar Number"/>
 
                 <EditText
@@ -116,14 +119,15 @@
                     android:layout_height="wrap_content"
                     android:drawableRight="@mipmap/attchment"
                     android:hint="Enter Adhar number"
+                    android:layout_marginRight="10dp"
                     />
 
                 <TextView
                     style="@style/basic_sub_text_field"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
-                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginLeft="10dp"
                     android:text="Business Name"/>
 
                 <EditText
@@ -132,14 +136,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="Enter Business Name"
+                    android:layout_marginRight="10dp"
                     />
 
                 <TextView
                     style="@style/basic_sub_text_field"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
-                    android:layout_marginLeft="@dimen/margin"
+                    android:layout_marginLeft="10dp"
                     android:text="Locations"/>
 
                 <!--<Spinner
@@ -153,8 +158,8 @@
                     android:id="@+id/sp_area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
                     android:padding="@dimen/margin"
+                    android:layout_marginRight="10dp"
                     />
 
                 <include

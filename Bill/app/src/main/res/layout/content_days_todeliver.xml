@@ -69,13 +69,13 @@
                 android:layout_marginTop="5dp"
                 android:layout_weight="0.5"
                 style="@style/basic_sub_text_field"/>
-            <RadioButton
+           <!-- <RadioButton
                 android:id="@+id/radio_mon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
 
-                />
+                />-->
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -91,13 +91,13 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 style="@style/basic_sub_text_field"/>
-            <RadioButton
+        <!--    <RadioButton
                 android:id="@+id/radio_tue"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
 
-               />
+               />-->
         </LinearLayout>
         <LinearLayout
         android:layout_width="match_parent"
@@ -113,12 +113,12 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 style="@style/basic_sub_text_field"/>
-            <RadioButton
+           <!-- <RadioButton
                 android:id="@+id/radio_wed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="5.7"
-                android:layout_marginLeft="5dp"/>
+                android:layout_marginLeft="5dp"/>-->
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -134,12 +134,12 @@
                 android:layout_marginTop="5dp"
                 android:layout_weight="0.5"
                 style="@style/basic_sub_text_field"/>
-            <RadioButton
+          <!--  <RadioButton
                 android:id="@+id/radio_thu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                />
+                />-->
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -155,11 +155,11 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 style="@style/basic_sub_text_field"/>
-            <RadioButton
+           <!-- <RadioButton
                 android:id="@+id/radio_fri"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.8"/>
+                android:layout_weight="0.8"/>-->
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -175,14 +175,14 @@
                 android:layout_marginTop="5dp"
                 android:layout_weight="0.4"
                 style="@style/basic_sub_text_field"/>
-            <RadioButton
+           <!-- <RadioButton
                 android:id="@+id/radio_sat"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.9"
 
-                />
+                />-->
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -199,12 +199,12 @@
                 android:layout_weight="0.5"
                 android:text="Sunday"
                 android:textSize="25dp" />
-            <RadioButton
+            <!--<RadioButton
                 android:id="@+id/radio_sun"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:layout_weight="0.9"/>
+                android:layout_weight="0.9"/>-->
         </LinearLayout>
 
         <Button
