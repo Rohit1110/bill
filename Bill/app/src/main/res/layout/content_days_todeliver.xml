@@ -12,7 +12,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-    <LinearLayout
+   <!-- <LinearLayout
         android:id="@+id/flayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -23,11 +23,11 @@
             android:layout_height="wrap_content"
             style="@style/basic_text_field"
             android:text="Ajinkya Kulkarni"/>
-    </LinearLayout>
+    </LinearLayout>-->
     <LinearLayout
         android:id="@+id/imglayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_below="@+id/flayout"
         android:gravity="center">
 

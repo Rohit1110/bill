@@ -71,7 +71,7 @@ public class DaysToDeliver extends Fragment implements View.OnClickListener {
         txtsat.setOnClickListener(this);
         txtsun.setOnClickListener(this);
 
-        customerName = (TextView) rootView.findViewById(R.id.txt_delivery_days_customer_name);
+        //customerName = (TextView) rootView.findViewById(R.id.txt_delivery_days_customer_name);
         itemIcon = (ImageView) rootView.findViewById(R.id.img_delivery_days_item_icon);
         txtSelectedDays = (TextView) rootView.findViewById(R.id.txt_selected_days);
         saveDays = (Button) rootView.findViewById(R.id.fab_save_days);
@@ -197,7 +197,7 @@ public class DaysToDeliver extends Fragment implements View.OnClickListener {
     }
 
     private int unSelectedDayColor() {
-        return getResources().getColor(R.color.white);
+        return getResources().getColor(R.color.drewerbg);
     }
 
     private void saveDays() {

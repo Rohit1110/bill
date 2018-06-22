@@ -61,7 +61,7 @@
 
     </LinearLayout>-->
 
-    <LinearLayout
+   <!-- <LinearLayout
         android:id="@+id/layout_addnewspaper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -91,20 +91,21 @@
 
 
             />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:background="@color/white"
             android:orientation="vertical">
-           <!-- <TextView
+           &lt;!&ndash; <TextView
                 android:id="@+id/txt_selected_items"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Selected Newspapers"
                 style="@style/basic_sub_text_field"
-                />-->
+                />&ndash;&gt;
             <Button
                 android:id="@+id/fab_add_customer_item"
                 style="@style/basic_button"
@@ -123,6 +124,48 @@
             android:layout_alignParentBottom="true"
             android:layout_below="@id/layout_add_cust"
             layout="@layout/layout_line" />
+
+    </LinearLayout>-->
+    <LinearLayout
+        android:id="@+id/layout_addnewspaper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/basic_sub_text_field"
+            android:text="Select Newspapers to add"
+            />
+
+        <Spinner
+            android:id="@+id/spinner_newspaper"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="@dimen/fab_margin"
+
+
+            />
+        <Button
+            android:id="@+id/fab_add_customer_item"
+            style="@style/basic_button"
+            android:layout_width="wrap_content"
+            android:layout_gravity="top|right"
+            android:layout_margin="10dp"
+            android:text="add"/>
+
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/layout_add_cust"
+            layout="@layout/layout_line" />
+
 
     </LinearLayout>
     <LinearLayout

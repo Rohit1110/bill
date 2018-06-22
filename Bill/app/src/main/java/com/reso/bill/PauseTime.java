@@ -66,6 +66,12 @@ public class PauseTime extends Fragment {
         getActivity().setTitle(Html.fromHtml("<font color='#000000'>Pause Times of India</font>"));
         txtfromdate = (TextView) rootView.findViewById(R.id.txt_from_date);
         txttodate = (TextView) rootView.findViewById(R.id.txt_to_date);
+        final Calendar calendar = Calendar.getInstance();
+        int yy = calendar.get(Calendar.YEAR);
+        int mm = calendar.get(Calendar.MONTH);
+        int dd = calendar.get(Calendar.DAY_OF_MONTH);
+            txtfromdate.setText(yy+"-"+mm+"-"+(dd+1));
+
         txtfromdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -77,6 +83,9 @@ public class PauseTime extends Fragment {
                 int yy = calendar.get(Calendar.YEAR);
                 int mm = calendar.get(Calendar.MONTH);
                 int dd = calendar.get(Calendar.DAY_OF_MONTH);
+                final int yyyy=yy;
+                final int mon=mm;
+                final int day=dd;
                 DatePickerDialog datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -96,7 +105,8 @@ public class PauseTime extends Fragment {
 
                     }
                 }, yy, mm, dd);
-                datePicker.getDatePicker().setMinDate(getMinDate());
+                datePicker.getDatePicker().setMinDate(calendar.getTimeInMillis()+(1000*24*60*60));
+
                 datePicker.show();
 
             }
@@ -132,7 +142,7 @@ public class PauseTime extends Fragment {
 
                     }
                 }, yy, mm, dd);
-                datePicker.getDatePicker().setMinDate(getMinDate());
+                datePicker.getDatePicker().setMinDate(calendar.getTimeInMillis()+(1000*24*60*60));
                 datePicker.show();
 
             }
@@ -148,8 +158,8 @@ public class PauseTime extends Fragment {
             }
         });
 
-        customerName = (TextView) rootView.findViewById(R.id.txt_pause_delivery_customer_name);
-        customerName.setText(customer.getName());
+        //customerName = (TextView) rootView.findViewById(R.id.txt_pause_delivery_customer_name);
+        //customerName.setText(customer.getName());
 
         itemIcon = (ImageView) rootView.findViewById(R.id.img_pause_delivery_item_icon);
         Picasso.get().load(Utility.getItemImageURL(Utility.getRootItemId(subscribedItem))).into(itemIcon);

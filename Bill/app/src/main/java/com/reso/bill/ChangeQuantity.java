@@ -65,14 +65,14 @@ public class ChangeQuantity extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_change_quantity, container, false);
         getActivity().setTitle(Html.fromHtml("<font color='#000000'>Change Quantity</font>"));
 
-        customerName = (TextView) rootView.findViewById(R.id.txt_change_quantity_customer_name);
+        //customerName = (TextView) rootView.findViewById(R.id.txt_change_quantity_customer_name);
         subItemIcon = (ImageView) rootView.findViewById(R.id.img_change_quantity_sub_item);
         quantity = (EditText) rootView.findViewById(R.id.et_change_quantity);
         changeQuantity = (Button) rootView.findViewById(R.id.btn_change_quantity);
         scheme = (CheckBox) rootView.findViewById(R.id.chk_subscription_scheme);
         schemePrice = (EditText) rootView.findViewById(R.id.et_scheme_price);
 
-        customerName.setText(customer.getName());
+        //customerName.setText(customer.getName());
         Picasso.get().load(Utility.getItemImageURL(Utility.getRootItemId(subItem))).into(subItemIcon);
         quantity.setText("0");
         if (subItem.getQuantity() != null) {

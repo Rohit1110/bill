@@ -7,7 +7,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-    <LinearLayout
+<!--    <LinearLayout
         android:id="@+id/flayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,13 +18,14 @@
             android:layout_height="wrap_content"
             style="@style/basic_text_field"
             android:text="Ajinkya Kulkarni"/>
-    </LinearLayout>
+    </LinearLayout>-->
     <LinearLayout
         android:id="@+id/imglayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_below="@+id/flayout"
-        android:gravity="center">
+        android:gravity="center"
+       >
 
         <ImageView
             android:id="@+id/img_pause_delivery_item_icon"
@@ -46,13 +47,15 @@
             android:layout_height="wrap_content"
             android:text="Pause Delivery from"
             android:layout_marginLeft="@dimen/fab_margin"
+            android:layout_marginTop="@dimen/fab_margin"
             style="@style/basic_sub_text_field"/>
         <TextView
             android:id="@+id/txt_from_date"
             android:layout_marginLeft="@dimen/fab_margin"
-            android:layout_width="120dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Select date"/>
+            style="@style/basic_text_field"
+            android:text="select date"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -65,7 +68,7 @@
             android:layout_height="wrap_content"
             android:text="select date"
             android:layout_marginLeft="@dimen/fab_margin"
-            style="@style/basic_sub_text_field"/>
+            style="@style/basic_text_field"/>
         <TextView
             android:id="@+id/txt_paused_days"
             android:layout_width="wrap_content"
@@ -73,7 +76,7 @@
             android:layout_margin="@dimen/fab_margin"
             android:text="Pause delivery for 2 days"
             android:textStyle="bold"
-            style="@style/basic_sub_text_field"/>
+            style="@style/basic_text_field"/>
 
         <Button
             android:id="@+id/fab_pause_time"

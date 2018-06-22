@@ -78,9 +78,9 @@ public class AddSubcription extends Fragment {
         });
 
 
-        customerName = (TextView) rootView.findViewById(R.id.txt_add_subscription_customer_name);
+        //customerName = (TextView) rootView.findViewById(R.id.txt_add_subscription_customer_name);
         if (customer != null) {
-            customerName.setText(customer.getName());
+//            customerName.setText(customer.getName());
         }
         return rootView;
     }
@@ -169,11 +169,11 @@ public class AddSubcription extends Fragment {
 
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
-                    if (TextUtils.isEmpty(customerName.getText())) {
-                        customerName.setText(serviceResponse.getUser().getName());
-                    }
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     recyclerView.setAdapter(new CustomerSubcriptionAdapter(serviceResponse.getUser().getCurrentSubscription().getItems(), getActivity(), customer, getActivity()));
+                    /*if (TextUtils.isEmpty(customerName.getText())) {
+                        customerName.setText(serviceResponse.getUser().getName());
+                    }*/
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
                     Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
