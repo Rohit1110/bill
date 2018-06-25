@@ -147,8 +147,6 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/fab_margin"
-
-
             />
         <Button
             android:id="@+id/fab_add_customer_item"
