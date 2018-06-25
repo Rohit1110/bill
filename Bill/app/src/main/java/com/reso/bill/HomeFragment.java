@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.Html;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -25,6 +28,7 @@ import com.rns.web.billapp.service.util.CommonUtils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import adapters.CustomerListAdapter;
 import adapters.DeliveriesAdapter;
@@ -49,7 +53,7 @@ public class HomeFragment extends Fragment {
     private TextView noOrdersMessage;
     private RadioButton deliveries;
     private RadioButton noDeliveries;
-
+        EditText search;
 
     public static HomeFragment newInstance(BillUser user) {
         HomeFragment fragment = new HomeFragment();
@@ -70,7 +74,7 @@ public class HomeFragment extends Fragment {
         getActivity().setTitle(Html.fromHtml("<font color='#000000'>Deliveries " + CommonUtils.convertDate(date) + "</font>"));
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         deliveries = (RadioButton) rootView.findViewById(R.id.radio_deliveries);
-
+search=(EditText)rootView.findViewById(R.id.edit_search_order);
         deliveries.setSelected(true);
         deliveries.setChecked(true);
         deliveries.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +91,26 @@ public class HomeFragment extends Fragment {
                 setDeliveriesListView(noOrders);
             }
         });
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+                String text = search.getText().toString().toLowerCase(Locale.getDefault());
+
+                filter(text);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         noOrdersMessage = (TextView) rootView.findViewById(R.id.txt_no_orders);
         return rootView;
 
