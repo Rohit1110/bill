@@ -109,9 +109,11 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean expanded = movie.isExpanded();
+                /*boolean expanded = movie.isExpanded();
                 movie.setExpanded(!expanded);
-                notifyItemChanged(position);
+                notifyItemChanged(position);*/
+                movie.getUser().setCurrentBusiness(currentUser.getCurrentBusiness());
+                Utility.nextFragment(context, CustomerProfileFragment.newInstance(movie.getUser()));
             }
         });
     }

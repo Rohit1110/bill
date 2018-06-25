@@ -130,15 +130,15 @@
         android:id="@+id/layout_addnewspaper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:background="@color/white">
 
-        <TextView
+        <!--<TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/basic_sub_text_field"
             android:text="Select Newspapers to add"
-            />
+            />-->
 
         <Spinner
             android:id="@+id/spinner_newspaper"

@@ -103,30 +103,20 @@ public class DeliveriesAdapter extends RecyclerView.Adapter<DeliveriesAdapter.Re
     @Override
     public void onBindViewHolder(RecViewHolder holder, final int position) {
         final BillCustomer customer = list.get(position);
-
-        /*if (customer.getUser() != null && customer.getUser().getCurrentSubscription() != null && customer.getUser().getCurrentSubscription().getStatus() != null && customer.getUser().getCurrentSubscription().getStatus().equals("D")) {
-            if (!showHolidays) {
-                holder.itemView.setVisibility(View.GONE);
-            } else {
-                holder.itemView.setVisibility(View.VISIBLE);
-            }
-        } else {
-            if (showHolidays) {
-                holder.itemView.setVisibility(View.GONE);
-            } else {
-                holder.itemView.setVisibility(View.VISIBLE);
-            }
-        }*/
-
         holder.bind(customer);
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean expanded = customer.isExpanded();
+                /*boolean expanded = customer.isExpanded();
                 customer.setExpanded(!expanded);
-                notifyItemChanged(position);
+                notifyItemChanged(position);*/
+
+                CustomerProfileFragment fragment = CustomerProfileFragment.newInstance(customer.getUser());
+                customer.getUser().setCurrentBusiness(currentUser.getCurrentBusiness());
+                Utility.nextFragment((FragmentActivity) activity, fragment);
+
             }
         });
     }

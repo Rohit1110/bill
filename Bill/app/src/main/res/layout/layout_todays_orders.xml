@@ -21,13 +21,18 @@
                 android:id="@+id/radio_order_type"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_margin="8dp"
+                android:layout_marginBottom="0dp"
+                android:gravity="center"    >
 
         <RadioButton
             android:id="@+id/radio_deliveries"
             style="@style/basic_sub_text_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="0dp"
             android:text="Deliveries"/>
 
         <RadioButton
@@ -35,10 +40,12 @@
             style="@style/basic_sub_text_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
             android:text="No Deliveries"/>
     </RadioGroup>
 
     <include
+        android:id="@+id/customer_orders_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/radio_order_type"
@@ -47,7 +54,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/radio_order_type"
+        android:layout_below="@id/customer_orders_line"
         android:fadeScrollbars="true"
         android:scrollbars="vertical"
         />

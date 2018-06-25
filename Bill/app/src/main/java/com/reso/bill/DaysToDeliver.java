@@ -4,7 +4,6 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -38,7 +37,7 @@ public class DaysToDeliver extends Fragment implements View.OnClickListener {
     private BillItem subscribedItem;
     private ProgressDialog pDialog;
     private Button save;
-    private TextView txtSelectedDays, customerName;
+    private TextView txtSelectedDays;
     private ImageView itemIcon;
     private Button saveDays;
 
@@ -76,7 +75,7 @@ public class DaysToDeliver extends Fragment implements View.OnClickListener {
         txtSelectedDays = (TextView) rootView.findViewById(R.id.txt_selected_days);
         saveDays = (Button) rootView.findViewById(R.id.fab_save_days);
 
-        customerName.setText(customer.getName());
+        //customerName.setText(customer.getName());
         Integer itemId = null;
         itemId = Utility.getRootItemId(subscribedItem);
         txtSelectedDays.setText("Days to deliver - ");

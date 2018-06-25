@@ -43,7 +43,7 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     class ViewHolder1 extends RecyclerView.ViewHolder {
         private EditText txtqty, txtAmount;
         private TextView txtpaper;
-        //private ImageView iv;
+        //private ImageView statusImg;
         //private TextView time, name;
         //View appointmentindicator;
 
@@ -52,7 +52,7 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             txtpaper = (TextView) itemView.findViewById(R.id.txt_paper);
             txtqty = (EditText) itemView.findViewById(R.id.txt_paperqty);
             txtAmount = (EditText) itemView.findViewById(R.id.txt_paperbill);
-            //iv = (ImageView) itemView.findViewById(R.id.edit_bill);
+            //statusImg = (ImageView) itemView.findViewById(R.id.edit_bill);
             /*txtqty.setFocusable(true);
             txtAmount.setFocusable(true);
             txtqty.setEnabled(false);

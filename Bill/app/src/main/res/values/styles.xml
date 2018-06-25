@@ -80,8 +80,9 @@
 
     <style name="regedittext">
         <item name="android:textColor">#FF343F4B</item>
-        <item name="android:textSize">13dp</item>
+        <item name="android:textSize">16dp</item>
         <item name="android:layout_marginLeft">@dimen/margin</item>
+        <item name="android:layout_marginBottom">15dp</item>
         <item name="android:singleLine">true</item>
 
         <!--<item name="android:lineSpacingMultiplier">0.32</item>-->

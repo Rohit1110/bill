@@ -3,7 +3,6 @@
     <item
         android:id="@+id/action_item1"
         android:title=""
-
         android:icon="@mipmap/list"/>
     <item
         android:id="@+id/action_item2"

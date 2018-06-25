@@ -39,11 +39,11 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:orientation="vertical">
 
 
-            <TextView
+            <!--<TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Select Year for Bill Details"
-                style="@style/basic_sub_text_field" />
+                style="@style/basic_sub_text_field" />-->
             <Spinner
                 android:id="@+id/spinner1"
                 android:layout_width="180dp"
@@ -51,6 +51,7 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_marginTop="13dp"
                 />
             </LinearLayout>
            <!-- <Button

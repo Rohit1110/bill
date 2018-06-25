@@ -39,7 +39,7 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     class ViewHolder1 extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView txtMonths, txtamount, txtstatus;
-        ImageView iv;
+        ImageView statusImg;
         //private TextView time, name;
         //View appointmentindicator;
 
@@ -48,7 +48,7 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             txtMonths = (TextView) itemView.findViewById(R.id.txt_months);
             txtamount = (TextView) itemView.findViewById(R.id.txt_amount);
             txtstatus = (TextView) itemView.findViewById(R.id.status);
-
+            statusImg = (ImageView) itemView.findViewById(R.id.status_img);
         }
 
         @Override
@@ -71,7 +71,6 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View item = inflater.inflate(R.layout.row_customer_bill_details, parent, false);
-
         return new ViewHolder1(item);
     }
 
@@ -84,6 +83,12 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             gholder.txtamount.setText("INR " + invoice.getAmount().toString());
         }
         gholder.txtstatus.setText(invoice.getStatus());
+        if(invoice.getStatus() != null && BillConstants.INVOICE_STATUS_PAID.equals(invoice.getStatus())) {
+            gholder.statusImg.setImageResource(R.drawable.ic_invoice_paid);
+        } else if (invoice.getStatus() != null && "Failed".equals(invoice.getStatus())) {
+            gholder.statusImg.setImageResource(R.drawable.ic_invoice_failed);
+        }
+
         gholder.bind(invoice);
 
     }

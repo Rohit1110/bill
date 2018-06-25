@@ -40,8 +40,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="31dp"
             android:layout_centerVertical="true"
+            android:layout_marginTop="2dp"
             android:layout_marginRight="31dp"
-            android:src="@drawable/pending" />
+            android:src="@drawable/ic_invoice_pending" />
 
 
 
@@ -55,8 +56,17 @@
         android:layout_marginEnd="20dp"
         android:layout_marginRight="19dp"
         android:layout_marginTop="3dp"
-        android:text="Rohit" />
+        android:text="Pending" />
+
+
     </LinearLayout>
+
+    <include
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_below="@id/txt_amount"
+        layout="@layout/layout_line" />
 
 </RelativeLayout>
 
