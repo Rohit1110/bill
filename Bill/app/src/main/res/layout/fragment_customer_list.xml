@@ -15,8 +15,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="right"
         android:background="@color/white">
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Search customer"
+            android:layout_gravity="left"
+            android:drawableRight="@android:drawable/ic_menu_search"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:background="@color/white">
         <Button
             android:id="@+id/fab_addcustomer"
             style="@style/basic_button"
@@ -25,7 +35,7 @@
             android:layout_margin="10dp"
             android:text="add"/>
 
-
+        </LinearLayout>
 
     </LinearLayout>
 
