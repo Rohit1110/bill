@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import adapters.CustomerListAdapter;
 import adapters.DeliveriesAdapter;
 import model.BillCustomer;
 import util.ServiceUtil;
@@ -36,6 +38,7 @@ import util.Utility;
 
 public class HomeFragment extends Fragment {
     private List<BillCustomer> orders = new ArrayList<>();
+    private List<BillCustomer> filterList= new ArrayList<>();
     private List<BillCustomer> noOrders = new ArrayList<>();
     private RecyclerView recyclerView;
     private DeliveriesAdapter adapter;
@@ -156,5 +159,61 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
+    public void filter(final String text) {
 
+        // Searching could be complex..so we will dispatch it to a different thread...
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    // Clear the filter list
+                    filterList.clear();
+
+                    // If there is no search value, then add all original list items to filter list
+                    if (TextUtils.isEmpty(text)) {
+
+                        /*hideicon = true;
+                        invalidateOptionsMenu();*/
+
+                        filterList.addAll(orders);
+
+
+                    } else {
+                        // Iterate in the original List and add it to filter list...
+                        for (BillCustomer item : orders) {
+                            if (item.getUser().getName().toLowerCase().contains(text.toLowerCase()) /*|| comparePhone(item, text)*/) {
+                                // Adding Matched items
+                                filterList.add(item);
+                            }
+
+                        }
+                    }
+
+                    // Set on UI Thread
+                    (getActivity()).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Notify the List that the DataSet has changed...
+                           /* adapter = new ContactListAdapter(SearchAppointmentActivity.this, filterList);
+                            RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(SearchAppointmentActivity.this, 1);
+                            recyclerView_contact.setLayoutManager(mLayoutManager);
+                            recyclerView_contact.setAdapter(adapter);*/
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            adapter = new DeliveriesAdapter(filterList, getActivity(), user);
+                            recyclerView.setAdapter(adapter);
+
+
+                        }
+                    });
+                } catch (Exception e) {
+                    System.out.println("Error in filter contacts");
+                    e.printStackTrace();
+                }
+
+
+            }
+        }).start();
+
+    }
 }

@@ -5,14 +5,19 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
 import android.text.Html;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.android.volley.RequestQueue;
@@ -25,6 +30,7 @@ import com.rns.web.billapp.service.domain.BillServiceResponse;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import adapters.CustomerListAdapter;
 import model.BillCustomer;
@@ -37,11 +43,13 @@ import util.Utility;
 
 public class CustomerList extends Fragment {
     private List<BillCustomer> list = new ArrayList<>();
+    private List<BillCustomer> filterList= new ArrayList<>();
     private RecyclerView recyclerView;
     private LinearLayout layout;
     private ProgressDialog pDialog;
     private BillUser user;
     private Button addcust;
+    EditText search;
 
     public static CustomerList newInstance() {
         CustomerList fragment = new CustomerList();
@@ -56,6 +64,7 @@ public class CustomerList extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_cust_list);
         addcust=(Button)rootView.findViewById(R.id.fab_addcustomer);
         //layout = (LinearLayout) rootView.findViewById(R.id.layout_add_cust);
+        search = ( EditText)rootView.findViewById(R.id.txt_search_cust);
         addcust.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -69,6 +78,26 @@ public class CustomerList extends Fragment {
             }
         });
         // getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+        search.addTextChangedListener(new TextWatcher() {
+                                          @Override
+                                          public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                          }
+
+                                          @Override
+                                          public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+
+                                              String text = search.getText().toString().toLowerCase(Locale.getDefault());
+
+                                              filter(text);
+                                          }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         return rootView;
     }
@@ -121,5 +150,60 @@ public class CustomerList extends Fragment {
         };
     }
 
+    public void filter(final String text) {
 
+        // Searching could be complex..so we will dispatch it to a different thread...
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    // Clear the filter list
+                    filterList.clear();
+
+                    // If there is no search value, then add all original list items to filter list
+                    if (TextUtils.isEmpty(text)) {
+
+                        /*hideicon = true;
+                        invalidateOptionsMenu();*/
+
+                        filterList.addAll(list);
+
+
+                    } else {
+                        // Iterate in the original List and add it to filter list...
+                        for (BillCustomer item : list) {
+                            if (item.getUser().getName().toLowerCase().contains(text.toLowerCase()) /*|| comparePhone(item, text)*/) {
+                                // Adding Matched items
+                                filterList.add(item);
+                            }
+
+                        }
+                    }
+
+                    // Set on UI Thread
+                    (getActivity()).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Notify the List that the DataSet has changed...
+                           /* adapter = new ContactListAdapter(SearchAppointmentActivity.this, filterList);
+                            RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(SearchAppointmentActivity.this, 1);
+                            recyclerView_contact.setLayoutManager(mLayoutManager);
+                            recyclerView_contact.setAdapter(adapter);*/
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            recyclerView.setAdapter(new CustomerListAdapter(filterList, getActivity(), user));
+
+
+                        }
+                    });
+                } catch (Exception e) {
+                    System.out.println("Error in filter contacts");
+                    e.printStackTrace();
+                }
+
+
+            }
+        }).start();
+
+    }
 }
