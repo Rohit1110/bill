@@ -63,7 +63,7 @@ public class ChangeQuantity extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_change_quantity, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Change Quantity</font>"));
+        getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Change Quantity</font>"));
 
         //customerName = (TextView) rootView.findViewById(R.id.txt_change_quantity_customer_name);
         subItemIcon = (ImageView) rootView.findViewById(R.id.img_change_quantity_sub_item);

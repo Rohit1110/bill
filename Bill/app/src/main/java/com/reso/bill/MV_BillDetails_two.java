@@ -37,7 +37,7 @@ public class MV_BillDetails_two extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_mv_bill_details_two, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Bill Details</font>"));
+        getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Bill Details</font>"));
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_bill_two);
         // getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         //Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);

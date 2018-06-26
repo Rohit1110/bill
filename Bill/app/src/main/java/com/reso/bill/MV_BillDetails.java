@@ -36,7 +36,7 @@ public class MV_BillDetails extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_mv_bill_details, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Bill Details111</font>"));
+        getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Bill Details111</font>"));
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_bill);
         monthspinner= (Spinner)rootView.findViewById(R.id.spinner_months);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,getResources().getStringArray(R.array.months_arrays));

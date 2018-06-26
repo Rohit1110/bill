@@ -64,7 +64,7 @@ public class FragmentInvoiceSummary extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_invoice_summary, container, false);
         date = new Date();
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Invoice Summary</font>"));
+        getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Invoice Summary</font>"));
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         /*deliveries = (RadioButton) rootView.findViewById(R.id.radio_deliveries);
 

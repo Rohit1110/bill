@@ -62,7 +62,7 @@ public class CustomerInfo extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.customer_info_main, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Add Customer</font>"));
+        getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Add Customer</font>"));
         //layout = (LinearLayout) rootView.findViewById(R.id.layout_subscriptions);
         fabsubscription = (Button) rootView.findViewById(R.id.fab_save_customer);
         fabsubscription.setOnClickListener(new View.OnClickListener() {

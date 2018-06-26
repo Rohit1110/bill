@@ -44,7 +44,7 @@ public class BankDetailsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_bank_details, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Bank Details</font>"));
+        getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Bank Details</font>"));
         fabsubscription = (Button) rootView.findViewById(R.id.fab_bank_details);
         fabsubscription.setOnClickListener(new View.OnClickListener() {
             @Override

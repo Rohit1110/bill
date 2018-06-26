@@ -70,7 +70,7 @@ public class FragmentCustomerInvoices extends Fragment {
         //Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.tabthree_toolbar);
        /* toolbar.setTitle("Title");
         toolbar.setNavigationIcon(R.mipmap.backarrow);*/
-        getActivity().setTitle(Html.fromHtml("<font color='#000000'>Bill by Year - " + customer.getName() + "</font>"));
+        getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Bill by Year - " + customer.getName() + "</font>"));
 
         //customerName = (TextView) rootView.findViewById(R.id.txt_customer_invoices_customer_name);
         addInvoice = (Button) rootView.findViewById(R.id.fab_add_invoice);
