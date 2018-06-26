@@ -1,6 +1,7 @@
 package com.reso.bill;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +9,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -35,8 +37,9 @@ public class CustomerProfileFragment extends Fragment {
     private RecyclerView recyclerView;
     private BillUser selectedCustomer;
     private TextView name, email, phone, address, billsDue, lastPaid;
-    private View manageSubscriptions;
+    private View manageSubscriptions,viewactivity;
     private TextView editProfile, billDetails;
+
 
     private List<ListThree> list = new ArrayList<>();
     private ProgressDialog pDialog;
@@ -91,6 +94,13 @@ public class CustomerProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Utility.nextFragment(getActivity(), FragmentCustomerInvoices.newInstance(selectedCustomer));
+            }
+        });
+        viewactivity= (View) rootView.findViewById(R.id.layout_profile_customer_activities);
+        viewactivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utility.nextFragment(getActivity(), ActivityScreen.newInstance());
             }
         });
 

@@ -15,7 +15,10 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.Spinner;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -26,6 +29,7 @@ import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import adapters.CustomerActivityAdapter;
 import adapters.CustomerListAdapter;
@@ -39,8 +43,13 @@ public class ActivityScreen extends Fragment {
     private ArrayList<BillCustomer> list;
     private BillUser user;
     private ProgressDialog pDialog;
+    RadioButton orders,holiday;
+    Spinner months,years;
 
-
+    public static ActivityScreen newInstance() {
+        ActivityScreen fragment = new ActivityScreen();
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -48,8 +57,40 @@ public class ActivityScreen extends Fragment {
         View rootView = inflater.inflate(R.layout.activity_screen, container, false);
         getActivity().setTitle(Html.fromHtml("<font color='#000000'>Customer Activity</font>"));
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_cust_list);
+        orders = (RadioButton)rootView.findViewById(R.id.radio_orders);
+        orders.setSelected(true);
+        orders.setChecked(true);
+        holiday = (RadioButton)rootView.findViewById(R.id.radio_holiday);
+        months=(Spinner)rootView.findViewById(R.id.spinner_month);
+        years = (Spinner)rootView.findViewById(R.id.spinner_year);
+        List<String> ylist = new ArrayList<String>();
+        ylist.add("2018");
+        ylist.add("2017");
+        ylist.add("2016");
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item,ylist);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        years.setAdapter(dataAdapter);
         //addcust=(Button)rootView.findViewById(R.id.fab_addcustomer);
         //layout = (LinearLayout) rootView.findViewById(R.id.layout_add_cust);
+        List<String> mlist = new ArrayList<String>();
+        mlist.add("Jan");
+        mlist.add("Feb");
+        mlist.add("Mar");
+        mlist.add("Apr");
+        mlist.add("Jun");
+        mlist.add("Jul");
+        mlist.add("Aug");
+        mlist.add("Sep");
+        mlist.add("Oct");
+        mlist.add("Nov");
+        mlist.add("Dec");
+
+
+
+        ArrayAdapter<String> adapter=new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, mlist);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        months.setAdapter(adapter);
+
         return rootView;
     }
 

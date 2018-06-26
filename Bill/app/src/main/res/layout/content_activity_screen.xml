@@ -13,22 +13,94 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/layout_add_cust2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="horizontal">
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:gravity="right"
-            android:background="@color/white">
-            <!--<Button
-                android:id="@+id/fab_addcustomer"
-                style="@style/basic_button"
+            android:background="@color/white"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textColor="@android:color/black"
+              android:layout_marginLeft="@dimen/fab_margin"
+              android:background="@color/white"
+              android:text="select year"/>
+            <Spinner
+                android:id="@+id/spinner_year"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_marginTop="13dp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_horizontal"
+
+            android:orientation="vertical">
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_gravity="top|right"
-                android:layout_margin="10dp"
-                android:text="add"/>
--->
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:textColor="@android:color/black"
+                android:background="@color/white"
+                android:text="select month"/>
+            <Spinner
+                android:id="@+id/spinner_month"
+                android:layout_width="100dp"
+
+                android:layout_height="wrap_content"
+                android:popupBackground="@color/white"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_marginTop="13dp"
+                />
+        </LinearLayout>
+
+
+
+
 
 
         </LinearLayout>
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/radio_order_type"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="0dp"
+        android:gravity="center"    >
+
+        <RadioButton
+            android:id="@+id/radio_orders"
+            style="@style/basic_sub_text_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:layout_marginBottom="0dp"
+            android:text="Deliveries"/>
+
+        <RadioButton
+            android:id="@+id/radio_holiday"
+            style="@style/basic_sub_text_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:text="No Deliveries"/>
+    </RadioGroup>
 
         <include
             android:layout_width="match_parent"
@@ -37,8 +109,8 @@
             android:layout_below="@id/layout_add_cust"
             layout="@layout/layout_line" />
 
-    </LinearLayout>
 
+</LinearLayout>
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_cust_list"
         android:layout_width="match_parent"
