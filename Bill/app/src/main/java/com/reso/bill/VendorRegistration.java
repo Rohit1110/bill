@@ -89,6 +89,13 @@ public class VendorRegistration extends AppCompatActivity {
                 }*/
                 if (!name.getText().toString().equals("") && !panNumber.getText().toString().equals("") && !aadharNumber.getText().toString().equals("") && !businessName.getText().toString().equals("")) {
                     if (Utility.isValidEmail(email.getText().toString())) {
+                        int selectedItemOfMySpinner = areas.getSelectedItemPosition();
+                        String actualPositionOfMySpinner = (String) areas.getItemAtPosition(selectedItemOfMySpinner);
+
+                        if (actualPositionOfMySpinner.isEmpty()) {
+                            Utility.createAlert(VendorRegistration.this, "Please select a location!", "Error");
+                            return;
+                        }
                         BillUser requestUser = new BillUser();
                         if (user != null) {
                             requestUser.setId(user.getId());
@@ -107,6 +114,7 @@ public class VendorRegistration extends AppCompatActivity {
                         business.setBusinessSector(ServiceUtil.NEWSPAPER_SECTOR);
                         requestUser.setCurrentBusiness(business);
                         saveUserInfo(requestUser);
+
                     } else {
                         Toast.makeText(VendorRegistration.this, "Enter valid emailid", Toast.LENGTH_LONG).show();
                     }

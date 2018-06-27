@@ -53,7 +53,8 @@ public class DaysToDeliver extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_days_todeliver, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Days To Deliver</font>"));
+        //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Days To Deliver</font>"));
+        Utility.AppBarTitle("Days To Deliver",getActivity());
         txtmon = (TextView) rootView.findViewById(R.id.txt_mon);
         txttue = (TextView) rootView.findViewById(R.id.txt_tue);
         txtwed = (TextView) rootView.findViewById(R.id.txt_wed);

@@ -63,7 +63,8 @@ public class AddSubcription extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_add_subcription, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Subscribed NewsPapers</font>"));
+        //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Subscribed NewsPapers</font>"));
+        Utility.AppBarTitle("Subscribed NewsPapers",getActivity());
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_newspaper_subcription);
 
         // getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);

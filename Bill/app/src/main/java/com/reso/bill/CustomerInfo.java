@@ -62,7 +62,8 @@ public class CustomerInfo extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.customer_info_main, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Add Customer</font>"));
+        //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Add Customer</font>"));
+        Utility.AppBarTitle("Add Customer",getActivity());
         //layout = (LinearLayout) rootView.findViewById(R.id.layout_subscriptions);
         fabsubscription = (Button) rootView.findViewById(R.id.fab_save_customer);
         fabsubscription.setOnClickListener(new View.OnClickListener() {
@@ -82,8 +83,29 @@ public class CustomerInfo extends Fragment {
                     email.setError("Please enter a valid email");
                     return;
                 }
+                if (name.getText().toString().equals("")) {
+                    name.setError("Please enter name");
+                    return;
+                }
+                if (address.getText().toString().equals("")){
+                    address.setError("Please enter address");
+                    return;
+                }
+                if (serviceCharge.getText().toString().equals("")) {
+                    serviceCharge.setError("Please enter serviceCharge");
+                    return;
+                }
+
+
                 if (!Utility.textViewFilled(contact) || contact.getText().toString().length() < 10) {
                     contact.setError("Please enter a valid mobile number");
+                    return;
+                }
+                int selectedItemOfMySpinner = areas.getSelectedItemPosition();
+                String actualPositionOfMySpinner = (String) areas.getItemAtPosition(selectedItemOfMySpinner);
+
+                if (actualPositionOfMySpinner.isEmpty()) {
+                    Utility.createAlert(getContext(), "Please select a location!", "Error");
                     return;
                 }
                 customer.setName(name.getText().toString());
@@ -92,10 +114,12 @@ public class CustomerInfo extends Fragment {
                 customer.setAddress(address.getText().toString());
                 subscription.setServiceCharge(Utility.getDecimal(serviceCharge));
 
-                if (areas.getSelectedItem() == null || areas.getSelectedItem().toString().trim().length() == 0) {
+
+
+               /* if (areas.getSelectedItem() == null || areas.getSelectedItem().toString().trim().length() == 0) {
                     Utility.createAlert(getContext(), "Please select a location!", "Error");
                     return;
-                }
+                }*/
                 subscription.setArea(findArea());
                 customer.setCurrentSubscription(subscription);
                 saveCustomer();

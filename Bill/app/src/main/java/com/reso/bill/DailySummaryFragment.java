@@ -55,7 +55,8 @@ public class DailySummaryFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_tab_two, container, false);
         date = new Date();
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_order);
-        getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Total Orders - " + CommonUtils.convertDate(date) + "</font>"));
+        //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Total Orders - " + CommonUtils.convertDate(date) + "</font>"));
+        Utility.AppBarTitle("Total Orders - "+CommonUtils.convertDate(date),getActivity());
         user = (BillUser) Utility.readObject(getContext(), Utility.USER_KEY);
         return rootView;
     }

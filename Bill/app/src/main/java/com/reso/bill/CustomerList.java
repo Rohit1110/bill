@@ -60,7 +60,8 @@ public class CustomerList extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.customer_list_main, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Customer List</font>"));
+        //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Customer List</font>"));
+        Utility.AppBarTitle("Customer List",getActivity());
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_cust_list);
         addcust=(Button)rootView.findViewById(R.id.fab_addcustomer);
         //layout = (LinearLayout) rootView.findViewById(R.id.layout_add_cust);

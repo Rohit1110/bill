@@ -18,6 +18,7 @@ import java.util.List;
 
 import adapters.BillDetailsAdapter;
 import model.Bill_details;
+import util.Utility;
 
 /**
  * Created by Rohit on 5/28/2018.
@@ -36,7 +37,8 @@ public class MV_BillDetails extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_mv_bill_details, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Bill Details111</font>"));
+        //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Bill Details111</font>"));
+        Utility.AppBarTitle("Bill Details "  ,getActivity());
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_bill);
         monthspinner= (Spinner)rootView.findViewById(R.id.spinner_months);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),android.R.layout.simple_spinner_dropdown_item,getResources().getStringArray(R.array.months_arrays));

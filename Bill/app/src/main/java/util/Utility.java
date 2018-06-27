@@ -17,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.ImageView;
@@ -86,7 +87,9 @@ public class Utility {
         }
         return new BigDecimal(textView.getText().toString());
     }
-
+    public static void AppBarTitle(String title , Activity context) {
+        context.setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >"+title +"</font>"));
+    }
 
     public static void saveFile(Context context, Bitmap b, String picName) throws IOException {
         FileOutputStream fos;

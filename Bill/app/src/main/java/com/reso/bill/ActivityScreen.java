@@ -55,7 +55,8 @@ public class ActivityScreen extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_screen, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Customer Activity</font>"));
+        //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Customer Activity</font>"));
+        Utility.AppBarTitle("Customer Activity",getActivity());
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_cust_list);
         orders = (RadioButton)rootView.findViewById(R.id.radio_orders);
         orders.setSelected(true);

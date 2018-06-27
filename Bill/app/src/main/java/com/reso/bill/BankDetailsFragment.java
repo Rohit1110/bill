@@ -44,7 +44,7 @@ public class BankDetailsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_bank_details, container, false);
-        getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Bank Details</font>"));
+        Utility.AppBarTitle("Bank Details",getActivity());
         fabsubscription = (Button) rootView.findViewById(R.id.fab_bank_details);
         fabsubscription.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,7 +60,7 @@ public class BankDetailsFragment extends Fragment {
                 if (user.getFinancialDetails() == null) {
                     user.setFinancialDetails(new BillFinancialDetails());
                 }
-                if (!bankName.getText().toString().equals("") && !accountNumber.getText().toString().equals("") && !address.getText().toString().equals("") && !ifscCode.getText().toString().equals("")) {
+                if (!bankName.getText().toString().equals("") && !accountNumber.getText().toString().equals("") && !address.getText().toString().equals("") && !ifscCode.getText().toString().equals("") && !accountHolder.getText().toString().equals("")) {
                     if(accountNumber.getText().toString().length() < 10){
                         accountNumber.setError("Enter valid A/C number");
                     } else if(ifscCode.getText().toString().length() < 11&& ifscCode.getText().toString().length() > 11){
@@ -74,6 +74,26 @@ public class BankDetailsFragment extends Fragment {
                         saveBankDetails();
 
                     }
+                }else{
+                    if (bankName.getText().toString().equals("")){
+                        bankName.setError("Enter bank name");
+                    }else
+                    if (accountNumber.getText().toString().equals("")){
+                        accountNumber.setError("Enter bank accountNumber");
+                    }else
+                    if (address.getText().toString().equals("")){
+                        address.setError("Enter bank address");
+                    } else
+                    if (ifscCode.getText().toString().equals("")){
+                        ifscCode.setError("Enter bank ifscCode");
+                    }else
+                    if (accountHolder.getText().toString().equals("")){
+                        accountHolder.setFocusable(true);
+                        accountHolder.setError("Enter accountHolder");
+                    }
+
+
+
                 }
 
             }
@@ -96,6 +116,8 @@ public class BankDetailsFragment extends Fragment {
 
         return rootView;
     }
+
+
 
     private void saveBankDetails() {
         BillServiceRequest request = new BillServiceRequest();

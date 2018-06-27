@@ -62,8 +62,8 @@ public class CustomerProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_customer_profile, container, false);
         //recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_bill_details);
-        getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Customer Profile</font>"));
-
+        //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Customer Profile</font>"));
+        Utility.AppBarTitle("Customer Profile",getActivity());
         name = (TextView) rootView.findViewById(R.id.txt_profile_customer_name);
         email = (TextView) rootView.findViewById(R.id.txt_profile_customer_email);
         phone = (TextView) rootView.findViewById(R.id.txt_profile_customer_phone);
