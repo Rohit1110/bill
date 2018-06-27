@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Bill</string>
+    <string name="app_name">PayPerBill</string>
 
     <string name="btn_login">LOGIN</string>
     <string name="hint_code_number">+91</string>
