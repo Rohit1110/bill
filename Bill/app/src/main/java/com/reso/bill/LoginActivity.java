@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -36,8 +35,7 @@ import util.Utility;
 import static android.view.View.VISIBLE;
 
 
-public class LoginActivity extends AppCompatActivity implements
-        View.OnClickListener {
+public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText mPhoneNumberField, mVerificationField;
     private TextView mCodeNumberField;
@@ -50,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private String mVerificationId;
     private LinearLayout layoutvarification;
-    private LinearLayout phoneAuth,layOutReg;
+    private LinearLayout phoneAuth, layOutReg;
 
     private static final String TAG = "PhoneAuthActivity";
 
@@ -75,20 +73,19 @@ public class LoginActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         mPhoneNumberField = (EditText) findViewById(R.id.field_phone_number);
         mVerificationField = (EditText) findViewById(R.id.field_verification_code);
-        mCodeNumberField=(TextView) findViewById(R.id.field_code_number);
+        mCodeNumberField = (TextView) findViewById(R.id.field_code_number);
 
 
         mStartButton = (Button) findViewById(R.id.button_start_verification);
         mVerifyButton = (Button) findViewById(R.id.button_verify_phone);
         mResendButton = (Button) findViewById(R.id.button_resend);
-        layoutvarification=(LinearLayout)findViewById(R.id.layoutvarification);
-        phoneAuth=(LinearLayout)findViewById(R.id.layoutauth);
+        layoutvarification = (LinearLayout) findViewById(R.id.layoutvarification);
+        phoneAuth = (LinearLayout) findViewById(R.id.layoutauth);
         //layOutReg=(LinearLayout)findViewById(R.id.reglayout);
 
         mStartButton.setOnClickListener(this);
         mVerifyButton.setOnClickListener(this);
         mResendButton.setOnClickListener(this);
-
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -116,8 +113,7 @@ public class LoginActivity extends AppCompatActivity implements
             }
 
             @Override
-            public void onCodeSent(String verificationId,
-                                   PhoneAuthProvider.ForceResendingToken token) {
+            public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken token) {
                 Log.d(TAG, "onCodeSent:" + verificationId);
                 proDialog.dismiss();
                 mVerificationId = verificationId;
@@ -132,38 +128,36 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = task.getResult().getUser();
-                            user.getPhoneNumber();
-                            Log.d("SSSS######", "Phome "+user.getPhoneNumber());
-                            SharedPreferences sp=getSharedPreferences("user",0);
-                            SharedPreferences.Editor edit=sp.edit();
+        mAuth.signInWithCredential(credential).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Log.d(TAG, "signInWithCredential:success");
+                    FirebaseUser user = task.getResult().getUser();
+                    user.getPhoneNumber();
+                    Log.d("SSSS######", "Phome " + user.getPhoneNumber());
+                    SharedPreferences sp = getSharedPreferences("user", 0);
+                    SharedPreferences.Editor edit = sp.edit();
 
-                            edit.putString("userphone",user.getPhoneNumber());
-                            edit.commit();
+                    edit.putString("userphone", user.getPhoneNumber());
+                    edit.commit();
 
-                            startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                            finish();
-                        } else {
-                            Log.w(TAG, "signInWithCredential:failure", task.getException());
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                mVerificationField.setError("Invalid code.");
-                            }
-                        }
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    finish();
+                } else {
+                    Log.w(TAG, "signInWithCredential:failure", task.getException());
+                    if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                        mVerificationField.setError("Invalid code.");
                     }
-                });
+                }
+            }
+        });
     }
 
 
     private void startPhoneNumberVerification(String phoneNumber) {
         //proDialog.dismiss();
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phoneNumber,        // Phone number to verify
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(phoneNumber,        // Phone number to verify
                 60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
@@ -177,10 +171,8 @@ public class LoginActivity extends AppCompatActivity implements
         signInWithPhoneAuthCredential(credential);
     }
 
-    private void resendVerificationCode(String phoneNumber,
-                                        PhoneAuthProvider.ForceResendingToken token) {
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phoneNumber,        // Phone number to verify
+    private void resendVerificationCode(String phoneNumber, PhoneAuthProvider.ForceResendingToken token) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(phoneNumber,        // Phone number to verify
                 60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
@@ -196,6 +188,7 @@ public class LoginActivity extends AppCompatActivity implements
         }
         return true;
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -211,14 +204,13 @@ public class LoginActivity extends AppCompatActivity implements
         switch (view.getId()) {
             case R.id.button_start_verification:
                 System.out.println("Login button clicked");
-                    proDialog = new ProgressDialog(LoginActivity.this);
-                    proDialog.setMessage("Signing in....");
-                    proDialog.setCancelable(false);
-                    proDialog.show();
-                if(Utility.isInternetOn(LoginActivity.this)) {
+                proDialog = new ProgressDialog(LoginActivity.this);
+                proDialog.setMessage("Signing in....");
+                proDialog.setCancelable(false);
+                proDialog.show();
+                if (Utility.isInternetOn(LoginActivity.this)) {
                     phoneAuth.setVisibility(View.GONE);
                     mStartButton.setVisibility(View.GONE);
-                    //layOutReg.setVisibility(View.GONE);
                     layoutvarification.setVisibility(view.VISIBLE);
 
                     if (!validatePhoneNumber()) {
@@ -230,9 +222,9 @@ public class LoginActivity extends AppCompatActivity implements
                         return;
                     }
                     startPhoneNumberVerification(mCodeNumberField.getText().toString() + mPhoneNumberField.getText().toString());
-                }else{
+                } else {
                     proDialog.dismiss();
-                    Toast.makeText(LoginActivity.this,"Check Internet Connection..!!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this, "Check Internet Connection..!!", Toast.LENGTH_LONG).show();
                 }
 
 
