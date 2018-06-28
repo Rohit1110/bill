@@ -87,7 +87,7 @@ public class FragmentEditInvoice extends Fragment {
         monthspinner.setAdapter(adapter);
 
         yearsSpinner = (Spinner) rootView.findViewById(R.id.spn_year);
-        Utility.createYearsArray();
+        yearsList = Utility.createYearsArray();
         yearsSpinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.spinner_basic_text_white, yearsList));
 
         /*btnpay.setOnClickListener(new View.OnClickListener() {
