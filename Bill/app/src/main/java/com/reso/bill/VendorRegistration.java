@@ -48,6 +48,7 @@ public class VendorRegistration extends AppCompatActivity {
     private File selectedFile;
     String identy;
     private BillUser user;
+    private EditText businessLicense;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +111,7 @@ public class VendorRegistration extends AppCompatActivity {
                             business.setId(user.getCurrentBusiness().getId());
                         }
                         business.setName(businessName.getText().toString());
+                        business.setIdentificationNumber(businessLicense.getText().toString());
                         business.setBusinessLocations(areas.selectedLocations());
                         business.setBusinessSector(ServiceUtil.NEWSPAPER_SECTOR);
                         requestUser.setCurrentBusiness(business);
@@ -131,7 +133,7 @@ public class VendorRegistration extends AppCompatActivity {
         phone = (EditText) findViewById(R.id.et_phone);
         email = (EditText) findViewById(R.id.et_email);
         businessName = (EditText) findViewById(R.id.et_business_name);
-
+        businessLicense = (EditText) findViewById(R.id.et_business_license);
         phone.setText(FirebaseUtil.getPhone());
         phone.setEnabled(false);
 

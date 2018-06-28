@@ -143,6 +143,23 @@
                     android:layout_height="wrap_content"
                     android:textSize="13sp"
                     android:layout_marginLeft="10dp"
+                    android:text="Business license"/>
+
+                <EditText
+                    android:id="@+id/et_business_license"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter Business License number"
+                    android:layout_marginRight="10dp"
+                    />
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:layout_marginLeft="10dp"
                     android:text="Locations"/>
 
                 <!--<Spinner
