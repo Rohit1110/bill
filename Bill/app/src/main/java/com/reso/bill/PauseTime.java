@@ -77,8 +77,8 @@ public class PauseTime extends Fragment {
         int yy = calendar.get(Calendar.YEAR);
         int mm = calendar.get(Calendar.MONTH);
         int dd = calendar.get(Calendar.DAY_OF_MONTH);
-            //txtfromdate.setText(yy+"-"+mm+"-"+(dd+1));
-        txtfromdate.setText((dd+1)+"-"+mm+"-"+yy);
+            txtfromdate.setText(yy+"-"+mm+"-"+(dd+1));
+        //txtfromdate.setText((dd+1)+"-"+mm+"-"+yy);
 
         txtfromdate.setOnClickListener(new View.OnClickListener() {
             @Override

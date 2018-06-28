@@ -175,6 +175,7 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin"
                     android:layout_marginRight="10dp"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
                     />
 
                 <include

@@ -43,17 +43,16 @@
 
             <Spinner
                 android:id="@+id/spn_months"
-                style="@style/basic_sub_text_field"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"
-
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 />
 
 
             <Spinner
                 android:id="@+id/spn_year"
-                style="@style/basic_sub_text_field"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="15dp"

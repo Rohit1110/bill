@@ -39,7 +39,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="@dimen/fab_margin"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="3dp"
                 style="@style/Widget.AppCompat.Spinner.Underlined"
                 />
         </LinearLayout>
@@ -65,7 +65,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="@dimen/fab_margin"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="3dp"
                 style="@style/Widget.AppCompat.Spinner.Underlined"
                 />
         </LinearLayout>
@@ -81,6 +81,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_below="@id/layout_add_cust"
+
             layout="@layout/layout_line" />
 
     <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
