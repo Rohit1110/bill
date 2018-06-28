@@ -199,6 +199,7 @@ public class VendorRegistration extends AppCompatActivity {
             panNumber.setText(user.getPanDetails());
             if (user.getCurrentBusiness() != null) {
                 businessName.setText(user.getCurrentBusiness().getName());
+                businessLicense.setText(user.getCurrentBusiness().getIdentificationNumber());
             }
         }
 
