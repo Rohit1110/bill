@@ -151,7 +151,7 @@
                 android:layout_toRightOf="@+id/txt_newspaperqty"
                 android:id="@+id/img_paus"
 
-                android:src="@android:drawable/ic_media_pause"
+                android:src="@drawable/ic_pause_delivery"
 
                 />
             <ImageView

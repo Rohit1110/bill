@@ -105,10 +105,10 @@
 
                 <Spinner
                     android:id="@+id/sp_customer_area"
-                    style="@style/regedittext"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
                     />
 
                 <TextView

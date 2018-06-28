@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.ParseException;
@@ -25,7 +26,7 @@ import util.Utility;
 
 public class DisContinue extends Fragment {
 
-    private TextView txtfromdate;
+    private EditText txtfromdate;
 
     public static DisContinue newInstance() {
         DisContinue fragment = new DisContinue();
@@ -39,7 +40,9 @@ public class DisContinue extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_discontinue, container, false);
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Discontinue Times of India</font>"));
         Utility.AppBarTitle("Discontinue Times of India",getActivity());
-        txtfromdate = (TextView) rootView.findViewById(R.id.txt_from_date);
+        txtfromdate = (EditText) rootView.findViewById(R.id.txt_from_date);
+        txtfromdate.setFocusable(false);
+        txtfromdate.setClickable(true);
         txtfromdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

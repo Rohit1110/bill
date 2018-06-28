@@ -52,6 +52,7 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_centerHorizontal="true"
                 android:layout_marginLeft="@dimen/fab_margin"
                 android:layout_marginTop="13dp"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 />
             </LinearLayout>
            <!-- <Button

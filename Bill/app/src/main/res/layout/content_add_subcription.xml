@@ -147,6 +147,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="@dimen/fab_margin"
+           style="@style/Widget.AppCompat.Spinner.Underlined"
 
             />
         <LinearLayout
@@ -163,21 +164,25 @@
             android:text="add" />
 
         </LinearLayout>
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@id/layout_add_cust"
-            layout="@layout/layout_line" />
+
 
 
     </LinearLayout>
+
+
     <LinearLayout
         android:id="@+id/layout_addnewspaper_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_below="@+id/layout_addnewspaper">
+        <include
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/layout_addnewspaper"
+            layout="@layout/layout_line" />
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"

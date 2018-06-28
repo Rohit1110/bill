@@ -45,6 +45,7 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     <style name="MyActionBar" parent="@style/Widget.AppCompat.ActionBar.Solid">
@@ -159,6 +160,7 @@
 
     </style>
 
+
     <style name="paystatus">
         <item name="android:textColor">#FF000000</item>
         <item name="android:textSize">25sp</item>
@@ -220,10 +222,17 @@
 
     </style>
 
-    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+    <style name="mySpinnerItemStyle" parent="@android:style/Widget.Holo.Light.DropDownItem.Spinner">
         <item name="android:background">@android:color/white</item>
         <item name="android:textColor">@color/colorAccent</item>
 
+
+
+
+
     </style>
+
+
+
 
 </resources>

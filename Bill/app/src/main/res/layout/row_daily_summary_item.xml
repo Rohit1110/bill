@@ -34,6 +34,11 @@
 
 
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
 
 
         <TextView
@@ -41,12 +46,20 @@
             style="@style/basic_sub_text_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="20dp"
             android:singleLine="true"
             android:text="255"
             android:textSize="16dp"
             />
+            <TextView
+                android:id="@+id/txt_daily_pcs"
+                style="@style/basic_sub_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="pcs"
+                android:textSize="16dp"
+                />
+        </LinearLayout>
     </LinearLayout>
 
     <include

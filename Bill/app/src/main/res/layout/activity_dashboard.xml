@@ -22,20 +22,24 @@
         android:id="@+id/layout_bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
 
         <include layout="@layout/app_bar_main" />
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"
+            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:foregroundGravity="center_vertical"
+             android:foregroundGravity="center_vertical"
             android:background="#DCDCDC"
+            android:layout_centerVertical="true"
             app:menu="@menu/botton_navigation_items" />
+        <!--  android:layout_width="match_parent"
+            android:layout_height="56dp"
+             android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"-->
 
     </RelativeLayout>
 

@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:title="        "
         android:id="@+id/action_item1"
-        android:title=""
+
         android:icon="@mipmap/list"/>
     <item
+        android:title="         "
         android:id="@+id/action_item2"
-        android:title=""
+
         android:icon="@mipmap/cart"
         />
     <!--android:icon="@drawable/ic_account_circle_black_24dp"-->
     <item
+        android:title="        "
         android:id="@+id/action_item3"
-        android:title=""
-        android:icon="@drawable/wallet_icon"/>
+
+        android:icon="@drawable/ic_wallet_icon"/>
 </menu>

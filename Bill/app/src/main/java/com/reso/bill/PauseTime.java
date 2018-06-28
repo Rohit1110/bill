@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -43,7 +44,7 @@ import util.Utility;
  */
 
 public class PauseTime extends Fragment {
-    private TextView txtfromdate, txttodate, txtselectdate, customerName;
+    private EditText txtfromdate, txttodate, txtselectdate, customerName;
     private ImageView itemIcon;
     private BillUser customer;
     private BillItem subscribedItem;
@@ -65,13 +66,19 @@ public class PauseTime extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_pause_time, container, false);
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Pause Times of India</font>"));
         Utility.AppBarTitle("Pause Times of India "  ,getActivity());
-        txtfromdate = (TextView) rootView.findViewById(R.id.txt_from_date);
-        txttodate = (TextView) rootView.findViewById(R.id.txt_to_date);
+        txtfromdate = (EditText) rootView.findViewById(R.id.txt_from_date);
+        txttodate = (EditText) rootView.findViewById(R.id.txt_to_date);
+        txtfromdate.setFocusable(false);
+        txttodate.setFocusable(false);
+     txtfromdate.setClickable(true);
+        txttodate.setClickable(true);
+
         final Calendar calendar = Calendar.getInstance();
         int yy = calendar.get(Calendar.YEAR);
         int mm = calendar.get(Calendar.MONTH);
         int dd = calendar.get(Calendar.DAY_OF_MONTH);
-            txtfromdate.setText(yy+"-"+mm+"-"+(dd+1));
+            //txtfromdate.setText(yy+"-"+mm+"-"+(dd+1));
+        txtfromdate.setText((dd+1)+"-"+mm+"-"+yy);
 
         txtfromdate.setOnClickListener(new View.OnClickListener() {
             @Override

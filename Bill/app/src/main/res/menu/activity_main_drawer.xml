@@ -5,10 +5,7 @@
     >
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_profile"
-            android:title="Profile"
-            />
+
         <item
             android:id="@+id/nav_myorder"
             android:title="Customers"
@@ -36,6 +33,10 @@
     <hr></hr>
     <item android:title="">
         <menu>
+            <item
+                android:id="@+id/nav_profile"
+                android:title="Profile"
+                />
             <item
                 android:id="@+id/nav_settings"
 

@@ -65,7 +65,7 @@ public class FragmentInvoiceSummary extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_invoice_summary, container, false);
         date = new Date();
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Invoice Summary</font>"));
-        Utility.AppBarTitle("Invoice Summary" ,getActivity());
+        Utility.AppBarTitle("Pending Invoices" ,getActivity());
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         /*deliveries = (RadioButton) rootView.findViewById(R.id.radio_deliveries);
 

@@ -98,6 +98,11 @@
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:text="Bill Amount"/>
+            <TextView
+                style="@style/basic_sub_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INR"/>
 
             <EditText
                 android:id="@+id/et_bill_details_amount"
@@ -105,7 +110,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                android:layout_weight="0.2"
+                android:layout_weight="0.5"
                 android:text="0.00"
 
                 />
@@ -124,6 +129,11 @@
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:text="Service charge"/>
+            <TextView
+                style="@style/basic_sub_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INR"/>
 
             <EditText
                 android:id="@+id/et_bill_details_service_charge"
@@ -149,6 +159,11 @@
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:text="Pending Amount"/>
+            <TextView
+            style="@style/basic_sub_text_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="INR"/>
 
             <EditText
                 android:id="@+id/et_bill_details_pending_amount"
@@ -174,6 +189,11 @@
                 android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:text="Credit Amount"/>
+            <TextView
+                style="@style/basic_sub_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INR"/>
 
             <EditText
                 android:id="@+id/et_bill_details_credit_amount"
@@ -201,21 +221,27 @@
             >
 
 
-
+            <TextView
+                style="@style/basic_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INR"/>
             <TextView
                 android:id="@+id/txt_invoice_payable"
                 style="@style/basic_text_field"
-                android:layout_width="220dp"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:text="INR 0.00"/>
+                android:text="0.00"/>
+
 
             <Spinner
                 android:id="@+id/spn_invoice_status"
-                android:layout_width="wrap_content"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="0.2"
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 />
 
 

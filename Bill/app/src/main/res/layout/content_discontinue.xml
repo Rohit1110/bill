@@ -40,13 +40,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="from"
+
             android:layout_marginLeft="@dimen/fab_margin"
             style="@style/basic_sub_text_field"/>
-        <TextView
+        <EditText
             android:id="@+id/txt_from_date"
             android:layout_marginLeft="@dimen/fab_margin"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/basic_text_field"
+            android:editable="false"
             android:text="Select date"/>
 
         <TextView
