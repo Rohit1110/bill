@@ -40,6 +40,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -87,8 +88,9 @@ public class Utility {
         }
         return new BigDecimal(textView.getText().toString());
     }
-    public static void AppBarTitle(String title , Activity context) {
-        context.setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >"+title +"</font>"));
+
+    public static void AppBarTitle(String title, Activity context) {
+        context.setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >" + title + "</font>"));
     }
 
     public static void saveFile(Context context, Bitmap b, String picName) throws IOException {
@@ -313,5 +315,19 @@ public class Utility {
         return result;
     }
 
+    public static List<String> createYearsArray() {
+        //+- 2 years
+        List<String> list = new ArrayList<>();
+        Calendar cal = Calendar.getInstance();
+        list = new ArrayList<>();
+        cal.add(Calendar.YEAR, -1);
+        list.add(String.valueOf(cal.get(Calendar.YEAR)));
+        cal.add(Calendar.YEAR, -1);
+        list.add(String.valueOf(cal.get(Calendar.YEAR)));
+        cal.add(Calendar.YEAR, 2);
+        list.add(String.valueOf(cal.get(Calendar.YEAR)));
+        return list;
+
+    }
 
 }

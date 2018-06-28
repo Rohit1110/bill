@@ -1,15 +1,12 @@
 package com.reso.bill;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -100,7 +97,7 @@ public class CustomerProfileFragment extends Fragment {
         viewactivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.nextFragment(getActivity(), ActivityScreen.newInstance());
+                Utility.nextFragment(getActivity(), ActivityScreen.newInstance(selectedCustomer));
             }
         });
 

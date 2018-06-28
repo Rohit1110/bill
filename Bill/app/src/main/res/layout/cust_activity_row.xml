@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="@color/white">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:orientation="vertical">
 
     <TextView
         android:id="@+id/txt_order_customer_name"
@@ -13,62 +13,29 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/lato"
         android:text="Ajinkya Kulkarni"/>
+
     <LinearLayout
+        style="@style/rownamesubtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/rownamesubtitle"
         android:orientation="horizontal">
+
         <TextView
+            android:id="@+id/txt_customer_row_item_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/txt_customer_row_item_name"
-            android:textColor="#969FAA"
-            android:text="Sakal: 1"/>
+            android:text="Sakal: 1"
+            android:textColor="#969FAA"/>
 
 
     </LinearLayout>
+
     <include
+        layout="@layout/layout_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_below="@id/layout_add_cust"
-        layout="@layout/layout_line" />
-
-   <!-- <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginTop="@dimen/fab_margin"
-        android:layout_marginLeft="@dimen/fab_margin"
-        android:layout_marginRight="@dimen/fab_margin"
-        android:background="#7E55F3" />-->
-    <LinearLayout
-        android:id="@+id/customer_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFDCDCDC"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/txt_order_customer_address"
-            style="@style/basic_sub_text_field"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:layout_weight="0.5"
-            tools:text="Pune" />
-
-        <TextView
-            android:id="@+id/btn_order_view_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_margin="@dimen/fab_margin"
-            style="@style/basic_text_button"
-            android:text="View Profile" />
-
-
-    </LinearLayout>
-
+        android:layout_below="@id/layout_add_cust"/>
 
 
 </LinearLayout>

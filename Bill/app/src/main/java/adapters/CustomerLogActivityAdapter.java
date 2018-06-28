@@ -73,20 +73,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.reso.bill.R;
-import com.rns.web.billapp.service.bo.domain.BillOrder;
 import com.rns.web.billapp.service.bo.domain.BillUserLog;
+import com.rns.web.billapp.service.util.CommonUtils;
 
 import java.util.List;
 
-import util.Utility;
+public class CustomerLogActivityAdapter extends RecyclerView.Adapter<CustomerLogActivityAdapter.RecViewHolder> {
 
-public class CustomerActivityAdapter extends RecyclerView.Adapter<CustomerActivityAdapter.RecViewHolder> {
-
-    private List<BillOrder> list;
     private FragmentActivity context;
-    private List<BillUserLog> logs;
+    private List<BillUserLog> list;
 
-    public CustomerActivityAdapter(List<BillOrder> list, FragmentActivity context) {
+    public CustomerLogActivityAdapter(List<BillUserLog> list, FragmentActivity context) {
         this.list = list;
         this.context = context;
         //this.logs = logs;
@@ -100,7 +97,7 @@ public class CustomerActivityAdapter extends RecyclerView.Adapter<CustomerActivi
 
     @Override
     public void onBindViewHolder(RecViewHolder holder, final int position) {
-        final BillOrder movie = list.get(position);
+        final BillUserLog movie = list.get(position);
 
         holder.bind(movie);
 
@@ -137,14 +134,12 @@ public class CustomerActivityAdapter extends RecyclerView.Adapter<CustomerActivi
 
         }
 
-        private void bind(final BillOrder order) {
+        private void bind(final BillUserLog log) {
 
-            txtName.setText(order.getOrderDateString());
+            txtName.setText(CommonUtils.convertDate(log.getFromDate(), "MMM dd") + " to " + CommonUtils.convertDate(log.getToDate(), "MMM dd") );
             txtItemName.setText("");
-            if (order.getItems() != null && order.getItems().size() > 0) {
-                txtItemName.setText(Utility.getCustomerItemString(order.getItems()));
-            } else {
-                txtItemName.setText("No subscriptions");
+            if (log.getItem() != null) {
+                txtItemName.setText(log.getItem().getName());
             }
 
         }

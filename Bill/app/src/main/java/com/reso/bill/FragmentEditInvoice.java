@@ -36,7 +36,6 @@ import com.rns.web.billapp.service.domain.BillServiceResponse;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
 import java.util.List;
 
 import adapters.BillDetailsEditAdapter;
@@ -88,7 +87,7 @@ public class FragmentEditInvoice extends Fragment {
         monthspinner.setAdapter(adapter);
 
         yearsSpinner = (Spinner) rootView.findViewById(R.id.spn_year);
-        createYearsArray();
+        Utility.createYearsArray();
         yearsSpinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.spinner_basic_text_white, yearsList));
 
         /*btnpay.setOnClickListener(new View.OnClickListener() {
@@ -328,22 +327,6 @@ public class FragmentEditInvoice extends Fragment {
         return null;
     }
 
-    private void createYearsArray() {
-        //+- 2 years
-        Calendar cal = Calendar.getInstance();
-        yearsList = new ArrayList<>();
-        cal.add(Calendar.YEAR, -1);
-        yearsList.add(String.valueOf(cal.get(Calendar.YEAR)));
-        cal.add(Calendar.YEAR, -1);
-        yearsList.add(String.valueOf(cal.get(Calendar.YEAR)));
-        cal.add(Calendar.YEAR, 2);
-        yearsList.add(String.valueOf(cal.get(Calendar.YEAR)));
-        /*cal.add(Calendar.YEAR, 1);
-        yearsList.add(String.valueOf(cal.get(Calendar.YEAR)));
-        cal.add(Calendar.YEAR, 1);
-        yearsList.add(String.valueOf(cal.get(Calendar.YEAR)));*/
-
-    }
 
     private List<BillItem> getInvoiceItems() {
         List<BillItem> invoiceItems = new ArrayList<>();
