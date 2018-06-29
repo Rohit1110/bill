@@ -132,7 +132,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_gravity="center_vertical"
             android:layout_toRightOf="@+id/img_daily_summary_item_icon">
 
@@ -166,10 +166,12 @@
             <TextView
                 android:id="@+id/txt_weekdays"
                 style="@style/basic_sub_text_field"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
                 android:text="mo|tu|we|th|fr|sa|su|"
-                android:layout_below="@+id/img_cross"/>
+                android:layout_below="@+id/txt_newspaperqty"/>
         </RelativeLayout>
 
 

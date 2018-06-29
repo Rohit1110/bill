@@ -12,9 +12,9 @@ public class FirebaseUtil {
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             return FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
         }
-        //return  null;
+        return  null;
         //return "9923283604";
-        return "9423040642";
+        //return "9423040642";
         //return "+919623736773";
     }
 

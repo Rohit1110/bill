@@ -35,7 +35,17 @@
              android:foregroundGravity="center_vertical"
             android:background="#DCDCDC"
             android:layout_centerVertical="true"
-            app:menu="@menu/botton_navigation_items" />
+            app:menu="@menu/navigation" />
+      <!--  <android.support.design.widget.BottomNavigationView
+            android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+           android:layout_alignParentBottom="true"
+            android:background="?android:attr/windowBackground"
+            android:foreground="?attr/selectableItemBackground"
+            app:itemIconTint="@android:color/white"
+            app:itemTextColor="@android:color/white"
+            app:menu="@menu/navigation" />-->
         <!--  android:layout_width="match_parent"
             android:layout_height="56dp"
              android:layout_alignParentLeft="true"

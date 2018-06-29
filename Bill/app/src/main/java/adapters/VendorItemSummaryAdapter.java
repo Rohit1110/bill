@@ -63,7 +63,9 @@ public class VendorItemSummaryAdapter extends RecyclerView.Adapter<RecyclerView.
         }
         Picasso.get().load(Utility.getItemImageURL(itemId)).into(gholder.newspaperimg);
         if (item.getQuantity() != null) {
-            gholder.txtpcs.setText(item.getQuantity().toString());
+            String qty = item.getQuantity().toBigInteger().toString();
+            //gholder.txtpcs.setText(item.getQuantity().toString());
+            gholder.txtpcs.setText(qty);
         }
 
         String name = item.getName();
