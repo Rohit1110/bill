@@ -122,6 +122,9 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                 Intent i = new Intent(Dashboard.this, VendorRegistration.class);
                 startActivity(i);
                 break;
+            case R.id.nav_settings:
+                fragment = new DatePikerActivity();
+                break;
 
 
 
