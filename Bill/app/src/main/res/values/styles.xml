@@ -18,6 +18,13 @@
         <item name="android:windowDrawsSystemBarBackgrounds">false</item>
         <item name="android:fontFamily">@font/lato</item>
         <item name="android:spinnerDropDownItemStyle">@style/mySpinnerItemStyle</item>
+
+    </style>
+
+    <style name="App_EditTextStyle" parent="@android:style/Widget.EditText">
+
+        <item name="android:textColor">@android:color/black</item>
+
     </style>
 
     <style name="MooSpinnerItem" parent="android:Widget.TextView.SpinnerItem">

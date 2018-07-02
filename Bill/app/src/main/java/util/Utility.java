@@ -17,6 +17,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
@@ -42,6 +43,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import adapters.CustomerListAdapter;
+import model.BillCustomer;
 
 /**
  * Created by Rohit on 11/27/2017.
@@ -329,5 +333,64 @@ public class Utility {
         return list;
 
     }
+
+
+
+   /* public static void filter(final String text,Activity activity) {
+
+        // Searching could be complex..so we will dispatch it to a different thread...
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    // Clear the filter list
+                    filterList.clear();
+
+                    // If there is no search value, then add all original list items to filter list
+                    if (TextUtils.isEmpty(text)) {
+
+                        *//*hideicon = true;
+                        invalidateOptionsMenu();*//*
+
+                        filterList.addAll(list);
+
+
+                    } else {
+                        // Iterate in the original List and add it to filter list...
+                        for (BillCustomer item : list) {
+                            if (item.getUser().getName().toLowerCase().contains(text.toLowerCase()) *//*|| comparePhone(item, text)*//*) {
+                                // Adding Matched items
+                                filterList.add(item);
+                            }
+
+                        }
+                    }
+
+                    // Set on UI Thread
+                    (activity).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Notify the List that the DataSet has changed...
+                           *//* adapter = new ContactListAdapter(SearchAppointmentActivity.this, filterList);
+                            RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(SearchAppointmentActivity.this, 1);
+                            recyclerView_contact.setLayoutManager(mLayoutManager);
+                            recyclerView_contact.setAdapter(adapter);*//*
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            recyclerView.setAdapter(new CustomerListAdapter(filterList, getActivity(), user));
+
+
+                        }
+                    });
+                } catch (Exception e) {
+                    System.out.println("Error in filter contacts");
+                    e.printStackTrace();
+                }
+
+
+            }
+        }).start();
+
+    }*/
 
 }
