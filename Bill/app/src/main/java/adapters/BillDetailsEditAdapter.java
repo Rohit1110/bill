@@ -59,7 +59,6 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             txtAmount.setEnabled(false);*/
             txtqty.setText("0");
             txtAmount.setText("0");
-            txtAmount.addTextChangedListener(watcher);
         }
 
 
@@ -83,6 +82,7 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         }
         if (item.getPrice() != null) {
             gholder.txtAmount.setText(item.getPrice().toString());
+            gholder.txtAmount.addTextChangedListener(watcher);
         }
 
 

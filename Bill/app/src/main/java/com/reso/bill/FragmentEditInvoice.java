@@ -77,7 +77,7 @@ public class FragmentEditInvoice extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_mv_bill_details_edit, container, false);
         getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Bill Details</font>"));
-        Utility.AppBarTitle("Bill Details" ,getActivity());
+        Utility.AppBarTitle("Bill Details", getActivity());
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_bill_two);
         //btnpay = (Button) rootView.findViewById(R.id.btn_pay);
 
@@ -102,22 +102,9 @@ public class FragmentEditInvoice extends Fragment {
 
         amount = (EditText) rootView.findViewById(R.id.et_bill_details_amount);
         amount.setEnabled(true);
-        amount.addTextChangedListener(watcher);
-
-
-        if (invoice.getAmount() != null) {
-            amount.setText(invoice.getAmount().toString());
-        }
 
         serviceCharge = (EditText) rootView.findViewById(R.id.et_bill_details_service_charge);
         serviceCharge.setEnabled(true);
-        serviceCharge.addTextChangedListener(watcher);
-
-        if (invoice.getServiceCharge() != null) {
-            serviceCharge.setText(invoice.getServiceCharge().toString());
-        } else if (customer.getServiceCharge() != null) {
-            serviceCharge.setText(customer.getServiceCharge().toString());
-        }
 
         save = (Button) rootView.findViewById(R.id.fab_save_invoice);
         save.setOnClickListener(new View.OnClickListener() {
@@ -137,18 +124,39 @@ public class FragmentEditInvoice extends Fragment {
 
         vendor = (BillUser) Utility.readObject(getContext(), Utility.USER_KEY);
 
-        if (invoice.getYear() != null) {
-            yearsSpinner.setSelection(yearsList.indexOf(invoice.getYear().toString()));
-            yearsSpinner.setEnabled(false);
-        }
-        if (invoice.getMonth() != null) {
-            monthspinner.setSelection(invoice.getMonth() - 1);
-            monthspinner.setEnabled(false);
-        }
-
         invoiceStatusSpinner = (Spinner) rootView.findViewById(R.id.spn_invoice_status);
         prepareStatuses();
         invoiceStatusSpinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.spinner_basic_text, statusList));
+
+        credit = (EditText) rootView.findViewById(R.id.et_bill_details_credit_amount);
+        pending = (EditText) rootView.findViewById(R.id.et_bill_details_pending_amount);
+
+
+        //populateData();
+
+        return rootView;
+    }
+
+    private void populateData() {
+        if (invoice.getAmount() != null) {
+            amount.setText(invoice.getAmount().toString());
+        }
+
+        if (invoice.getServiceCharge() != null) {
+            serviceCharge.setText(invoice.getServiceCharge().toString());
+        } else if (customer.getServiceCharge() != null) {
+            serviceCharge.setText(customer.getServiceCharge().toString());
+        }
+
+
+        if (invoice.getCreditBalance() != null) {
+            credit.setText(invoice.getCreditBalance().toString());
+        }
+        if (invoice.getPendingBalance() != null) {
+            pending.setText(invoice.getPendingBalance().toString());
+        }
+
+
         if (invoice.getStatus() != null) {
             int position = statusList.indexOf(invoice.getStatus());
             if (position < 0) {
@@ -158,16 +166,14 @@ public class FragmentEditInvoice extends Fragment {
             }
         }
 
-        credit = (EditText) rootView.findViewById(R.id.et_bill_details_credit_amount);
-        credit.addTextChangedListener(watcher);
-        pending = (EditText) rootView.findViewById(R.id.et_bill_details_pending_amount);
-        pending.addTextChangedListener(watcher);
 
-        if (invoice.getCreditBalance() != null) {
-            credit.setText(invoice.getCreditBalance().toString());
+        if (invoice.getYear() != null) {
+            yearsSpinner.setSelection(yearsList.indexOf(invoice.getYear().toString()));
+            yearsSpinner.setEnabled(false);
         }
-        if (invoice.getPendingBalance() != null) {
-            pending.setText(invoice.getPendingBalance().toString());
+        if (invoice.getMonth() != null) {
+            monthspinner.setSelection(invoice.getMonth() - 1);
+            monthspinner.setEnabled(false);
         }
 
 
@@ -178,7 +184,15 @@ public class FragmentEditInvoice extends Fragment {
             payableAmount.setText("0.00");
         }
 
-        return rootView;
+
+        //Watchers
+
+        amount.addTextChangedListener(watcher);
+        serviceCharge.addTextChangedListener(watcher);
+        credit.addTextChangedListener(watcher);
+        pending.addTextChangedListener(watcher);
+
+
     }
 
     private void calculatePayable() {
@@ -211,40 +225,11 @@ public class FragmentEditInvoice extends Fragment {
         statusList.add("Failed");
     }
 
-    private void showDialog() {
-        SingleChoiceWithRadioButton();
-
-    }
-
-    AlertDialog alert;
-
-    private void SingleChoiceWithRadioButton() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("Pay Status");
-        View mView = getLayoutInflater().inflate(R.layout.alert_spinner, null);
-        Spinner spinner = (Spinner) mView.findViewById(R.id.alert_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, getResources().getStringArray(R.array.paymode));
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        builder.setView(mView);
-
-
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        alert = builder.create();
-        alert.show();
-    }
-
-
     @Override
     public void onResume() {
         super.onResume();
 
+        populateData();
 
         if (customer.getCurrentSubscription() == null || customer.getCurrentSubscription().getItems() == null || customer.getCurrentSubscription().getItems().size() == 0) {
             Utility.createAlert(getContext(), "Add products to this customer first!", "Error");
@@ -266,6 +251,8 @@ public class FragmentEditInvoice extends Fragment {
         BillDetailsEditAdapter adapter = new BillDetailsEditAdapter(customer.getCurrentSubscription().getItems(), getContext(), amount);
         recyclerView.setAdapter(adapter);
         adapter.setRecyclerView(recyclerView);
+
+        System.out.println("Invoice amount ==>" + amount.getText() + " -- " + invoice.getAmount());
     }
 
     private void saveInvoice() {
@@ -297,7 +284,7 @@ public class FragmentEditInvoice extends Fragment {
         request.setInvoice(invoice);
         request.setUser(customer);
         pDialog = Utility.getProgressDialogue("Saving..", getActivity());
-        StringRequest myReq = ServiceUtil.getStringRequest("updateCustomerInvoice", customerProfileLoader(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
+        StringRequest myReq = ServiceUtil.getStringRequest("updateCustomerInvoice", invoiceUpdateResponse(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(myReq);
     }
@@ -318,7 +305,6 @@ public class FragmentEditInvoice extends Fragment {
 
         }
     };
-
     private Integer getMonth() {
         int index = Arrays.asList(monthsArray).indexOf(monthspinner.getSelectedItem());
         if (index >= 0) {
@@ -338,7 +324,7 @@ public class FragmentEditInvoice extends Fragment {
         return invoiceItems;
     }
 
-    private Response.Listener<String> customerProfileLoader() {
+    private Response.Listener<String> invoiceUpdateResponse() {
         return new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
