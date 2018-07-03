@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,6 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapters.AddNewspaperAdapter;
+import adapters.SelectNewsPaperAdapter;
+import model.BillItemHolder;
 import model.ListTwo;
 import util.ServiceUtil;
 import util.Utility;
@@ -159,4 +162,68 @@ public class AddNewspapers extends Fragment {
 
         };
     }
+
+
+  /*  public void filter(final String text) {
+
+        //Toast.makeText(getActivity(),text,Toast.LENGTH_LONG).show();
+
+        // Searching could be complex..so we will dispatch it to a different thread...
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+                try {
+                    // Clear the filter list
+                    filterList.clear();
+
+                    // If there is no search value, then add all original list items to filter list
+                    if (TextUtils.isEmpty(text)) {
+
+                        *//*hideicon = true;
+                        invalidateOptionsMenu();*//*
+
+                        filterList.addAll(list);
+
+
+                    } else {
+                        // Iterate in the original List and add it to filter list...
+                        for (BillItemHolder item : list) {
+                            System.out.println("Get Name --->>> "+ item.getItem().getName());
+                            if (item.getItem().getName().toLowerCase().contains(text.toLowerCase()) *//*|| comparePhone(item, text)*//*) {
+                                // Adding Matched items
+                                filterList.add(item);
+                            }
+
+                        }
+                    }
+
+                    // Set on UI Thread
+                    (getActivity()).runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Notify the List that the DataSet has changed...
+                           *//* adapter = new ContactListAdapter(SearchAppointmentActivity.this, filterList);
+                            RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(SearchAppointmentActivity.this, 1);
+                            recyclerView_contact.setLayoutManager(mLayoutManager);
+                            recyclerView_contact.setAdapter(adapter);*//*
+                           *//* recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            adapter = new DeliveriesAdapter(filterList, getActivity(), user);
+                            recyclerView.setAdapter(adapter);*//*
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            recyclerView.setAdapter(new AddNewspaperAdapter(serviceResponse.getItems(), getContext()));
+
+
+                        }
+                    });
+                } catch (Exception e) {
+                    System.out.println("Error in filter contacts");
+                    e.printStackTrace();
+                }
+
+
+            }
+        }).start();
+
+    }*/
 }
