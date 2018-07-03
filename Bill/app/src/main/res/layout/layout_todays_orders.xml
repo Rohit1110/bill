@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/radio_order_type"
         layout="@layout/layout_line" />
-    <EditText
+    <!--<EditText
         android:id="@+id/edit_search_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,12 +60,12 @@
         android:layout_gravity="left"
         android:textColor="@android:color/black"
         android:layout_below="@+id/customer_orders_line"
-        android:drawableRight="@android:drawable/ic_menu_search"/>
+        android:drawableRight="@android:drawable/ic_menu_search"/>-->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/edit_search_order"
+        android:layout_below="@id/customer_orders_line"
         android:fadeScrollbars="true"
         android:scrollbars="vertical"
         />

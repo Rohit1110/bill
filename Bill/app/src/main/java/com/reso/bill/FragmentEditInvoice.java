@@ -275,8 +275,17 @@ public class FragmentEditInvoice extends Fragment {
         }
         invoice.setAmount(new BigDecimal(amount.getText().toString()));
 
-        if (serviceCharge.getText() != null && serviceCharge.getText().toString().trim().length() > 0) {
+        if (!TextUtils.isEmpty(serviceCharge.getText())) {
             invoice.setServiceCharge(new BigDecimal(serviceCharge.getText().toString()));
+        }
+
+        if(!TextUtils.isEmpty(pending.getText())) {
+            invoice.setPendingBalance(new BigDecimal(pending.getText().toString()));
+        }
+
+
+        if(!TextUtils.isEmpty(credit.getText())) {
+            invoice.setCreditBalance(new BigDecimal(credit.getText().toString()));
         }
 
         invoice.setStatus(invoiceStatusSpinner.getSelectedItem().toString());

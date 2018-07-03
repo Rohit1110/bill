@@ -6,15 +6,11 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.Html;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -35,7 +31,6 @@ import com.rns.web.billapp.service.domain.BillServiceResponse;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import adapters.CustomerListAdapter;
 import model.BillCustomer;
@@ -54,7 +49,7 @@ public class CustomerList extends Fragment {
     private ProgressDialog pDialog;
     private BillUser user;
     private Button addcust;
-    EditText search;
+    //EditText search;
 
     public static CustomerList newInstance() {
         CustomerList fragment = new CustomerList();
@@ -109,7 +104,7 @@ public class CustomerList extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_cust_list);
         addcust=(Button)rootView.findViewById(R.id.fab_addcustomer);
         //layout = (LinearLayout) rootView.findViewById(R.id.layout_add_cust);
-        search = ( EditText)rootView.findViewById(R.id.txt_search_cust);
+        //search = ( EditText)rootView.findViewById(R.id.txt_search_cust);
         addcust.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,7 +118,7 @@ public class CustomerList extends Fragment {
             }
         });
         // getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-        search.addTextChangedListener(new TextWatcher() {
+        /*search.addTextChangedListener(new TextWatcher() {
                                           @Override
                                           public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -142,7 +137,7 @@ public class CustomerList extends Fragment {
             public void afterTextChanged(Editable editable) {
 
             }
-        });
+        });*/
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         return rootView;
     }

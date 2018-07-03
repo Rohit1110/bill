@@ -7,10 +7,7 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.text.Editable;
-import android.text.Html;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -33,9 +30,7 @@ import com.rns.web.billapp.service.util.CommonUtils;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
-import adapters.CustomerListAdapter;
 import adapters.DeliveriesAdapter;
 import model.BillCustomer;
 import util.ServiceUtil;
@@ -47,7 +42,7 @@ import util.Utility;
 
 public class HomeFragment extends Fragment implements SearchView.OnQueryTextListener {
     private List<BillCustomer> orders = new ArrayList<>();
-    private List<BillCustomer> filterList= new ArrayList<>();
+    private List<BillCustomer> filterList = new ArrayList<>();
     private List<BillCustomer> noOrders = new ArrayList<>();
     private RecyclerView recyclerView;
     private DeliveriesAdapter adapter;
@@ -58,7 +53,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     private TextView noOrdersMessage;
     private RadioButton deliveries;
     private RadioButton noDeliveries;
-        EditText search;
+    //EditText search;
 
     public static HomeFragment newInstance(BillUser user) {
         HomeFragment fragment = new HomeFragment();
@@ -69,56 +64,56 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       setHasOptionsMenu(true);
+        setHasOptionsMenu(true);
     }
 
-   /* @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-        MenuItem mSearchMenuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) mSearchMenuItem.getActionView();
+    /* @Override
+     public void onPrepareOptionsMenu(Menu menu) {
+         MenuItem mSearchMenuItem = menu.findItem(R.id.action_search);
+         SearchView searchView = (SearchView) mSearchMenuItem.getActionView();
+     }
+ */
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.search, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = new SearchView(((Dashboard) getActivity()).getSupportActionBar().getThemedContext());
+        MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+        ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.md_black_1000));
+        MenuItemCompat.setActionView(item, searchView);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+        searchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        //searchView.setMenuItem(item);
     }
-*/
-   @Override
-   public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-       menu.clear();
-       inflater.inflate(R.menu.search, menu);
-       MenuItem item = menu.findItem(R.id.action_search);
-       SearchView searchView = new SearchView(((Dashboard) getActivity()).getSupportActionBar().getThemedContext());
-       MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-       ((EditText)  searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text))
-               .setTextColor(getResources().getColor(R.color.md_black_1000));
-       MenuItemCompat.setActionView(item, searchView);
 
-       searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-           @Override
-           public boolean onQueryTextSubmit(String query) {
-               return false;
-           }
-           @Override
-           public boolean onQueryTextChange(String newText) {
-               filter(newText);
-               return false;
-           }
-       });
-       searchView.setOnClickListener(new View.OnClickListener() {
-                                         @Override
-                                         public void onClick(View v) {
-
-                                         }
-                                     }
-       );
-
-       //searchView.setMenuItem(item);
-   }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tab_one, container, false);
         date = new Date();
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Deliveries " + CommonUtils.convertDate(date) + "</font>"));
-        Utility.AppBarTitle("Deliveries " + CommonUtils.convertDate(date) ,getActivity());
+        Utility.AppBarTitle("Deliveries " + CommonUtils.convertDate(date), getActivity());
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         deliveries = (RadioButton) rootView.findViewById(R.id.radio_deliveries);
-search=(EditText)rootView.findViewById(R.id.edit_search_order);
+        //search = (EditText) rootView.findViewById(R.id.edit_search_order);
         deliveries.setSelected(true);
         deliveries.setChecked(true);
         deliveries.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +130,7 @@ search=(EditText)rootView.findViewById(R.id.edit_search_order);
                 setDeliveriesListView(noOrders);
             }
         });
-        search.addTextChangedListener(new TextWatcher() {
+        /*search.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -154,7 +149,7 @@ search=(EditText)rootView.findViewById(R.id.edit_search_order);
             public void afterTextChanged(Editable editable) {
 
             }
-        });
+        });*/
         noOrdersMessage = (TextView) rootView.findViewById(R.id.txt_no_orders);
         return rootView;
 
@@ -167,7 +162,7 @@ search=(EditText)rootView.findViewById(R.id.edit_search_order);
     }
 
     private void loadDeliveries() {
-        if(user == null) {
+        if (user == null) {
             Utility.createAlert(getContext(), "Profile not set correctly! Please login to the app again!", "Error");
             return;
         }
@@ -207,7 +202,7 @@ search=(EditText)rootView.findViewById(R.id.edit_search_order);
         if (users != null && users.size() > 0) {
             noOrdersMessage.setVisibility(View.GONE);
             for (BillUser user : users) {
-                if(user.getCurrentSubscription() != null && user.getCurrentSubscription().getStatus() != null && user.getCurrentSubscription().getStatus().equals("D")) {
+                if (user.getCurrentSubscription() != null && user.getCurrentSubscription().getStatus() != null && user.getCurrentSubscription().getStatus().equals("D")) {
                     noOrders.add(new BillCustomer(user));
                 } else {
                     orders.add(new BillCustomer(user));
