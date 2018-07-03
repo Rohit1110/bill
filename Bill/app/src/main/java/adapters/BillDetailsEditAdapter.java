@@ -113,11 +113,11 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             try {
-                if(items != null && items.size() > 0) {
+                if (items != null && items.size() > 0) {
                     BigDecimal totalAmount = BigDecimal.ZERO;
-                    for(int position = 0; position < items.size(); position++) {
+                    for (int position = 0; position < items.size(); position++) {
                         ViewHolder1 gholder = (ViewHolder1) listView.findViewHolderForAdapterPosition(position);
-                        if(gholder != null && !TextUtils.isEmpty(gholder.txtAmount.getText())) {
+                        if (gholder != null && !TextUtils.isEmpty(gholder.txtAmount.getText())) {
                             totalAmount = totalAmount.add(new BigDecimal(gholder.txtAmount.getText().toString()));
                         }
                     }
@@ -135,6 +135,22 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
         }
     };
+
+    public BigDecimal getPrice(int position) {
+        ViewHolder1 gholder = (ViewHolder1) listView.findViewHolderForAdapterPosition(position);
+        if(gholder != null && gholder.txtAmount != null) {
+            return new BigDecimal(gholder.txtAmount.getText().toString());
+        }
+        return null;
+    }
+
+    public BigDecimal getQuantity(int position) {
+        ViewHolder1 gholder = (ViewHolder1) listView.findViewHolderForAdapterPosition(position);
+        if(gholder != null && gholder.txtqty != null) {
+            return new BigDecimal(gholder.txtqty.getText().toString());
+        }
+        return null;
+    }
 
 
 }

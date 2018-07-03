@@ -63,6 +63,7 @@ public class FragmentEditInvoice extends Fragment {
     private Spinner invoiceStatusSpinner;
     private List<String> statusList;
     private TextView payableAmount;
+    private BillDetailsEditAdapter billDetailsEditAdapter;
 
     public static FragmentEditInvoice newInstance(BillUser customer, BillInvoice invoice) {
         FragmentEditInvoice fragment = new FragmentEditInvoice();
@@ -70,12 +71,6 @@ public class FragmentEditInvoice extends Fragment {
         fragment.invoice = invoice;
         return fragment;
 
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
     }
 
     @Nullable
@@ -254,7 +249,8 @@ public class FragmentEditInvoice extends Fragment {
         }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        BillDetailsEditAdapter adapter = new BillDetailsEditAdapter(customer.getCurrentSubscription().getItems(), getContext(), amount);
+        billDetailsEditAdapter = new BillDetailsEditAdapter(customer.getCurrentSubscription().getItems(), getContext(), amount);
+        BillDetailsEditAdapter adapter = billDetailsEditAdapter;
         recyclerView.setAdapter(adapter);
         adapter.setRecyclerView(recyclerView);
 
@@ -311,6 +307,7 @@ public class FragmentEditInvoice extends Fragment {
 
         }
     };
+
     private Integer getMonth() {
         int index = Arrays.asList(monthsArray).indexOf(monthspinner.getSelectedItem());
         if (index >= 0) {
@@ -322,10 +319,16 @@ public class FragmentEditInvoice extends Fragment {
 
     private List<BillItem> getInvoiceItems() {
         List<BillItem> invoiceItems = new ArrayList<>();
+        int index = 0;
         for (BillItem item : customer.getCurrentSubscription().getItems()) {
-            if (item.getPrice() != null) {
+            BigDecimal price = billDetailsEditAdapter.getPrice(index);
+            BigDecimal quantity = billDetailsEditAdapter.getQuantity(index);
+            if (price != null && quantity != null) {
+                item.setPrice(price);
+                item.setQuantity(quantity);
                 invoiceItems.add(item);
             }
+            index++;
         }
         return invoiceItems;
     }

@@ -148,7 +148,11 @@ public class CustomerProfileFragment extends Fragment {
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200 && serviceResponse.getUser() != null && serviceResponse.getUser().getCurrentSubscription() != null) {
                     billsDue.setText(serviceResponse.getUser().getCurrentSubscription().getBillsDue() + " Bills Due");
-                    lastPaid.setText("Last paid on " + CommonUtils.convertDate(serviceResponse.getUser().getCurrentSubscription().getLastBillPaid()));
+                    if(serviceResponse.getUser().getCurrentSubscription().getLastBillPaid() != null) {
+                        lastPaid.setText("Last paid on " + CommonUtils.convertDate(serviceResponse.getUser().getCurrentSubscription().getLastBillPaid()));
+                    } else {
+                        lastPaid.setText("No payment found");
+                    }
                     selectedCustomer = serviceResponse.getUser();
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
