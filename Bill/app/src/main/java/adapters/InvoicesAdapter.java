@@ -71,6 +71,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.reso.bill.CustomerProfileFragment;
@@ -116,6 +117,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
 
     public class RecViewHolder extends RecyclerView.ViewHolder {
 
+        private ImageView status;
         private TextView amount;
         private TextView txtName;
 
@@ -124,12 +126,17 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
             super(itemView);
             txtName = (TextView) itemView.findViewById(R.id.txt_invoice_summary_customer_name);
             amount = (TextView) itemView.findViewById(R.id.txt_invoice_summary_amount);
+            status = (ImageView) itemView.findViewById(R.id.img_status_invoice_summary);
         }
 
         private void bind(BillUser customerUser) {
             txtName.setText(customerUser.getName());
+            status.setImageResource(R.drawable.ic_invoice_pending);
             if (customerUser.getCurrentInvoice() != null && customerUser.getCurrentInvoice().getAmount() != null) {
-                amount.setText("INR " + customerUser.getCurrentInvoice().getAmount().toString());
+                amount.setText("INR " + customerUser.getCurrentInvoice().getPayable().toString());
+                /*if(customerUser.getCurrentInvoice().getAmount().compareTo(BigDecimal.ZERO) > 0) {
+                    status.setImageResource(R.drawable.ic_invoice_pending);
+                }*/
             }
 
         }

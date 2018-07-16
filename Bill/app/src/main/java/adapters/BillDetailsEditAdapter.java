@@ -1,14 +1,15 @@
 package adapters;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -19,12 +20,14 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.Utility;
+
 /**
  * Created by Rohit on 5/10/2018.
  */
 
 public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private EditText amount;
+    private EditText billAmount;
     private List<BillItem> items = new ArrayList<>();
     private Context ctx;
     private RecyclerView listView;
@@ -32,7 +35,7 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public BillDetailsEditAdapter(List<BillItem> items, Context ctx, EditText amount) {
         this.items = items;
         this.ctx = ctx;
-        this.amount = amount;
+        this.billAmount = amount;
     }
 
     public void setRecyclerView(RecyclerView recyclerView) {
@@ -41,7 +44,7 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
 
     class ViewHolder1 extends RecyclerView.ViewHolder {
-        private EditText txtqty, txtAmount;
+        private TextView txtqty, txtAmount;
         private TextView txtpaper;
         //private ImageView statusImg;
         //private TextView time, name;
@@ -50,8 +53,8 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         public ViewHolder1(View itemView) {
             super(itemView);
             txtpaper = (TextView) itemView.findViewById(R.id.txt_paper);
-            txtqty = (EditText) itemView.findViewById(R.id.txt_paperqty);
-            txtAmount = (EditText) itemView.findViewById(R.id.txt_paperbill);
+            txtqty = (TextView) itemView.findViewById(R.id.txt_paperqty);
+            txtAmount = (TextView) itemView.findViewById(R.id.txt_paperbill);
             //statusImg = (ImageView) itemView.findViewById(R.id.edit_bill);
             /*txtqty.setFocusable(true);
             txtAmount.setFocusable(true);
@@ -85,6 +88,78 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             gholder.txtAmount.addTextChangedListener(watcher);
         }
 
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                final Dialog dialog = new Dialog(ctx);
+                dialog.setContentView(R.layout.layout_edit_bill_item);
+                dialog.setTitle("Title...");
+
+                // set the custom dialog components - text, image and button
+                TextView text = (TextView) dialog.findViewById(R.id.txt_bill_item_edit_name);
+                text.setText(item.getParentItem().getName());
+                /*ImageView image = (ImageView) dialog.findViewById(R.id.image);
+                image.setImageResource(R.drawable.ic_launcher);*/
+
+                final EditText quantity = (EditText) dialog.findViewById(R.id.et_bill_item_quantity);
+                quantity.setText("0");
+                final EditText amount = (EditText) dialog.findViewById(R.id.et_bill_item_amount);
+                amount.setText("0");
+
+                if (item.getQuantity() != null) {
+                    quantity.setText(item.getQuantity().toString());
+                }
+                if (item.getPrice() != null) {
+                    amount.setText(item.getPrice().toString());
+                }
+
+
+                Button saveBillItem = (Button) dialog.findViewById(R.id.btn_save_bill_item);
+                // if button is clicked, close the custom dialog
+                saveBillItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                        if (!Utility.validateDecimal(quantity)) {
+                            quantity.setError("Invalid quantity!");
+                            return;
+                        }
+
+                        if (!Utility.validateDecimal(amount)) {
+                            quantity.setError("Invalid billAmount!");
+                            return;
+                        }
+
+                        item.setQuantity(Utility.getDecimal(quantity));
+                        item.setPrice(Utility.getDecimal(amount));
+                        gholder.txtqty.setText(quantity.getText().toString());
+                        gholder.txtAmount.setText(amount.getText().toString());
+
+                        //Calculate total billAmount
+                        BigDecimal total = BigDecimal.ZERO;
+                        for (BillItem item : items) {
+                            if(item.getPrice() != null) {
+                                total = total.add(item.getPrice());
+                            }
+                        }
+                        billAmount.setText(total.toString());
+                        dialog.dismiss();
+                    }
+                });
+
+                Button cancel = (Button) dialog.findViewById(R.id.btn_cancel);
+                // if button is clicked, close the custom dialog
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
+        });
+
 
     }
 
@@ -113,7 +188,7 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         @Override
         public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
             try {
-                if (items != null && items.size() > 0) {
+                /*if (items != null && items.size() > 0) {
                     BigDecimal totalAmount = BigDecimal.ZERO;
                     for (int position = 0; position < items.size(); position++) {
                         ViewHolder1 gholder = (ViewHolder1) listView.findViewHolderForAdapterPosition(position);
@@ -121,8 +196,8 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                             totalAmount = totalAmount.add(new BigDecimal(gholder.txtAmount.getText().toString()));
                         }
                     }
-                    amount.setText(totalAmount.toString());
-                }
+                    billAmount.setText(totalAmount.toString());
+                }*/
             } catch (Exception e) {
                 e.printStackTrace();
                 System.err.println("Error in edit bill row ..");
@@ -138,7 +213,7 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     public BigDecimal getPrice(int position) {
         ViewHolder1 gholder = (ViewHolder1) listView.findViewHolderForAdapterPosition(position);
-        if(gholder != null && gholder.txtAmount != null) {
+        if (gholder != null && gholder.txtAmount != null) {
             return new BigDecimal(gholder.txtAmount.getText().toString());
         }
         return null;
@@ -146,7 +221,7 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     public BigDecimal getQuantity(int position) {
         ViewHolder1 gholder = (ViewHolder1) listView.findViewHolderForAdapterPosition(position);
-        if(gholder != null && gholder.txtqty != null) {
+        if (gholder != null && gholder.txtqty != null) {
             return new BigDecimal(gholder.txtqty.getText().toString());
         }
         return null;

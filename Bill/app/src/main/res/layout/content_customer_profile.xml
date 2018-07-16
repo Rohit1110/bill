@@ -19,12 +19,32 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:orientation="vertical"
             android:layout_marginTop="24dp">
 
+            <RelativeLayout
+                android:id="@+id/layout_profile_customer_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
             <TextView
                 android:id="@+id/txt_profile_customer_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ajinkya Kulkarni"
                 style="@style/basic_text_field"/>
+
+            <ImageView
+                android:id="@+id/img_profile_call_customer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_toRightOf="@+id/txt_profile_customer_name"
+                android:src="@drawable/ic_phone"/>
+
+        </RelativeLayout>
+
+
+
 
             <TextView
                 android:id="@+id/txt_profile_customer_address"

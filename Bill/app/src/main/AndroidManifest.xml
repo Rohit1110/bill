@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    package="com.reso.bill">
+          xmlns:app="http://schemas.android.com/apk/res-auto"
+          package="com.reso.bill">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+    <uses-permission android:name="android.permission.WRITE_CONTACTS"/>
 
     <application
         android:allowBackup="true"
@@ -19,13 +22,13 @@
 
         </activity>
         <activity android:name=".MainActivity">
-          <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".FilePicker" />
+        <activity android:name=".FilePicker"/>
         <activity
             android:name=".VendorRegistration"
             android:label="@string/title_activity_vendor_registration"></activity>
@@ -51,7 +54,7 @@
         -->
         <activity
             android:name=".Main2Activity"
-            android:label="@string/title_activity_main2" />
+            android:label="@string/title_activity_main2"/>
         <activity android:name=".Main3Activity"></activity>
         <!--
              <activity
@@ -66,7 +69,7 @@
 
         <meta-data
             android:name="preloaded_fonts"
-            android:resource="@array/preloaded_fonts" />
+            android:resource="@array/preloaded_fonts"/>
 
 
     </application>

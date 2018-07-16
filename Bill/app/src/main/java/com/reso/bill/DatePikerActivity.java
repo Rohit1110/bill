@@ -38,7 +38,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import adapters.AddNewspaperAdapter;
 import adapters.SelectNewsPaperAdapter;
 import model.BillItemHolder;
 import util.ServiceUtil;

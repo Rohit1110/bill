@@ -17,14 +17,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
+            android:orientation="horizontal"
             android:background="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_total_pending_bills"
+                style="@style/basic_sub_text_field"
+                android:layout_weight="0.5"
+                android:text="Total pending bills -"/>
+
             <Button
                 android:id="@+id/fab_addcustomer"
                 style="@style/basic_button"
                 android:layout_width="wrap_content"
                 android:layout_gravity="top|right"
                 android:layout_margin="10dp"
-                android:text="add"/>
+                android:text="remind all"/>
 
 
 

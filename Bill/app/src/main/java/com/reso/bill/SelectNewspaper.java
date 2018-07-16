@@ -64,8 +64,7 @@ public class SelectNewspaper extends Fragment {
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = new SearchView(((Dashboard) getActivity()).getSupportActionBar().getThemedContext());
         MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-        ((EditText)  searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text))
-                .setTextColor(getResources().getColor(R.color.md_black_1000));
+        ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.md_black_1000));
         MenuItemCompat.setActionView(item, searchView);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -73,6 +72,7 @@ public class SelectNewspaper extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
                 //filter(newText);
@@ -80,12 +80,11 @@ public class SelectNewspaper extends Fragment {
             }
         });
         searchView.setOnClickListener(new View.OnClickListener() {
-                                          @Override
-                                          public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-                                          }
-                                      }
-        );
+            }
+        });
 
         //searchView.setMenuItem(item);
     }
@@ -111,22 +110,17 @@ public class SelectNewspaper extends Fragment {
 
                 LayoutInflater li = LayoutInflater.from(getActivity());
                 View promptsView = li.inflate(R.layout.dialog_layout, null);
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                        getActivity());
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                 alertDialogBuilder.setView(promptsView);
-                final TextView userInput = (TextView) promptsView
-                        .findViewById(R.id.textView1);
+                final TextView userInput = (TextView) promptsView.findViewById(R.id.textView1);
                 userInput.setText(txtSelectedItems.getText().toString());
-                alertDialogBuilder
-                        .setCancelable(false)
-                        .setPositiveButton("OK",
-                                new DialogInterface.OnClickListener() {
-                                    public void onClick(DialogInterface dialog,int id) {
-                                        // get user input and set it to result
-                                        // edit text
+                alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        // get user input and set it to result
+                        // edit text
 
-                                    }
-                                });
+                    }
+                });
                         /*.setNegativeButton("Cancel",
                                 new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog,int id) {
@@ -164,7 +158,7 @@ public class SelectNewspaper extends Fragment {
     }
 
     private void saveItems() {
-        if(selectedItems == null) {
+        if (selectedItems == null) {
             selectedItems = new ArrayList<>();
         }
         for (BillItemHolder holder : list) {
@@ -213,7 +207,7 @@ public class SelectNewspaper extends Fragment {
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     Utility.nextFragment(getActivity(), new AddNewspapers());
                 } else {
-                    Utility.createAlert(getContext(), "Error saving data!","Error");
+                    Utility.createAlert(getContext(), "Error saving data!", "Error");
                 }
             }
         };

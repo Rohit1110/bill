@@ -107,7 +107,7 @@ public class VendorRegistration extends AppCompatActivity {
                         requestUser.setPhone(FirebaseUtil.getPhone());
                         requestUser.setAadharNumber(aadharNumber.getText().toString());
                         BillBusiness business = new BillBusiness();
-                        if(user.getCurrentBusiness() != null) {
+                        if(user != null && user.getCurrentBusiness() != null) {
                             business.setId(user.getCurrentBusiness().getId());
                         }
                         business.setName(businessName.getText().toString());

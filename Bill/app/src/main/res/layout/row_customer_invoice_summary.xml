@@ -88,6 +88,7 @@
             android:gravity="right">
 
             <ImageView
+                android:id="@+id/img_status_invoice_summary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/fab_margin"

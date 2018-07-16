@@ -7,7 +7,6 @@ import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -52,6 +51,7 @@ public class FragmentInvoiceSummary extends Fragment {
     private TextView noOrdersMessage;
     private RadioButton deliveries;
     private RadioButton noDeliveries;
+    private TextView totalPendingCount;
 
 
     public static FragmentInvoiceSummary newInstance(BillUser user) {
@@ -73,8 +73,7 @@ public class FragmentInvoiceSummary extends Fragment {
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = new SearchView(((Dashboard) getActivity()).getSupportActionBar().getThemedContext());
         MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-        ((EditText)  searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text))
-                .setTextColor(getResources().getColor(R.color.md_black_1000));
+        ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.md_black_1000));
         MenuItemCompat.setActionView(item, searchView);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -82,6 +81,7 @@ public class FragmentInvoiceSummary extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
                 //filter(newText);
@@ -89,12 +89,11 @@ public class FragmentInvoiceSummary extends Fragment {
             }
         });
         searchView.setOnClickListener(new View.OnClickListener() {
-                                          @Override
-                                          public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-                                          }
-                                      }
-        );
+            }
+        });
 
         //searchView.setMenuItem(item);
     }
@@ -104,7 +103,7 @@ public class FragmentInvoiceSummary extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_invoice_summary, container, false);
         date = new Date();
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Invoice Summary</font>"));
-        Utility.AppBarTitle("Pending Invoices" ,getActivity());
+        Utility.AppBarTitle("Pending Invoices", getActivity());
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         /*deliveries = (RadioButton) rootView.findViewById(R.id.radio_deliveries);
 
@@ -126,6 +125,9 @@ public class FragmentInvoiceSummary extends Fragment {
         });
 
         noOrdersMessage = (TextView) rootView.findViewById(R.id.txt_no_orders);*/
+
+        totalPendingCount = (TextView) rootView.findViewById(R.id.txt_total_pending_bills);
+
         return rootView;
 
     }
@@ -157,6 +159,9 @@ public class FragmentInvoiceSummary extends Fragment {
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     recyclerView.setAdapter(new InvoicesAdapter(serviceResponse.getUsers(), getActivity()));
+                    if(serviceResponse.getUsers() != null) {
+                        totalPendingCount.setText("Total pending bills - " + serviceResponse.getUsers().size());
+                    }
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
                     Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");

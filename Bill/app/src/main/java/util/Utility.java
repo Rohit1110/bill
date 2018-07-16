@@ -17,7 +17,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.LinearLayoutManager;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
@@ -44,9 +43,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import adapters.CustomerListAdapter;
-import model.BillCustomer;
-
 /**
  * Created by Rohit on 11/27/2017.
  */
@@ -57,6 +53,9 @@ public class Utility {
     public static final String USER_KEY = "billUser";
     public static final String COLOR_BLUE = "#00A6FF";
     public static final String TITLE_FONT = "#343F4B";
+    public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
+    public static final int MY_PERMISSIONS_REQUEST_CONTACTS = 2;
+    public static final int MY_PERMISSIONS_READ_CONTACTS = 3;
 
 
     public static void createAlert(Context context, String message, String title) {
@@ -335,6 +334,12 @@ public class Utility {
     }
 
 
+    public static boolean validateDecimal(TextView value) {
+        if(TextUtils.isEmpty(value.getText())) {
+            return false;
+        }
+        return(value.getText().toString().matches("\\d*\\.?\\d+"));
+    }
 
    /* public static void filter(final String text,Activity activity) {
 

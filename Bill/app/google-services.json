@@ -15,12 +15,24 @@
       },
       "oauth_client": [
         {
+          "client_id": "440243964879-d6n7vsvqfvh0akv2t6tjh29q26a62mhu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.reso.bill",
+            "certificate_hash": "113d43bebfff870effe460b991bb4b3283030a75"
+          }
+        },
+        {
           "client_id": "440243964879-nthbf81fe87tt70pfiort7eqce9cng0j.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.reso.bill",
             "certificate_hash": "4b5ec6957caa3deb041e6ba7a0b26a1281ae04f1"
           }
+        },
+        {
+          "client_id": "440243964879-6nvoir8q69vp8f8u0as8t924roqd6toe.apps.googleusercontent.com",
+          "client_type": 3
         },
         {
           "client_id": "440243964879-6nvoir8q69vp8f8u0as8t924roqd6toe.apps.googleusercontent.com",
@@ -58,6 +70,10 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "440243964879-6nvoir8q69vp8f8u0as8t924roqd6toe.apps.googleusercontent.com",
+          "client_type": 3
+        },
         {
           "client_id": "440243964879-6nvoir8q69vp8f8u0as8t924roqd6toe.apps.googleusercontent.com",
           "client_type": 3

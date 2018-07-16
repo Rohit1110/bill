@@ -64,6 +64,7 @@ public class FragmentEditInvoice extends Fragment {
     private List<String> statusList;
     private TextView payableAmount;
     private BillDetailsEditAdapter billDetailsEditAdapter;
+    private TextView invoiceNumber;
 
     public static FragmentEditInvoice newInstance(BillUser customer, BillInvoice invoice) {
         FragmentEditInvoice fragment = new FragmentEditInvoice();
@@ -132,7 +133,7 @@ public class FragmentEditInvoice extends Fragment {
         credit = (EditText) rootView.findViewById(R.id.et_bill_details_credit_amount);
         pending = (EditText) rootView.findViewById(R.id.et_bill_details_pending_amount);
 
-
+        invoiceNumber = (TextView)rootView.findViewById(R.id.txt_invoice_number);
         //populateData();
 
         return rootView;
@@ -185,6 +186,9 @@ public class FragmentEditInvoice extends Fragment {
             payableAmount.setText("0.00");
         }
 
+        if(invoice.getId() != null) {
+            invoiceNumber.setText("Invoice #" + invoice.getId());
+        }
 
         //Watchers
 
@@ -240,7 +244,7 @@ public class FragmentEditInvoice extends Fragment {
         for (BillItem item : customer.getCurrentSubscription().getItems()) {
             if (invoice.getInvoiceItems() != null) {
                 for (BillItem invoiceItem : invoice.getInvoiceItems()) {
-                    if (invoiceItem.getParentItemId() == item.getId()) {
+                    if (invoiceItem.getParentItemId() != null && item.getId() != null && invoiceItem.getParentItemId().intValue() == item.getId().intValue()) {
                         item.setQuantity(invoiceItem.getQuantity());
                         item.setPrice(invoiceItem.getPrice());
                     }

@@ -79,8 +79,8 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         BillInvoice invoice = (BillInvoice) items.get(position);
         ViewHolder1 gholder = (ViewHolder1) holder;
         gholder.txtMonths.setText(BillConstants.MONTHS[invoice.getMonth() -1] + " " + invoice.getYear());
-        if (invoice.getAmount() != null) {
-            gholder.txtamount.setText("INR " + invoice.getAmount().toString());
+        if (invoice.getPayable() != null) {
+            gholder.txtamount.setText("INR " + invoice.getPayable().toString());
         }
         gholder.txtstatus.setText(invoice.getStatus());
         if(invoice.getStatus() != null && BillConstants.INVOICE_STATUS_PAID.equals(invoice.getStatus())) {

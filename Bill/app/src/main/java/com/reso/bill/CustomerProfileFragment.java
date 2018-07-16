@@ -1,12 +1,18 @@
 package com.reso.bill;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -34,8 +40,9 @@ public class CustomerProfileFragment extends Fragment {
     private RecyclerView recyclerView;
     private BillUser selectedCustomer;
     private TextView name, email, phone, address, billsDue, lastPaid;
-    private View manageSubscriptions,viewactivity;
+    private View manageSubscriptions, viewactivity;
     private TextView editProfile, billDetails;
+    private ImageView call;
 
 
     private List<ListThree> list = new ArrayList<>();
@@ -60,7 +67,7 @@ public class CustomerProfileFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_customer_profile, container, false);
         //recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_bill_details);
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Customer Profile</font>"));
-        Utility.AppBarTitle("Customer Profile",getActivity());
+        Utility.AppBarTitle("Customer Profile", getActivity());
         name = (TextView) rootView.findViewById(R.id.txt_profile_customer_name);
         email = (TextView) rootView.findViewById(R.id.txt_profile_customer_email);
         phone = (TextView) rootView.findViewById(R.id.txt_profile_customer_phone);
@@ -68,6 +75,7 @@ public class CustomerProfileFragment extends Fragment {
         editProfile = (TextView) rootView.findViewById(R.id.btn_edit_profile);
         billsDue = (TextView) rootView.findViewById(R.id.txt_profile_bills_due);
         lastPaid = (TextView) rootView.findViewById(R.id.txt_profile_last_paid_bill);
+        call = (ImageView) rootView.findViewById(R.id.img_profile_call_customer);
 
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +101,7 @@ public class CustomerProfileFragment extends Fragment {
                 Utility.nextFragment(getActivity(), FragmentCustomerInvoices.newInstance(selectedCustomer));
             }
         });
-        viewactivity= (View) rootView.findViewById(R.id.layout_profile_customer_activities);
+        viewactivity = (View) rootView.findViewById(R.id.layout_profile_customer_activities);
         viewactivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,7 +109,32 @@ public class CustomerProfileFragment extends Fragment {
             }
         });
 
+        call.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (selectedCustomer != null) {
+
+                    if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.CALL_PHONE}, Utility.MY_PERMISSIONS_REQUEST_CALL_PHONE);
+                    } else {
+                        //You already have permission
+                        try {
+                            callCustomer();
+                        } catch (SecurityException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+            }
+        });
+
         return rootView;
+    }
+
+    private void callCustomer() {
+        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + selectedCustomer.getPhone()));
+        startActivity(intent);
     }
 
 
@@ -148,7 +181,7 @@ public class CustomerProfileFragment extends Fragment {
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200 && serviceResponse.getUser() != null && serviceResponse.getUser().getCurrentSubscription() != null) {
                     billsDue.setText(serviceResponse.getUser().getCurrentSubscription().getBillsDue() + " Bills Due");
-                    if(serviceResponse.getUser().getCurrentSubscription().getLastBillPaid() != null) {
+                    if (serviceResponse.getUser().getCurrentSubscription().getLastBillPaid() != null) {
                         lastPaid.setText("Last paid on " + CommonUtils.convertDate(serviceResponse.getUser().getCurrentSubscription().getLastBillPaid()));
                     } else {
                         lastPaid.setText("No payment found");
@@ -163,5 +196,24 @@ public class CustomerProfileFragment extends Fragment {
             }
 
         };
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case Utility.MY_PERMISSIONS_REQUEST_CALL_PHONE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    callCustomer();
+                } else {
+
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
     }
 }

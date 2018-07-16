@@ -10,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -105,6 +104,7 @@ public class AddNewspapers extends Fragment {
             @Override
             public void onClick(View view) {
                 SelectNewspaper fragment = new SelectNewspaper();
+                fragment.setSelectedItems(businessItems);
                 Utility.nextFragment(getActivity(), fragment);
             }
         });
