@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -15,7 +16,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -56,6 +59,7 @@ public class CustomerInfo extends Fragment {
     private BillUser user;
     private ProgressDialog pDialog;
     private CheckBox addToContacts;
+    private static final int RESULT_PICK_CONTACT = 1;
 
     public static CustomerInfo newInstance(BillUser selectedCustomer) {
         CustomerInfo fragment = new CustomerInfo();
@@ -174,7 +178,68 @@ public class CustomerInfo extends Fragment {
 
         contactExists();
 
+        name.setOnTouchListener(new View.OnTouchListener(){
+
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                final int DRAWABLE_LEFT = 0;
+                final int DRAWABLE_TOP = 1;
+                final int DRAWABLE_RIGHT = 2;
+                final int DRAWABLE_BOTTOM = 3;
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (event.getRawX() >= (name.getRight() - name.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                        // your action here
+                        Utility.checkcontactPermission(getActivity());
+                        //identy = "aadhar";
+                        // aadharNumber.setText(identy);
+                        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
+                                ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+                        startActivityForResult(contactPickerIntent, RESULT_PICK_CONTACT);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
+
         return rootView;
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == getActivity().RESULT_OK) {
+            switch (requestCode) {
+                case RESULT_PICK_CONTACT:
+                    contactPicked(data);
+                    break;
+            }
+
+        } else {
+            Log.e("MainActivity", "Failed to pick contact");
+        }
+    }
+
+    private void contactPicked(Intent data) {
+        Cursor cursor = null;
+        try {
+            String phoneNo = null ;
+            String cname = null;
+            Uri uri = data.getData();
+            cursor = getActivity().getContentResolver().query(uri, null, null, null, null);
+            cursor.moveToFirst();
+
+            int  phoneIndex =cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+            int  nameIndex =cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+
+            phoneNo = cursor.getString(phoneIndex);
+            cname = cursor.getString(nameIndex);
+
+            name.setText(cname);
+            contact.setText(phoneNo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private BillLocation findArea() {

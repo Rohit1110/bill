@@ -60,6 +60,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter Name"
                     android:layout_marginRight="10dp"
+                    android:drawableRight="@drawable/person"
 
                     />
 
