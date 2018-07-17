@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,10 +28,12 @@ import util.Utility;
 public class AddNewspaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     List<BillItem> items = new ArrayList<BillItem>();
     private Context activity;
+    private List<BillItem> contactList;
 
     public AddNewspaperAdapter(List<BillItem> items, Context context) {
         this.activity = context;
         this.items = items;
+        this.contactList=items;
     }
 
     class ViewHolder1 extends RecyclerView.ViewHolder {
@@ -99,4 +102,9 @@ public class AddNewspaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         }
         return items.size();
     }
+
+
+
+
+
 }

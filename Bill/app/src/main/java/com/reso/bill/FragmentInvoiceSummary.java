@@ -162,9 +162,10 @@ public class FragmentInvoiceSummary extends Fragment {
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    recyclerView.setAdapter(new InvoicesAdapter(serviceResponse.getUsers(), getActivity()));
-                    if(serviceResponse.getUsers() != null) {
-                        totalPendingCount.setText("Total pending bills - " + serviceResponse.getUsers().size());
+                     users = serviceResponse.getUsers();
+                    recyclerView.setAdapter(new InvoicesAdapter(users, getActivity()));
+                    if(users != null) {
+                        totalPendingCount.setText("Total pending bills - " + users.size());
                     }
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
@@ -199,12 +200,12 @@ public class FragmentInvoiceSummary extends Fragment {
                         /*hideicon = true;
                         invalidateOptionsMenu();*/
 
-                        filterList.addAll(list);
+                        filterList.addAll(users);
 
 
                     } else {
                         // Iterate in the original List and add it to filter list...
-                        for (BillUser item : list) {
+                        for (BillUser item : users) {
                             System.out.println("Get Name --->>> "+ item.getName());
                             if (item.getName().toLowerCase().contains(text.toLowerCase()) /*|| comparePhone(item, text)*/) {
                                 // Adding Matched items
@@ -228,7 +229,7 @@ public class FragmentInvoiceSummary extends Fragment {
                             recyclerView.setAdapter(adapter);*/
                             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                             recyclerView.setAdapter(new InvoicesAdapter(filterList, getActivity()));
-                            recyclerView.setAdapter(adapter);
+                            //recyclerView.setAdapter(adapter);
 
 
                         }

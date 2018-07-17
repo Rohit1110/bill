@@ -1,6 +1,9 @@
 package com.reso.bill;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -8,21 +11,25 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.Html;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.reso.bill.components.ClickListener;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
@@ -115,6 +122,32 @@ public class FragmentCustomerInvoices extends Fragment {
         getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Bill by Year - " + customer.getName() + "</font>"));
         Utility.AppBarTitle("Bill by Year - " + customer.getName(),getActivity());
         //customerName = (TextView) rootView.findViewById(R.id.txt_customer_invoices_customer_name);
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
+
+            @Override
+            public void onClick(View view, int position) {
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                alertDialogBuilder.setMessage("Are you sure you want to delete");
+
+                alertDialogBuilder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                           //TODO To handle yes button
+                    }
+
+                });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+            }
+        }
+        ));
         addInvoice = (Button) rootView.findViewById(R.id.fab_add_invoice);
         addInvoice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -168,6 +201,50 @@ public class FragmentCustomerInvoices extends Fragment {
 
         };
     }
+
+    private class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+        private ClickListener clicklistener;
+        private GestureDetector gestureDetector;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recycleView, final ClickListener clicklistener) {
+
+        this.clicklistener = clicklistener;
+        gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                return true;
+            }
+
+            @Override
+            public void onLongPress(MotionEvent e) {
+                View child = recycleView.findChildViewUnder(e.getX(), e.getY());
+                if (child != null && clicklistener != null) {
+                    clicklistener.onLongClick(child, recycleView.getChildAdapterPosition(child));
+                }
+            }
+        });
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+        View child = rv.findChildViewUnder(e.getX(), e.getY());
+        if (child != null && clicklistener != null && gestureDetector.onTouchEvent(e)) {
+            clicklistener.onClick(child, rv.getChildAdapterPosition(child));
+        }
+
+        return false;
+    }
+
+    @Override
+    public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+    }
+
+    @Override
+    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+    }
+}
 
 }
 

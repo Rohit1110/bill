@@ -1,6 +1,7 @@
 package com.reso.bill;
 
 import android.app.ProgressDialog;
+import android.content.SyncStatusObserver;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -44,17 +46,21 @@ import util.Utility;
 
 public class AddNewspapers extends Fragment {
     private RecyclerView recyclerView;
-    private List<ListTwo> list = new ArrayList<>();
+    //private List<ListTwo> list = new ArrayList<>();
     private List<BillItem> listtwo = new ArrayList<>();
-
+    BillServiceResponse serviceResponse;
+    private AddNewspaperAdapter mAdapter;
     private LinearLayout layoutaddnewspaper;
     private BillUser user;
+    List<BillItem> billitems;
     private ProgressDialog pDialog;
     private List<BillItem> businessItems;
+    private List<BillItem> businessItemss = new ArrayList<>();
     private Button add;
 
-    private List<BillItem> filterList= new ArrayList<>();
-
+    //private List<BillItem> = new ArrayList<>();
+    List<BillItem> filterList = new ArrayList<BillItem>();
+    List<BillItem> list = new ArrayList<BillItem>();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,11 +152,16 @@ public class AddNewspapers extends Fragment {
                 System.out.println("## response:" + response);
                 pDialog.dismiss();
 
-                BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
+                serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    businessItems = serviceResponse.getItems();
-                    recyclerView.setAdapter(new AddNewspaperAdapter(serviceResponse.getItems(), getContext()));
+                    businessItems = new ArrayList<>();
+                    billitems = serviceResponse.getItems();
+                    businessItems = billitems;
+                    //businessItemss.add(serviceResponse.getItems());
+
+                    mAdapter =  new AddNewspaperAdapter(billitems, getContext());
+                    recyclerView.setAdapter(mAdapter);
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
                     Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
@@ -181,12 +192,15 @@ public class AddNewspapers extends Fragment {
 
 
 
-                        filterList.addAll(businessItems);
+                        filterList.addAll(billitems);
 
 
                     } else {
                         // Iterate in the original List and add it to filter list...
-                        for (BillItem item : businessItems) {
+
+                        //TODO NOT getting List item.getName() is null
+                        System.out.println("Get Name --->>> "+ billitems);
+                        for (BillItem item : billitems) {
                             System.out.println("Get Name --->>> "+ item.getName());
                             if (item.getName().toLowerCase().contains(text.toLowerCase())) {
                                 // Adding Matched items
@@ -201,10 +215,11 @@ public class AddNewspapers extends Fragment {
                         @Override
                         public void run() {
 
-
+                            Toast.makeText(getActivity(),"SSSSSSSSSSSSSSSSS",Toast.LENGTH_LONG).show();
                             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                            recyclerView.setAdapter(new AddNewspaperAdapter(filterList, getContext()));
-
+                            mAdapter= new AddNewspaperAdapter(filterList, getContext());
+                            recyclerView.setAdapter(mAdapter);
+                                mAdapter.notifyDataSetChanged();
 
                         }
                     });

@@ -142,7 +142,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     edit.putString("userphone", user.getPhoneNumber());
                     edit.commit();
 
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    startActivity(new Intent(LoginActivity.this, SplashScreen.class));
                     finish();
                 } else {
                     Log.w(TAG, "signInWithCredential:failure", task.getException());
