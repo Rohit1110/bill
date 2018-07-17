@@ -74,7 +74,7 @@ public class VendorRegistration extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(VendorRegistration.this, Dashboard.class);
+                Intent i = new Intent(VendorRegistration.this, SplashScreen.class);
                 startActivity(i);
 
             }
@@ -287,7 +287,7 @@ public class VendorRegistration extends AppCompatActivity {
 
                     if (saveRequest) {
                         System.out.println("User saved successfully!");
-                        startActivity(new Intent(VendorRegistration.this, MainActivity.class));
+                        startActivity(new Intent(VendorRegistration.this, SplashScreen.class));
                     } else {
                         System.out.println("Locations loaded successfully!");
                         List<BillLocation> locations = prepareLocations(serviceResponse);
