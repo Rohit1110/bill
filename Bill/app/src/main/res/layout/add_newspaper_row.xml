@@ -36,16 +36,7 @@
         </LinearLayout>
 
 
-        <ImageView
-            android:id="@+id/btn_paus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="30dp"
-            android:layout_toRightOf="@+id/txt_newspaperqty"
-            android:src="@android:drawable/ic_media_pause"
 
-            />
 
 
     </LinearLayout>

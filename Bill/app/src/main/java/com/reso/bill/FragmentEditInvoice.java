@@ -15,6 +15,9 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -22,6 +25,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -74,12 +78,51 @@ public class FragmentEditInvoice extends Fragment {
 
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater minflater) {
+        //MenuInflater minflater = getActivity().getMenuInflater();
+        minflater.inflate(R.menu.share, menu);
+        //return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_share:
+                shareIt();
+                return true;
+
+        }
+        return false;
+    }
+
+    private void shareIt() {
+        //Toast.makeText(getActivity(),"Click",Toast.LENGTH_LONG).show();
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT,
+                "Test App");
+        sendIntent.setType("text/plain");
+        startActivity(sendIntent);
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_mv_bill_details_edit, container, false);
         getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Bill Details</font>"));
-        Utility.AppBarTitle("Bill Details", getActivity());
+        String id="";
+        if(invoice.getId() != null) {
+         id =   invoice.getId()+"";
+        }
+        Utility.AppBarTitle("Invoice #" +id, getActivity());
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_bill_two);
         //btnpay = (Button) rootView.findViewById(R.id.btn_pay);
 
@@ -133,7 +176,7 @@ public class FragmentEditInvoice extends Fragment {
         credit = (EditText) rootView.findViewById(R.id.et_bill_details_credit_amount);
         pending = (EditText) rootView.findViewById(R.id.et_bill_details_pending_amount);
 
-        invoiceNumber = (TextView)rootView.findViewById(R.id.txt_invoice_number);
+        //invoiceNumber = (TextView)rootView.findViewById(R.id.txt_invoice_number);
         //populateData();
 
         return rootView;
@@ -186,9 +229,9 @@ public class FragmentEditInvoice extends Fragment {
             payableAmount.setText("0.00");
         }
 
-        if(invoice.getId() != null) {
+        /*if(invoice.getId() != null) {
             invoiceNumber.setText("Invoice #" + invoice.getId());
-        }
+        }*/
 
         //Watchers
 

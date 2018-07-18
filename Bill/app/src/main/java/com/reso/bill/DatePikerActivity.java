@@ -65,7 +65,11 @@ public class DatePikerActivity extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+    public static DatePikerActivity newInstance() {
+        DatePikerActivity fragment = new DatePikerActivity();
 
+        return fragment;
+    }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();

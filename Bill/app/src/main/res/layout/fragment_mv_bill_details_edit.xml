@@ -86,12 +86,12 @@
         android:background="@color/bgGray"
         android:orientation="vertical">
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/txt_invoice_number"
             style="@style/basic_sub_text_field"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:text="Invoice #"/>
+            android:text="Invoice #"/>-->
 
         <LinearLayout
             android:layout_width="match_parent"

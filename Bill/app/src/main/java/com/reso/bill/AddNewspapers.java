@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -57,6 +58,7 @@ public class AddNewspapers extends Fragment {
     private List<BillItem> businessItems;
     private List<BillItem> businessItemss = new ArrayList<>();
     private Button add;
+    ImageView img;
 
     //private List<BillItem> = new ArrayList<>();
     List<BillItem> filterList = new ArrayList<BillItem>();
@@ -106,7 +108,13 @@ public class AddNewspapers extends Fragment {
        /* toolbar.setTitle("Title");
         toolbar.setNavigationIcon(R.mipmap.backarrow);*/
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_newspaper);
-
+        img=(ImageView)rootView.findViewById(R.id.btn_paus);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utility.nextFragment(getActivity(),DatePikerActivity.newInstance());
+            }
+        });
         add = (Button) rootView.findViewById(R.id.btn_add_business_item);
         add.setOnClickListener(new View.OnClickListener() {
             @Override

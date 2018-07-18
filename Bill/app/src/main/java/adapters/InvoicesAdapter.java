@@ -132,7 +132,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
         private void bind(BillUser customerUser) {
             txtName.setText(customerUser.getName());
             status.setImageResource(R.drawable.ic_invoice_pending);
-            if (customerUser.getCurrentInvoice() != null && customerUser.getCurrentInvoice().getAmount() != null) {
+            if (customerUser.getCurrentInvoice() != null && customerUser.getCurrentInvoice().getPayable() != null) {
                 amount.setText("INR " + customerUser.getCurrentInvoice().getPayable().toString());
                 /*if(customerUser.getCurrentInvoice().getAmount().compareTo(BigDecimal.ZERO) > 0) {
                     status.setImageResource(R.drawable.ic_invoice_pending);
