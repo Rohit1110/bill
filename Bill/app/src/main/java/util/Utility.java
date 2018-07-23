@@ -41,6 +41,7 @@ import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -56,6 +57,8 @@ public class Utility {
     public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
     public static final int MY_PERMISSIONS_REQUEST_CONTACTS = 2;
     public static final int MY_PERMISSIONS_READ_CONTACTS = 3;
+    private static int selectedElement=0;
+    //int selectedElement = 1; //global variable to store state
 
 
     public static void createAlert(Context context, String message, String title) {
@@ -398,4 +401,42 @@ public class Utility {
 
     }*/
 
+   public static void SingleChoiceWithRadioButton(Activity activity) {
+       AlertDialog alert;
+       final String[] selectFruit = new String[]{"Delete"};
+       AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+       builder.setTitle("Select Your Choice");
+       builder.setSingleChoiceItems(selectFruit, selectedElement, new DialogInterface.OnClickListener() {
+           @Override
+           public void onClick(DialogInterface dialog, int which) {
+               selectedElement = which;
+               //Toast.makeText(AppointmentsActivity.this, selectFruit[which]+":"+ which + " Selected", Toast.LENGTH_LONG).show();
+            /*   if (selectFruit[which] == "Todays Appointments") {
+                   from = "today";
+                   showcacel = false;
+                   prepareAppointmentsList(Utility.formatDate(new Date(), Utility.DATE_FORMAT_USED));
+               } else if (selectFruit[which] == "Show All Appointments") {
+                   showcacel = false;
+                   from = "all";
+                   prepareAppointmentsList(null);
+
+               } else if (selectFruit[which] == "Cancelled Appointments") {
+                   showcacel = true;
+                   from = "cancel";
+                   prepareAppointmentsList(null);
+
+               }*/
+               //  dialog.dismiss();
+           }
+       });
+       builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+           @Override
+           public void onClick(DialogInterface dialog, int which) {
+               dialog.dismiss();
+           }
+       });
+
+       alert = builder.create();
+       alert.show();
+   }
 }

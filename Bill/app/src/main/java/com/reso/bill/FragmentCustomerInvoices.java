@@ -132,8 +132,8 @@ public class FragmentCustomerInvoices extends Fragment {
             @Override
             public void onLongClick(View view, int position) {
 
-
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                Utility.SingleChoiceWithRadioButton(getActivity());
+               /* AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                 alertDialogBuilder.setMessage("Are you sure you want to delete");
 
                 alertDialogBuilder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
@@ -144,7 +144,7 @@ public class FragmentCustomerInvoices extends Fragment {
 
                 });
                 AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+                alertDialog.show();*/
             }
         }
         ));

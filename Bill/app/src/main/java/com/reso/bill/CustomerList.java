@@ -139,9 +139,9 @@ public class CustomerList extends Fragment {
 
             @Override
             public void onLongClick(View view, int position) {
+               Utility.SingleChoiceWithRadioButton(getActivity());
 
-
-               AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+             /*  AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                 alertDialogBuilder.setMessage("Are you sure you want to delete");
 
                 alertDialogBuilder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
@@ -152,7 +152,7 @@ public class CustomerList extends Fragment {
 
                 });
                 AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
+                alertDialog.show();*/
             }
         }
         ));
