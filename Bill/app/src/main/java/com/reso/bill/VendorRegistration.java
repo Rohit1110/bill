@@ -287,7 +287,7 @@ public class VendorRegistration extends AppCompatActivity {
 
                     if (saveRequest) {
                         System.out.println("User saved successfully!");
-                        startActivity(new Intent(VendorRegistration.this, SplashScreen.class));
+                        startActivity(new Intent(VendorRegistration.this, MainActivity.class));
                     } else {
                         System.out.println("Locations loaded successfully!");
                         List<BillLocation> locations = prepareLocations(serviceResponse);

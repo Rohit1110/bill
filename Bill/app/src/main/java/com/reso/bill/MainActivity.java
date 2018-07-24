@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -29,21 +30,22 @@ public class MainActivity extends AppCompatActivity  {
 
     private Toolbar toolbar;
     private ProgressDialog pDialog;
+    private static int SPLASH_TIME_OUT = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+       /* toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+       BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
 
-        toggle.syncState();
+        toggle.syncState();*/
 
       /*  NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         //navigationView.setNavigationItemSelectedListener(this);
@@ -57,19 +59,39 @@ public class MainActivity extends AppCompatActivity  {
 
         ft.commit();*/
 
-        if(FirebaseUtil.getPhone() != null) {
-            //Phone number already given
-            loadProfile(FirebaseUtil.getPhone());
-        } else {
-            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            finish();
-        }
+        new Handler().postDelayed(new Runnable() {
+
+            /*
+             * Showing splash screen with a timer. This will be useful when you
+             * want to show case your app logo / company
+             */
+
+            @Override
+            public void run() {
+                // This method will be executed once the timer is over
+                // Start your app main activity
+                if(FirebaseUtil.getPhone() != null) {
+                    //Phone number already given
+                    loadProfile(FirebaseUtil.getPhone());
+                } else {
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    finish();
+                }
+
+                // close this activity
+                //finish();
+            }
+        }, SPLASH_TIME_OUT);
+
+
+
+
 
     }
 
     void loadProfile(String phone) {
 
-        pDialog = Utility.getProgressDialogue("Loading Profile", MainActivity.this);
+        //pDialog = Utility.getProgressDialogue("Loading Profile", MainActivity.this);
         BillServiceRequest request = new BillServiceRequest();
         BillUser user = new BillUser();
         user.setPhone(phone);
@@ -84,7 +106,7 @@ public class MainActivity extends AppCompatActivity  {
             @Override
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
-                pDialog.dismiss();
+//                pDialog.dismiss();
 
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
