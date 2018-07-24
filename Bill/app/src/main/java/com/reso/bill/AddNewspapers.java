@@ -1,14 +1,11 @@
 package com.reso.bill;
 
 import android.app.ProgressDialog;
-import android.content.SyncStatusObserver;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
@@ -39,9 +36,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import adapters.AddNewspaperAdapter;
-import adapters.DeliveriesAdapter;
-import model.BillItemHolder;
-import model.ListTwo;
 import util.ServiceUtil;
 import util.Utility;
 
@@ -53,21 +47,21 @@ public class AddNewspapers extends Fragment {
     private AddNewspaperAdapter mAdapter;
     private LinearLayout layoutaddnewspaper;
     private BillUser user;
-    List<BillItem> billitems;
     private ProgressDialog pDialog;
     private List<BillItem> businessItems;
-    private List<BillItem> businessItemss = new ArrayList<>();
     private Button add;
-    ImageView img;
+    private ImageView img;
 
     //private List<BillItem> = new ArrayList<>();
     List<BillItem> filterList = new ArrayList<BillItem>();
     List<BillItem> list = new ArrayList<BillItem>();
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
@@ -75,8 +69,7 @@ public class AddNewspapers extends Fragment {
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = new SearchView(((Dashboard) getActivity()).getSupportActionBar().getThemedContext());
         MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-        ((EditText)  searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text))
-                .setTextColor(getResources().getColor(R.color.md_black_1000));
+        ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.md_black_1000));
         MenuItemCompat.setActionView(item, searchView);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -84,6 +77,7 @@ public class AddNewspapers extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
                 filter(newText);
@@ -101,18 +95,18 @@ public class AddNewspapers extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_add_newspapers, container, false);
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24>Add Newspapers</font>"));
-        Utility.AppBarTitle("Add Newspapers",getActivity());
+        Utility.AppBarTitle("Add Newspapers", getActivity());
         //recyclerView = (RecyclerView)rootView.findViewById(R.id.recycler_view);
         // getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
        /* toolbar.setTitle("Title");
         toolbar.setNavigationIcon(R.mipmap.backarrow);*/
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_newspaper);
-        img=(ImageView)rootView.findViewById(R.id.btn_paus);
+        img = (ImageView) rootView.findViewById(R.id.btn_paus);
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.nextFragment(getActivity(),DatePikerActivity.newInstance());
+                Utility.nextFragment(getActivity(), DatePikerActivity.newInstance());
             }
         });
         add = (Button) rootView.findViewById(R.id.btn_add_business_item);
@@ -164,11 +158,8 @@ public class AddNewspapers extends Fragment {
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     businessItems = new ArrayList<>();
-                    billitems = serviceResponse.getItems();
-                    businessItems = billitems;
-                    //businessItemss.add(serviceResponse.getItems());
-
-                    mAdapter =  new AddNewspaperAdapter(billitems, getContext());
+                    businessItems = serviceResponse.getItems();
+                    mAdapter = new AddNewspaperAdapter(businessItems, getContext());
                     recyclerView.setAdapter(mAdapter);
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
@@ -197,21 +188,15 @@ public class AddNewspapers extends Fragment {
 
                     // If there is no search value, then add all original list items to filter list
                     if (TextUtils.isEmpty(text)) {
-
-
-
-                        filterList.addAll(billitems);
-
-
+                        filterList.addAll(businessItems);
                     } else {
                         // Iterate in the original List and add it to filter list...
+                        for (BillItem item : businessItems) {
 
-                        //TODO NOT getting List item.getName() is null
-                        System.out.println("Get Name --->>> "+ billitems);
-                        for (BillItem item : billitems) {
-                            System.out.println("Get Name --->>> "+ item.getName());
-                            if (item.getName().toLowerCase().contains(text.toLowerCase())) {
+                            if (item.getName() != null && item.getName().toLowerCase().contains(text.toLowerCase())) {
                                 // Adding Matched items
+                                filterList.add(item);
+                            } else if (item.getParentItem() != null && item.getParentItem().getName() != null && item.getParentItem().getName().toLowerCase().contains(text.toLowerCase())) {
                                 filterList.add(item);
                             }
 
@@ -222,12 +207,11 @@ public class AddNewspapers extends Fragment {
                     (getActivity()).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
-                            Toast.makeText(getActivity(),"SSSSSSSSSSSSSSSSS",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getActivity(), "SSSSSSSSSSSSSSSSS", Toast.LENGTH_LONG).show();
                             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                            mAdapter= new AddNewspaperAdapter(filterList, getContext());
+                            mAdapter = new AddNewspaperAdapter(filterList, getContext());
                             recyclerView.setAdapter(mAdapter);
-                                mAdapter.notifyDataSetChanged();
+                            mAdapter.notifyDataSetChanged();
 
                         }
                     });

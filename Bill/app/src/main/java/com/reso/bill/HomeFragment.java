@@ -110,7 +110,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         View rootView = inflater.inflate(R.layout.fragment_tab_one, container, false);
         date = new Date();
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Deliveries " + CommonUtils.convertDate(date) + "</font>"));
-        Utility.AppBarTitle("Deliveries " + CommonUtils.convertDate(date), getActivity());
+        Utility.AppBarTitle("Deliveries " + CommonUtils.convertDate(date, Utility.DATE_FORMAT_DISPLAY), getActivity());
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         deliveries = (RadioButton) rootView.findViewById(R.id.radio_deliveries);
         //search = (EditText) rootView.findViewById(R.id.edit_search_order);

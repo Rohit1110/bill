@@ -41,7 +41,6 @@ import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -57,8 +56,10 @@ public class Utility {
     public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
     public static final int MY_PERMISSIONS_REQUEST_CONTACTS = 2;
     public static final int MY_PERMISSIONS_READ_CONTACTS = 3;
-    private static int selectedElement=0;
+    private static int selectedElement = 0;
     //int selectedElement = 1; //global variable to store state
+    public static final String DATE_FORMAT_DISPLAY = "MMM dd";
+
 
 
     public static void createAlert(Context context, String message, String title) {
@@ -338,10 +339,10 @@ public class Utility {
 
 
     public static boolean validateDecimal(TextView value) {
-        if(TextUtils.isEmpty(value.getText())) {
+        if (TextUtils.isEmpty(value.getText())) {
             return false;
         }
-        return(value.getText().toString().matches("\\d*\\.?\\d+"));
+        return (value.getText().toString().matches("\\d*\\.?\\d+"));
     }
 
    /* public static void filter(final String text,Activity activity) {
@@ -401,16 +402,16 @@ public class Utility {
 
     }*/
 
-   public static void SingleChoiceWithRadioButton(Activity activity) {
-       AlertDialog alert;
-       final String[] selectFruit = new String[]{"Delete"};
-       AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-       builder.setTitle("Select Your Choice");
-       builder.setSingleChoiceItems(selectFruit, selectedElement, new DialogInterface.OnClickListener() {
-           @Override
-           public void onClick(DialogInterface dialog, int which) {
-               selectedElement = which;
-               //Toast.makeText(AppointmentsActivity.this, selectFruit[which]+":"+ which + " Selected", Toast.LENGTH_LONG).show();
+    public static void SingleChoiceWithRadioButton(Activity activity) {
+        AlertDialog alert;
+        final String[] selectFruit = new String[]{"Delete"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle("Select Your Choice");
+        builder.setSingleChoiceItems(selectFruit, selectedElement, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectedElement = which;
+                //Toast.makeText(AppointmentsActivity.this, selectFruit[which]+":"+ which + " Selected", Toast.LENGTH_LONG).show();
             /*   if (selectFruit[which] == "Todays Appointments") {
                    from = "today";
                    showcacel = false;
@@ -426,17 +427,31 @@ public class Utility {
                    prepareAppointmentsList(null);
 
                }*/
-               //  dialog.dismiss();
-           }
-       });
-       builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-           @Override
-           public void onClick(DialogInterface dialog, int which) {
-               dialog.dismiss();
-           }
-       });
+                //  dialog.dismiss();
+            }
+        });
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
 
-       alert = builder.create();
-       alert.show();
-   }
+        alert = builder.create();
+        alert.show();
+    }
+
+    public static int indexOf(List<BillItem> items, BillItem indexOfItem) {
+        if (items == null || indexOfItem == null) {
+            return -1;
+        }
+        int position = 0;
+        for(BillItem item: items) {
+            if(item.getId().intValue() == item.getId().intValue()) {
+                return position;
+            }
+            position++;
+        }
+        return -1;
+    }
 }

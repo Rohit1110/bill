@@ -191,6 +191,8 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
         queue.add(myReq);
     }
 
+
+
     private Response.Listener<String> createMyReqSuccessListener(final BillItem customerSubscription) {
         return new Response.Listener<String>() {
             @Override
@@ -201,7 +203,15 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     Utility.createAlert(activity, "Subscription suspended successfully!", "Done");
-                    items.remove(customerSubscription);
+                    int position = Utility.indexOf(items, customerSubscription);
+                    if(position >= 0) {
+                        items.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, items.size());
+                        System.out.println("Item Removed ..." + position);
+                    }
+
+
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
                     Utility.createAlert(parent, serviceResponse.getResponse(), "Error");
