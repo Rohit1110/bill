@@ -25,7 +25,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -104,11 +103,13 @@ public class FragmentEditInvoice extends Fragment {
     }
 
     private void shareIt() {
+        if(invoice == null || TextUtils.isEmpty(invoice.getPaymentMessage())) {
+            return;
+        }
         //Toast.makeText(getActivity(),"Click",Toast.LENGTH_LONG).show();
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT,
-                "Test App");
+        sendIntent.putExtra(Intent.EXTRA_TEXT, invoice.getPaymentMessage());
         sendIntent.setType("text/plain");
         startActivity(sendIntent);
     }
@@ -118,11 +119,11 @@ public class FragmentEditInvoice extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_mv_bill_details_edit, container, false);
         getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Bill Details</font>"));
-        String id="";
-        if(invoice.getId() != null) {
-         id =   invoice.getId()+"";
+        String id = "";
+        if (invoice.getId() != null) {
+            id = invoice.getId() + "";
         }
-        Utility.AppBarTitle("Invoice #" +id, getActivity());
+        Utility.AppBarTitle("Invoice #" + id, getActivity());
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_bill_two);
         //btnpay = (Button) rootView.findViewById(R.id.btn_pay);
 
@@ -326,12 +327,12 @@ public class FragmentEditInvoice extends Fragment {
             invoice.setServiceCharge(new BigDecimal(serviceCharge.getText().toString()));
         }
 
-        if(!TextUtils.isEmpty(pending.getText())) {
+        if (!TextUtils.isEmpty(pending.getText())) {
             invoice.setPendingBalance(new BigDecimal(pending.getText().toString()));
         }
 
 
-        if(!TextUtils.isEmpty(credit.getText())) {
+        if (!TextUtils.isEmpty(credit.getText())) {
             invoice.setCreditBalance(new BigDecimal(credit.getText().toString()));
         }
 
