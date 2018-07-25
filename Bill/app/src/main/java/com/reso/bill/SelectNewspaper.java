@@ -18,8 +18,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,6 +35,7 @@ import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import adapters.DeliveriesAdapter;
@@ -117,8 +120,14 @@ public class SelectNewspaper extends Fragment {
                 View promptsView = li.inflate(R.layout.dialog_layout, null);
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                 alertDialogBuilder.setView(promptsView);
+
                 final TextView userInput = (TextView) promptsView.findViewById(R.id.textView1);
-                userInput.setText(txtSelectedItems.getText().toString());
+                ListView listView=(ListView)promptsView.findViewById(R.id.news_papers);
+                //userInput.setText(txtSelectedItems.getText().toString());
+                List<String> elephantList = Arrays.asList(txtSelectedItems.getText().toString().split(","));
+
+                ArrayAdapter<String> mHistory = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, elephantList);
+                listView.setAdapter(mHistory);
                 alertDialogBuilder.setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // get user input and set it to result

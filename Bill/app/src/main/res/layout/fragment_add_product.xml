@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.reso.bill.VendorRegistration"
+    >
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--    <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/basic_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/fab_margin"
+                    android:text="Customer \nInformation"
+                    />
+
+
+
+            </LinearLayout>-->
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:layout_marginBottom="@dimen/fab_margin"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                >
+
+                <TextView
+                    style="@style/textviewtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Product Name"
+                    android:layout_marginLeft="15dp"/>
+
+                <EditText
+                    android:id="@+id/et_customer_name"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter Product Name"
+                    android:layout_marginRight="10dp"
+                    />
+
+
+                <TextView
+                    style="@style/textviewtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Description"
+                    android:layout_marginLeft="10dp"/>
+
+                <EditText
+                    android:id="@+id/et_customer_phone"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Enter Product Description"
+                    android:layout_marginRight="10dp"
+                    android:singleLine="false"
+                    />
+
+                <TextView
+                    style="@style/textviewtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Upload photo"
+                    android:layout_marginLeft="10dp"/>
+
+                <EditText
+                    android:id="@+id/et_product_image"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:hint="Choose file"
+                    android:drawableRight="@mipmap/attchment"
+                    />
+                  <TextView
+                    style="@style/textviewtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Uploaded Photo"
+                    android:layout_marginLeft="10dp"/>
+
+                <ImageView
+                    android:id="@+id/selected_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp" />
+
+
+
+                <!--<LinearLayout
+                    android:id="@+id/layout_subscriptions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/fab_margin"
+                    android:background="#ffffff">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/basic_text_field"
+                        android:text="Add Subscriptions"/>
+
+                </LinearLayout>-->
+                <include
+                    layout="@layout/layout_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"/>
+
+
+
+                <Button
+                    android:id="@+id/fab_save_customer"
+                    style="@style/basic_button"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_margin="@dimen/fab_margin"
+                    android:text="Save"/>
+            </LinearLayout>
+
+
+        </android.support.v4.widget.NestedScrollView>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
