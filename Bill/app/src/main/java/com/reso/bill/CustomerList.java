@@ -14,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -26,18 +25,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.reso.bill.components.ClickListener;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
+import com.rns.web.billapp.service.util.BillConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +56,8 @@ public class CustomerList extends Fragment {
     private ProgressDialog pDialog;
     private BillUser user;
     private Button addcust;
+    private AlertDialog alertDialog;
+    private CustomerListAdapter adapter;
     //EditText search;
 
     public static CustomerList newInstance() {
@@ -79,8 +78,7 @@ public class CustomerList extends Fragment {
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = new SearchView(((Dashboard) getActivity()).getSupportActionBar().getThemedContext());
         MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-        ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text))
-                .setTextColor(getResources().getColor(R.color.md_black_1000));
+        ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.md_black_1000));
         MenuItemCompat.setActionView(item, searchView);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -96,12 +94,11 @@ public class CustomerList extends Fragment {
             }
         });
         searchView.setOnClickListener(new View.OnClickListener() {
-                                          @Override
-                                          public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-                                          }
-                                      }
-        );
+            }
+        });
 
         //searchView.setMenuItem(item);
     }
@@ -138,24 +135,28 @@ public class CustomerList extends Fragment {
             }
 
             @Override
-            public void onLongClick(View view, int position) {
-               Utility.SingleChoiceWithRadioButton(getActivity());
-
-             /*  AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-                alertDialogBuilder.setMessage("Are you sure you want to delete");
-
-                alertDialogBuilder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            public void onLongClick(View view, final int position) {
+                AlertDialog.Builder builder = Utility.SingleChoiceWithRadioButton(getActivity());
+                builder.setSingleChoiceItems(Utility.LIST_OPTIONS, 0, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                               //TODO To handle yes button
-                            }
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        if (which == Utility.LIST_OPT_DELETE) {
+                            List<BillCustomer> customerList = adapter.getList();
+                            if (customerList != null && customerList.size() > 0 && position < customerList.size()) {
+                                BillCustomer billCustomer = customerList.get(position);
+                                if (alertDialog != null) {
+                                    alertDialog.dismiss();
+                                }
+                                deleteCustomer(billCustomer);
 
+                            }
+                        }
+                    }
                 });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();*/
+                alertDialog = builder.create();
+                alertDialog.show();
             }
-        }
-        ));
+        }));
         // getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         /*search.addTextChangedListener(new TextWatcher() {
                                           @Override
@@ -179,6 +180,40 @@ public class CustomerList extends Fragment {
         });*/
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         return rootView;
+    }
+
+    private void deleteCustomer(BillCustomer billCustomer) {
+        if (billCustomer != null && billCustomer.getUser() != null) {
+            BillServiceRequest request = new BillServiceRequest();
+            billCustomer.getUser().setStatus(BillConstants.STATUS_DELETED);
+            request.setUser(billCustomer.getUser());
+            pDialog = Utility.getProgressDialogue("Deleting customer..", getActivity());
+            StringRequest myReq = ServiceUtil.getStringRequest("updateCustomer", deleteSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
+            RequestQueue queue = Volley.newRequestQueue(getActivity());
+            queue.add(myReq);
+        }
+    }
+
+    private Response.Listener<String> deleteSuccessListener() {
+        return new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println("## response:" + response);
+                pDialog.dismiss();
+
+                BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
+                if (serviceResponse != null && serviceResponse.getStatus() == 200) {
+                    loadCustomers();
+                    Utility.createAlert(getContext(), "Customer deleted successfully!", "Done");
+                } else {
+                    System.out.println("Error .." + serviceResponse.getResponse());
+                    Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
+                }
+
+
+            }
+
+        };
     }
 
 
@@ -216,7 +251,8 @@ public class CustomerList extends Fragment {
                             list.add(new BillCustomer(user));
                         }
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        recyclerView.setAdapter(new CustomerListAdapter(list, getActivity(), user));
+                        adapter = new CustomerListAdapter(list, getActivity(), user);
+                        recyclerView.setAdapter(adapter);
                     }
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
@@ -270,7 +306,8 @@ public class CustomerList extends Fragment {
                             recyclerView_contact.setLayoutManager(mLayoutManager);
                             recyclerView_contact.setAdapter(adapter);*/
                             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                            recyclerView.setAdapter(new CustomerListAdapter(filterList, getActivity(), user));
+                            adapter = new CustomerListAdapter(filterList, getActivity(), user);
+                            recyclerView.setAdapter(adapter);
 
 
                         }

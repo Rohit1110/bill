@@ -103,7 +103,7 @@ public class FragmentEditInvoice extends Fragment {
     }
 
     private void shareIt() {
-        if(invoice == null || TextUtils.isEmpty(invoice.getPaymentMessage())) {
+        if (invoice == null || TextUtils.isEmpty(invoice.getPaymentMessage())) {
             return;
         }
         //Toast.makeText(getActivity(),"Click",Toast.LENGTH_LONG).show();
@@ -136,6 +136,10 @@ public class FragmentEditInvoice extends Fragment {
         yearsSpinner = (Spinner) rootView.findViewById(R.id.spn_year);
         monthspinner.setPrompt("year");
         yearsList = Utility.createYearsArray();
+        if (invoice == null || invoice.getId() == null) {
+            yearsList.add("Select Year");
+        }
+
         yearsSpinner.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.spinner_basic_text_white, yearsList));
 
         /*btnpay.setOnClickListener(new View.OnClickListener() {
@@ -158,21 +162,21 @@ public class FragmentEditInvoice extends Fragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(yearsSpinner.getSelectedItemPosition()>0){
+                /*if (yearsSpinner.getSelectedItemPosition() > 0) {
 
-                int selectedItemOfMySpinner = yearsSpinner.getSelectedItemPosition();
+                    int selectedItemOfMySpinner = yearsSpinner.getSelectedItemPosition();
 
-                String actualPositionOfMySpinner = (String) yearsSpinner.getItemAtPosition(selectedItemOfMySpinner);
+                    String actualPositionOfMySpinner = (String) yearsSpinner.getItemAtPosition(selectedItemOfMySpinner);
 
-                if (actualPositionOfMySpinner.isEmpty()) {
+                    if (actualPositionOfMySpinner.isEmpty()) {
+                        Utility.createAlert(getActivity(), "Please select a year!", "Error");
+                        return;
+                    }
+                } else {
                     Utility.createAlert(getActivity(), "Please select a year!", "Error");
                     return;
                 }
-                }else{
-                    Utility.createAlert(getActivity(), "Please select a year!", "Error");
-                    return;
-                }
-                if(monthspinner.getSelectedItemPosition()>0) {
+                if (monthspinner.getSelectedItemPosition() > 0) {
                     int selectedItemOfMonthSpinner = monthspinner.getSelectedItemPosition();
                     String selectedItemOfMonthsSpinner = (String) monthspinner.getItemAtPosition(selectedItemOfMonthSpinner);
 
@@ -180,10 +184,10 @@ public class FragmentEditInvoice extends Fragment {
                         Utility.createAlert(getActivity(), "Please select a month!", "Error");
                         return;
                     }
-                }else{
+                } else {
                     Utility.createAlert(getActivity(), "Please select a month!", "Error");
                     return;
-                }
+                }*/
                 saveInvoice();
             }
         });
@@ -246,7 +250,7 @@ public class FragmentEditInvoice extends Fragment {
             yearsSpinner.setEnabled(false);
         }
         if (invoice.getMonth() != null) {
-            monthspinner.setSelection(invoice.getMonth() - 1);
+            monthspinner.setSelection(invoice.getMonth());
             monthspinner.setEnabled(false);
         }
 
@@ -334,18 +338,18 @@ public class FragmentEditInvoice extends Fragment {
     }
 
     private void saveInvoice() {
-       /* if (invoice.getYear() == null || invoice.getMonth() == null) {
+        if (invoice.getYear() == null || invoice.getMonth() == null) {
             invoice.setMonth(getMonth());
-            if (yearsSpinner.getSelectedItem() != null && yearsSpinner.getSelectedItem().toString().trim().length() > 0) {
+            if (yearsSpinner.getSelectedItemPosition() > 0 && yearsSpinner.getSelectedItem() != null && yearsSpinner.getSelectedItem().toString().trim().length() > 0) {
                 invoice.setYear(new Integer(yearsSpinner.getSelectedItem().toString()));
+            } else {
+                Utility.createAlert(getContext(), "Please select an year for the invoice", "Error");
             }
-            if (invoice.getMonth() == null || invoice.getYear() == null) {
-                Utility.createAlert(getContext(), "Please select month and year for the invoice", "Error");
+            if (invoice.getMonth() == null) {
+                Utility.createAlert(getContext(), "Please select a month for the invoice", "Error");
                 return;
             }
-        }*/
-
-
+        }
 
 
         //if (invoice.getAmount() == null) {
@@ -399,8 +403,8 @@ public class FragmentEditInvoice extends Fragment {
 
     private Integer getMonth() {
         int index = Arrays.asList(monthsArray).indexOf(monthspinner.getSelectedItem());
-        if (index >= 0) {
-            return (index + 1);
+        if (index > 0) {
+            return (index);
         }
         return null;
     }

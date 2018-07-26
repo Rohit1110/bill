@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -23,7 +24,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -34,6 +34,7 @@ import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
+import com.rns.web.billapp.service.util.BillConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,13 +56,14 @@ public class FragmentCustomerInvoices extends Fragment {
     //private TextView customerName;
     private ProgressDialog pDialog;
     private Button addInvoice;
+    private List<BillInvoice> invoices;
+    private AlertDialog alertDialog;
 
     public static FragmentCustomerInvoices newInstance(BillUser customer) {
         FragmentCustomerInvoices fragment = new FragmentCustomerInvoices();
         fragment.customer = customer;
         return fragment;
     }
-
 
 
     @Override
@@ -71,8 +73,7 @@ public class FragmentCustomerInvoices extends Fragment {
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = new SearchView(((Dashboard) getActivity()).getSupportActionBar().getThemedContext());
         MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-        ((EditText)  searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text))
-                .setTextColor(getResources().getColor(R.color.md_black_1000));
+        ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.md_black_1000));
         MenuItemCompat.setActionView(item, searchView);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -80,6 +81,7 @@ public class FragmentCustomerInvoices extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
                 //filter(newText);
@@ -87,12 +89,11 @@ public class FragmentCustomerInvoices extends Fragment {
             }
         });
         searchView.setOnClickListener(new View.OnClickListener() {
-                                          @Override
-                                          public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-                                          }
-                                      }
-        );
+            }
+        });
 
         //searchView.setMenuItem(item);
     }
@@ -116,11 +117,16 @@ public class FragmentCustomerInvoices extends Fragment {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp.setAdapter(dataAdapter);
 
+        if (customer == null) {
+            getActivity().startActivity(new Intent(getActivity(), MainActivity.class));
+            return rootView;
+        }
+
         //Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.tabthree_toolbar);
        /* toolbar.setTitle("Title");
         toolbar.setNavigationIcon(R.mipmap.backarrow);*/
         getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Bill by Year - " + customer.getName() + "</font>"));
-        Utility.AppBarTitle("Bill by Year - " + customer.getName(),getActivity());
+        Utility.AppBarTitle("Bill by Year - " + customer.getName(), getActivity());
         //customerName = (TextView) rootView.findViewById(R.id.txt_customer_invoices_customer_name);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
 
@@ -130,33 +136,85 @@ public class FragmentCustomerInvoices extends Fragment {
             }
 
             @Override
-            public void onLongClick(View view, int position) {
+            public void onLongClick(View view, final int position) {
 
-                Utility.SingleChoiceWithRadioButton(getActivity());
-               /* AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
-                alertDialogBuilder.setMessage("Are you sure you want to delete");
+                AlertDialog.Builder builder = Utility.SingleChoiceWithRadioButton(getActivity());
 
-                alertDialogBuilder.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                builder.setSingleChoiceItems(Utility.LIST_OPTIONS, 0, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface arg0, int arg1) {
-                           //TODO To handle yes button
-                    }
+                    public void onClick(DialogInterface dialogInterface, int which) {
+                        if (which == Utility.LIST_OPT_DELETE) {
+                            if (invoices != null && invoices.size() > 0 && position < invoices.size()) {
+                                BillInvoice invoice = invoices.get(position);
+                                if(alertDialog != null) {
+                                    alertDialog.dismiss();
+                                }
+                                deleteInvoice(invoice);
 
+                            }
+                        }
+                    }
                 });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();*/
+
+                /*builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });*/
+
+                alertDialog = builder.create();
+                alertDialog.show();
+
             }
-        }
-        ));
+        }));
         addInvoice = (Button) rootView.findViewById(R.id.fab_add_invoice);
         addInvoice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.nextFragment(getActivity(), FragmentEditInvoice.newInstance(customer, new BillInvoice() ));
+                Utility.nextFragment(getActivity(), FragmentEditInvoice.newInstance(customer, new BillInvoice()));
             }
         });
 
         return rootView;
+    }
+
+    private void deleteInvoice(BillInvoice invoice) {
+        if (invoice == null || invoice.getId() == null || customer == null) {
+            return;
+        }
+        invoice.setStatus(BillConstants.INVOICE_STATUS_DELETED);
+        //}
+        BillServiceRequest request = new BillServiceRequest();
+        request.setInvoice(invoice);
+        request.setUser(customer);
+        pDialog = Utility.getProgressDialogue("Deleting..", getActivity());
+        StringRequest myReq = ServiceUtil.getStringRequest("updateCustomerInvoice", invoiceDeletionResponse(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(myReq);
+    }
+
+    private Response.Listener<String> invoiceDeletionResponse() {
+        return new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println("## response:" + response);
+                pDialog.dismiss();
+
+                BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
+                if (serviceResponse != null && serviceResponse.getStatus() == 200) {
+                    loadCustomerInvoices();
+                    Utility.createAlert(getContext(), "Invoice deleted successfully!", "Done");
+                } else {
+                    System.out.println("Error .." + serviceResponse.getResponse());
+                    Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
+                }
+
+            }
+
+        };
+
+
     }
 
     @Override
@@ -186,9 +244,10 @@ public class FragmentCustomerInvoices extends Fragment {
 
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
-                    if (serviceResponse.getInvoices() != null && serviceResponse.getInvoices().size() > 0) {
+                    invoices = serviceResponse.getInvoices();
+                    if (invoices != null && invoices.size() > 0) {
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        CustomerInvoiceAdapter adapter = new CustomerInvoiceAdapter(serviceResponse.getInvoices(), getActivity(), customer);
+                        CustomerInvoiceAdapter adapter = new CustomerInvoiceAdapter(invoices, getActivity(), customer);
                         recyclerView.setAdapter(adapter);
                     }
                 } else {
@@ -208,43 +267,43 @@ public class FragmentCustomerInvoices extends Fragment {
 
         public RecyclerTouchListener(Context context, final RecyclerView recycleView, final ClickListener clicklistener) {
 
-        this.clicklistener = clicklistener;
-        gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onSingleTapUp(MotionEvent e) {
-                return true;
-            }
-
-            @Override
-            public void onLongPress(MotionEvent e) {
-                View child = recycleView.findChildViewUnder(e.getX(), e.getY());
-                if (child != null && clicklistener != null) {
-                    clicklistener.onLongClick(child, recycleView.getChildAdapterPosition(child));
+            this.clicklistener = clicklistener;
+            gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
                 }
-            }
-        });
-    }
 
-    @Override
-    public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
-        View child = rv.findChildViewUnder(e.getX(), e.getY());
-        if (child != null && clicklistener != null && gestureDetector.onTouchEvent(e)) {
-            clicklistener.onClick(child, rv.getChildAdapterPosition(child));
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child = recycleView.findChildViewUnder(e.getX(), e.getY());
+                    if (child != null && clicklistener != null) {
+                        clicklistener.onLongClick(child, recycleView.getChildAdapterPosition(child));
+                    }
+                }
+            });
         }
 
-        return false;
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View child = rv.findChildViewUnder(e.getX(), e.getY());
+            if (child != null && clicklistener != null && gestureDetector.onTouchEvent(e)) {
+                clicklistener.onClick(child, rv.getChildAdapterPosition(child));
+            }
+
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
     }
-
-    @Override
-    public void onTouchEvent(RecyclerView rv, MotionEvent e) {
-
-    }
-
-    @Override
-    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-    }
-}
 
 }
 

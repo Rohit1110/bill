@@ -1,6 +1,7 @@
 package com.reso.bill;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -32,9 +33,7 @@ import java.util.List;
 
 import adapters.DeliveriesAdapter;
 import adapters.InvoicesAdapter;
-import adapters.SelectNewsPaperAdapter;
 import model.BillCustomer;
-import model.BillItemHolder;
 import util.ServiceUtil;
 import util.Utility;
 
@@ -143,6 +142,10 @@ public class FragmentInvoiceSummary extends Fragment {
     }
 
     private void loadInvoiceSummary() {
+        if(user == null || user.getCurrentBusiness() == null) {
+            getActivity().startActivity(new Intent(getActivity(), MainActivity.class));
+            return;
+        }
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
         request.setRequestedDate(date);

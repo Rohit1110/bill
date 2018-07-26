@@ -57,9 +57,10 @@ public class Utility {
     public static final int MY_PERMISSIONS_REQUEST_CONTACTS = 2;
     public static final int MY_PERMISSIONS_READ_CONTACTS = 3;
     private static int selectedElement = 0;
+    public static int LIST_OPT_DELETE = 0;
+    public static String[] LIST_OPTIONS = {"Delete"};
     //int selectedElement = 1; //global variable to store state
     public static final String DATE_FORMAT_DISPLAY = "MMM dd";
-
 
 
     public static void createAlert(Context context, String message, String title) {
@@ -239,7 +240,7 @@ public class Utility {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public static boolean checkcontactPermission(Activity activity) {
         int currentAPIVersion = Build.VERSION.SDK_INT;
-        if (currentAPIVersion >= android.os.Build.VERSION_CODES.M) {
+        if (currentAPIVersion >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
 
                 return false;
@@ -327,13 +328,11 @@ public class Utility {
         List<String> list = new ArrayList<>();
         Calendar cal = Calendar.getInstance();
         list = new ArrayList<>();
-        list.add("Select Year");
-
-        cal.add(Calendar.YEAR, -1);
+        list.add("Select year");
         list.add(String.valueOf(cal.get(Calendar.YEAR)));
         cal.add(Calendar.YEAR, -1);
         list.add(String.valueOf(cal.get(Calendar.YEAR)));
-        cal.add(Calendar.YEAR, 2);
+        cal.add(Calendar.YEAR, -1);
         list.add(String.valueOf(cal.get(Calendar.YEAR)));
         return list;
 
@@ -404,43 +403,21 @@ public class Utility {
 
     }*/
 
-    public static void SingleChoiceWithRadioButton(Activity activity) {
+    public static AlertDialog.Builder SingleChoiceWithRadioButton(final Activity activity) {
         AlertDialog alert;
         final String[] selectFruit = new String[]{"Delete"};
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle("Select Your Choice");
-        builder.setSingleChoiceItems(selectFruit, selectedElement, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                selectedElement = which;
-                //Toast.makeText(AppointmentsActivity.this, selectFruit[which]+":"+ which + " Selected", Toast.LENGTH_LONG).show();
-            /*   if (selectFruit[which] == "Todays Appointments") {
-                   from = "today";
-                   showcacel = false;
-                   prepareAppointmentsList(Utility.formatDate(new Date(), Utility.DATE_FORMAT_USED));
-               } else if (selectFruit[which] == "Show All Appointments") {
-                   showcacel = false;
-                   from = "all";
-                   prepareAppointmentsList(null);
 
-               } else if (selectFruit[which] == "Cancelled Appointments") {
-                   showcacel = true;
-                   from = "cancel";
-                   prepareAppointmentsList(null);
 
-               }*/
-                //  dialog.dismiss();
-            }
-        });
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+
+        builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
             }
         });
-
-        alert = builder.create();
-        alert.show();
+        return builder;
     }
 
     public static int indexOf(List<BillItem> items, BillItem indexOfItem) {
@@ -448,8 +425,8 @@ public class Utility {
             return -1;
         }
         int position = 0;
-        for(BillItem item: items) {
-            if(item.getId().intValue() == item.getId().intValue()) {
+        for (BillItem item : items) {
+            if (item.getId().intValue() == item.getId().intValue()) {
                 return position;
             }
             position++;

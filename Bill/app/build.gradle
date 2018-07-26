@@ -1,13 +1,21 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'payperbill'
+            keyPassword 'pay2018!'
+            storeFile file('F:/Resoneuronance/BillDue/Documents/payperbill.jks')
+            storePassword 'pay2018!'
+        }
+    }
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.reso.bill"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "2.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -15,6 +23,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
+            jniDebuggable false
+            signingConfig signingConfigs.config
+            renderscriptDebuggable false
         }
     }
 }
@@ -38,7 +50,7 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.google.firebase:firebase-auth:11.0.4'
@@ -57,13 +69,11 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
     //compile files('libs/bill.jar')
     implementation 'com.squareup.picasso:picasso:2.71828'
-
     compile 'com.fasterxml.jackson.core:jackson-core:2.9.1'
     compile 'com.fasterxml.jackson.core:jackson-databind:2.9.1'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.1'
-    compile group: 'org.codehaus.jackson', name: 'jackson-core-asl', version: '1.7.1'
-    compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.7.1'
-
+    compile 'org.codehaus.jackson:jackson-core-asl:1.7.1'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.7.1'
 }
 
 
