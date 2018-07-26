@@ -43,9 +43,9 @@
 
             <Spinner
                 android:id="@+id/spn_months"
-                android:layout_width="110dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_margin="10dp"
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 />
 
@@ -55,7 +55,8 @@
                 style="@style/Base.Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="110dp"
                 android:layout_height="wrap_content"
-                android:layout_margin="15dp"
+                android:layout_margin="10dp"
+
                 />
 
             <Button
