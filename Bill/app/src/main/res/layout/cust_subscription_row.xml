@@ -1,98 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:orientation="vertical">
-<!--    <LinearLayout
-        android:id="@+id/firstlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="5dp">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-   <ImageView
-       android:layout_width="180dp"
-       android:layout_height="55dp"
-       android:id="@+id/img_customer_subscription_item_icon"
-       />
-            <TextView
-                android:id="@+id/txt_customer_subscription_item_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                style="@style/basic_sub_text_field"
-                android:layout_margin="3dp"
-                android:text=""/>
-        </LinearLayout>
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center_vertical"
-            android:layout_toRightOf="@+id/img_daily_summary_item_icon">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txt_newspaperqty"
-            android:text="1"
-            android:textColor="#000000"
-            android:textSize="25dp"
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/txt_newspaperqty"
-            android:id="@+id/img_paus"
-
-            android:src="@android:drawable/ic_media_pause"
-
-            />
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/img_cross"
-            android:layout_toRightOf="@+id/img_paus"
-            android:layout_marginLeft="10dp"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
-            />
-
-            <TextView
-                android:id="@+id/txt_weekdays"
-                style="@style/basic_sub_text_field"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="mo|tu|we|th|fr|sa|su|"
-                android:layout_below="@+id/img_cross"/>
-        </RelativeLayout>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <View
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white"
+              android:orientation="vertical">
+    <!--    <LinearLayout
+            android:id="@+id/firstlayout"
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginLeft="@dimen/fab_margin"
-            android:layout_marginRight="@dimen/fab_margin"
-            android:background="#7E55F3" />
-    </LinearLayout>-->
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+       <ImageView
+           android:layout_width="180dp"
+           android:layout_height="55dp"
+           android:id="@+id/img_customer_subscription_item_icon"
+           />
+                <TextView
+                    android:id="@+id/txt_customer_subscription_item_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    style="@style/basic_sub_text_field"
+                    android:layout_margin="3dp"
+                    android:text=""/>
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_vertical"
+                android:layout_toRightOf="@+id/img_daily_summary_item_icon">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/txt_newspaperqty"
+                android:text="1"
+                android:textColor="#000000"
+                android:textSize="25dp"
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/txt_newspaperqty"
+                android:id="@+id/img_paus"
+
+                android:src="@android:drawable/ic_media_pause"
+
+                />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/img_cross"
+                android:layout_toRightOf="@+id/img_paus"
+                android:layout_marginLeft="10dp"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                />
+
+                <TextView
+                    android:id="@+id/txt_weekdays"
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="mo|tu|we|th|fr|sa|su|"
+                    android:layout_below="@+id/img_cross"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:layout_marginRight="@dimen/fab_margin"
+                android:background="#7E55F3" />
+        </LinearLayout>-->
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_marginTop="13dp"
         android:layout_marginBottom="13dp"
+        android:layout_marginTop="13dp"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -118,48 +118,50 @@
         </LinearLayout>
 
 
-       <!-- <ImageView
-            android:id="@+id/btn_paus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="30dp"
-            android:layout_toRightOf="@+id/txt_newspaperqty"
-            android:src="@android:drawable/ic_media_pause"
+        <!-- <ImageView
+             android:id="@+id/btn_paus"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center_vertical"
+             android:layout_marginLeft="30dp"
+             android:layout_toRightOf="@+id/txt_newspaperqty"
+             android:src="@android:drawable/ic_media_pause"
 
-            />-->
+             />-->
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="20dp"
             android:layout_gravity="center_vertical"
-            android:layout_toRightOf="@+id/img_daily_summary_item_icon">
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@+id/img_daily_summary_item_icon"
+            android:gravity="center_vertical">
 
             <TextView
+                android:id="@+id/txt_newspaperqty"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/txt_newspaperqty"
                 android:text="1"
                 android:textColor="#000000"
                 android:textSize="25dp"
                 />
+
             <ImageView
+                android:id="@+id/img_paus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_toRightOf="@+id/txt_newspaperqty"
-                android:id="@+id/img_paus"
 
                 android:src="@drawable/ic_pause_delivery"
 
                 />
+
             <ImageView
+                android:id="@+id/img_cross"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/img_cross"
-                android:layout_toRightOf="@+id/img_paus"
                 android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/img_paus"
                 android:src="@android:drawable/ic_menu_close_clear_cancel"
                 />
 
@@ -168,17 +170,20 @@
                 style="@style/basic_sub_text_field"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_below="@+id/txt_newspaperqty"
                 android:layout_marginLeft="5dp"
-                android:text="mo|tu|we|th|fr|sa|su|"
-                android:layout_below="@+id/txt_newspaperqty"/>
+                android:layout_marginTop="5dp"
+                android:text="mo|tu|we|th|fr|sa|su|"/>
+
+
         </RelativeLayout>
 
 
     </LinearLayout>
+
     <include
+        layout="@layout/layout_line"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        layout="@layout/layout_line" />
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

@@ -433,4 +433,18 @@ public class Utility {
         }
         return -1;
     }
+
+    public static String getItemName(BillItem item) {
+        if(item == null) {
+            return "";
+        }
+        if(item.getName() != null) {
+            return item.getName();
+        }
+        if(item.getParentItem() != null && item.getParentItem().getName() != null) {
+            return item.getParentItem().getName();
+        }
+        return "";
+    }
+
 }

@@ -20,6 +20,7 @@ public class BillServiceRequest {
     private Date requestedDate;
     private List<BillItem> items;
     private BillFile file;
+    private List<BillUser> users;
 
     public BillUser getUser() {
         return user;
@@ -93,4 +94,11 @@ public class BillServiceRequest {
         this.file = file;
     }
 
+    public List<BillUser> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<BillUser> users) {
+        this.users = users;
+    }
 }

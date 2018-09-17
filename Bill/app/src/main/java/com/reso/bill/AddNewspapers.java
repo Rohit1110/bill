@@ -106,7 +106,7 @@ public class AddNewspapers extends Fragment {
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.nextFragment(getActivity(), DatePikerActivity.newInstance());
+                Utility.nextFragment(getActivity(), PauseBusiness.newInstance());
             }
         });
         add = (Button) rootView.findViewById(R.id.btn_add_business_item);

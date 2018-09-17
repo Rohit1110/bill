@@ -2,16 +2,13 @@ package adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.reso.bill.PauseTime;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.squareup.picasso.Picasso;
@@ -85,7 +82,7 @@ public class AddNewspaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
        /* gholder.iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                PauseTime fragment = new PauseTime();
+                PauseCustomerSubscription fragment = new PauseCustomerSubscription();
                 Utility.nextFragment((FragmentActivity) activity, fragment);
             }
         });*/

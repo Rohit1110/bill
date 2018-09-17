@@ -243,10 +243,15 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
                     } else {
                         // Iterate in the original List and add it to filter list...
+                        System.out.println(".......");
                         for (BillCustomer item : orders) {
                             if (item.getUser().getName().toLowerCase().contains(text.toLowerCase()) /*|| comparePhone(item, text)*/) {
-                                // Adding Matched items
-                                filterList.add(item);
+                                System.out.println("item added .. " + item.getUser().getId());
+                                if(notContains(filterList, item)) {
+                                    // Adding Matched items
+                                    filterList.add(item);
+                                }
+
                             }
 
                         }
@@ -277,6 +282,21 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             }
         }).start();
 
+    }
+
+    private boolean notContains(List<BillCustomer> filterList, BillCustomer item) {
+        if(item == null || filterList == null) {
+            return false;
+        }
+        if(filterList != null && filterList.size() == 0) {
+            return true;
+        }
+        for(BillCustomer customer: filterList) {
+            if(customer.getUser().getId() == item.getUser().getId()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override

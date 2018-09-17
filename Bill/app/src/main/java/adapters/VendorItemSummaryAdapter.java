@@ -32,15 +32,18 @@ public class VendorItemSummaryAdapter extends RecyclerView.Adapter<RecyclerView.
         private TextView txtpcs;
         private ImageView newspaperimg;
         private TextView txtName;
+        private TextView txtCp;
+        private TextView txtSp;
         //View appointmentindicator;
 
         public ViewHolder1(View itemView) {
             super(itemView);
             //txtName=(TextView)itemView.findViewById(R.id.txt_name);
             newspaperimg = (ImageView) itemView.findViewById(R.id.img_daily_summary_item_icon);
-            txtpcs = (TextView) itemView.findViewById(R.id.txt_daily_quantity);
+            txtpcs = (TextView) itemView.findViewById(R.id.txt_daily_pcs);
             txtName = (TextView) itemView.findViewById(R.id.txt_daily_summary_item_name);
-
+            txtCp = (TextView) itemView.findViewById(R.id.txt_daily_payment);
+            txtSp = (TextView) itemView.findViewById(R.id.txt_daily_profit);
         }
     }
 
@@ -65,7 +68,15 @@ public class VendorItemSummaryAdapter extends RecyclerView.Adapter<RecyclerView.
         if (item.getQuantity() != null) {
             String qty = item.getQuantity().toBigInteger().toString();
             //gholder.txtpcs.setText(item.getQuantity().toString());
-            gholder.txtpcs.setText(qty);
+            gholder.txtpcs.setText("Qty  " + qty);
+        }
+
+        if(item.getCostPrice() != null && item.getUnitCostPrice() != null) {
+            gholder.txtCp.setText("Pay  " + item.getCostPrice() + " @ " + item.getUnitCostPrice() + " /unit");
+        }
+
+        if(item.getPrice() != null && item.getUnitSellingPrice() != null) {
+            gholder.txtSp.setText("Get  " + item.getPrice() + " @ " + item.getUnitSellingPrice() + " /unit");
         }
 
         String name = item.getName();

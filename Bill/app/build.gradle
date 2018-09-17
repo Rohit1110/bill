@@ -14,8 +14,8 @@ android {
         applicationId "com.reso.bill"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 2
-        versionName "2.0"
+        versionCode 4
+        versionName "4.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -75,6 +75,8 @@ dependencies {
     compile 'org.codehaus.jackson:jackson-core-asl:1.7.1'
     compile 'org.codehaus.jackson:jackson-mapper-asl:1.7.1'
 }
+
+
 
 
 

@@ -89,6 +89,10 @@ public class CustomerLogActivityAdapter extends RecyclerView.Adapter<CustomerLog
         //this.logs = logs;
     }
 
+    public List<BillUserLog> getList() {
+        return list;
+    }
+
     @Override
     public RecViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cust_activity_row, parent, false);

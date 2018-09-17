@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -49,6 +50,7 @@ public class VendorRegistration extends AppCompatActivity {
     String identy;
     private BillUser user;
     private EditText businessLicense;
+    private TextView tnc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,6 +204,15 @@ public class VendorRegistration extends AppCompatActivity {
                 businessLicense.setText(user.getCurrentBusiness().getIdentificationNumber());
             }
         }
+
+        tnc = (TextView) findViewById(R.id.txt_tnc);
+        tnc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent tncI = new Intent(VendorRegistration.this, TermsNConditionsActivity.class);
+                startActivity(tncI);
+            }
+        });
 
     }
 

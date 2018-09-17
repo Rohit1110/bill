@@ -4,114 +4,127 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/white"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 tools:context="com.reso.bill.AddNewspapers"
-                 android:background="@color/white"
                 tools:showIn="@layout/activity_datepicker">
-
     <LinearLayout
         android:id="@+id/layout_addnewspaper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="130dp"
-            android:layout_height="60dp"
-            android:orientation="vertical"
-            android:layout_marginLeft="5dp"
-            >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:text="From"/>
-            <EditText
-                android:id="@+id/txt_fromdate"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:editable="false"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="130dp"
-            android:layout_height="60dp"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:text="To"/>
-            <EditText
-                android:id="@+id/txt_todate"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:textColor="@android:color/black"
-                android:editable="false"/>
-        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="right"
+            android:orientation="horizontal">
 
-            android:background="@color/white">
-            <Button
-                android:id="@+id/btn_save_date"
-                style="@style/basic_button"
-                android:layout_width="wrap_content"
-                android:layout_gravity="top|right"
-                android:layout_margin="10dp"
-                android:text="save"/>
+            <LinearLayout
+                android:layout_width="130dp"
+                android:layout_height="60dp"
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="From"
+                    />
+
+                <!--<EditText
+                    style="@style/edittextstyle"
+                    android:id="@+id/txt_fromdate"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    />-->
+
+                <EditText
+                    android:id="@+id/txt_from_date"
+                    android:layout_marginLeft="@dimen/fab_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/basic_sub_text_field"
+                    android:editable="false"
+                    android:text="select date"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="130dp"
+                android:layout_height="60dp"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="To"
+                    />
+
+                <!--<EditText
+                    style="@style/edittextstyle"
+                    android:id="@+id/txt_todate"
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:editable="false"
+                    />-->
+
+                <EditText
+                    android:id="@+id/txt_to_date"
+                    android:layout_marginLeft="@dimen/fab_margin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/basic_sub_text_field"
+                    android:editable="false"
+                    android:text="select date"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+
+                android:gravity="right">
+
+                <Button
+                    android:id="@+id/btn_pause_business_items"
+                    style="@style/basic_button"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="top|right"
+                    android:layout_margin="10dp"
+                    android:text="save"/>
+
+
+            </LinearLayout>
+
 
 
 
         </LinearLayout>
 
+        <TextView
+            android:id="@+id/txt_pause_delivery_business_days"
+            style="@style/basic_sub_text_field"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pause business delivery for 0 days"
+            />
+
         <include
+            layout="@layout/layout_line"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_below="@id/layout_add_cust"
-            layout="@layout/layout_line" />
+            android:layout_below="@id/txt_pause_delivery_business_days"/>
 
     </LinearLayout>
 
-<!--
-    <LinearLayout
-        android:id="@+id/"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:paddingTop="10dp">
 
 
-        <Button
-            android:id="@+id/"
-            style="@style/basic_button"
-            android:layout_width="wrap_content"
-            android:layout_gravity="top|right"
-            android:layout_marginRight="10dp"
-            android:text="ADD"/>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/bgGray"/>
 
 
-    </LinearLayout>-->
-
-   <!-- <LinearLayout
-        android:id="@+id/textlayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_addnewspaper"
-        android:layout_marginTop="5dp"
-        android:background="@color/bgGray">
-
-    </LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/layout_addnewspaper_list"

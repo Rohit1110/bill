@@ -20,7 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.reso.bill.ChangeQuantity;
 import com.reso.bill.DaysToDeliver;
-import com.reso.bill.PauseTime;
+import com.reso.bill.PauseCustomerSubscription;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -140,7 +140,7 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
         gholder.imgpause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.nextFragment((FragmentActivity) activity, PauseTime.newInstance(customer, customerSubscription));
+                Utility.nextFragment((FragmentActivity) activity, PauseCustomerSubscription.newInstance(customer, customerSubscription));
 
             }
         });
@@ -173,6 +173,10 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
             txtName.setText(customerSubscription.getParentItem().getName());
         } else {
             txtName.setText(customerSubscription.getName());
+        }
+
+        if(customerSubscription.getPrice() != null) {
+            txtName.setText(txtName.getText() + " (Scheme)");
         }
 
         //gholder.txtpcs.setText(customerSubscription.getNewspaperpcs());

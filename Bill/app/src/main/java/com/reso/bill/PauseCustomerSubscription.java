@@ -30,6 +30,7 @@ import com.rns.web.billapp.service.bo.domain.BillUserLog;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
 import com.rns.web.billapp.service.util.BillConstants;
+import com.rns.web.billapp.service.util.CommonUtils;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
@@ -46,7 +47,7 @@ import util.Utility;
  * Created by Rohit on 5/16/2018.
  */
 
-public class PauseTime extends Fragment {
+public class PauseCustomerSubscription extends Fragment {
     private EditText txtfromdate, txttodate, txtselectdate, customerName;
     private ImageView itemIcon;
     private BillUser customer;
@@ -56,8 +57,8 @@ public class PauseTime extends Fragment {
     private TextView pausedDays;
     private Date fromDate, toDate;
 
-    public static PauseTime newInstance(BillUser customer, BillItem customerSubscription) {
-        PauseTime fragment = new PauseTime();
+    public static PauseCustomerSubscription newInstance(BillUser customer, BillItem customerSubscription) {
+        PauseCustomerSubscription fragment = new PauseCustomerSubscription();
         fragment.customer = customer;
         fragment.subscribedItem = customerSubscription;
         return fragment;
@@ -77,8 +78,7 @@ public class PauseTime extends Fragment {
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = new SearchView(((Dashboard) getActivity()).getSupportActionBar().getThemedContext());
         MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-        ((EditText)  searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text))
-                .setTextColor(getResources().getColor(R.color.md_black_1000));
+        ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.md_black_1000));
         MenuItemCompat.setActionView(item, searchView);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -86,6 +86,7 @@ public class PauseTime extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
                 //filter(newText);
@@ -93,12 +94,11 @@ public class PauseTime extends Fragment {
             }
         });
         searchView.setOnClickListener(new View.OnClickListener() {
-                                          @Override
-                                          public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-                                          }
-                                      }
-        );
+            }
+        });
 
         //searchView.setMenuItem(item);
     }
@@ -108,19 +108,23 @@ public class PauseTime extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_pause_time, container, false);
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Pause Times of India</font>"));
-        Utility.AppBarTitle("Pause Times of India "  ,getActivity());
+
+        Utility.AppBarTitle("Pause " + Utility.getItemName(subscribedItem), getActivity());
+
         txtfromdate = (EditText) rootView.findViewById(R.id.txt_from_date);
         txttodate = (EditText) rootView.findViewById(R.id.txt_to_date);
         txtfromdate.setFocusable(false);
         txttodate.setFocusable(false);
-     txtfromdate.setClickable(true);
+        txtfromdate.setClickable(true);
         txttodate.setClickable(true);
 
-        final Calendar calendar = Calendar.getInstance();
-        int yy = calendar.get(Calendar.YEAR);
-        int mm = calendar.get(Calendar.MONTH);
-        int dd = calendar.get(Calendar.DAY_OF_MONTH);
-            txtfromdate.setText(yy+"-"+mm+"-"+(dd+1));
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, 1);
+        //One day ahead of current by default
+        fromDate = cal.getTime();
+        toDate = cal.getTime();
+
+        txtfromdate.setText(CommonUtils.convertDate(fromDate));
         //txtfromdate.setText((dd+1)+"-"+mm+"-"+yy);
 
         txtfromdate.setOnClickListener(new View.OnClickListener() {
@@ -134,9 +138,9 @@ public class PauseTime extends Fragment {
                 int yy = calendar.get(Calendar.YEAR);
                 int mm = calendar.get(Calendar.MONTH);
                 int dd = calendar.get(Calendar.DAY_OF_MONTH);
-                final int yyyy=yy;
-                final int mon=mm;
-                final int day=dd;
+                final int yyyy = yy;
+                final int mon = mm;
+                final int day = dd;
                 DatePickerDialog datePicker = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -156,13 +160,14 @@ public class PauseTime extends Fragment {
 
                     }
                 }, yy, mm, dd);
-                datePicker.getDatePicker().setMinDate(calendar.getTimeInMillis()+(1000*24*60*60));
+                datePicker.getDatePicker().setMinDate(calendar.getTimeInMillis() + (1000 * 24 * 60 * 60));
 
                 datePicker.show();
 
             }
         });
 
+        txttodate.setText(CommonUtils.convertDate(toDate));
         txttodate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,7 +198,7 @@ public class PauseTime extends Fragment {
 
                     }
                 }, yy, mm, dd);
-                datePicker.getDatePicker().setMinDate(calendar.getTimeInMillis()+(1000*24*60*60));
+                datePicker.getDatePicker().setMinDate(calendar.getTimeInMillis() + (1000 * 24 * 60 * 60));
                 datePicker.show();
 
             }
@@ -219,13 +224,15 @@ public class PauseTime extends Fragment {
 
         pausedDays.setText("Pause delivery for - 0 day(s)");
 
+        calculateNoOfDays();
+
         return rootView;
     }
 
     private void calculateNoOfDays() {
         if (toDate != null && fromDate != null) {
             if (toDate.getTime() < fromDate.getTime()) {
-                Utility.createAlert(getContext(), "Please select valid dates!", "Error");
+                //Utility.createAlert(getContext(), "Please select valid dates!", "Error");
                 return;
             }
             Calendar cal = Calendar.getInstance();
@@ -244,7 +251,7 @@ public class PauseTime extends Fragment {
             return;
         }
         if (toDate.getTime() < fromDate.getTime()) {
-            Utility.createAlert(getContext(), "Please select valid dates!", "Error");
+            Utility.createAlert(getContext(), "To date cannot be less than From date!", "Error");
             return;
         }
 

@@ -1,3 +1,27 @@
+package adapters;
+
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.reso.bill.R;
+import com.rns.web.billapp.service.bo.domain.BillItem;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
+import model.BillItemHolder;
+import util.Utility;
+
+/**
+ * Created by Admin on 18/09/2018.
+ * <p>
+ * Created by Rohit on 5/10/2018.
+ */
 /*
 package adapters;
 
@@ -21,31 +45,12 @@ import model.Listone;
  * Created by Rohit on 5/10/2018.
  */
 
-
-package adapters;
-
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.reso.bill.R;
-import com.squareup.picasso.Picasso;
-
-import java.util.List;
-
-import model.BillItemHolder;
-import util.Utility;
-
-public class SelectNewsPaperAdapter extends RecyclerView.Adapter<SelectNewsPaperAdapter.RecViewHolder> {
+public class PauseItemAdapter extends RecyclerView.Adapter<PauseItemAdapter.RecViewHolder> {
 
     private List<BillItemHolder> list;
     private TextView selectedItems;
 
-    public SelectNewsPaperAdapter(List<BillItemHolder> list) {
+    public PauseItemAdapter(List<BillItemHolder> list) {
         this.list = list;
     }
 
@@ -106,10 +111,11 @@ public class SelectNewsPaperAdapter extends RecyclerView.Adapter<SelectNewsPaper
 
             //imageView.setImageURI(Uri.parse(ServiceUtil.ADMIN_URL + "getParentItemImage/" + ));
 
-            Picasso.get().load(Utility.getItemImageURL(mainItem.getItem().getId())).into(imageView);
+            BillItem billItem = mainItem.getItem();
+            Picasso.get().load(Utility.getItemImageURL(billItem.getParentItem().getId())).into(imageView);
 
-            txtNewsPaperInfo.setText(mainItem.getItem().getDescription());
-            txtName.setText(mainItem.getItem().getName());
+            txtNewsPaperInfo.setText("");
+            txtName.setText(Utility.getItemName(billItem));
             checkBox.setChecked(list.get(pos).isSelected());
             checkBox.setTag(list.get(pos));
 
@@ -120,12 +126,7 @@ public class SelectNewsPaperAdapter extends RecyclerView.Adapter<SelectNewsPaper
                     BillItemHolder selectedItem = (BillItemHolder) cb.getTag();
                     selectedItem.setSelected(cb.isChecked());
                     list.get(pos).setSelected(cb.isChecked());
-                    //Toast.makeText(view.getContext(), "Clicked on Checkbox: " + cb.getText() + " is " + cb.isChecked(), Toast.LENGTH_SHORT).show();
-                    if(selectedItem.isSelected()) {
-                        selectedItems.setText(selectedItems.getText() + selectedItem.getItem().getName() + ",");
-                    } else {
-                        selectedItems.setText(selectedItems.getText().toString().replace(selectedItem.getItem().getName() + ",", ""));
-                    }
+
                 }
 
 

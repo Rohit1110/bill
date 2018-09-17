@@ -184,6 +184,15 @@
                     android:layout_marginTop="10dp"
                     layout="@layout/layout_line" />
 
+                <TextView
+                    android:id="@+id/txt_tnc"
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="By submitting your information you agree to the terms and conditions"/>
+
                 <Button
                     android:id="@+id/fab_vregister"
                     style="@style/basic_button"

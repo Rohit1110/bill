@@ -1,6 +1,8 @@
 package com.reso.bill;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -31,7 +34,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import adapters.DeliveriesAdapter;
 import adapters.InvoicesAdapter;
 import model.BillCustomer;
 import util.ServiceUtil;
@@ -45,7 +47,6 @@ public class FragmentInvoiceSummary extends Fragment {
     private List<BillCustomer> orders = new ArrayList<>();
     private List<BillCustomer> noOrders = new ArrayList<>();
     private RecyclerView recyclerView;
-    private DeliveriesAdapter adapter;
     private ProgressDialog pDialog;
     private BillUser user;
     private List<BillUser> users;
@@ -56,6 +57,9 @@ public class FragmentInvoiceSummary extends Fragment {
     private TextView totalPendingCount;
     private List<BillUser> list = new ArrayList<>();
     private List<BillUser> filterList = new ArrayList<>();
+    private Button sendReminder;
+    private InvoicesAdapter adapter;
+    private Button clear;
 
     public static FragmentInvoiceSummary newInstance(BillUser user) {
         FragmentInvoiceSummary fragment = new FragmentInvoiceSummary();
@@ -108,54 +112,77 @@ public class FragmentInvoiceSummary extends Fragment {
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Invoice Summary</font>"));
         Utility.AppBarTitle("Pending Invoices", getActivity());
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
-        /*deliveries = (RadioButton) rootView.findViewById(R.id.radio_deliveries);
 
-        deliveries.setSelected(true);
-        deliveries.setChecked(true);
-        deliveries.setOnClickListener(new View.OnClickListener() {
+
+        sendReminder = (Button) rootView.findViewById(R.id.btn_send_reminders);
+
+        sendReminder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setDeliveriesListView(orders);
+                String noOfCustomers = "all";
+                if (adapter.getSelectedCustomers() != null && adapter.getSelectedCustomers().size() > 0) {
+                    noOfCustomers = "" + adapter.getSelectedCustomers().size();
+                }
+                new AlertDialog.Builder(getActivity()).
+                        setTitle("Warning").
+                        setMessage("Are you sure you want to send SMS/Email reminders to " + noOfCustomers + " of your customers?").
+                        setIcon(android.R.drawable.ic_dialog_alert).
+                        setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                sendReminders();
+                            }
+                        }).setNegativeButton(android.R.string.no, null).show();
             }
         });
-
-        noDeliveries = (RadioButton) rootView.findViewById(R.id.radio_no_deliveries);
-        noDeliveries.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                setDeliveriesListView(noOrders);
-            }
-        });
-
-        noOrdersMessage = (TextView) rootView.findViewById(R.id.txt_no_orders);*/
 
         totalPendingCount = (TextView) rootView.findViewById(R.id.txt_total_pending_bills);
+
+        clear = (Button) rootView.findViewById(R.id.btn_customers_invoices_clear);
+        clear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                adapter.clearSelected();
+            }
+        });
 
         return rootView;
 
     }
 
+    private void sendReminders() {
+        loadInvoiceSummary("EMAIL");
+    }
+
     @Override
     public void onResume() {
         super.onResume();
-        loadInvoiceSummary();
+        loadInvoiceSummary(null);
     }
 
-    private void loadInvoiceSummary() {
-        if(user == null || user.getCurrentBusiness() == null) {
+    private void loadInvoiceSummary(String type) {
+        if (user == null || user.getCurrentBusiness() == null) {
             getActivity().startActivity(new Intent(getActivity(), MainActivity.class));
             return;
         }
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
         request.setRequestedDate(date);
-        pDialog = Utility.getProgressDialogue("Loading..", getActivity());
-        StringRequest myReq = ServiceUtil.getStringRequest("getInvoiceSummary", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
+        String title = "Loading..";
+        if (type != null) {
+            request.setRequestType(type);
+            if (adapter.getSelectedCustomers() != null && adapter.getSelectedCustomers().size() > 0) {
+                request.setUsers(adapter.getSelectedCustomers());
+            }
+            title = "Sending reminders ..";
+        }
+        pDialog = Utility.getProgressDialogue(title, getActivity());
+        StringRequest myReq = ServiceUtil.getStringRequest("getInvoiceSummary", createMyReqSuccessListener(type), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(myReq);
     }
 
-    private Response.Listener<String> createMyReqSuccessListener() {
+    private Response.Listener<String> createMyReqSuccessListener(final String requestType) {
         return new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -164,12 +191,19 @@ public class FragmentInvoiceSummary extends Fragment {
 
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                     users = serviceResponse.getUsers();
-                    recyclerView.setAdapter(new InvoicesAdapter(users, getActivity()));
-                    if(users != null) {
-                        totalPendingCount.setText("Total pending bills - " + users.size());
+                    if (requestType == null) {
+                        users = serviceResponse.getUsers();
+                        if (users != null && users.size() > 0) {
+                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            adapter = new InvoicesAdapter(users, getActivity());
+                            adapter.setClearButton(clear);
+                            recyclerView.setAdapter(adapter);
+                            totalPendingCount.setText("Total pending bills - " + users.size());
+                        }
+                    } else {
+                        Utility.createAlert(getActivity(), "Sent the reminders successfully!", "Done");
                     }
+
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
                     Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
@@ -180,8 +214,6 @@ public class FragmentInvoiceSummary extends Fragment {
 
         };
     }
-
-
 
 
     public void filter(final String text) {
@@ -208,11 +240,15 @@ public class FragmentInvoiceSummary extends Fragment {
 
                     } else {
                         // Iterate in the original List and add it to filter list...
-                        for (BillUser item : users) {
-                            System.out.println("Get Name --->>> "+ item.getName());
-                            if (item.getName().toLowerCase().contains(text.toLowerCase()) /*|| comparePhone(item, text)*/) {
+                        for (BillUser customer : users) {
+                            System.out.println("Get Name --->>> " + customer.getName());
+                            if (customer.getName() != null && customer.getName().toLowerCase().contains(text.toLowerCase()) /*|| comparePhone(item, text)*/) {
                                 // Adding Matched items
-                                filterList.add(item);
+                                filterList.add(customer);
+                            } else if (customer.getAddress() != null && customer.getAddress().toLowerCase().contains(text.toLowerCase())) {
+                                filterList.add(customer);
+                            } else if (customer.getPhone() != null && customer.getPhone().toLowerCase().contains(text.toLowerCase())) {
+                                filterList.add(customer);
                             }
 
                         }
@@ -230,8 +266,12 @@ public class FragmentInvoiceSummary extends Fragment {
                            /* recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                             adapter = new DeliveriesAdapter(filterList, getActivity(), user);
                             recyclerView.setAdapter(adapter);*/
-                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                            recyclerView.setAdapter(new InvoicesAdapter(filterList, getActivity()));
+
+                            /*recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            recyclerView.setAdapter(new InvoicesAdapter(filterList, getActivity()));*/
+
+                            adapter.updateSearchList(filterList);
+
                             //recyclerView.setAdapter(adapter);
 
 

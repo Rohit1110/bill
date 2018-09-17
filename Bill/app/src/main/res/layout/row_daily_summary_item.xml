@@ -35,29 +35,49 @@
 
         </LinearLayout>
         <LinearLayout
-            android:layout_width="100dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
 
-        <TextView
+        <!--<TextView
             android:id="@+id/txt_daily_quantity"
             style="@style/basic_sub_text_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:singleLine="true"
-            android:text="255"
+            android:text="0 pcs"
             android:textSize="16dp"
-            />
+            />-->
             <TextView
                 android:id="@+id/txt_daily_pcs"
                 style="@style/basic_sub_text_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:singleLine="true"
-                android:text="pcs"
-                android:textSize="16dp"
+                android:text="Qty   0"
+
+                />
+
+            <TextView
+                android:id="@+id/txt_daily_payment"
+                style="@style/basic_sub_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="Pay   0 @ 0/pcs"
+
+                />
+
+            <TextView
+                android:id="@+id/txt_daily_profit"
+                style="@style/basic_sub_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:text="Get   0 @ 0/pcs"
+
                 />
         </LinearLayout>
     </LinearLayout>

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -43,6 +44,7 @@ public class DailySummaryFragment extends Fragment {
     private BillUser user;
     private ProgressDialog pDialog;
     private Date date;
+    private TextView totalProfit, totalCost;
 
 
     public static DailySummaryFragment newInstance() {
@@ -97,6 +99,8 @@ public class DailySummaryFragment extends Fragment {
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Total Orders - " + CommonUtils.convertDate(date) + "</font>"));
         Utility.AppBarTitle("Total Orders - "+CommonUtils.convertDate(date, Utility.DATE_FORMAT_DISPLAY),getActivity());
         user = (BillUser) Utility.readObject(getContext(), Utility.USER_KEY);
+        totalProfit = rootView.findViewById(R.id.txt_daily_total_profit);
+        totalCost = rootView.findViewById(R.id.txt_daily_total_cost);
         return rootView;
     }
 
@@ -134,12 +138,18 @@ public class DailySummaryFragment extends Fragment {
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                     recyclerView.setAdapter(new VendorItemSummaryAdapter(serviceResponse.getItems()));
+                    if(serviceResponse.getInvoice() != null) {
+                        if(serviceResponse.getInvoice().getAmount() != null) {
+                            totalProfit.setText("Total sold  " + serviceResponse.getInvoice().getAmount().toString() + " /-");
+                        }
+                        if(serviceResponse.getInvoice().getPayable() != null) {
+                            totalCost.setText("Total Paid  " + serviceResponse.getInvoice().getPayable().toString() + " /-");
+                        }
+                    }
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
                     Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
                 }
-
-
             }
 
         };

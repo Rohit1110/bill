@@ -29,7 +29,16 @@
                 android:text="Total pending bills -"/>
 
             <Button
-                android:id="@+id/fab_addcustomer"
+                android:id="@+id/btn_customers_invoices_clear"
+                style="@style/basic_button"
+                android:layout_width="wrap_content"
+                android:layout_gravity="top|right"
+                android:layout_margin="10dp"
+                android:visibility="gone"
+                android:text="clear"/>
+
+            <Button
+                android:id="@+id/btn_send_reminders"
                 style="@style/basic_button"
                 android:layout_width="wrap_content"
                 android:layout_gravity="top|right"

@@ -29,6 +29,10 @@ public class BillItem implements Serializable {
 	private Integer parentItemId;
 	private BillFile image;
 	private String priceType;
+	private BigDecimal costPrice;
+	private String weeklyCostPrice;
+	private BigDecimal unitCostPrice;
+	private BigDecimal unitSellingPrice;
 
 	public Integer getId() {
 		return id;
@@ -133,4 +137,35 @@ public class BillItem implements Serializable {
 		this.priceType = priceType;
 	}
 
+	public BigDecimal getCostPrice() {
+		return costPrice;
+	}
+
+	public void setCostPrice(BigDecimal costPrice) {
+		this.costPrice = costPrice;
+	}
+
+	public String getWeeklyCostPrice() {
+		return weeklyCostPrice;
+	}
+
+	public void setWeeklyCostPrice(String weeklyCostPrice) {
+		this.weeklyCostPrice = weeklyCostPrice;
+	}
+
+	public BigDecimal getUnitCostPrice() {
+		return unitCostPrice;
+	}
+
+	public void setUnitCostPrice(BigDecimal unitCostPrice) {
+		this.unitCostPrice = unitCostPrice;
+	}
+
+	public BigDecimal getUnitSellingPrice() {
+		return unitSellingPrice;
+	}
+
+	public void setUnitSellingPrice(BigDecimal unitSellingPrice) {
+		this.unitSellingPrice = unitSellingPrice;
+	}
 }

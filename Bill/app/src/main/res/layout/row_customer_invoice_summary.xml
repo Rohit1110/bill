@@ -87,12 +87,20 @@
             android:layout_height="match_parent"
             android:gravity="right">
 
-            <ImageView
+            <!--<ImageView
                 android:id="@+id/img_status_invoice_summary"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/fab_margin"
-                android:src="@drawable/ic_invoice_pending"/>
+                android:src="@drawable/ic_invoice_pending"/>-->
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/chkbox_invoices_select_customer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="30dp"
+                />
 
         </LinearLayout>
     </LinearLayout>
