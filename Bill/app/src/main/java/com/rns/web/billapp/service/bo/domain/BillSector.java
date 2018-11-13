@@ -4,24 +4,25 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class BillSector implements Serializable {
-	
+
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String name;
 	private String description;
 	private Date createdDate;
-	
+	private String framework;
+
 	public BillSector() {
-		
+
 	}
-	
+
 	public BillSector(Integer id) {
 		setId(id);
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -46,5 +47,12 @@ public class BillSector implements Serializable {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-	
+
+	public String getFramework() {
+		return framework;
+	}
+
+	public void setFramework(String framework) {
+		this.framework = framework;
+	}
 }

@@ -66,4 +66,8 @@ public interface BillConstants {
 
 	String[] MONTHS = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 
+	String FRAMEWORK_RECURRING = "RECURRING";
+	String FRAMEWORK_GENERIC = "GENERIC";
+
+
 }

@@ -29,8 +29,12 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 import com.reso.bill.R;
+import com.rns.web.billapp.service.bo.domain.BillBusiness;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillLocation;
+import com.rns.web.billapp.service.bo.domain.BillSector;
+import com.rns.web.billapp.service.bo.domain.BillUser;
+import com.rns.web.billapp.service.util.BillConstants;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -269,6 +273,9 @@ public class Utility {
             } else if (o instanceof BillLocation) {
                 BillLocation loc = (BillLocation) o;
                 stringList.add(loc.getName());
+            } else if (o instanceof BillSector) {
+                BillSector sector = (BillSector) o;
+                stringList.add(sector.getName());
             }
         }
         return stringList;
@@ -288,6 +295,11 @@ public class Utility {
                 if (itemName != null && itemName.equals(selected)) {
                     return item;
                 }
+            } else if (o instanceof BillSector) {
+                BillSector sector = (BillSector) o;
+                if (sector.getName() != null && selected.equals(sector.getName())) {
+                    return sector;
+                }
             }
         }
         return null;
@@ -297,6 +309,16 @@ public class Utility {
         return ServiceUtil.ADMIN_URL + "getParentItemImage/" + parentItemId;
     }
 
+    @NonNull
+    public static BillUser getBasicUser(BillUser user) {
+        BillUser currentUser = new BillUser();
+        currentUser.setId(user.getId());
+        currentUser.setPhone(user.getPhone());
+        BillBusiness business = new BillBusiness();
+        business.setId(user.getCurrentBusiness().getId());
+        currentUser.setCurrentBusiness(business);
+        return currentUser;
+    }
 
     public static Integer getRootItemId(BillItem subItem) {
         Integer itemId;
@@ -445,6 +467,13 @@ public class Utility {
             return item.getParentItem().getName();
         }
         return "";
+    }
+
+    public static String getFramework(BillUser user) {
+        if(user == null || user.getCurrentBusiness() == null || user.getCurrentBusiness().getBusinessSector() == null || user.getCurrentBusiness().getBusinessSector().getFramework() == null) {
+            return BillConstants.FRAMEWORK_RECURRING;
+        }
+        return user.getCurrentBusiness().getBusinessSector().getFramework();
     }
 
 }

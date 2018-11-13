@@ -1,10 +1,8 @@
 package com.reso.bill;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,10 +13,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-
-import com.rns.web.billapp.service.bo.domain.BillUser;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -29,9 +24,10 @@ import util.Utility;
 public class AddProduct extends Fragment {
 
     private static final int PICK_PHOTO_FOR_AVATAR = 1;
-EditText photoupload;
-ImageView img;
+    EditText photoupload;
+    ImageView img;
     private String filestring;
+
     public static AddProduct newInstance() {
         AddProduct fragment = new AddProduct();
 
@@ -39,14 +35,13 @@ ImageView img;
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_add_product, container, false);
         View rootView = inflater.inflate(R.layout.fragment_add_product, container, false);
         Utility.AppBarTitle("Add Product", getActivity());
-        photoupload=(EditText)rootView.findViewById(R.id.et_product_image);
-        img=(ImageView)rootView.findViewById(R.id.selected_img) ;
+        photoupload = (EditText) rootView.findViewById(R.id.et_product_image);
+        img = (ImageView) rootView.findViewById(R.id.selected_img);
 
 
         photoupload.setOnTouchListener(new View.OnTouchListener() {
@@ -72,6 +67,7 @@ ImageView img;
 
         return rootView;
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -84,14 +80,13 @@ ImageView img;
                 InputStream inputStream = getActivity().getContentResolver().openInputStream(data.getData());
                 System.out.println("SSSSSSSSSSSS " + data.getData().getPath());
 
-                    //aadharNumber.setText(data.getData().getPath());
-                    String filename = data.getData().getPath().substring(data.getData().getPath().lastIndexOf("/") + 1);
+                //aadharNumber.setText(data.getData().getPath());
+                String filename = data.getData().getPath().substring(data.getData().getPath().lastIndexOf("/") + 1);
                 photoupload.setText(filename);
                 Uri selectedImage = data.getData();
-                String[] filePathColumn = { MediaStore.Images.Media.DATA };
+                String[] filePathColumn = {MediaStore.Images.Media.DATA};
 
-                Cursor cursor = getActivity().getContentResolver().query(selectedImage,
-                        filePathColumn, null, null, null);
+                Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
                 cursor.moveToFirst();
 
                 int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
@@ -102,13 +97,13 @@ ImageView img;
                 img.setImageBitmap(BitmapFactory.decodeFile(picturePath));
 
 
-
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
             //Now you can do whatever you want with your inpustream, save it as file, upload to a server, decode a bitmap...
         }
     }
+
     public void pickImage() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");

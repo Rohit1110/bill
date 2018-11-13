@@ -245,15 +245,23 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                         // Iterate in the original List and add it to filter list...
                         System.out.println(".......");
                         for (BillCustomer item : orders) {
-                            if (item.getUser().getName().toLowerCase().contains(text.toLowerCase()) /*|| comparePhone(item, text)*/) {
-                                System.out.println("item added .. " + item.getUser().getId());
-                                if(notContains(filterList, item)) {
+                            BillUser customer = item.getUser();
+                            if (customer.getName().toLowerCase().contains(text.toLowerCase()) /*|| comparePhone(item, text)*/) {
+                                System.out.println("item added .. " + customer.getId());
+                                if (notContains(filterList, item)) {
                                     // Adding Matched items
                                     filterList.add(item);
                                 }
 
+                            } else if (customer.getAddress() != null && customer.getAddress().toLowerCase().contains(text.toLowerCase())) {
+                                if (notContains(filterList, item)) {
+                                    filterList.add(item);
+                                }
+                            } else if (customer.getPhone() != null && customer.getPhone().toLowerCase().contains(text.toLowerCase())) {
+                                if (notContains(filterList, item)) {
+                                    filterList.add(item);
+                                }
                             }
-
                         }
                     }
 
@@ -285,14 +293,14 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     }
 
     private boolean notContains(List<BillCustomer> filterList, BillCustomer item) {
-        if(item == null || filterList == null) {
+        if (item == null || filterList == null) {
             return false;
         }
-        if(filterList != null && filterList.size() == 0) {
+        if (filterList != null && filterList.size() == 0) {
             return true;
         }
-        for(BillCustomer customer: filterList) {
-            if(customer.getUser().getId() == item.getUser().getId()) {
+        for (BillCustomer customer : filterList) {
+            if (customer.getUser().getId() == item.getUser().getId()) {
                 return false;
             }
         }

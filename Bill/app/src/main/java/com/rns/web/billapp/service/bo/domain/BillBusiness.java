@@ -1,5 +1,7 @@
 package com.rns.web.billapp.service.bo.domain;
 
+import com.rns.web.billapp.service.domain.BillFile;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +23,8 @@ public class BillBusiness implements Serializable {
 	private List<BillLocation> businessLocations;
 	private List<BillItem> items;
 	private String identificationNumber;
+	private String showBillDetails;
+	private BillFile logo;
 
 	public Integer getId() {
 		return id;
@@ -83,4 +87,19 @@ public class BillBusiness implements Serializable {
 		this.identificationNumber = identificationNumber;
 	}
 
+	public String getShowBillDetails() {
+		return showBillDetails;
+	}
+
+	public void setShowBillDetails(String showBillDetails) {
+		this.showBillDetails = showBillDetails;
+	}
+
+	public BillFile getLogo() {
+		return logo;
+	}
+
+	public void setLogo(BillFile logo) {
+		this.logo = logo;
+	}
 }

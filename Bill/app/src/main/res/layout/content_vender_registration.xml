@@ -47,6 +47,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter Name"
                     android:layout_marginRight="10dp"
+                    android:maxLength="75"
                     />
 
                 <TextView
@@ -64,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter Email address"
                     android:layout_marginRight="10dp"
+                    android:maxLength="50"
                     />
 
 
@@ -82,6 +84,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter Contact"
                     android:layout_marginRight="10dp"
+
                     />
 
                 <TextView
@@ -97,11 +100,11 @@
                     style="@style/regedittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@mipmap/attchment"
                     android:hint="Enter Pan ID"
                     android:layout_marginRight="10dp"
+                    android:maxLength="10"
                     />
-
+                <!-- android:drawableRight="@mipmap/attchment"-->
                 <TextView
                     style="@style/basic_sub_text_field"
                     android:layout_width="match_parent"
@@ -115,9 +118,9 @@
                     style="@style/regedittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@mipmap/attchment"
                     android:hint="Enter Adhar number"
                     android:layout_marginRight="10dp"
+                    android:maxLength="15"
                     />
 
                 <TextView
@@ -135,6 +138,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter Business Name"
                     android:layout_marginRight="10dp"
+                    android:maxLength="40"
                     />
 
                 <TextView
@@ -152,6 +156,7 @@
                     android:layout_height="wrap_content"
                     android:hint="Enter Business License number"
                     android:layout_marginRight="10dp"
+                    android:maxLength="20"
                     />
 
                 <TextView
@@ -175,7 +180,28 @@
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin"
                     android:layout_marginRight="10dp"
+                    android:layout_marginBottom="15dp"
                     style="@style/Widget.AppCompat.Spinner.Underlined"
+                    />
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:layout_marginLeft="10dp"
+                    android:text="Area of business"/>
+
+                <Spinner
+                    android:id="@+id/sp_select_sector"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginBottom="15dp"
                     />
 
                 <include

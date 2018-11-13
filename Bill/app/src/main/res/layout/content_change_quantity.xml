@@ -1,30 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/white"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
-<!--    <LinearLayout
-        android:id="@+id/flayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bgGray">
-        <TextView
-            android:id="@+id/txt_change_quantity_customer_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/basic_text_field"
-            android:text="Ajinkya Kulkarni"/>
-    </LinearLayout>-->
     <LinearLayout
         android:id="@+id/imglayout"
         android:layout_width="match_parent"
         android:layout_height="150dp"
-        android:gravity="center"
-        android:layout_below="@+id/flayout">
+        android:layout_below="@+id/flayout"
+        android:gravity="center">
 
         <ImageView
             android:id="@+id/img_change_quantity_sub_item"
@@ -32,7 +19,11 @@
             android:layout_height="150dp"
             android:src="@drawable/sakal"
             />
+
+
     </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,77 +32,113 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <include
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Quantity"
-            android:layout_marginLeft="@dimen/fab_margin"
-            style="@style/basic_sub_text_field"/>
-        <EditText
-            android:id="@+id/et_change_quantity"
-            style="@style/basic_text_field"
-            android:layout_marginLeft="@dimen/fab_margin"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:text="2"/>
-
-
-
-
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/layout_add_cust"
+            layout="@layout/layout_line" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imglayout"
         android:gravity="center"
         android:orientation="horizontal">
 
-
-        <CheckBox android:id="@+id/chk_subscription_scheme"
-                  style="@style/basic_sub_text_field"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Monthly Scheme"
-            />
-
-        <EditText
-            android:id="@+id/et_scheme_price"
-            android:layout_width="120dp"
-            android:layout_height="wrap_content"
-            android:textColor="#FF343F4B"
-            android:layout_marginLeft="@dimen/fab_margin"
-            android:visibility="invisible"
-            />
-
-    </LinearLayout>
-
-       <!-- <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Quantity"
-            android:layout_marginLeft="@dimen/fab_margin"
-            style="@style/basic_sub_text_field"/>-->
-        <!--<TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Change Quantity from"
-            android:layout_marginLeft="@dimen/fab_margin"
-            style="@style/basic_sub_text_field"/>
         <TextView
-            android:id="@+id/txt_date_select"
+            style="@style/basic_sub_text_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/fab_margin"
-            android:text="Select Date"/>-->
+            android:text="Quantity"/>
+
+        <EditText
+            android:id="@+id/et_change_quantity"
+            style="@style/basic_text_field"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:text="2"/>
+
+
+
+    </LinearLayout>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/layout_add_cust"
+            layout="@layout/layout_line" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imglayout"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+
+            <CheckBox
+                android:id="@+id/chk_subscription_scheme"
+                style="@style/basic_sub_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Monthly Scheme"
+
+                />
+
+            <EditText
+                android:id="@+id/et_scheme_price"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/fab_margin"
+                android:textColor="#FF343F4B"
+                android:visibility="invisible"
+                />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/et_scheme_start_date"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:hint="Scheme start date"
+
+            android:textColor="#FF343F4B"
+            />
+
+        <EditText
+            android:id="@+id/et_scheme_end_date"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:hint="Scheme end date"
+
+            android:textColor="#FF343F4B"
+            />
+
+        <EditText
+            android:id="@+id/et_scheme_payment_ref"
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/fab_margin"
+            android:hint="Payment ref no"
+
+            android:textColor="#FF343F4B"
+            />
+
 
         <Button
             android:id="@+id/btn_change_quantity"
             style="@style/basic_button"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:text="Save" />
+            android:layout_margin="@dimen/fab_margin"
+            android:text="Save"/>
 
     </LinearLayout>
 

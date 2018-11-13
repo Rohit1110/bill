@@ -173,6 +173,44 @@
 
                 </android.support.v7.widget.AppCompatCheckBox>
 
+                <include
+                    layout="@layout/layout_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"/>
+
+                <!--<android.support.v7.widget.AppCompatCheckBox
+                    android:id="@+id/chk_hide_bill_details"
+                    style="@style/regedittext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Show only bill total"
+                    >
+
+                </android.support.v7.widget.AppCompatCheckBox>-->
+
+                <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:id="@+id/radio_show_bill_options"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center"    >
+
+                    <RadioButton
+                        android:id="@+id/radio_show_full_bill"
+                        style="@style/basic_sub_text_field"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Show Full Bill"/>
+
+                    <RadioButton
+                        android:id="@+id/radio_show_only_summary"
+                        style="@style/basic_sub_text_field"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Show Only Summary"/>
+                </RadioGroup>
+
                 <Button
                     android:id="@+id/fab_save_customer"
                     style="@style/basic_button"

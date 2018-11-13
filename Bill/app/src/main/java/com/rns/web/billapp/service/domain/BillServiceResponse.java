@@ -4,6 +4,7 @@ import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillLocation;
 import com.rns.web.billapp.service.bo.domain.BillOrder;
+import com.rns.web.billapp.service.bo.domain.BillSector;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.bo.domain.BillUserLog;
 import com.rns.web.billapp.service.util.BillConstants;
@@ -24,6 +25,7 @@ public class BillServiceResponse {
 	private BillInvoice invoice;
 	private List<BillUserLog> logs;
 	private List<BillOrder> orders;
+	private List<BillSector> sectors;
 
 	public BillServiceResponse() {
 		setStatus(BillConstants.STATUS_OK);
@@ -128,4 +130,11 @@ public class BillServiceResponse {
 		this.orders = orders;
 	}
 
+	public List<BillSector> getSectors() {
+		return sectors;
+	}
+
+	public void setSectors(List<BillSector> sectors) {
+		this.sectors = sectors;
+	}
 }

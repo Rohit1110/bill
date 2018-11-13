@@ -23,7 +23,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -38,9 +37,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import adapters.DeliveriesAdapter;
 import adapters.SelectNewsPaperAdapter;
-import model.BillCustomer;
 import model.BillItemHolder;
 import util.ServiceUtil;
 import util.Utility;
@@ -164,7 +161,12 @@ public class SelectNewspaper extends Fragment {
 
     private void loadParentItems() {
         BillServiceRequest request = new BillServiceRequest();
-        request.setSector(ServiceUtil.NEWSPAPER_SECTOR);
+        if(user.getCurrentBusiness().getBusinessSector() == null) {
+            request.setSector(ServiceUtil.NEWSPAPER_SECTOR);
+        } else {
+            request.setSector(user.getCurrentBusiness().getBusinessSector());
+        }
+
         pDialog = Utility.getProgressDialogue("Loading..", getActivity());
         StringRequest myReq = ServiceUtil.getStringRequest("loadSectorItems", getItemsListener(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
         RequestQueue queue = Volley.newRequestQueue(getActivity());

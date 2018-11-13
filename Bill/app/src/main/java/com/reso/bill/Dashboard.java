@@ -6,24 +6,29 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rns.web.billapp.service.bo.domain.BillUser;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
 import adapters.BottomNavigationViewHelper;
+import util.ServiceUtil;
 import util.Utility;
 
 public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -34,6 +39,15 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     private BillUser user;
     private BottomNavigationView bottomNavigationView;
     private TextView username, businessName;
+    private ImageView profilePic;
+
+    public BottomNavigationView getBottomNavigationView() {
+        return bottomNavigationView;
+    }
+
+    public ImageView getProfilePic() {
+        return profilePic;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +57,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawertest_layout);
+        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawertest_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
 
@@ -77,9 +91,52 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
         bottomNavigationView.setSelectedItemId(R.id.action_item1);
 
+        //bottomNavigationView.getMenu().getItem(0).setChecked(false);
+
+
         View hView = navigationView.getHeaderView(0);
         username = hView.findViewById(R.id.txt_drawer_user_name);
         businessName = hView.findViewById(R.id.txt_drawer_business_name);
+        profilePic = hView.findViewById(R.id.img_profile_pic);
+
+        profilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawer.closeDrawer(Gravity.LEFT);
+                Utility.nextFragment(Dashboard.this, AddBusinessLogo.newInstance());
+            }
+        });
+
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                try {
+                    Fragment currentFragment = getSupportFragmentManager().getFragments().get(0);
+                    if (currentFragment instanceof HomeFragment || currentFragment instanceof DailySummaryFragment || currentFragment instanceof FragmentInvoiceSummary) {
+                        //On the main screen, so enable bottom nav
+                        getBottomNavigationView().getMenu().getItem(0).setCheckable(true);
+                        getBottomNavigationView().getMenu().getItem(1).setCheckable(true);
+                        getBottomNavigationView().getMenu().getItem(2).setCheckable(true);
+                        if (currentFragment instanceof HomeFragment) {
+                            getBottomNavigationView().getMenu().getItem(0).setChecked(true);
+                        } else if (currentFragment instanceof DailySummaryFragment) {
+                            getBottomNavigationView().getMenu().getItem(1).setChecked(true);
+                        } else {
+                            getBottomNavigationView().getMenu().getItem(2).setChecked(true);
+                        }
+
+                    } else {
+                        getBottomNavigationView().getMenu().getItem(0).setCheckable(false);
+                        getBottomNavigationView().getMenu().getItem(1).setCheckable(false);
+                        getBottomNavigationView().getMenu().getItem(2).setCheckable(false);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+            }
+        });
 
     }
 
@@ -92,9 +149,20 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
             username.setText(user.getName());
             if (user.getCurrentBusiness() != null) {
                 businessName.setText(user.getCurrentBusiness().getName());
+
+                if(user.getCurrentBusiness().getLogo() != null && user.getCurrentBusiness().getLogo().getFileName() != null) {
+                    updateBusinessLogo(user);
+                } else {
+                    profilePic.setImageResource(R.drawable.logo_sample);
+                }
+                //profilePic.setImageBitmap(b);
             }
         }
         super.onResume();
+    }
+
+    public void updateBusinessLogo(BillUser user) {
+        Picasso.get().load(ServiceUtil.ROOT_URL + "getImage/logo/" + user.getCurrentBusiness().getId()).into(profilePic);
     }
 
     public void setTitle(String title) {
@@ -132,12 +200,9 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
                 Intent helpI = new Intent(Dashboard.this, HelpActivity.class);
                 startActivity(helpI);
                 break;
-           /* case R.id.nav_settings:
-                *//*Intent i2 = new Intent(Dashboard.this,SelectSector.class);
-                startActivity(i2);*//*
-                fragment = new AddProduct();
-                break;*/
-
+            case R.id.nav_settings:
+                fragment = Settings.newInstance();
+                break;
 
 
         }
@@ -159,6 +224,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         } else {
             getSupportFragmentManager().popBackStack();
         }
+
 
         /*DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawertest_layout);
 
@@ -230,6 +296,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         }
         return false;
     }
+
     private ViewTreeObserver.OnGlobalLayoutListener keyboardLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
         @Override
         public void onGlobalLayout() {
@@ -238,7 +305,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
             LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(Dashboard.this);
 
-            if(heightDiff <= contentViewTop){
+            if (heightDiff <= contentViewTop) {
                 onHideKeyboard();
 
                 Intent intent = new Intent("KeyboardWillHide");
@@ -258,8 +325,11 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     //private ViewGroup rootLayout;
 
 
-    protected void onShowKeyboard(int keyboardHeight) {}
-    protected void onHideKeyboard() {}
+    protected void onShowKeyboard(int keyboardHeight) {
+    }
+
+    protected void onHideKeyboard() {
+    }
 
     protected void attachKeyboardListeners() {
         if (keyboardListenersAttached) {
@@ -280,6 +350,8 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
             bottomNavigationView.getViewTreeObserver().removeGlobalOnLayoutListener(keyboardLayoutListener);
         }
     }
+
+
 }
 
 

@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import adapters.VendorItemPayablesAdapter;
 import adapters.VendorItemSummaryAdapter;
 import model.ListTwo;
 import util.ServiceUtil;
@@ -40,11 +42,13 @@ import util.Utility;
 
 public class DailySummaryFragment extends Fragment {
     private RecyclerView recyclerView;
-    List<ListTwo> list = new ArrayList<>();
+    private List<ListTwo> list = new ArrayList<>();
     private BillUser user;
     private ProgressDialog pDialog;
     private Date date;
     private TextView totalProfit, totalCost;
+    private Button switchView;
+    private boolean distributorView;
 
 
     public static DailySummaryFragment newInstance() {
@@ -101,6 +105,20 @@ public class DailySummaryFragment extends Fragment {
         user = (BillUser) Utility.readObject(getContext(), Utility.USER_KEY);
         totalProfit = rootView.findViewById(R.id.txt_daily_total_profit);
         totalCost = rootView.findViewById(R.id.txt_daily_total_cost);
+        switchView = rootView.findViewById(R.id.btn_daily_summary_switch_view);
+        switchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(distributorView) {
+                    distributorView = false;
+                    loadDailySummary(null);
+                } else {
+                    distributorView = true;
+                    loadDailySummary("Distributor");
+                }
+            }
+        });
+
         return rootView;
     }
 
@@ -113,21 +131,22 @@ public class DailySummaryFragment extends Fragment {
             return;
         }
 
-        loadDailySummary();
+        loadDailySummary(null);
 
     }
 
-    private void loadDailySummary() {
+    private void loadDailySummary(String requestType) {
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
         request.setRequestedDate(date);
+        request.setRequestType(requestType);
         pDialog = Utility.getProgressDialogue("Loading..", getActivity());
-        StringRequest myReq = ServiceUtil.getStringRequest("getOrderSummary", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
+        StringRequest myReq = ServiceUtil.getStringRequest("getOrderSummary", createMyReqSuccessListener(requestType), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(myReq);
     }
 
-    private Response.Listener<String> createMyReqSuccessListener() {
+    private Response.Listener<String> createMyReqSuccessListener(final String requestType) {
         return new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -136,8 +155,14 @@ public class DailySummaryFragment extends Fragment {
 
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
-                    recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                    recyclerView.setAdapter(new VendorItemSummaryAdapter(serviceResponse.getItems()));
+                    if(requestType != null && "Distributor".equals(requestType)) {
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        recyclerView.setAdapter(new VendorItemPayablesAdapter(serviceResponse.getUsers()));
+                    } else {
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        recyclerView.setAdapter(new VendorItemSummaryAdapter(serviceResponse.getItems()));
+                    }
+
                     if(serviceResponse.getInvoice() != null) {
                         if(serviceResponse.getInvoice().getAmount() != null) {
                             totalProfit.setText("Total sold  " + serviceResponse.getInvoice().getAmount().toString() + " /-");

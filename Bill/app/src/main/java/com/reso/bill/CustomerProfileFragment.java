@@ -40,7 +40,7 @@ public class CustomerProfileFragment extends Fragment {
     private RecyclerView recyclerView;
     private BillUser selectedCustomer;
     private TextView name, email, phone, address, billsDue, lastPaid;
-    private View manageSubscriptions, viewactivity;
+    private View manageSubscriptions, viewactivity, billSummary;
     private TextView editProfile, billDetails;
     private ImageView call;
 
@@ -90,6 +90,14 @@ public class CustomerProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Utility.nextFragment(getActivity(), AddSubcription.newInstance(selectedCustomer));
+            }
+        });
+
+        billSummary = (View) rootView.findViewById(R.id.layout_profile_customer_bill_summary);
+        billSummary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utility.nextFragment(getActivity(), FragmentCustomerInvoices.newInstance(selectedCustomer));
             }
         });
 

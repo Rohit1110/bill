@@ -33,6 +33,9 @@ public class BillItem implements Serializable {
 	private String weeklyCostPrice;
 	private BigDecimal unitCostPrice;
 	private BigDecimal unitSellingPrice;
+	private Date schemeStartDate;
+	private Date schemeEndDate;
+	private String paymentRef;
 
 	public Integer getId() {
 		return id;
@@ -167,5 +170,29 @@ public class BillItem implements Serializable {
 
 	public void setUnitSellingPrice(BigDecimal unitSellingPrice) {
 		this.unitSellingPrice = unitSellingPrice;
+	}
+
+	public Date getSchemeEndDate() {
+		return schemeEndDate;
+	}
+
+	public void setSchemeEndDate(Date schemeEndDate) {
+		this.schemeEndDate = schemeEndDate;
+	}
+
+	public Date getSchemeStartDate() {
+		return schemeStartDate;
+	}
+
+	public void setSchemeStartDate(Date schemeStartDate) {
+		this.schemeStartDate = schemeStartDate;
+	}
+
+	public String getPaymentRef() {
+		return paymentRef;
+	}
+
+	public void setPaymentRef(String paymentRef) {
+		this.paymentRef = paymentRef;
 	}
 }

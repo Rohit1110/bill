@@ -33,6 +33,7 @@ public class BillUser implements Serializable {
 	private BigDecimal serviceCharge;
 	private BillInvoice currentInvoice;
 	private Boolean visible;
+	private String showBillDetails;
 
 	public Integer getId() {
 		return id;
@@ -152,6 +153,14 @@ public class BillUser implements Serializable {
 	public void setVisible(Boolean visible) {
 		this.visible = visible;
 	}
+
+    public String getShowBillDetails() {
+        return showBillDetails;
+    }
+
+    public void setShowBillDetails(String showBillDetails) {
+        this.showBillDetails = showBillDetails;
+    }
 
 	/*@Override
 	public String toString() {

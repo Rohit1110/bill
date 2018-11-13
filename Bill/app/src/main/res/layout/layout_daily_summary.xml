@@ -19,12 +19,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:background="@color/white"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_weight="0.5"
+                android:layout_gravity="center_vertical"
                 >
 
                 <TextView
@@ -48,15 +51,19 @@
                     android:text="Get  0/-"
                     />
 
-                <!--<Button
-                    android:id="@+id/fab_addcustomer"
-                    style="@style/basic_button"
-                    android:layout_width="wrap_content"
-                    android:layout_gravity="top|right"
-                    android:layout_margin="10dp"
-                    android:text="add"/>-->
+
+
+
 
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_daily_summary_switch_view"
+                style="@style/basic_button"
+                android:layout_width="wrap_content"
+                android:layout_gravity="top|right"
+                android:layout_margin="10dp"
+                android:text="SWITCH"/>
 
         </LinearLayout>
 

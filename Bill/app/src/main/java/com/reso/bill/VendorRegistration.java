@@ -10,8 +10,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.reso.bill.components.MultiSelectionSpinner;
 import com.rns.web.billapp.service.bo.domain.BillBusiness;
 import com.rns.web.billapp.service.bo.domain.BillLocation;
+import com.rns.web.billapp.service.bo.domain.BillSector;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
@@ -51,6 +54,9 @@ public class VendorRegistration extends AppCompatActivity {
     private BillUser user;
     private EditText businessLicense;
     private TextView tnc;
+    private Spinner sectors;
+    private ProgressDialog pDialogSectors;
+    private List<BillSector> sectorsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +82,7 @@ public class VendorRegistration extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(VendorRegistration.this, SplashScreen.class);
+                Intent i = new Intent(VendorRegistration.this, Dashboard.class);
                 startActivity(i);
 
             }
@@ -99,6 +105,15 @@ public class VendorRegistration extends AppCompatActivity {
                             Utility.createAlert(VendorRegistration.this, "Please select a location!", "Error");
                             return;
                         }
+                        List<BillLocation> billLocations = areas.selectedLocations();
+                        if (billLocations == null || billLocations.size() == 0) {
+                            Utility.createAlert(VendorRegistration.this, "Please select atleast one location!", "Error");
+                            return;
+                        }
+                        if(sectors.isEnabled() && sectors.getSelectedItem().toString().trim().length() == 0) {
+                            Utility.createAlert(VendorRegistration.this, "Please select area of business!", "Error");
+                            return;
+                        }
                         BillUser requestUser = new BillUser();
                         if (user != null) {
                             requestUser.setId(user.getId());
@@ -109,13 +124,16 @@ public class VendorRegistration extends AppCompatActivity {
                         requestUser.setPhone(FirebaseUtil.getPhone());
                         requestUser.setAadharNumber(aadharNumber.getText().toString());
                         BillBusiness business = new BillBusiness();
-                        if(user != null && user.getCurrentBusiness() != null) {
+                        if (user != null && user.getCurrentBusiness() != null) {
                             business.setId(user.getCurrentBusiness().getId());
                         }
                         business.setName(businessName.getText().toString());
                         business.setIdentificationNumber(businessLicense.getText().toString());
-                        business.setBusinessLocations(areas.selectedLocations());
-                        business.setBusinessSector(ServiceUtil.NEWSPAPER_SECTOR);
+                        business.setBusinessLocations(billLocations);
+                        if(sectors.isEnabled()) {
+                            business.setBusinessSector((BillSector) Utility.findInStringList(sectorsList, sectors.getSelectedItem().toString()));
+                        }
+
                         requestUser.setCurrentBusiness(business);
                         saveUserInfo(requestUser);
 
@@ -140,6 +158,7 @@ public class VendorRegistration extends AppCompatActivity {
         phone.setEnabled(false);
 
         areas = (MultiSelectionSpinner) findViewById(R.id.sp_area);
+        sectors = (Spinner) findViewById(R.id.sp_select_sector);
         //adapter = new LocationAdapter(this, R.layout.spinner_multi_select, new ArrayList<BillLocation>(), VendorRegistration.this);
         //areas.setAdapter(adapter);
         aadharNumber.setOnTouchListener(new View.OnTouchListener() {
@@ -151,14 +170,14 @@ public class VendorRegistration extends AppCompatActivity {
                 final int DRAWABLE_BOTTOM = 3;
 
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (event.getRawX() >= (aadharNumber.getRight() - aadharNumber.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                    /*if (event.getRawX() >= (aadharNumber.getRight() - aadharNumber.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
                         Utility.checkcontactPermission(VendorRegistration.this);
                         pickImage();
                         identy = "aadhar";
                         // aadharNumber.setText(identy);
                         return true;
-                    }
+                    }*/
                 }
                 return false;
             }
@@ -174,13 +193,13 @@ public class VendorRegistration extends AppCompatActivity {
                 final int DRAWABLE_BOTTOM = 3;
 
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    if (event.getRawX() >= (panNumber.getRight() - panNumber.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                    /*if (event.getRawX() >= (panNumber.getRight() - panNumber.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
                         Utility.checkcontactPermission(VendorRegistration.this);
                         pickImage();
                         identy = "pan";
                         return true;
-                    }
+                    }*/
                 }
                 return false;
             }
@@ -202,8 +221,18 @@ public class VendorRegistration extends AppCompatActivity {
             if (user.getCurrentBusiness() != null) {
                 businessName.setText(user.getCurrentBusiness().getName());
                 businessLicense.setText(user.getCurrentBusiness().getIdentificationNumber());
+
+                if(user.getCurrentBusiness().getBusinessSector() != null) {
+                    sectors.setEnabled(false);
+                } else {
+                    loadSectors();
+                }
             }
+        } else {
+            loadSectors();
         }
+
+
 
         tnc = (TextView) findViewById(R.id.txt_tnc);
         tnc.setOnClickListener(new View.OnClickListener() {
@@ -286,6 +315,46 @@ public class VendorRegistration extends AppCompatActivity {
         queue.add(myReq);
     }
 
+    //
+
+    private void loadSectors() {
+        pDialogSectors = Utility.getProgressDialogue("Loading sectors", VendorRegistration.this);
+        BillServiceRequest request = new BillServiceRequest();
+        StringRequest myReq = ServiceUtil.getStringRequest("getAllSectors", sectorsListener(), ServiceUtil.createMyReqErrorListener(pDialog, VendorRegistration.this), request);
+        RequestQueue queue = Volley.newRequestQueue(VendorRegistration.this);
+        queue.add(myReq);
+    }
+
+    private Response.Listener<String> sectorsListener() {
+        return new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println("## response sectors:" + response);
+                pDialogSectors.dismiss();
+
+                BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
+                if (serviceResponse != null && serviceResponse.getStatus() == 200) {
+                    System.out.println("Sectors loaded successfully!");
+
+                    sectorsList = serviceResponse.getSectors();
+                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(VendorRegistration.this, android.R.layout.simple_spinner_item, Utility.convertToStringArrayList(sectorsList));
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    VendorRegistration.this.sectors.setAdapter(adapter);
+                    //sectors.setSelection(Calendar.getInstance().get(Calendar.MONTH) + 1);
+
+                } else {
+                    System.out.println("Error .." + serviceResponse.getResponse());
+                    if (saveRequest) {
+                        Utility.createAlert(VendorRegistration.this, serviceResponse.getResponse(), "Error");
+                    }
+
+                }
+
+            }
+
+        };
+    }
+
     private Response.Listener<String> createMyReqSuccessListener() {
         return new Response.Listener<String>() {
             @Override
@@ -305,7 +374,7 @@ public class VendorRegistration extends AppCompatActivity {
                         adapter = new LocationAdapter(VendorRegistration.this, R.layout.spinner_multi_select, locations, VendorRegistration.this);
                         areas.setLocations(locations);
 
-                        if(user != null && user.getCurrentBusiness() != null &&  user.getCurrentBusiness().getBusinessLocations() != null && user.getCurrentBusiness().getBusinessLocations().size() > 0) {
+                        if (user != null && user.getCurrentBusiness() != null && user.getCurrentBusiness().getBusinessLocations() != null && user.getCurrentBusiness().getBusinessLocations().size() > 0) {
                             areas.setSelection(Utility.convertToStringArrayList(user.getCurrentBusiness().getBusinessLocations()));
                         }
                     }

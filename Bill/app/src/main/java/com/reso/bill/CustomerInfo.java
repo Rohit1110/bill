@@ -26,6 +26,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 
 import com.android.volley.RequestQueue;
@@ -59,6 +60,9 @@ public class CustomerInfo extends Fragment {
     private BillUser user;
     private ProgressDialog pDialog;
     private CheckBox addToContacts;
+    //private CheckBox hideBillDetails;
+    private RadioButton showFullBill;
+    private RadioButton hideFullBill;
     private static final int RESULT_PICK_CONTACT = 1;
 
     public static CustomerInfo newInstance(BillUser selectedCustomer) {
@@ -127,6 +131,11 @@ public class CustomerInfo extends Fragment {
                 customer.setEmail(email.getText().toString());
                 customer.setPhone(contact.getText().toString());
                 customer.setAddress(address.getText().toString());
+                if(hideFullBill.isChecked()) {
+                    customer.setShowBillDetails("N");
+                } else if (showFullBill.isChecked()) {
+                    customer.setShowBillDetails("Y");
+                }
                 subscription.setServiceCharge(Utility.getDecimal(serviceCharge));
 
 
@@ -162,6 +171,8 @@ public class CustomerInfo extends Fragment {
         areas = (Spinner) rootView.findViewById(R.id.sp_customer_area);
         serviceCharge = (EditText) rootView.findViewById(R.id.et_customer_service_charge);
         addToContacts = (CheckBox) rootView.findViewById(R.id.chk_add_to_contact);
+        showFullBill = (RadioButton) rootView.findViewById(R.id.radio_show_full_bill);
+        hideFullBill = (RadioButton) rootView.findViewById(R.id.radio_show_only_summary);
 
         user = (BillUser) Utility.readObject(getContext(), Utility.USER_KEY);
 
@@ -173,7 +184,11 @@ public class CustomerInfo extends Fragment {
             if (customer.getServiceCharge() != null) {
                 serviceCharge.setText(customer.getServiceCharge().toString());
             }
-
+            if(customer.getShowBillDetails() != null && "N".equals(customer.getShowBillDetails())) {
+                hideFullBill.setChecked(true);
+            } else if (customer.getShowBillDetails() != null && "Y".equals(customer.getShowBillDetails())) {
+                showFullBill.setChecked(true);
+            }
         }
 
         contactExists();

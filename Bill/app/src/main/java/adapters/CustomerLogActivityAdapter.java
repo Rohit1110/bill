@@ -23,10 +23,10 @@ import model.Listone;
 
 
 public class DeliveriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
-List<BillCustomer> items = new ArrayList<BillCustomer>();
+List<BillCustomer> users = new ArrayList<BillCustomer>();
 
-    public DeliveriesAdapter(List<BillCustomer> items) {
-        this.items = items;
+    public DeliveriesAdapter(List<BillCustomer> users) {
+        this.users = users;
     }
     class ViewHolder1 extends RecyclerView.ViewHolder {
         private TextView txtName;
@@ -49,7 +49,7 @@ List<BillCustomer> items = new ArrayList<BillCustomer>();
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        BillCustomer listone =(BillCustomer)items.get(position);
+        BillCustomer listone =(BillCustomer)users.get(position);
         ViewHolder1 gholder = (ViewHolder1) holder;
         gholder.txtName.setText(listone.getName());
 
@@ -57,7 +57,7 @@ List<BillCustomer> items = new ArrayList<BillCustomer>();
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return users.size();
     }
 }
 */

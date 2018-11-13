@@ -23,10 +23,10 @@ import model.Listone;
 
 
 public class DeliveriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
-List<BillCustomer> items = new ArrayList<BillCustomer>();
+List<BillCustomer> users = new ArrayList<BillCustomer>();
 
-    public DeliveriesAdapter(List<BillCustomer> items) {
-        this.items = items;
+    public DeliveriesAdapter(List<BillCustomer> users) {
+        this.users = users;
     }
     class ViewHolder1 extends RecyclerView.ViewHolder {
         private TextView txtName;
@@ -49,7 +49,7 @@ List<BillCustomer> items = new ArrayList<BillCustomer>();
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        BillCustomer listone =(BillCustomer)items.get(position);
+        BillCustomer listone =(BillCustomer)users.get(position);
         ViewHolder1 gholder = (ViewHolder1) holder;
         gholder.txtName.setText(listone.getName());
 
@@ -57,7 +57,7 @@ List<BillCustomer> items = new ArrayList<BillCustomer>();
 
     @Override
     public int getItemCount() {
-        return items.size();
+        return users.size();
     }
 }
 */
@@ -206,13 +206,10 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
 
     public void updateSearchList(List<BillUser> filterList) {
         if (filterList == null || filterList.size() == 0) {
-            /*for (BillUser user : list) {
-                user.setVisible(true);
-                System.out.println("No Filter | User visible .." + user.getName());
-            }*/
-            return;
+            list = new ArrayList<>();
+        } else {
+            list = filterList;
         }
-        list = filterList;
         /*for (BillUser user : list) {
             boolean found = false;
             for (BillUser filtered : filterList) {
@@ -236,6 +233,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
         private TextView amount;
         private TextView txtName;
         private CheckBox selected;
+        private TextView txtAddress;
 
         public RecViewHolder(View itemView) {
             super(itemView);
@@ -243,11 +241,13 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
             amount = (TextView) itemView.findViewById(R.id.txt_invoice_summary_amount);
             //status = (ImageView) itemView.findViewById(R.id.img_status_invoice_summary);
             selected = (CheckBox) itemView.findViewById(R.id.chkbox_invoices_select_customer);
+            txtAddress = (TextView) itemView.findViewById(R.id.txt_invoice_summary_cust_address);
         }
 
         private void bind(BillUser customerUser) {
             //customerUser.setVisible(true);
             txtName.setText(customerUser.getName());
+            txtAddress.setText(customerUser.getAddress());
             //status.setImageResource(R.drawable.ic_invoice_pending);
             if (customerUser.getCurrentInvoice() != null && customerUser.getCurrentInvoice().getPayable() != null) {
                 amount.setText("INR " + customerUser.getCurrentInvoice().getPayable().toString());
