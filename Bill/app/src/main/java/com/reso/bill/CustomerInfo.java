@@ -219,6 +219,8 @@ public class CustomerInfo extends Fragment {
             }
         });
 
+        Utility.changeDrawer(getActivity(), CustomerProfileFragment.newInstance(customer));
+
         return rootView;
     }
 

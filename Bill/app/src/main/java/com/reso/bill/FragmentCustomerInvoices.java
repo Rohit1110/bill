@@ -184,6 +184,8 @@ public class FragmentCustomerInvoices extends Fragment {
             addInvoice.setVisibility(View.GONE);
         }
 
+        Utility.changeDrawer(getActivity(), CustomerProfileFragment.newInstance(customer));
+
         return rootView;
     }
 
