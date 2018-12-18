@@ -153,6 +153,7 @@ public class GenericTransactions extends Fragment {
             }
         });
 
+        Utility.changeDrawer(getActivity(), new GenericVendorDashBoard());
 
         return rootView;
 

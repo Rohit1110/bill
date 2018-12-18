@@ -7,7 +7,7 @@
                                         android:layout_height="match_parent"
                                         android:background="@color/white"
                                         android:fitsSystemWindows="true"
-                                        tools:context="com.reso.bill.Dashboard">
+                                        tools:context="com.reso.bill.generic.GenericDashboard">
 
 
     <!--<android.support.design.widget.FloatingActionButton

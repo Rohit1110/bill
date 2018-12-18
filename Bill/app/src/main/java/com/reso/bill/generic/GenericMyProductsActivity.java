@@ -2,21 +2,17 @@ package com.reso.bill.generic;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -25,7 +21,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.reso.bill.AddProduct;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -39,7 +34,8 @@ import adapters.AddNewspaperAdapter;
 import util.ServiceUtil;
 import util.Utility;
 
-public class GenericMyProducts extends Fragment {
+public class GenericMyProductsActivity extends AppCompatActivity {
+
     private RecyclerView recyclerView;
     //private List<ListTwo> list = new ArrayList<>();
     private List<BillItem> listtwo = new ArrayList<>();
@@ -57,22 +53,49 @@ public class GenericMyProducts extends Fragment {
     List<BillItem> list = new ArrayList<BillItem>();
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
+        setContentView(R.layout.activity_generic_my_products);
 
-    public static GenericMyProducts newIntance() {
-        return new GenericMyProducts();
-    }
+        String title = "My Products";
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setCustomView(R.layout.layout_app_bar);
+        //actionBar.setTitle("My Products");
+        actionBar.setTitle(Html.fromHtml("<font color='#343F4B' size = '18' ><small>" + title + "</small></font>"));
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setElevation(0);
 
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_newspaper);
+
+        add = (Button) findViewById(R.id.btn_gn_add_product);
+        add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Add new product
+            }
+        });
+
+        user = (BillUser) Utility.readObject(GenericMyProductsActivity.this, Utility.USER_KEY);
+
+        //getActionBar().setCustomView(R.layout.layout_app_bar);
+        //Utility.AppBarTitleActivity("My Products", GenericMyProductsActivity.this);
+
+    }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    protected void onResume() {
+        super.onResume();
+        loadBusinessItems();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //return super.onCreateOptionsMenu(menu);
+
         menu.clear();
-        inflater.inflate(R.menu.search, menu);
+        getMenuInflater().inflate(R.menu.search, menu);
         MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = new SearchView((Utility.castActivity(getActivity())).getSupportActionBar().getThemedContext());
+        SearchView searchView = new SearchView(getSupportActionBar().getThemedContext());
         MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
         ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.md_black_1000));
         MenuItemCompat.setActionView(item, searchView);
@@ -89,59 +112,15 @@ public class GenericMyProducts extends Fragment {
                 return false;
             }
         });
-
-
-        //searchView.setMenuItem(item);
-    }
-
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.generic_fragment_my_products, container, false);
-        //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24>Add Newspapers</font>"));
-        Utility.AppBarTitle("My Products", getActivity());
-        //recyclerView = (RecyclerView)rootView.findViewById(R.id.recycler_view);
-        // getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
-       /* toolbar.setTitle("Title");
-        toolbar.setNavigationIcon(R.mipmap.backarrow);*/
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_newspaper);
-
-        add = (Button) rootView.findViewById(R.id.btn_gn_add_product);
-        add.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Utility.nextFragment(getActivity(), AddProduct.newInstance(null));
-            }
-        });
-
-        user = (BillUser) Utility.readObject(getContext(), Utility.USER_KEY);
-
-        Utility.changeDrawer(getActivity(), new GenericVendorDashBoard());
-
-        return rootView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-
-        if (user == null || user.getCurrentBusiness() == null) {
-            Utility.createAlert(getContext(), "Please complete your profile first!", "Error");
-            return;
-        }
-
-        loadBusinessItems();
-
+        return true;
     }
 
     private void loadBusinessItems() {
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
-        pDialog = Utility.getProgressDialogue("Loading..", getActivity());
-        StringRequest myReq = ServiceUtil.getStringRequest("loadBusinessItems", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        pDialog = Utility.getProgressDialogue("Loading..", GenericMyProductsActivity.this);
+        StringRequest myReq = ServiceUtil.getStringRequest("loadBusinessItems", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, GenericMyProductsActivity.this), request);
+        RequestQueue queue = Volley.newRequestQueue(GenericMyProductsActivity.this);
         queue.add(myReq);
     }
 
@@ -159,7 +138,7 @@ public class GenericMyProducts extends Fragment {
                     setAdapter(businessItems);
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
-                    Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
+                    Utility.createAlert(GenericMyProductsActivity.this, serviceResponse.getResponse(), "Error");
                 }
 
 
@@ -200,7 +179,7 @@ public class GenericMyProducts extends Fragment {
                     }
 
                     // Set on UI Thread
-                    (getActivity()).runOnUiThread(new Runnable() {
+                    (GenericMyProductsActivity.this).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             setAdapter(filterList);
@@ -219,9 +198,9 @@ public class GenericMyProducts extends Fragment {
     }
 
     private void setAdapter(List<BillItem> list) {
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new AddNewspaperAdapter(list, getContext());
-        mAdapter.setParentActivity(getActivity());
+        recyclerView.setLayoutManager(new LinearLayoutManager(GenericMyProductsActivity.this));
+        mAdapter = new AddNewspaperAdapter(list, GenericMyProductsActivity.this);
+        mAdapter.setParentActivity(GenericMyProductsActivity.this);
         mAdapter.setUserBusiness(user.getCurrentBusiness());
         recyclerView.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();

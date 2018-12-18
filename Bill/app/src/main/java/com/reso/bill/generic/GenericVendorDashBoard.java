@@ -38,8 +38,9 @@ public class GenericVendorDashBoard extends Fragment {
         layoutMyProducts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                GenericMyProducts fragment = new GenericMyProducts();
-                Utility.nextFragment(getActivity(), fragment);
+                /*GenericMyProducts fragment = new GenericMyProducts();
+                Utility.nextFragment(getActivity(), fragment);*/
+                startActivity(Utility.nextIntent(getActivity(), GenericMyProductsActivity.class));
             }
         });
 

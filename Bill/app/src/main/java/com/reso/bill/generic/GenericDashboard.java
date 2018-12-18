@@ -27,6 +27,7 @@ import com.reso.bill.VendorRegistration;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import util.ServiceUtil;
@@ -39,8 +40,9 @@ import util.Utility;
 public class GenericDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int TIME_DELAY = 2000;
+    //public static Fragment currentFragment;
     private static long back_pressed;
-    Fragment fragment = null;
+    private static Fragment fragment = null;
     private BillUser user;
     //private BottomNavigationView bottomNavigationView;
     private TextView username, businessName;
@@ -48,6 +50,7 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private boolean drawerChanged = true;
+    private List<Class<?>> fragments = new ArrayList<Class<?>>();
 
     /*public BottomNavigationView getBottomNavigationView() {
         return bottomNavigationView;
@@ -69,6 +72,22 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
         this.drawerChanged = drawerChanged;
     }
 
+    private void initFragments() {
+        fragments.add(GenericInvoices.class);
+        fragments.add(CustomerList.class);
+        fragments.add(BankDetailsFragment.class);
+        fragments.add(GenericVendorDashBoard.class);
+    }
+
+    private boolean isDrawerFragment(Fragment fragment) {
+        for(Class cls: fragments) {
+            if(fragment.getClass().equals(cls)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +98,7 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
 
         user = (BillUser) Utility.readObject(GenericDashboard.this, Utility.USER_KEY);
 
+        initFragments();
         /*
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
@@ -130,7 +150,7 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
                         getBottomNavigationView().getMenu().getItem(1).setCheckable(false);
                         getBottomNavigationView().getMenu().getItem(2).setCheckable(false);
                     }*/
-                    if (currentFragment instanceof GenericCreateBill == false && currentFragment instanceof GenericUpdateInvoiceItems == false) {
+                    if (isDrawerFragment(currentFragment)) {
                         setDrawer();
                     }
 
@@ -142,7 +162,7 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
             }
         });
 
-
+        System.out.println("........ On Create called .... " + fragment);
         setDrawer();
     }
 
@@ -155,6 +175,7 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -180,11 +201,12 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
 
     @Override
     protected void onResume() {
+        System.out.println("........ On resume called .... " + fragment);
         if (fragment == null) {
             //bottomNavigationView.setSelectedItemId(R.id.action_item1);
             fragment = GenericInvoices.newInstance();
-            Utility.nextFragment(GenericDashboard.this, fragment);
         }
+        Utility.nextFragment(GenericDashboard.this, fragment);
         if (user != null) {
             username.setText(user.getName());
             if (user.getCurrentBusiness() != null) {

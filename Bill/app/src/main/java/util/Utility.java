@@ -112,7 +112,13 @@ public class Utility {
     }
 
     public static void AppBarTitle(String title, Activity context) {
-        context.setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >" + title + "</font>"));
+        //size = 24
+        context.setTitle(Html.fromHtml("<font color='#343F4B' >" + title + "</font>"));
+        //context.setTitle("My Products");
+    }
+
+    public static void AppBarTitleActivity(String title, Activity context) {
+        context.setTitle(Html.fromHtml("<font color='#343F4B' >" + title + "</font>"));
     }
 
     public static void saveFile(Context context, Bitmap b, String picName) throws IOException {
@@ -566,4 +572,8 @@ public class Utility {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    public static Intent nextIntent(Activity parent, Class<?> cls) {
+        return new Intent(parent, cls);
+
+    }
 }

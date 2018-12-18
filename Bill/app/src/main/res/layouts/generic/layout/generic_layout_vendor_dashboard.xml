@@ -10,7 +10,6 @@
                 tools:showIn="@layout/generic_fragment_vendor_dashboard">
 
 
-
     <LinearLayout
         android:id="@+id/layout_my_products"
         android:layout_width="match_parent"
@@ -42,71 +41,6 @@
 
     </LinearLayout>
 
-    <!--<LinearLayout
-        android:id="@+id/layout_bill_summary"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_my_products"
-        android:layout_marginTop="@dimen/fab_margin"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/txt_vendor_accounting"
-            style="@style/basic_text_field"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bill summary"/>
-
-        <TextView
-            android:id="@+id/txt_vendor_manage_finance"
-            style="@style/basic_sub_text_field"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Overview of all your bills"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/bgGray"/>
-
-
-    </LinearLayout>-->
-
-
-    <!--<LinearLayout
-        android:id="@+id/layout_settings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_transactions"
-        android:layout_marginTop="@dimen/fab_margin"
-        android:background="@color/white"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/txt_vendor_settings"
-            style="@style/basic_text_field"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Settings"/>
-
-        <TextView
-            style="@style/basic_sub_text_field"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Profile settings"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/bgGray"/>
-
-
-    </LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/layout_transactions"
