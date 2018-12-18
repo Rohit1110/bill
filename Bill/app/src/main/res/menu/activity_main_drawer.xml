@@ -1,56 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-      xmlns:tools="http://schemas.android.com/tools"
-      tools:showIn="navigation_view"
-    >
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/nav_main_group" android:checkableBehavior="single">
 
         <item
             android:id="@+id/nav_myorder"
-            android:title="Customers"
-            />
+            android:title="Customers" />
         <item
             android:id="@+id/nav_myitems"
 
-            android:title="Vendor Dashboard"/>
-        <!--android:icon="@mipmap/inbox"-->
-        <!--<item
-            android:id="@+id/nav_activity"
+            android:title="Vendor Dashboard" />
 
-            android:title="Activity"/>
-        <item
-            android:id="@+id/nav_mycustomers"
-
-            android:title="My Customers"/>-->
         <item
             android:id="@+id/nav_bank_info"
-            android:title="Bank Information"/>
-       <!-- <item
-            android:id="@+id/nav_activity"
-            android:title="Activity"/>-->
+            android:title="Bank Information" />
+
     </group>
-    <hr></hr>
-    <item android:title="">
-        <menu>
-            <item
-                android:id="@+id/nav_profile"
-                android:title="Profile"
-                />
-            <item
-                android:id="@+id/nav_help"
-                android:title="Help"
-                />
-            <item
-                android:id="@+id/nav_settings"
 
-                android:title="Settings"/>
-            <item
-                android:id="@+id/rateus"
+    <group android:id="@+id/nav_sub_group" android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_help"
+            android:title="Help" />
+        <item
+            android:id="@+id/nav_settings"
 
-                android:title="Rate Us"/>
-
-        </menu>
-    </item>
+            android:title="Settings" />
+    </group>
 
 </menu>

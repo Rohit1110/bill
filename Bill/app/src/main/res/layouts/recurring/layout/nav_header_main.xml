@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#263445"
+    android:background="@color/navigationDrawerColorDark"
     android:gravity="center"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-   >
-
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin">
 
 
     <ImageView
@@ -19,23 +16,24 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginBottom="10dp"
-         />
+        android:scaleType="fitCenter" />
 
     <TextView
         android:id="@+id/txt_drawer_user_name"
+        style="@style/dreawerheader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/dreawerheader"
         android:text="User name"
-        />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/txt_drawer_business_name"
+        style="@style/dreawerheadersub"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/dreawerheadersub"
         android:text="Business name"
-        />
+        android:textColor="@android:color/secondary_text_dark"
+        android:textSize="14sp" />
 
 
     <!--<TextView
@@ -46,8 +44,6 @@
         style="@style/dreawerheaderprofile"
         android:text="Profile"
         />-->
-
-
 
 
 </LinearLayout>
