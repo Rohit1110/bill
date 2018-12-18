@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:id="@+id/relativeLayout3"
+                                             android:layout_width="fill_parent"
+                                             android:layout_height="wrap_content"
+                                             android:background="@color/white">
+
+    <TextView
+        android:id="@+id/txt_dialog_invoice_item_name"
+        style="@style/basic_text_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Item"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+
+    <!--<TextView
+        android:id="@+id/textView6"
+        style="@style/basic_sub_text_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Quantity"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="134dp"/>-->
+
+
+    <TextView
+        android:id="@+id/textView7"
+        style="@style/basic_text_field"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="INR"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/et_dialog_invoice_item_amount_multiple"/>
+
+    <TextView
+        android:id="@+id/txt_invoice_item_change_note"
+        style="@style/basic_sub_text_field"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Change the invoice amount of newspaper for n customers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_dialog_invoice_item_amount_multiple"/>
+
+    <EditText
+        android:id="@+id/et_dialog_invoice_item_amount_multiple"
+        style="@style/payamount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:hint="Set amount"
+        android:inputType="numberDecimal"
+        android:maxLength="5"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/txt_dialog_invoice_item_name"/>
+    <!--<ImageView
+                android:id="@+id/edit_bill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_edit"
+                android:layout_marginRight="10dp"/>-->
+
+
+    <Button
+        android:id="@+id/btn_dialog_save_invoice_item_multiple"
+        style="@style/basic_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="SAVE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_invoice_item_change_note"
+        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintWidth_percent="0.4"/>
+
+    <Button
+        android:id="@+id/btn_dialog_cancel_invoice_item_multiple"
+        style="@style/basic_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="CANCEL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_dialog_save_invoice_item_multiple"
+        app:layout_constraintTop_toTopOf="@+id/btn_dialog_save_invoice_item_multiple"
+        app:layout_constraintWidth_percent="0.4"/>
+
+
+</android.support.constraint.ConstraintLayout>

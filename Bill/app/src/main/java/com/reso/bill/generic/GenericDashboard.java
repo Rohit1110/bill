@@ -1,0 +1,339 @@
+package com.reso.bill.generic;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewTreeObserver;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.reso.bill.AddBusinessLogo;
+import com.reso.bill.BankDetailsFragment;
+import com.reso.bill.CustomerList;
+import com.reso.bill.R;
+import com.reso.bill.VendorRegistration;
+import com.rns.web.billapp.service.bo.domain.BillUser;
+import com.squareup.picasso.Picasso;
+
+import java.util.List;
+
+import util.ServiceUtil;
+import util.Utility;
+
+/**
+ * Created by Admin on 13/11/2018.
+ */
+
+public class GenericDashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static final int TIME_DELAY = 2000;
+    private static long back_pressed;
+    Fragment fragment = null;
+    private BillUser user;
+    //private BottomNavigationView bottomNavigationView;
+    private TextView username, businessName;
+    private ImageView profilePic;
+    private Toolbar toolbar;
+    private DrawerLayout drawer;
+    private boolean drawerChanged = true;
+
+    /*public BottomNavigationView getBottomNavigationView() {
+        return bottomNavigationView;
+    }*/
+
+    public ImageView getProfilePic() {
+        return profilePic;
+    }
+
+    public Toolbar getToolbar() {
+        return toolbar;
+    }
+
+    public boolean isDrawerChanged() {
+        return drawerChanged;
+    }
+
+    public void setDrawerChanged(boolean drawerChanged) {
+        this.drawerChanged = drawerChanged;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.generic_activity_dashboard);
+
+
+        drawer = (DrawerLayout) findViewById(R.id.drawertest_layout);
+
+        user = (BillUser) Utility.readObject(GenericDashboard.this, Utility.USER_KEY);
+
+        /*
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment selectedFragment = null;
+                switch (item.getItemId()) {
+                    case R.id.action_item1:
+                        fragment = GenericInvoices.newInstance();
+                        break;
+                    case R.id.action_item2:
+                        fragment = GenericMyProducts.newIntance();
+                        break;
+                    case R.id.action_item3:
+                        //fragment = FragmentInvoiceSummary.newInstance(user);
+                        break;
+                }
+
+                Utility.nextFragment(GenericDashboard.this, fragment);
+                return true;
+            }
+        });*//*
+
+        bottomNavigationView.setSelectedItemId(R.id.action_item1);*/
+
+        //bottomNavigationView.getMenu().getItem(0).setChecked(false);
+
+        getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+            @Override
+            public void onBackStackChanged() {
+                try {
+                    Fragment currentFragment = getSupportFragmentManager().getFragments().get(0);
+                    /*if (currentFragment instanceof GenericInvoices || currentFragment instanceof GenericMyProducts || currentFragment instanceof GenericTransactions) {
+                        //On the main screen, so enable bottom nav
+                        *//*getBottomNavigationView().getMenu().getItem(0).setCheckable(true);
+                        getBottomNavigationView().getMenu().getItem(1).setCheckable(true);
+                        getBottomNavigationView().getMenu().getItem(2).setCheckable(true);
+                        if (currentFragment instanceof GenericInvoices) {
+                            getBottomNavigationView().getMenu().getItem(0).setChecked(true);
+                        } else if (currentFragment instanceof GenericMyProducts) {
+                            getBottomNavigationView().getMenu().getItem(1).setChecked(true);
+                        } else {
+                            getBottomNavigationView().getMenu().getItem(2).setChecked(true);
+                        }*//*
+
+                    } else {
+                        getBottomNavigationView().getMenu().getItem(0).setCheckable(false);
+                        getBottomNavigationView().getMenu().getItem(1).setCheckable(false);
+                        getBottomNavigationView().getMenu().getItem(2).setCheckable(false);
+                    }*/
+                    if (currentFragment instanceof GenericCreateBill == false && currentFragment instanceof GenericUpdateInvoiceItems == false) {
+                        setDrawer();
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Utility.hideKeyboard(GenericDashboard.this);
+
+            }
+        });
+
+
+        setDrawer();
+    }
+
+    public void setDrawer() {
+
+        if (!isDrawerChanged()) {
+            return;
+        }
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        View hView = navigationView.getHeaderView(0);
+        username = hView.findViewById(R.id.txt_drawer_user_name);
+        businessName = hView.findViewById(R.id.txt_drawer_business_name);
+        profilePic = hView.findViewById(R.id.img_profile_pic);
+
+        profilePic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawer.closeDrawer(Gravity.LEFT);
+                Utility.nextFragment(GenericDashboard.this, AddBusinessLogo.newInstance());
+            }
+        });
+        //getBottomNavigationView().setVisibility(View.VISIBLE);
+        setDrawerChanged(false);
+        Utility.hideKeyboard(GenericDashboard.this);
+    }
+
+    @Override
+    protected void onResume() {
+        if (fragment == null) {
+            //bottomNavigationView.setSelectedItemId(R.id.action_item1);
+            fragment = GenericInvoices.newInstance();
+            Utility.nextFragment(GenericDashboard.this, fragment);
+        }
+        if (user != null) {
+            username.setText(user.getName());
+            if (user.getCurrentBusiness() != null) {
+                businessName.setText(user.getCurrentBusiness().getName());
+
+                if (user.getCurrentBusiness().getLogo() != null && user.getCurrentBusiness().getLogo().getFileName() != null) {
+                    updateBusinessLogo(user);
+                } else {
+                    profilePic.setImageResource(R.drawable.logo_sample);
+                }
+                //profilePic.setImageBitmap(b);
+            }
+        }
+        super.onResume();
+    }
+
+    public void updateBusinessLogo(BillUser user) {
+        Picasso.get().load(ServiceUtil.ROOT_URL + "getImage/logo/" + user.getCurrentBusiness().getId()).into(profilePic);
+    }
+
+    public void setTitle(String title) {
+        getSupportActionBar().setTitle(title);
+    }
+
+   /* @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.search,menu);
+        return onCreateOptionsMenu(menu);
+    }*/
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+
+        switch (item.getItemId()) {
+
+            case R.id.nav_myorder:
+                //Toast.makeText(Dashboard.this, "Click", Toast.LENGTH_LONG).show();
+                fragment = new CustomerList();
+                break;
+            case R.id.nav_myitems:
+                fragment = new GenericVendorDashBoard();
+                break;
+            case R.id.nav_bank_info:
+                fragment = new BankDetailsFragment();
+                break;
+            case R.id.nav_profile:
+                Intent i = new Intent(GenericDashboard.this, VendorRegistration.class);
+                startActivity(i);
+                break;
+            case R.id.nav_home:
+                fragment = GenericInvoices.newInstance();
+                break;
+            /*case R.id.nav_help:
+                Intent helpI = new Intent(Dashboard.this, HelpActivity.class);
+                startActivity(helpI);
+                break;
+            case R.id.nav_settings:
+                fragment = Settings.newInstance();
+                break;*/
+
+
+        }
+        if (fragment != null) {
+            Utility.nextFragment(GenericDashboard.this, fragment);
+        }
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawertest_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (homeFragmentActive()) {
+            Toast.makeText(GenericDashboard.this, "Cannot Go Back now!!", Toast.LENGTH_LONG);
+            super.onBackPressed();
+        } else {
+            getSupportFragmentManager().popBackStack();
+        }
+
+    }
+
+    private boolean homeFragmentActive() {
+        List<Fragment> fragments = getSupportFragmentManager().getFragments();
+        if (fragments != null && fragments.size() > 0) {
+            for (Fragment frag : fragments) {
+                if (frag.isVisible() && frag instanceof GenericInvoices) {
+                    return true;
+                }
+            }
+        } else {
+            return true;
+        }
+        return false;
+    }
+
+    private ViewTreeObserver.OnGlobalLayoutListener keyboardLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+        @Override
+        public void onGlobalLayout() {
+            /*int heightDiff = bottomNavigationView.getRootView().getHeight() - bottomNavigationView.getHeight();
+            int contentViewTop = getWindow().findViewById(Window.ID_ANDROID_CONTENT).getTop();
+
+            LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(GenericDashboard.this);
+
+            if (heightDiff <= contentViewTop) {
+                onHideKeyboard();
+
+                Intent intent = new Intent("KeyboardWillHide");
+                broadcastManager.sendBroadcast(intent);
+            } else {
+                int keyboardHeight = heightDiff - contentViewTop;
+                onShowKeyboard(keyboardHeight);
+
+                Intent intent = new Intent("KeyboardWillShow");
+                intent.putExtra("KeyboardHeight", keyboardHeight);
+                broadcastManager.sendBroadcast(intent);
+            }*/
+        }
+    };
+
+    private boolean keyboardListenersAttached = false;
+    //private ViewGroup rootLayout;
+
+
+    protected void onShowKeyboard(int keyboardHeight) {
+    }
+
+    protected void onHideKeyboard() {
+    }
+
+    protected void attachKeyboardListeners() {
+        if (keyboardListenersAttached) {
+            return;
+        }
+
+        //rootLayout = (ViewGroup) findViewById(R.id.rootLayout);
+        //bottomNavigationView.getViewTreeObserver().addOnGlobalLayoutListener(keyboardLayoutListener);
+
+        keyboardListenersAttached = true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        if (keyboardListenersAttached) {
+            //bottomNavigationView.getViewTreeObserver().removeGlobalOnLayoutListener(keyboardLayoutListener);
+        }
+    }
+}

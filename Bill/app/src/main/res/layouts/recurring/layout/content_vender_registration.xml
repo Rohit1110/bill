@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:layout_above="@+id/fab_vregister"
+                                             android:background="@color/white"
+                                             app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                                             tools:context="com.reso.bill.VendorRegistration"
+                                             tools:showIn="@layout/activity_vender_registration">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginTop="5dp"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                >
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Name"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_name"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:hint="Enter Name"
+                    android:maxLength="75"
+                    />
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Email"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_email"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:hint="Enter Email address"
+                    android:maxLength="50"
+                    />
+
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Contact"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_phone"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:hint="Enter Contact"
+
+                    />
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Pan ID"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_pan_number"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:hint="Enter Pan ID"
+                    android:maxLength="10"
+                    />
+                <!-- android:drawableRight="@mipmap/attchment"-->
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Adhar Number"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_aadhar_number"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:hint="Enter Adhar number"
+                    android:maxLength="15"
+                    />
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Business Name"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_business_name"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:hint="Enter Business Name"
+                    android:maxLength="40"
+                    />
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Business license"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_business_license"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:hint="Enter Business License number"
+                    android:maxLength="20"
+                    />
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Address"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_business_address"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:hint="Enter Business Address"
+                    android:singleLine="false"
+                    android:maxLength="100"
+                    />
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Locations"
+                    android:textSize="13sp"/>
+
+                <Spinner
+                    android:id="@+id/sp_select_city"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="3dp"
+                    />
+
+                <!--<Spinner
+                    android:id="@+id/sp_area"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="100px"
+                    android:drawSelectorOnTop="true" />-->
+
+                <com.reso.bill.components.MultiSelectionSpinner
+                    android:id="@+id/sp_area"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginRight="10dp"
+                    android:padding="@dimen/margin"
+                    />
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Area of business"
+                    android:textSize="13sp"/>
+
+                <Spinner
+                    android:id="@+id/sp_select_sector"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="3dp"
+                    />
+
+                <include
+                    layout="@layout/layout_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/txt_tnc"
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="By submitting your information you agree to the terms and conditions"/>
+
+                <Button
+                    android:id="@+id/fab_vregister"
+                    style="@style/basic_button"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_margin="@dimen/fab_margin"
+                    android:text="Save"/>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

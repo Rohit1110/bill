@@ -12,9 +12,11 @@ import android.widget.TextView;
 
 import com.reso.bill.FragmentEditInvoice;
 import com.reso.bill.R;
+import com.reso.bill.generic.GenericCreateBill;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.util.BillConstants;
+import com.rns.web.billapp.service.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +32,16 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private Activity activity;
     List<BillInvoice> items = new ArrayList<>();
     private BillUser customer;
+    private BillUser user;
 
     public CustomerInvoiceAdapter(List<BillInvoice> items, Activity activity, BillUser customer) {
         this.items = items;
         this.activity = activity;
         this.customer = customer;
+    }
+
+    public void setUser(BillUser user) {
+        this.user = user;
     }
 
     class ViewHolder1 extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -60,7 +67,13 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Utility.nextFragment((FragmentActivity) activity, FragmentEditInvoice.newInstance(customer, invoice));
+                    if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
+                        customer.setCurrentInvoice(invoice);
+                        Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(customer));
+                    } else {
+                        Utility.nextFragment((FragmentActivity) activity, FragmentEditInvoice.newInstance(customer, invoice));
+                    }
+
                 }
             });
         }
@@ -78,12 +91,18 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         BillInvoice invoice = (BillInvoice) items.get(position);
         ViewHolder1 gholder = (ViewHolder1) holder;
-        gholder.txtMonths.setText(BillConstants.MONTHS[invoice.getMonth() -1] + " " + invoice.getYear());
+        if (invoice.getMonth() != null && invoice.getYear() != null) {
+            gholder.txtMonths.setText(BillConstants.MONTHS[invoice.getMonth() - 1] + " " + invoice.getYear());
+        } else if (invoice.getInvoiceDate() != null) {
+            gholder.txtMonths.setText(CommonUtils.convertDate(invoice.getInvoiceDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR));
+        } else {
+            gholder.txtMonths.setText("");
+        }
         if (invoice.getPayable() != null) {
             gholder.txtamount.setText("INR " + invoice.getPayable().toString());
         }
         gholder.txtstatus.setText(invoice.getStatus());
-        if(invoice.getStatus() != null && BillConstants.INVOICE_STATUS_PAID.equals(invoice.getStatus())) {
+        if (invoice.getStatus() != null && BillConstants.INVOICE_STATUS_PAID.equals(invoice.getStatus())) {
             gholder.statusImg.setImageResource(R.drawable.ic_invoice_paid);
         } else if (invoice.getStatus() != null && "Failed".equals(invoice.getStatus())) {
             gholder.statusImg.setImageResource(R.drawable.ic_invoice_failed);

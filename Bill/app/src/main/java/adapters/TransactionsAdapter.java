@@ -18,6 +18,8 @@ import com.rns.web.billapp.service.util.CommonUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.Utility;
+
 /**
  * Created by Rohit on 5/10/2018.
  */
@@ -50,7 +52,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             txtName = (TextView) itemView.findViewById(R.id.txt_txn_customer_name);
             txtAmount = (TextView) itemView.findViewById(R.id.txt_txn_amount);
             imgStatus = (ImageView) itemView.findViewById(R.id.img_txn_status);
-            imgPaymentMedium = (ImageView) itemView.findViewById(R.id.img_txn_payment_medium);
+            imgPaymentMedium = (ImageView) itemView.findViewById(R.id.img_txn_mode);
             txtDate = (TextView) itemView.findViewById(R.id.txt_txn_date);
             txtInvoiceRef = (TextView) itemView.findViewById(R.id.txt_txn_invoice_ref);
         }
@@ -89,9 +91,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             if (currentInvoice.getMonth() != null && currentInvoice.getYear() != null) {
                 view.txtInvoiceRef.setText("Invoice for " + BillConstants.MONTHS[currentInvoice.getMonth() - 1] + " " + currentInvoice.getYear());
             } else {
-                view.txtInvoiceRef.setText("Invoice #" + CommonUtils.getStringValue(currentInvoice.getId()));
+                view.txtInvoiceRef.setText("Txn #" + CommonUtils.getStringValue(currentInvoice.getId()));
             }
-            view.txtAmount.setText("INR " + CommonUtils.getStringValue(currentInvoice.getAmount()));
+            view.txtAmount.setText(/*"INR " + */Utility.getDecimalString(currentInvoice.getAmount()) + "/-");
 
             if (currentInvoice.getStatus() != null && BillConstants.INVOICE_STATUS_PAID.equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_paid);
@@ -99,6 +101,8 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 view.imgStatus.setImageResource(R.drawable.ic_txn_settled);
             } else if (currentInvoice.getStatus() != null && "Failed".equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_failed);
+            } else if (currentInvoice.getStatus() != null && "Deleted".equals(currentInvoice.getStatus())) {
+                view.imgStatus.setImageResource(R.drawable.ic_action_delete);
             } else {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_pending);
             }

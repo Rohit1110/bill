@@ -543,6 +543,14 @@ public class BitmapHelper {
     }
 
 
+    public static byte[] getFileDataFromDrawable(Bitmap bitmap) {
+        if(bitmap == null) {
+            return null;
+        }
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
+        return byteArrayOutputStream.toByteArray();
+    }
 
 
 }

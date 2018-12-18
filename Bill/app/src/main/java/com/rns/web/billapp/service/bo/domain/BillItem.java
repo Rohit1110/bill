@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class BillItem implements Serializable {
+public class BillItem implements Serializable, Cloneable {
 
 	/**
 	 *
@@ -194,5 +194,10 @@ public class BillItem implements Serializable {
 
 	public void setPaymentRef(String paymentRef) {
 		this.paymentRef = paymentRef;
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 }

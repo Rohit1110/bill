@@ -1,5 +1,6 @@
 package com.reso.bill;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -18,10 +19,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -32,6 +36,7 @@ import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
+import com.rns.web.billapp.service.util.BillConstants;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -57,6 +62,8 @@ public class BillsSummary extends Fragment {
     private BillUser user;
     private CheckBox showSchemeOnly;
     private BillSummaryAdapter billAdapter;
+    private ImageView editInvoice;
+    private boolean loadInProgress;
     //private boolean firstLoad;
     //private List<BillOrder> ordersList;
     //private List<BillUserLog> log;
@@ -79,7 +86,7 @@ public class BillsSummary extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.search, menu);
         MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = new SearchView(((Dashboard) getActivity()).getSupportActionBar().getThemedContext());
+        SearchView searchView = new SearchView((Utility.castActivity(getActivity())).getSupportActionBar().getThemedContext());
         MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
         ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.md_black_1000));
         MenuItemCompat.setActionView(item, searchView);
@@ -163,7 +170,7 @@ public class BillsSummary extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_bills_summary, container, false);
-        Utility.AppBarTitle("Customer Activities", getActivity());
+        Utility.AppBarTitle("Bills Summary", getActivity());
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_bills_summary);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -173,7 +180,11 @@ public class BillsSummary extends Fragment {
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.months_arrays));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         months.setAdapter(adapter);
-        months.setSelection(Calendar.getInstance().get(Calendar.MONTH) + 1);
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+        if (currentMonth == 0) {
+            currentMonth = 12;
+        }
+        months.setSelection(currentMonth);
 
         item.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -209,6 +220,104 @@ public class BillsSummary extends Fragment {
             }
         });
 
+        editInvoice = (ImageView) rootView.findViewById(R.id.btn_edit_invoice_amount_multiple);
+        editInvoice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                if (item.getSelectedItemPosition() < 1) {
+                    Utility.createAlert(getActivity(), "Please select a product to change first!", "Error");
+                    return;
+                }
+
+                if (billAdapter == null || billAdapter.getUsers() == null) {
+                    Utility.createAlert(getActivity(), "No bills to change!", "Error");
+                    return;
+                }
+
+                final Dialog dialog = new Dialog(getActivity());
+                dialog.setContentView(R.layout.dialog_edit_invoice_item_multiple);
+                dialog.setTitle("Change amount bulk");
+
+                // set the custom dialog components - text, image and button
+                TextView text = (TextView) dialog.findViewById(R.id.txt_dialog_invoice_item_name);
+                text.setText(item.getSelectedItem().toString());
+
+                final EditText amount = (EditText) dialog.findViewById(R.id.et_dialog_invoice_item_amount_multiple);
+                //amount.setText("0");
+
+
+                TextView txtNote = (TextView) dialog.findViewById(R.id.txt_invoice_item_change_note);
+                txtNote.setText("Changing the amount for " + item.getSelectedItem().toString() + " of " + billAdapter.getUsers().size() + " customers");
+
+
+                Button saveBillItem = (Button) dialog.findViewById(R.id.btn_dialog_save_invoice_item_multiple);
+                // if button is clicked, close the custom dialog
+                saveBillItem.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (TextUtils.isEmpty(amount.getText())) {
+                            amount.setError("Please enter the amount");
+                            return;
+                        }
+                        BillServiceRequest request = new BillServiceRequest();
+                        BillInvoice invoice = new BillInvoice();
+                        invoice.setMonth(Arrays.asList(getResources().getStringArray(R.array.months_arrays)).indexOf(months.getSelectedItem()));
+                        request.setInvoice(invoice);
+                        BillItem requestedItem = new BillItem();
+                        if (item.getSelectedItem() != null) {
+                            BillItem selectedItem = (BillItem) Utility.findInStringList(items, item.getSelectedItem().toString());
+                            if (selectedItem != null) {
+                                requestedItem.setParentItemId(selectedItem.getId());
+                                requestedItem.setPrice(Utility.getDecimal(amount));
+                                if(showSchemeOnly.isChecked()) {
+                                    requestedItem.setPriceType(BillConstants.FREQ_MONTHLY);
+                                }
+                                request.setItem(requestedItem);
+                            }
+                        }
+
+                        pDialog = Utility.getProgressDialogue("Saving..", getActivity());
+                        StringRequest myReq = ServiceUtil.getStringRequest("updateInvoiceItems", saveMultipleItemsListener(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
+                        RequestQueue queue = Volley.newRequestQueue(getActivity());
+                        queue.add(myReq);
+                    }
+
+                    private Response.Listener<String> saveMultipleItemsListener() {
+                        return new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                System.out.println("## response:" + response);
+                                pDialog.dismiss();
+
+                                list = new ArrayList<>();
+                                BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
+                                if (serviceResponse != null && serviceResponse.getStatus() == 200) {
+                                    Utility.createAlert(getActivity(), "Saved succesfully!", "Done");
+                                    dialog.dismiss();
+                                    loadBillSummary();
+                                } else {
+                                    System.out.println("Error .." + serviceResponse.getResponse());
+                                    Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
+                                }
+                            }
+
+                        };
+                    }
+                });
+
+                Button cancel = (Button) dialog.findViewById(R.id.btn_dialog_cancel_invoice_item_multiple);
+                // if button is clicked, close the custom dialog
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+            }
+        });
 
         return rootView;
     }
@@ -224,7 +333,7 @@ public class BillsSummary extends Fragment {
     }
 
     private void loadBillSummary() {
-        if (user == null) {
+        if (user == null || loadInProgress) {
             return;
         }
         BillServiceRequest request = new BillServiceRequest();
@@ -240,7 +349,7 @@ public class BillsSummary extends Fragment {
                 request.setItem(requestedItem);
             }
         }
-
+        loadInProgress = true;
         pDialog = Utility.getProgressDialogue("Loading..", getActivity());
         StringRequest myReq = ServiceUtil.getStringRequest("getBillSummary", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
@@ -253,7 +362,7 @@ public class BillsSummary extends Fragment {
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
                 pDialog.dismiss();
-
+                loadInProgress = false;
                 list = new ArrayList<>();
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
@@ -267,13 +376,16 @@ public class BillsSummary extends Fragment {
                         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, strings);
                         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                         item.setAdapter(dataAdapter);
+
                     }
                     if (bills != null && bills.size() > 0) {
                         billAdapter = new BillSummaryAdapter(bills, getActivity());
                     } else {
                         billAdapter = new BillSummaryAdapter(new ArrayList<BillUser>(), getActivity());
                     }
+
                     recyclerView.setAdapter(billAdapter);
+                    billAdapter.showOnlySchemeUsers(showSchemeOnly.isChecked());
 
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());

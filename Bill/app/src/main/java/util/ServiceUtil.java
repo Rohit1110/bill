@@ -37,6 +37,7 @@ public class ServiceUtil {
     public static String HOST = "http://192.168.1.16:8080/billapp-service/";
     public static String ROOT_URL = HOST + "user/";
     public static String ADMIN_URL = HOST + "admin/";
+    public static String BUSINESS_URL = HOST + "business/";
 
 
     //public static final int SECTOR_ID = 2;
@@ -46,6 +47,12 @@ public class ServiceUtil {
 
     public static StringRequest getStringRequest(String method, com.android.volley.Response.Listener<String> successListener, Response.ErrorListener errorListener, final BillServiceRequest request) {
         StringRequest volleyRequest = getRequest(ROOT_URL + method, successListener, errorListener, request);
+        volleyRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        return volleyRequest;
+    }
+
+    public static StringRequest getBusinessStringRequest(String method, com.android.volley.Response.Listener<String> successListener, Response.ErrorListener errorListener, final BillServiceRequest request) {
+        StringRequest volleyRequest = getRequest(BUSINESS_URL + method, successListener, errorListener, request);
         volleyRequest.setRetryPolicy(new DefaultRetryPolicy(10000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         return volleyRequest;
     }
@@ -81,11 +88,11 @@ public class ServiceUtil {
         return new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if(pDialog != null) {
+                if (pDialog != null) {
                     pDialog.dismiss();
                 }
                 String e = "";
-                if(error != null) {
+                if (error != null) {
                     e = error.getMessage();
                 }
                 System.out.println("Error in executing service call .. " + error);
@@ -111,7 +118,7 @@ public class ServiceUtil {
             String s = json.getAsJsonPrimitive().getAsString();
             long l = Long.parseLong(s);
             Date d = new Date(l);
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             try {
                 d = sdf.parse(sdf.format(d));
             } catch (ParseException e) {

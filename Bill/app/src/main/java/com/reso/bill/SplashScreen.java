@@ -1,7 +1,10 @@
 package com.reso.bill;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.app.AppCompatActivity;
+
+import util.Utility;
 
 /*public class SplashScreen extends AppCompatActivity {
 
@@ -11,13 +14,6 @@ import android.os.Bundle;
         setContentView(R.layout.activity_splash_screen);
     }
 }*/
-
-
-
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
 
 public class SplashScreen extends AppCompatActivity {
 
@@ -40,8 +36,7 @@ public class SplashScreen extends AppCompatActivity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(SplashScreen.this, Dashboard.class);
-                startActivity(i);
+                startActivity(Utility.getDashboardIntent(SplashScreen.this, null));
 
                 // close this activity
                 finish();

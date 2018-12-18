@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -15,11 +16,15 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,7 +33,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
+import com.reso.bill.Dashboard;
+import com.reso.bill.HomeFragment;
 import com.reso.bill.R;
+import com.reso.bill.generic.GenericDashboard;
+import com.reso.bill.generic.GenericInvoices;
 import com.rns.web.billapp.service.bo.domain.BillBusiness;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillLocation;
@@ -43,6 +52,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -65,7 +75,7 @@ public class Utility {
     public static String[] LIST_OPTIONS = {"Delete"};
     //int selectedElement = 1; //global variable to store state
     public static final String DATE_FORMAT_DISPLAY = "MMM dd";
-
+    public static final int RESULT_PICK_CONTACT = 1;
 
     public static void createAlert(Context context, String message, String title) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
@@ -147,9 +157,6 @@ public class Utility {
         } catch (FileNotFoundException e) {
             Log.d("tag", "file not found");
             e.printStackTrace();
-        } catch (IOException e) {
-            Log.d("tag", "io exception");
-            e.printStackTrace();
         } finally {
             try {
                 fis.close();
@@ -222,6 +229,17 @@ public class Utility {
         ft.commit();
     }
 
+    public static void nextFragmentPopBackstack(FragmentActivity activity, Fragment fragment, boolean addToBackStack) {
+        FragmentManager fm = activity.getSupportFragmentManager();
+        fm.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+        FragmentTransaction ft = fm.beginTransaction();
+        ft.replace(R.id.frame_layout, fragment);
+        if (addToBackStack) {
+            ft.addToBackStack(fragment.getClass().getName());
+        }
+        ft.commit();
+    }
+
     public static void downloadImage(final ImageView mImageView, Context activity, String url) {
         ImageRequest request = new ImageRequest(url, new Response.Listener<Bitmap>() {
             @Override
@@ -276,6 +294,9 @@ public class Utility {
             } else if (o instanceof BillSector) {
                 BillSector sector = (BillSector) o;
                 stringList.add(sector.getName());
+            } else if (o instanceof BillUser) {
+                BillUser user = (BillUser) o;
+                stringList.add(user.getName());
             }
         }
         return stringList;
@@ -300,6 +321,11 @@ public class Utility {
                 if (sector.getName() != null && selected.equals(sector.getName())) {
                     return sector;
                 }
+            } else if (o instanceof BillUser) {
+                BillUser user = (BillUser) o;
+                if (user.getName() != null && selected.equals(user.getName())) {
+                    return user;
+                }
             }
         }
         return null;
@@ -307,6 +333,10 @@ public class Utility {
 
     public static String getItemImageURL(Integer parentItemId) {
         return ServiceUtil.ADMIN_URL + "getParentItemImage/" + parentItemId;
+    }
+
+    public static String getBusinessItemImageURL(Integer itemId) {
+        return ServiceUtil.ADMIN_URL + "getBusinessItemImage/" + itemId;
     }
 
     @NonNull
@@ -432,7 +462,6 @@ public class Utility {
         builder.setTitle("Select Your Choice");
 
 
-
         builder.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -457,23 +486,84 @@ public class Utility {
     }
 
     public static String getItemName(BillItem item) {
-        if(item == null) {
+        if (item == null) {
             return "";
         }
-        if(item.getName() != null) {
+        if (item.getName() != null) {
             return item.getName();
         }
-        if(item.getParentItem() != null && item.getParentItem().getName() != null) {
+        if (item.getParentItem() != null && item.getParentItem().getName() != null) {
             return item.getParentItem().getName();
         }
         return "";
     }
 
     public static String getFramework(BillUser user) {
-        if(user == null || user.getCurrentBusiness() == null || user.getCurrentBusiness().getBusinessSector() == null || user.getCurrentBusiness().getBusinessSector().getFramework() == null) {
+        if (user == null || user.getCurrentBusiness() == null || user.getCurrentBusiness().getBusinessSector() == null || user.getCurrentBusiness().getBusinessSector().getFramework() == null) {
             return BillConstants.FRAMEWORK_RECURRING;
         }
         return user.getCurrentBusiness().getBusinessSector().getFramework();
+    }
+
+    public static Intent getDashboardIntent(Activity currentActivity, BillUser user) {
+        if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
+            return new Intent(currentActivity, GenericDashboard.class);
+        }
+        return new Intent(currentActivity, Dashboard.class);
+    }
+
+    public static AppCompatActivity castActivity(Activity activity) {
+        if (activity instanceof GenericDashboard) {
+            return (GenericDashboard) activity;
+        }
+        return (Dashboard) activity;
+    }
+
+    public static Fragment getHomeFragment(BillUser user) {
+        if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
+            return GenericInvoices.newInstance();
+        }
+        return HomeFragment.newInstance(user);
+    }
+
+    public static String getDecimalText(BigDecimal decimal) {
+        if(decimal == null) {
+            return "";
+        }
+        return decimal.stripTrailingZeros().toPlainString();
+    }
+
+    public static String getDecimalString(BigDecimal decimal) {
+        DecimalFormat decimalFormat = new DecimalFormat("0.#####");
+        String result = decimalFormat.format(decimal);
+        return result;
+    }
+
+    public static void changeDrawer(final FragmentActivity activity, final Fragment backFragment) {
+        final GenericDashboard dashboard = (GenericDashboard) activity;
+        dashboard.getToolbar().setNavigationIcon(R.drawable.ic_action_arrow_back);
+        //dashboard.getBottomNavigationView().setVisibility(View.GONE);
+        //dashboard.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        dashboard.getToolbar().setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dashboard.setDrawer();
+                Utility.nextFragmentPopBackstack(activity, backFragment, false);
+            }
+        });
+        dashboard.setDrawerChanged(true);
+    }
+
+
+    public static void hideKeyboard(Activity activity) {
+        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+        //Find the currently focused view, so we can grab the correct window token from it.
+        View view = activity.getCurrentFocus();
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = new View(activity);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
 }

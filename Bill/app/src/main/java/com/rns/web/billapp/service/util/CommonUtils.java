@@ -209,6 +209,13 @@ public class CommonUtils {
         return cal.getTime();
     }
 
+    public static Date add(Integer delta, Date date, int field) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.add(field, delta);
+        setZero(cal);
+        return cal.getTime();
+    }
 
     public static String convertDate(Date date, String dateFormat) {
         try {

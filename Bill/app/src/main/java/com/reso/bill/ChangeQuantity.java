@@ -85,7 +85,7 @@ public class ChangeQuantity extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.search, menu);
         MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = new SearchView(((Dashboard) getActivity()).getSupportActionBar().getThemedContext());
+        SearchView searchView = new SearchView((Utility.castActivity(getActivity())).getSupportActionBar().getThemedContext());
         MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
         ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.md_black_1000));
         MenuItemCompat.setActionView(item, searchView);
@@ -131,7 +131,7 @@ public class ChangeQuantity extends Fragment {
         Picasso.get().load(Utility.getItemImageURL(Utility.getRootItemId(subItem))).into(subItemIcon);
         quantity.setText("0");
         if (subItem.getQuantity() != null) {
-            quantity.setText(subItem.getQuantity().toString());
+            quantity.setText(Utility.getDecimalText(subItem.getQuantity()));
         }
 
         if (subItem.getPrice() != null) {

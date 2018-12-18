@@ -22,6 +22,7 @@ import com.android.volley.toolbox.Volley;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
+import com.rns.web.billapp.service.util.BillConstants;
 import com.rns.web.billapp.service.util.CommonUtils;
 
 import java.util.ArrayList;
@@ -47,6 +48,7 @@ public class CustomerProfileFragment extends Fragment {
 
     private List<ListThree> list = new ArrayList<>();
     private ProgressDialog pDialog;
+    private BillUser user;
 
     public static CustomerProfileFragment newInstance(BillUser customer) {
         CustomerProfileFragment fragment = new CustomerProfileFragment();
@@ -77,6 +79,8 @@ public class CustomerProfileFragment extends Fragment {
         lastPaid = (TextView) rootView.findViewById(R.id.txt_profile_last_paid_bill);
         call = (ImageView) rootView.findViewById(R.id.img_profile_call_customer);
 
+        user = (BillUser) Utility.readObject(getActivity(), Utility.USER_KEY);
+
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -92,6 +96,7 @@ public class CustomerProfileFragment extends Fragment {
                 Utility.nextFragment(getActivity(), AddSubcription.newInstance(selectedCustomer));
             }
         });
+
 
         billSummary = (View) rootView.findViewById(R.id.layout_profile_customer_bill_summary);
         billSummary.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +141,13 @@ public class CustomerProfileFragment extends Fragment {
 
             }
         });
+
+        if(!BillConstants.FRAMEWORK_RECURRING.equals(Utility.getFramework(user))) {
+            manageSubscriptions.setVisibility(View.GONE);
+            viewactivity.setVisibility(View.GONE);
+        }
+
+        Utility.changeDrawer(getActivity(), );
 
         return rootView;
     }

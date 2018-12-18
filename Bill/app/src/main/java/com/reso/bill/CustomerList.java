@@ -76,7 +76,7 @@ public class CustomerList extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.search, menu);
         MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = new SearchView(((Dashboard) getActivity()).getSupportActionBar().getThemedContext());
+        SearchView searchView = new SearchView((Utility.castActivity(getActivity())).getSupportActionBar().getThemedContext());
         MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
         ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.md_black_1000));
         MenuItemCompat.setActionView(item, searchView);
@@ -290,6 +290,8 @@ public class CustomerList extends Fragment {
                         for (BillCustomer item : list) {
                             if (item.getUser().getName().toLowerCase().contains(text.toLowerCase()) /*|| comparePhone(item, text)*/) {
                                 // Adding Matched items
+                                filterList.add(item);
+                            } else if (item.getUser().getPhone().toLowerCase().contains(text.toLowerCase())) {
                                 filterList.add(item);
                             }
 

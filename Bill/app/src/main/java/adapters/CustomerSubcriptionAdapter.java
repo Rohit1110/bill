@@ -97,19 +97,19 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
             String txtWeekDays = gholder.txtweekdays.getText().toString();
             for (String day : days) {
                 if (day.contains("1")) {
-                    txtWeekDays = txtWeekDays.replace("su", "<font color='" + Utility.COLOR_BLUE + "'>su</font>");
+                    txtWeekDays = txtWeekDays.replace("SU", "<font color='" + Utility.COLOR_BLUE + "'>SU</font>");
                 } else if (day.contains("2")) {
-                    txtWeekDays = txtWeekDays.replace("mo", "<font color='" + Utility.COLOR_BLUE + "'>mo</font>");
+                    txtWeekDays = txtWeekDays.replace("MO", "<font color='" + Utility.COLOR_BLUE + "'>MO</font>");
                 } else if (day.contains("3")) {
-                    txtWeekDays = txtWeekDays.replace("tu", "<font color='" + Utility.COLOR_BLUE + "'>tu</font>");
+                    txtWeekDays = txtWeekDays.replace("TU", "<font color='" + Utility.COLOR_BLUE + "'>TU</font>");
                 } else if (day.contains("4")) {
-                    txtWeekDays = txtWeekDays.replace("we", "<font color='" + Utility.COLOR_BLUE + "'>we</font>");
+                    txtWeekDays = txtWeekDays.replace("WE", "<font color='" + Utility.COLOR_BLUE + "'>WE</font>");
                 } else if (day.contains("5")) {
-                    txtWeekDays = txtWeekDays.replace("th", "<font color='" + Utility.COLOR_BLUE + "'>th</font>");
+                    txtWeekDays = txtWeekDays.replace("TH", "<font color='" + Utility.COLOR_BLUE + "'>TH</font>");
                 } else if (day.contains("6")) {
-                    txtWeekDays = txtWeekDays.replace("fr", "<font color='" + Utility.COLOR_BLUE + "'>fr</font>");
+                    txtWeekDays = txtWeekDays.replace("FR", "<font color='" + Utility.COLOR_BLUE + "'>FR</font>");
                 } else if (day.contains("7")) {
-                    txtWeekDays = txtWeekDays.replace("sa", "<font color='" + Utility.COLOR_BLUE + "'>sa</font>");
+                    txtWeekDays = txtWeekDays.replace("SA", "<font color='" + Utility.COLOR_BLUE + "'>SA</font>");
                 }
             }
             System.out.println("Week Days ==>" + txtWeekDays);
@@ -121,7 +121,7 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
         gholder.txtnewpaperqty.setText("0");
 
         if (customerSubscription.getQuantity() != null) {
-            gholder.txtnewpaperqty.setText(customerSubscription.getQuantity().toString());
+            gholder.txtnewpaperqty.setText(Utility.getDecimalText(customerSubscription.getQuantity()));
         }
 
         gholder.txtnewpaperqty.setOnClickListener(new View.OnClickListener() {

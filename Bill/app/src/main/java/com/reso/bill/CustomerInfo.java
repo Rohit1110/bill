@@ -63,7 +63,8 @@ public class CustomerInfo extends Fragment {
     //private CheckBox hideBillDetails;
     private RadioButton showFullBill;
     private RadioButton hideFullBill;
-    private static final int RESULT_PICK_CONTACT = 1;
+    private Integer customerId;
+
 
     public static CustomerInfo newInstance(BillUser selectedCustomer) {
         CustomerInfo fragment = new CustomerInfo();
@@ -84,7 +85,7 @@ public class CustomerInfo extends Fragment {
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Add Customer</font>"));
         Utility.AppBarTitle("Add Customer", getActivity());
         //layout = (LinearLayout) rootView.findViewById(R.id.layout_subscriptions);
-        fabsubscription = (Button) rootView.findViewById(R.id.fab_save_customer);
+        fabsubscription = (Button) rootView.findViewById(R.id.btn_gn_save_product);
         fabsubscription.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -164,9 +165,9 @@ public class CustomerInfo extends Fragment {
             }
         });*/
 
-        name = (EditText) rootView.findViewById(R.id.et_customer_name);
+        name = (EditText) rootView.findViewById(R.id.et_product_name);
         email = (EditText) rootView.findViewById(R.id.et_customer_email);
-        contact = (EditText) rootView.findViewById(R.id.et_customer_phone);
+        contact = (EditText) rootView.findViewById(R.id.et_product_description);
         address = (EditText) rootView.findViewById(R.id.et_customer_address);
         areas = (Spinner) rootView.findViewById(R.id.sp_customer_area);
         serviceCharge = (EditText) rootView.findViewById(R.id.et_customer_service_charge);
@@ -210,7 +211,7 @@ public class CustomerInfo extends Fragment {
                         // aadharNumber.setText(identy);
                         Intent contactPickerIntent = new Intent(Intent.ACTION_PICK,
                                 ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
-                        startActivityForResult(contactPickerIntent, RESULT_PICK_CONTACT);
+                        startActivityForResult(contactPickerIntent, Utility.RESULT_PICK_CONTACT);
                         return true;
                     }
                 }
@@ -224,7 +225,7 @@ public class CustomerInfo extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == getActivity().RESULT_OK) {
             switch (requestCode) {
-                case RESULT_PICK_CONTACT:
+                case Utility.RESULT_PICK_CONTACT:
                     contactPicked(data);
                     break;
             }
@@ -309,6 +310,9 @@ public class CustomerInfo extends Fragment {
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     Utility.createAlert(getContext(), "Customer details updated successfully!", "Done");
+                    if(serviceResponse.getUser() != null) {
+                        customerId = serviceResponse.getUser().getId();
+                    }
                     if (addToContacts.isChecked() && customer.getPhone() != null) {
                         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
                             ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_CONTACTS, Manifest.permission.READ_CONTACTS}, Utility.MY_PERMISSIONS_REQUEST_CONTACTS);
@@ -321,7 +325,7 @@ public class CustomerInfo extends Fragment {
                             }
                         }
                     } else {
-                        Utility.nextFragment(getActivity(), new CustomerList());
+                        Utility.nextFragment(getActivity(), getNextFragment());
                     }
 
                 } else {
@@ -333,6 +337,18 @@ public class CustomerInfo extends Fragment {
             }
 
         };
+    }
+
+    @NonNull
+    private Fragment getNextFragment() {
+        if(customer != null && customer.getId() == null && customerId != null) {
+            customer.setId(customerId);
+            if(customer.getCurrentSubscription() != null) {
+                customer.getCurrentSubscription().setId(customerId);
+            }
+            return CustomerProfileFragment.newInstance(customer);
+        }
+        return new CustomerList();
     }
 
     /*private void insertContactPhoneNumber(String phoneNumber) {
@@ -374,7 +390,7 @@ public class CustomerInfo extends Fragment {
         values.put(Contacts.People.Phones.TYPE, Contacts.People.TYPE_MOBILE);
         values.put(Contacts.People.NUMBER, customer.getPhone());
         updateUri = getActivity().getContentResolver().insert(updateUri, values);
-        Utility.nextFragment(getActivity(), new CustomerList());
+        Utility.nextFragment(getActivity(), getNextFragment());
     }
 
     public boolean contactExists() {
@@ -423,7 +439,7 @@ public class CustomerInfo extends Fragment {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     addContact(customer);
                 } else {
-                    Utility.nextFragment(getActivity(), new CustomerList());
+                    Utility.nextFragment(getActivity(), getNextFragment());
                 }
                 return;
             }

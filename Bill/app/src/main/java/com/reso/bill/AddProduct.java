@@ -1,23 +1,44 @@
 package com.reso.bill;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
-import java.io.FileNotFoundException;
-import java.io.InputStream;
+import com.android.volley.AuthFailureError;
+import com.android.volley.NetworkResponse;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
+import com.reso.bill.generic.GenericMyProducts;
+import com.rns.web.billapp.service.bo.domain.BillItem;
+import com.rns.web.billapp.service.bo.domain.BillUser;
+import com.rns.web.billapp.service.domain.BillServiceResponse;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
+import model.VolleyMultipartRequest;
+import util.BitmapHelper;
+import util.ServiceUtil;
 import util.Utility;
 
 
@@ -27,10 +48,19 @@ public class AddProduct extends Fragment {
     EditText photoupload;
     ImageView img;
     private String filestring;
+    private BillItem item;
+    private TextView productName;
+    private TextView productDescription;
+    private TextView productPrice;
+    private ProgressDialog progressDialog;
+    private Bitmap bitmap;
+    private String filename;
+    private Button save;
+    private BillUser user;
 
-    public static AddProduct newInstance() {
+    public static AddProduct newInstance(BillItem item) {
         AddProduct fragment = new AddProduct();
-
+        fragment.item = item;
         return fragment;
     }
 
@@ -42,7 +72,13 @@ public class AddProduct extends Fragment {
         Utility.AppBarTitle("Add Product", getActivity());
         photoupload = (EditText) rootView.findViewById(R.id.et_product_image);
         img = (ImageView) rootView.findViewById(R.id.selected_img);
-
+        save = (Button) rootView.findViewById(R.id.btn_gn_save_product);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                uploadBitmap();
+            }
+        });
 
         photoupload.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -65,6 +101,25 @@ public class AddProduct extends Fragment {
             }
         });
 
+        productName = (TextView) rootView.findViewById(R.id.et_product_name);
+        productDescription = (TextView) rootView.findViewById(R.id.et_product_description);
+        productPrice = (TextView) rootView.findViewById(R.id.et_product_price);
+
+        if (item != null) {
+            productName.setText(item.getName());
+            productDescription.setText(item.getDescription());
+            if (item.getPrice() != null) {
+                productPrice.setText(item.getPrice().toString());
+            }
+        }
+
+        user = (BillUser) Utility.readObject(getActivity(), Utility.USER_KEY);
+
+        if (item != null && item.getId() != null) {
+            Picasso.get().load(Utility.getBusinessItemImageURL(item.getId())).into(img);
+        }
+
+
         return rootView;
     }
 
@@ -76,31 +131,39 @@ public class AddProduct extends Fragment {
                 //Display an error
                 return;
             }
+
+            Uri filePath = data.getData();
+
             try {
-                InputStream inputStream = getActivity().getContentResolver().openInputStream(data.getData());
-                System.out.println("SSSSSSSSSSSS " + data.getData().getPath());
+                //getting image from gallery
+                bitmap = MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), filePath);
+                //Setting image to ImageView
 
-                //aadharNumber.setText(data.getData().getPath());
-                String filename = data.getData().getPath().substring(data.getData().getPath().lastIndexOf("/") + 1);
+
+                File myFile = new File(filePath.toString());
+                //String path = myFile.getAbsolutePath();
+
+                //bitmap = BitmapHelper.decodeFile(getRealPathFromURI(getActivity(), filePath), 200, 200, true);
+                img.setImageBitmap(bitmap);
+
+
+                if (filePath.toString().startsWith("content://")) {
+                    Cursor cursor = null;
+                    try {
+                        cursor = getActivity().getContentResolver().query(filePath, null, null, null, null);
+                        if (cursor != null && cursor.moveToFirst()) {
+                            filename = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                        }
+                    } finally {
+                        cursor.close();
+                    }
+                } else if (filePath.toString().startsWith("file://")) {
+                    filename = myFile.getName();
+                }
                 photoupload.setText(filename);
-                Uri selectedImage = data.getData();
-                String[] filePathColumn = {MediaStore.Images.Media.DATA};
-
-                Cursor cursor = getActivity().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                cursor.moveToFirst();
-
-                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                String picturePath = cursor.getString(columnIndex);
-                cursor.close();
-
-                //ImageView imageView = (ImageView) findViewById(R.id.imgView);
-                img.setImageBitmap(BitmapFactory.decodeFile(picturePath));
-
-
-            } catch (FileNotFoundException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            //Now you can do whatever you want with your inpustream, save it as file, upload to a server, decode a bitmap...
         }
     }
 
@@ -108,5 +171,78 @@ public class AddProduct extends Fragment {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
         startActivityForResult(intent, PICK_PHOTO_FOR_AVATAR);
+    }
+
+    private void uploadBitmap() {
+
+        if (TextUtils.isEmpty(productName.getText())) {
+            Utility.createAlert(getActivity(), "Please enter the product name!", "Error");
+            return;
+        }
+
+        //getting the tag from the edittext
+        //final String tags = editTextTags.getText().toString().trim();
+        progressDialog = Utility.getProgressDialogue("Saving product ..", getActivity());
+        //our custom volley request
+        VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, ServiceUtil.ROOT_URL + "updateBusinessItemImage", new Response.Listener<NetworkResponse>() {
+            @Override
+            public void onResponse(NetworkResponse response) {
+                progressDialog.dismiss();
+                BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(new String(response.data), BillServiceResponse.class);
+                if (serviceResponse != null && serviceResponse.getStatus() == 200) {
+                    Utility.createAlert(getActivity(), "Product saved successfully!", "Done");
+                    Utility.nextFragmentPopBackstack(getActivity(), GenericMyProducts.newIntance(), false);
+                } else {
+                    Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressDialog.dismiss();
+                Utility.createAlert(getActivity(), "Error in saving ..", "Error");
+            }
+        }) {
+
+            /*
+            * If you want to add more parameters with the image
+            * you can do it here
+            * here we have only one parameter with the image
+            * which is tags
+            * */
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                //params.put("logo", imageString);
+                //params.put("fileName", filename);
+                if (item == null) {
+                    item = new BillItem();
+                }
+                item.setName(productName.getText().toString());
+                if (!TextUtils.isEmpty(productName.getText())) {
+                    item.setDescription(productName.getText().toString());
+                }
+                item.setPrice(Utility.getDecimal(productPrice));
+                params.put("item", ServiceUtil.toJson(item));
+                params.put("businessId", user.getCurrentBusiness().getId().toString());
+                return params;
+            }
+
+            /*
+            * Here we are passing image by renaming it with a unique name
+            * */
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = new HashMap<>();
+                long imagename = System.currentTimeMillis();
+                if (bitmap != null) {
+                    params.put("image", new DataPart(imagename + ".png", BitmapHelper.getFileDataFromDrawable(bitmap)));
+                }
+                return params;
+            }
+        };
+
+        //adding the request to volley
+        Volley.newRequestQueue(getActivity()).add(volleyMultipartRequest);
     }
 }

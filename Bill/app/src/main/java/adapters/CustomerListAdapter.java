@@ -67,6 +67,7 @@ package adapters;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -152,6 +153,9 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
 
             final BillUser customerUser = customer.getUser();
             txtName.setText(customerUser.getName());
+            if(TextUtils.isEmpty(txtName.getText())) {
+                txtName.setText(customerUser.getPhone());
+            }
             txtAddress.setText(customerUser.getAddress());
             //year.setText("Year: " + customer.getYear());
             txtViewprofile.setOnClickListener(new View.OnClickListener() {

@@ -139,7 +139,7 @@ public class BankDetailsFragment extends Fragment {
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     Utility.createAlert(getContext(), "Bank details updated successfully!", "Done");
                     Utility.writeObject(getContext(), Utility.USER_KEY, user);
-                    Utility.nextFragment(getActivity(), HomeFragment.newInstance(user));
+                    Utility.nextFragment(getActivity(), Utility.getHomeFragment(user));
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
                     Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
@@ -150,6 +150,7 @@ public class BankDetailsFragment extends Fragment {
 
         };
     }
+
 
 
 }

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:showIn="navigation_view"
+    >
+
+    <group android:id="@+id/menu_top" android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_myorder"
+            android:title="Customers"
+
+            />
+        <item
+            android:id="@+id/nav_myitems"
+
+            android:title="Vendor Dashboard"/>
+        <!--android:icon="@mipmap/inbox"-->
+        <!--<item
+            android:id="@+id/nav_activity"
+
+            android:title="Activity"/>
+        <item
+            android:id="@+id/nav_mycustomers"
+
+            android:title="My Customers"/>-->
+        <item
+            android:id="@+id/nav_bank_info"
+            android:title="Bank Information"/>
+       <!-- <item
+            android:id="@+id/nav_activity"
+            android:title="Activity"/>-->
+    </group>
+
+    <group android:id="@+id/menu_bottom" android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:title="Home"
+            />
+
+        <item
+            android:id="@+id/nav_profile"
+            android:title="Profile"
+            />
+        <item
+            android:id="@+id/nav_help"
+            android:title="Help"></item>
+    </group>
+
+
+
+    <!--<item android:title="">
+        <menu>
+
+                />
+            &lt;!&ndash;<item
+                android:id="@+id/nav_settings"
+
+                android:title="Settings"/>
+            <item
+                android:id="@+id/rateus"
+
+                android:title="Rate Us"/>&ndash;&gt;
+
+        </menu>
+    </item>-->
+
+</menu>

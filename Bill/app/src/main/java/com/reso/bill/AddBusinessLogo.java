@@ -28,12 +28,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.reso.bill.generic.GenericDashboard;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillFile;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
 import com.squareup.picasso.Picasso;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -66,7 +66,7 @@ public class AddBusinessLogo extends Fragment {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_add_product, container, false);
         View rootView = inflater.inflate(R.layout.fragment_add_logo, container, false);
-        Utility.AppBarTitle("Add Product", getActivity());
+        Utility.AppBarTitle("Business Logo", getActivity());
         photoupload = (EditText) rootView.findViewById(R.id.et_business_logo);
         img = (ImageView) rootView.findViewById(R.id.img_uploaded_logo);
 
@@ -130,10 +130,8 @@ public class AddBusinessLogo extends Fragment {
                     logo.setFileName(filename);
                     user.getCurrentBusiness().setLogo(logo);
                     //Utility.writeObject(getActivity(), Utility.USER_KEY, serviceResponse.getUser());
-                    Dashboard activity = (Dashboard) getActivity();
-                    if (activity != null) {
-                        activity.updateBusinessLogo(user);
-                    }
+                    updateParentLogo();
+
                 } else {
                     Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
                 }
@@ -161,6 +159,18 @@ public class AddBusinessLogo extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(stringRequest);
 
+    }
+
+    private void updateParentLogo() {
+        if (getActivity() != null) {
+            if (getActivity() instanceof GenericDashboard) {
+                GenericDashboard activity = (GenericDashboard) getActivity();
+                activity.updateBusinessLogo(user);
+            } else {
+                Dashboard activity = (Dashboard) getActivity();
+                activity.updateBusinessLogo(user);
+            }
+        }
     }
 
 
@@ -276,10 +286,7 @@ public class AddBusinessLogo extends Fragment {
                     logo.setFileName(filename);
                     user.getCurrentBusiness().setLogo(logo);
                     //Utility.writeObject(getActivity(), Utility.USER_KEY, serviceResponse.getUser());
-                    Dashboard activity = (Dashboard) getActivity();
-                    if (activity != null) {
-                        activity.updateBusinessLogo(user);
-                    }
+                    updateParentLogo();
                 } else {
                     Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
                 }
@@ -315,7 +322,7 @@ public class AddBusinessLogo extends Fragment {
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();
                 long imagename = System.currentTimeMillis();
-                params.put("logo", new DataPart(imagename + ".png", getFileDataFromDrawable(bitmap)));
+                params.put("logo", new DataPart(imagename + ".png", BitmapHelper.getFileDataFromDrawable(bitmap)));
                 return params;
             }
         };
@@ -324,10 +331,5 @@ public class AddBusinessLogo extends Fragment {
         Volley.newRequestQueue(getActivity()).add(volleyMultipartRequest);
     }
 
-    public byte[] getFileDataFromDrawable(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 80, byteArrayOutputStream);
-        return byteArrayOutputStream.toByteArray();
-    }
 
 }

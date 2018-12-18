@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                tools:context="com.reso.bill.AddNewspapers"
+                 android:background="@color/white"
+                tools:showIn="@layout/activity_add_newspapers">
+
+    <LinearLayout
+        android:id="@+id/layout_addnewspaper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:background="@color/white">
+            <ImageView
+                android:id="@+id/btn_paus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="30dp"
+                android:layout_toRightOf="@+id/txt_newspaperqty"
+                android:src="@drawable/ic_pause_delivery"
+
+                />
+            <Button
+                android:id="@+id/btn_gn_add_product"
+                style="@style/basic_button"
+                android:layout_width="wrap_content"
+                android:layout_gravity="top|right"
+                android:layout_margin="10dp"
+                android:text="add"/>
+
+
+
+        </LinearLayout>
+
+        <include
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/layout_add_cust"
+            layout="@layout/layout_line" />
+
+    </LinearLayout>
+
+<!--
+    <LinearLayout
+        android:id="@+id/"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingTop="10dp">
+
+
+        <Button
+            android:id="@+id/"
+            style="@style/basic_button"
+            android:layout_width="wrap_content"
+            android:layout_gravity="top|right"
+            android:layout_marginRight="10dp"
+            android:text="ADD"/>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/bgGray"/>
+
+
+    </LinearLayout>-->
+
+   <!-- <LinearLayout
+        android:id="@+id/textlayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_addnewspaper"
+        android:layout_marginTop="5dp"
+        android:background="@color/bgGray">
+
+    </LinearLayout>-->
+
+    <LinearLayout
+        android:id="@+id/layout_addnewspaper_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_addnewspaper"
+        android:background="@color/bgGray"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_newspaper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+
+
+</RelativeLayout>

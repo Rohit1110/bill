@@ -32,6 +32,7 @@ public class BillInvoice {
     private String paymentMedium;
     private String paymentMode;
     private String paymentMessage;
+    private Date invoiceDate;
 
     public Integer getId() {
         return id;
@@ -239,5 +240,13 @@ public class BillInvoice {
 
     public void setPaymentMessage(String paymentMessage) {
         this.paymentMessage = paymentMessage;
+    }
+
+    public Date getInvoiceDate() {
+        return invoiceDate;
+    }
+
+    public void setInvoiceDate(Date invoiceDate) {
+        this.invoiceDate = invoiceDate;
     }
 }

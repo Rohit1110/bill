@@ -58,6 +58,7 @@ public class FragmentCustomerInvoices extends Fragment {
     private Button addInvoice;
     private List<BillInvoice> invoices;
     private AlertDialog alertDialog;
+    private BillUser user;
 
     public static FragmentCustomerInvoices newInstance(BillUser customer) {
         FragmentCustomerInvoices fragment = new FragmentCustomerInvoices();
@@ -71,7 +72,7 @@ public class FragmentCustomerInvoices extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.search, menu);
         MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = new SearchView(((Dashboard) getActivity()).getSupportActionBar().getThemedContext());
+        SearchView searchView = new SearchView((Utility.castActivity(getActivity())).getSupportActionBar().getThemedContext());
         MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
         ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.md_black_1000));
         MenuItemCompat.setActionView(item, searchView);
@@ -176,6 +177,13 @@ public class FragmentCustomerInvoices extends Fragment {
             }
         });
 
+        user = (BillUser) Utility.readObject(getActivity(), Utility.USER_KEY);
+
+        //Show ADD NEW button only for recurring
+        if(!BillConstants.FRAMEWORK_RECURRING.equals(Utility.getFramework(user))) {
+            addInvoice.setVisibility(View.GONE);
+        }
+
         return rootView;
     }
 
@@ -248,6 +256,7 @@ public class FragmentCustomerInvoices extends Fragment {
                     if (invoices != null && invoices.size() > 0) {
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                         CustomerInvoiceAdapter adapter = new CustomerInvoiceAdapter(invoices, getActivity(), customer);
+                        adapter.setUser(user);
                         recyclerView.setAdapter(adapter);
                     }
                 } else {

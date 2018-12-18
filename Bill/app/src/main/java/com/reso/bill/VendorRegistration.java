@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +33,7 @@ import com.rns.web.billapp.service.domain.BillServiceResponse;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import adapters.LocationAdapter;
@@ -57,6 +59,9 @@ public class VendorRegistration extends AppCompatActivity {
     private Spinner sectors;
     private ProgressDialog pDialogSectors;
     private List<BillSector> sectorsList;
+    private Spinner cities;
+    private EditText address;
+    private List<BillLocation> locations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +87,7 @@ public class VendorRegistration extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(VendorRegistration.this, Dashboard.class);
+                Intent i = Utility.getDashboardIntent(VendorRegistration.this, user);
                 startActivity(i);
 
             }
@@ -106,11 +111,11 @@ public class VendorRegistration extends AppCompatActivity {
                             return;
                         }
                         List<BillLocation> billLocations = areas.selectedLocations();
-                        if (billLocations == null || billLocations.size() == 0) {
+                        if (!"Other".equals(cities.getSelectedItem()) && (billLocations == null || billLocations.size() == 0)) {
                             Utility.createAlert(VendorRegistration.this, "Please select atleast one location!", "Error");
                             return;
                         }
-                        if(sectors.isEnabled() && sectors.getSelectedItem().toString().trim().length() == 0) {
+                        if (sectors.isEnabled() && sectors.getSelectedItem().toString().trim().length() == 0) {
                             Utility.createAlert(VendorRegistration.this, "Please select area of business!", "Error");
                             return;
                         }
@@ -130,7 +135,8 @@ public class VendorRegistration extends AppCompatActivity {
                         business.setName(businessName.getText().toString());
                         business.setIdentificationNumber(businessLicense.getText().toString());
                         business.setBusinessLocations(billLocations);
-                        if(sectors.isEnabled()) {
+                        business.setAddress(address.getText().toString());
+                        if (sectors.isEnabled()) {
                             business.setBusinessSector((BillSector) Utility.findInStringList(sectorsList, sectors.getSelectedItem().toString()));
                         }
 
@@ -158,7 +164,10 @@ public class VendorRegistration extends AppCompatActivity {
         phone.setEnabled(false);
 
         areas = (MultiSelectionSpinner) findViewById(R.id.sp_area);
+
         sectors = (Spinner) findViewById(R.id.sp_select_sector);
+        cities = (Spinner) findViewById(R.id.sp_select_city);
+        address = (EditText) findViewById(R.id.et_business_address);
         //adapter = new LocationAdapter(this, R.layout.spinner_multi_select, new ArrayList<BillLocation>(), VendorRegistration.this);
         //areas.setAdapter(adapter);
         aadharNumber.setOnTouchListener(new View.OnTouchListener() {
@@ -205,6 +214,30 @@ public class VendorRegistration extends AppCompatActivity {
             }
         });
 
+        cities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                System.out.println("City selected => " + cities.getSelectedItem());
+                List<BillLocation> cityLocations = new ArrayList<>();
+                for(BillLocation loc: locations) {
+                    if(loc.getCity() != null && loc.getCity().equals(cities.getSelectedItem())) {
+                        cityLocations.add(loc);
+                    }
+                }
+                if(cityLocations.size() > 0) {
+                    setLocationsAdapter(cityLocations);
+                    areas.setVisibility(View.VISIBLE);
+                } else {
+                    areas.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         loadLocations();
 
@@ -212,6 +245,7 @@ public class VendorRegistration extends AppCompatActivity {
         if (o != null) {
             user = (BillUser) o;
         }
+
 
         if (user != null) {
             name.setText(user.getName());
@@ -221,17 +255,24 @@ public class VendorRegistration extends AppCompatActivity {
             if (user.getCurrentBusiness() != null) {
                 businessName.setText(user.getCurrentBusiness().getName());
                 businessLicense.setText(user.getCurrentBusiness().getIdentificationNumber());
+                address.setText(user.getCurrentBusiness().getAddress());
 
-                if(user.getCurrentBusiness().getBusinessSector() != null) {
+                if (user.getCurrentBusiness().getBusinessSector() != null) {
                     sectors.setEnabled(false);
                 } else {
                     loadSectors();
                 }
+                if(user.getCurrentBusiness().getBusinessLocations() != null && user.getCurrentBusiness().getBusinessLocations().size() > 0) {
+                    cities.setVisibility(View.GONE);
+                } else {
+                    areas.setVisibility(View.GONE);
+                }
             }
+
         } else {
             loadSectors();
+            areas.setVisibility(View.GONE);
         }
-
 
 
         tnc = (TextView) findViewById(R.id.txt_tnc);
@@ -370,9 +411,9 @@ public class VendorRegistration extends AppCompatActivity {
                         startActivity(new Intent(VendorRegistration.this, MainActivity.class));
                     } else {
                         System.out.println("Locations loaded successfully!");
-                        List<BillLocation> locations = prepareLocations(serviceResponse);
-                        adapter = new LocationAdapter(VendorRegistration.this, R.layout.spinner_multi_select, locations, VendorRegistration.this);
-                        areas.setLocations(locations);
+                        locations = prepareLocations(serviceResponse);
+                        setLocationsAdapter(locations);
+                        prepareCities(locations);
 
                         if (user != null && user.getCurrentBusiness() != null && user.getCurrentBusiness().getBusinessLocations() != null && user.getCurrentBusiness().getBusinessLocations().size() > 0) {
                             areas.setSelection(Utility.convertToStringArrayList(user.getCurrentBusiness().getBusinessLocations()));
@@ -390,6 +431,27 @@ public class VendorRegistration extends AppCompatActivity {
             }
 
         };
+    }
+
+    private void setLocationsAdapter(List<BillLocation> locations) {
+        adapter = new LocationAdapter(VendorRegistration.this, R.layout.spinner_multi_select, locations, VendorRegistration.this);
+        areas.setLocations(locations);
+    }
+
+    private void prepareCities(List<BillLocation> locations) {
+        List<String> citiesList = new ArrayList<>();
+        citiesList.add("Select city");
+        if (locations == null || locations.size() == 0) {
+            return;
+        }
+        for (BillLocation location : locations) {
+            if (!citiesList.contains(location.getCity())) {
+                citiesList.add(location.getCity());
+            }
+        }
+        citiesList.add("Other");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(VendorRegistration.this, R.layout.spinner_basic_text_white, citiesList);
+        cities.setAdapter(adapter);
     }
 
     private List<BillLocation> prepareLocations(BillServiceResponse serviceResponse) {

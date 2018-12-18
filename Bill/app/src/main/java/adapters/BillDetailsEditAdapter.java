@@ -96,14 +96,14 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 dialog.setTitle("Title...");
 
                 // set the custom dialog components - text, image and button
-                TextView text = (TextView) dialog.findViewById(R.id.txt_bill_item_edit_name);
+                TextView text = (TextView) dialog.findViewById(R.id.txt_dialog_invoice_item_name);
                 text.setText(item.getParentItem().getName());
                 /*ImageView image = (ImageView) dialog.findViewById(R.id.image);
                 image.setImageResource(R.drawable.ic_launcher);*/
 
                 final EditText quantity = (EditText) dialog.findViewById(R.id.et_bill_item_quantity);
                 quantity.setText("0");
-                final EditText amount = (EditText) dialog.findViewById(R.id.et_bill_item_amount);
+                final EditText amount = (EditText) dialog.findViewById(R.id.et_dialog_invoice_item_amount_multiple);
                 amount.setText("0");
 
                 if (item.getQuantity() != null) {
@@ -114,7 +114,7 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 }
 
 
-                Button saveBillItem = (Button) dialog.findViewById(R.id.btn_save_bill_item);
+                Button saveBillItem = (Button) dialog.findViewById(R.id.btn_dialog_save_invoice_item_multiple);
                 // if button is clicked, close the custom dialog
                 saveBillItem.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -147,7 +147,7 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     }
                 });
 
-                Button cancel = (Button) dialog.findViewById(R.id.btn_cancel);
+                Button cancel = (Button) dialog.findViewById(R.id.btn_dialog_cancel_invoice_item_multiple);
                 // if button is clicked, close the custom dialog
                 cancel.setOnClickListener(new View.OnClickListener() {
                     @Override

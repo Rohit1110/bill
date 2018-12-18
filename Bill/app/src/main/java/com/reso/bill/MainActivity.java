@@ -6,10 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -26,11 +23,12 @@ import util.FirebaseUtil;
 import util.ServiceUtil;
 import util.Utility;
 
-public class MainActivity extends AppCompatActivity  {
+public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private ProgressDialog pDialog;
     private static int SPLASH_TIME_OUT = 3000;
+    private BillUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +68,7 @@ public class MainActivity extends AppCompatActivity  {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                if(FirebaseUtil.getPhone() != null) {
+                if (FirebaseUtil.getPhone() != null) {
                     //Phone number already given
                     loadProfile(FirebaseUtil.getPhone());
                 } else {
@@ -82,9 +80,6 @@ public class MainActivity extends AppCompatActivity  {
                 //finish();
             }
         }, SPLASH_TIME_OUT);
-
-
-
 
 
     }
@@ -111,31 +106,31 @@ public class MainActivity extends AppCompatActivity  {
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     System.out.println("Profile loaded successfully!");
-                    Utility.writeObject(MainActivity.this, Utility.USER_KEY, serviceResponse.getUser());
-                    if(serviceResponse.getWarningCode() != null) {
+                    user = serviceResponse.getUser();
+                    Utility.writeObject(MainActivity.this, Utility.USER_KEY, user);
+                    if (serviceResponse.getWarningCode() != null) {
                         //Utility.createAlert(MainActivity.this, serviceResponse.getWarningText(), "Warning");
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
                         alertDialogBuilder.setTitle("Warning");
                         alertDialogBuilder.setMessage(serviceResponse.getWarningText());
-                        alertDialogBuilder.setPositiveButton("ok",
-                                new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface arg0, int arg1) {
-                                        startActivity(new Intent(MainActivity.this, Dashboard.class));
-                                        finish();
-                                    }
-                                });
+                        alertDialogBuilder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                startActivity(Utility.getDashboardIntent(MainActivity.this, user));
+                                finish();
+                            }
+                        });
 
                         AlertDialog alertDialog = alertDialogBuilder.create();
                         alertDialog.show();
                     } else {
-                        startActivity(new Intent(MainActivity.this, Dashboard.class));
+                        startActivity(Utility.getDashboardIntent(MainActivity.this, user));
                         finish();
                     }
 
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
-                    if(serviceResponse.getStatus() == BillConstants.ERROR_CODE_GENERIC) {
+                    if (serviceResponse.getStatus() == BillConstants.ERROR_CODE_GENERIC) {
                         startActivity(new Intent(MainActivity.this, VendorRegistration.class));
                         finish();
                     } else if (serviceResponse.getStatus() == -222) {
@@ -150,5 +145,7 @@ public class MainActivity extends AppCompatActivity  {
 
         };
     }
+
+
 }
 

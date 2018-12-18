@@ -44,6 +44,13 @@
         <item>Dec</item>
     </string-array>
 
+    <string-array name="durations_arrays">
+        <item>Today</item>
+        <item>This week</item>
+        <item>This month</item>
+        <item>Last 6 months</item>
+    </string-array>
+
 
     <string name="title_activity_vendor_dash_board">VendorDashBoard</string>
     <string name="title_activity_add_newspapers">AddNewspapers</string>

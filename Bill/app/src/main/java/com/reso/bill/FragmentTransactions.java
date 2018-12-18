@@ -74,7 +74,7 @@ public class FragmentTransactions extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.search, menu);
         MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = new SearchView(((Dashboard) getActivity()).getSupportActionBar().getThemedContext());
+        SearchView searchView = new SearchView((Utility.castActivity(getActivity())).getSupportActionBar().getThemedContext());
         MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
         ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.md_black_1000));
         MenuItemCompat.setActionView(item, searchView);
@@ -107,7 +107,7 @@ public class FragmentTransactions extends Fragment {
         date = new Date();
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Invoice Summary</font>"));
         Utility.AppBarTitle("Transactions", getActivity());
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_transactions);
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_update_invoice_items);
 
         requestTransactions = (Button) rootView.findViewById(R.id.btn_get_transactions);
 
