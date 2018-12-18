@@ -1,114 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@color/white"
-              android:orientation="vertical">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout3"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/txt_txn_customer_name"
+        style="@style/basic_sub_row_field"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:ellipsize="end"
+        android:singleLine="false"
+        android:text="Customer name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_txn_date" />
+
+    <TextView
+        android:id="@+id/txt_txn_date"
+        style="@style/basic_sub_text_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txt_txn_customer_name"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:text="23 Jul"
+        android:textColor="?android:attr/textColorSecondary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_txn_amount"
+        style="@style/basic_row_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="INR 135.00"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txt_txn_customer_name"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_txn_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/ic_invoice_pending"
+        app:layout_constraintEnd_toStartOf="@+id/img_txn_mode"
+        app:layout_constraintTop_toTopOf="@+id/img_txn_mode" />
+
+    <TextView
+        android:id="@+id/txt_txn_invoice_ref"
+        style="@style/basic_sub_text_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Invoice May 2018"
+        android:textColor="?android:attr/textColorSecondary"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txt_txn_date"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/img_txn_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/ic_invoice_pending"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_txn_amount"
+        app:layout_constraintVertical_bias="0.0" />
 
 
-        <TextView
-            android:id="@+id/txt_txn_customer_name"
-            style="@style/basic_sub_row_field"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:singleLine="false"
-            android:text="Customer name"/>
-
-        <TextView
-            android:id="@+id/txt_txn_date"
-            style="@style/basic_sub_text_field"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_txn_customer_name"
-            android:text="23 Jul"/>
-
-        <LinearLayout
-            android:id="@+id/status_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:gravity="center_vertical"
-            >
-
-
-            <TextView
-                android:id="@+id/txt_txn_amount"
-                style="@style/basic_row_field"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="19dp"
-                android:layout_marginTop="3dp"
-                android:text="INR 135.00"/>
-
-            <ImageView
-                android:id="@+id/img_txn_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="2dp"
-                android:src="@drawable/ic_invoice_pending"/>
-            <!--<ImageView
-                android:id="@+id/img_settlement_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="2dp"
-                android:src="@drawable/ic_invoice_pending" />-->
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/txn_invoice_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/status_indicator"
-            android:layout_marginRight="10dp"
-            android:gravity="center_vertical"
-            >
-
-
-            <TextView
-                android:id="@+id/txt_txn_invoice_ref"
-                style="@style/basic_sub_text_field"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="19dp"
-                android:text="Invoice May 2018"/>
-
-            <ImageView
-                android:id="@+id/img_txn_mode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="2dp"
-                android:src="@drawable/ic_invoice_pending"/>
-
-
-        </LinearLayout>
-
-        <include
-            layout="@layout/layout_line"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txn_invoice_info"
-            android:layout_margin="8dp"/>
-
-    </RelativeLayout>
-
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
