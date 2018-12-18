@@ -19,7 +19,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.reso.bill.generic.GenericInvoices;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
@@ -148,7 +147,8 @@ public class CustomerProfileFragment extends Fragment {
             viewactivity.setVisibility(View.GONE);
         }
 
-        Utility.changeDrawer(getActivity(), GenericInvoices.newInstance());
+
+        Utility.changeDrawer(getActivity(), CustomerList.newInstance());
 
         return rootView;
     }
