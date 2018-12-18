@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
@@ -97,20 +98,27 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             if (currentInvoice.getStatus() != null && BillConstants.INVOICE_STATUS_PAID.equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_paid);
+                showHelpfulToast(view.imgStatus, "Invoice Paid");
             } else if (currentInvoice.getStatus() != null && "Settled".equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_txn_settled);
+                showHelpfulToast(view.imgStatus, "Transaction Settled");
             } else if (currentInvoice.getStatus() != null && "Failed".equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_failed);
+                showHelpfulToast(view.imgStatus, "Invoice Failed");
             } else if (currentInvoice.getStatus() != null && "Deleted".equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_action_delete);
+                showHelpfulToast(view.imgStatus, "Invoice Deleted");
             } else {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_pending);
+                showHelpfulToast(view.imgStatus, "Invoice Pending");
             }
 
             if (currentInvoice.getPaymentMedium() != null && currentInvoice.getPaymentMedium().equals("CASH")) {
                 view.imgPaymentMedium.setImageResource(R.drawable.ic_payment_medium_cash);
+                showHelpfulToast(view.imgPaymentMedium, "Cash Payment");
             } else {
                 view.imgPaymentMedium.setImageResource(R.drawable.ic_payment_medium_online);
+                showHelpfulToast(view.imgPaymentMedium, "Online Payment");
             }
 
         }
@@ -118,6 +126,15 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         view.bind(txn);
 
+    }
+
+    private void showHelpfulToast(ImageView imageView, final String message) {
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
