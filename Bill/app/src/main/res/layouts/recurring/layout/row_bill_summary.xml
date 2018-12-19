@@ -1,62 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@color/white"
-              android:orientation="vertical">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    tools:layout_editor_absoluteY="25dp">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/txt_bill_summary_customer_name"
+        style="@style/basic_text_field"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:singleLine="false"
+        android:text="Customer name"
+        android:textSize="@dimen/list_text_main_text"
+        app:layout_constraintEnd_toStartOf="@+id/txt_bill_summary_amount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txt_bill_summary_details"
+        style="@style/basic_sub_text_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:text=""
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="@dimen/list_text_sub_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_bill_summary_customer_name"
+        tools:text="Details" />
 
 
-        <TextView
-            android:id="@+id/txt_bill_summary_customer_name"
-            style="@style/basic_text_field"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:text="Customer name"/>
+    <TextView
+        android:id="@+id/txt_bill_summary_amount"
+        style="@style/basic_text_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="135/-"
+        android:textSize="@dimen/list_text_amount_text"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txt_bill_summary_customer_name"
+        app:layout_constraintEnd_toStartOf="@+id/img_bill_summary_status" />
 
-        <TextView
-            android:id="@+id/txt_bill_summary_details"
-            style="@style/basic_sub_text_field"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_bill_summary_customer_name"
-
-            android:text=""/>
-
-        <LinearLayout
-            android:id="@+id/status_indicator"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:gravity="center_vertical"
-            android:layout_marginRight="10dp"
-            >
-
-
-            <TextView
-                android:id="@+id/txt_bill_summary_amount"
-                style="@style/basic_text_field"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="19dp"
-                android:text="INR 135.00"/>
-
-            <ImageView
-                android:id="@+id/img_bill_summary_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:src="@drawable/ic_invoice_pending"/>
-            <!--<ImageView
+    <ImageView
+        android:id="@+id/img_bill_summary_status"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:src="@drawable/ic_invoice_pending"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--<ImageView
                 android:id="@+id/img_settlement_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,31 +74,19 @@
                 android:src="@drawable/ic_invoice_pending" />-->
 
 
-        </LinearLayout>
+    <TextView
+        android:id="@+id/txt_bill_summary_quantity"
+        style="@style/basic_sub_text_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Qty 0"
+        android:textColor="?android:attr/textColorSecondary"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txt_bill_summary_details"
+        app:layout_constraintEnd_toEndOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/txn_invoice_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_below="@id/status_indicator"
-            android:layout_alignLeft="@id/status_indicator"
-            android:gravity="center_vertical"
-            >
-
-
-            <TextView
-                android:id="@+id/txt_bill_summary_quantity"
-                style="@style/basic_sub_text_field"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginEnd="20dp"
-                android:layout_marginRight="19dp"
-                android:text="Qty 0"/>
-
-            <!--<ImageView
+    <!--<ImageView
                 android:id="@+id/img_txn_payment_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -98,16 +95,15 @@
                 android:src="@drawable/ic_invoice_pending"/>-->
 
 
-        </LinearLayout>
+    <include
+        android:id="@+id/include5"
+        layout="@layout/layout_line"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_bill_summary_quantity" />
 
-        <include
-            layout="@layout/layout_line"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/txn_invoice_info"
-            android:layout_margin="8dp"/>
 
-    </RelativeLayout>
-
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
