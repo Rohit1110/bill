@@ -19,6 +19,7 @@
         android:layout_marginTop="8dp"
         android:text="23 Jul"
         android:textColor="?android:attr/textColorSecondary"
+        android:textSize="@dimen/list_text_sub_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,6 +34,7 @@
         android:layout_marginRight="16dp"
         android:text="Invoice May 2018"
         android:textColor="?android:attr/textColorSecondary"
+        android:textSize="@dimen/list_text_sub_text"
         app:layout_constraintBaseline_toBaselineOf="@+id/txt_txn_date"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -49,6 +51,7 @@
         android:ellipsize="none"
         android:singleLine="false"
         android:text="Customer name"
+        android:textSize="@dimen/list_text_main_text"
         app:layout_constraintEnd_toStartOf="@+id/img_txn_status"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_txn_date" />
@@ -63,7 +66,7 @@
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="135/-"
-        android:textSize="18sp"
+        android:textSize="@dimen/list_text_amount_text"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/txt_txn_customer_name"
         app:layout_constraintEnd_toEndOf="parent" />
