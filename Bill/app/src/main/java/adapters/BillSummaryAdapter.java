@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.reso.bill.CustomerProfileFragment;
 import com.reso.bill.R;
@@ -145,16 +146,20 @@ public class BillSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
 
 
-            view.txtAmount.setText("INR " + CommonUtils.getStringValue(currentInvoice.getAmount()));
+            view.txtAmount.setText(CommonUtils.getStringValue(currentInvoice.getAmount()) + "/-");
 
             if (currentInvoice.getStatus() != null && BillConstants.INVOICE_STATUS_PAID.equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_paid);
+                showHelpfulToast(view.imgStatus, "Invoice Paid");
             } else if (currentInvoice.getStatus() != null && "Settled".equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_txn_settled);
+                showHelpfulToast(view.imgStatus, "Transaction Settled");
             } else if (currentInvoice.getStatus() != null && "Failed".equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_failed);
+                showHelpfulToast(view.imgStatus, "Invoice Failed");
             } else {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_pending);
+                showHelpfulToast(view.imgStatus, "Invoice Pending");
             }
 
             holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -171,7 +176,14 @@ public class BillSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         view.bind(txn);
 
     }
-
+    private void showHelpfulToast(ImageView imageView, final String message) {
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     @Override
     public int getItemCount() {
         if (users == null) {

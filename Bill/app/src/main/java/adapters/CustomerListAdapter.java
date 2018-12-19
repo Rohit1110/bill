@@ -139,33 +139,17 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
             super(itemView);
             txtName = (TextView) itemView.findViewById(R.id.txt_order_customer_name);
             txtItemName = (TextView) itemView.findViewById(R.id.txt_customer_row_item_name);
-            txtAddress = (TextView) itemView.findViewById(R.id.txt_order_customer_address);
-            subItem = itemView.findViewById(R.id.customer_details);
-            txtViewprofile = (TextView) itemView.findViewById(R.id.btn_order_view_profile);
 
 
         }
 
         private void bind(final BillCustomer customer) {
-            boolean expanded = customer.isExpanded();
-
-            subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
 
             final BillUser customerUser = customer.getUser();
             txtName.setText(customerUser.getName());
             if(TextUtils.isEmpty(txtName.getText())) {
                 txtName.setText(customerUser.getPhone());
             }
-            txtAddress.setText(customerUser.getAddress());
-            //year.setText("Year: " + customer.getYear());
-            txtViewprofile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    customerUser.setCurrentBusiness(currentUser.getCurrentBusiness());
-                    Utility.nextFragment(context, CustomerProfileFragment.newInstance(customerUser));
-
-                }
-            });
 
             txtItemName.setText("");
             if (customerUser.getCurrentSubscription() != null && customerUser.getCurrentSubscription().getItems() != null && customerUser.getCurrentSubscription().getItems().size() > 0) {
