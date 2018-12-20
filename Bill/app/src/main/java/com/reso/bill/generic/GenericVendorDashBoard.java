@@ -3,22 +3,35 @@ package com.reso.bill.generic;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.reso.bill.FragmentTransactions;
+import com.reso.bill.BillSummaryActivity;
+import com.reso.bill.DailySummaryFragment;
+import com.reso.bill.ManageNewspapersActivity;
 import com.reso.bill.R;
+import com.reso.bill.SettingsActivity;
+import com.rns.web.billapp.service.bo.domain.BillUser;
+import com.rns.web.billapp.service.util.BillConstants;
+import com.rns.web.billapp.service.util.CommonUtils;
+
+import java.util.Date;
 
 import util.Utility;
 
 public class GenericVendorDashBoard extends Fragment {
-    private LinearLayout layoutMyProducts;
-    private LinearLayout layoutTransactions;
-
+    //Generic Layouts
+    private ConstraintLayout layoutMyProducts;
+    private ConstraintLayout layoutTransactions;
+    private ConstraintLayout layoutBankInformation;
+    //Recurring layouts
+    private ConstraintLayout layout_total_orders, layout_manage_newspapers, layout_bill_summary, layout_settings;
+    private TextView totalOrdersDate;
 
     @Nullable
     @Override
@@ -32,15 +45,18 @@ public class GenericVendorDashBoard extends Fragment {
        /* toolbar.setTitle("Title");
         toolbar.setNavigationIcon(R.mipmap.backarrow);*/
 
-        layoutMyProducts = (LinearLayout) rootView.findViewById(R.id.layout_my_products);
-        layoutTransactions = (LinearLayout) rootView.findViewById(R.id.layout_transactions);
+        BillUser user = (BillUser) Utility.readObject(getActivity(), Utility.USER_KEY);
+
+        layoutMyProducts = (ConstraintLayout) rootView.findViewById(R.id.layout_my_products);
+        layoutTransactions = (ConstraintLayout) rootView.findViewById(R.id.layout_transactions);
+        layoutBankInformation = (ConstraintLayout) rootView.findViewById(R.id.layout_bank_info);
 
         layoutMyProducts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 /*GenericMyProducts fragment = new GenericMyProducts();
                 Utility.nextFragment(getActivity(), fragment);*/
-                startActivity(Utility.nextIntent(getActivity(), GenericMyProductsActivity.class));
+                startActivity(Utility.nextIntent(getActivity(), GenericMyProductsActivity.class, true));
             }
         });
 
@@ -48,10 +64,71 @@ public class GenericVendorDashBoard extends Fragment {
         layoutTransactions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.nextFragment(getActivity(), FragmentTransactions.newInstance());
+                startActivity(Utility.nextIntent(getActivity(), GenericTransactionsActivity.class, true));
             }
         });
 
+
+        layoutBankInformation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(Utility.nextIntent(getActivity(), GenericBankDetailsActivity.class, false));
+            }
+        });
+
+        //Newspaper specific
+        layout_total_orders = rootView.findViewById(R.id.layout_totalorder);
+        layout_manage_newspapers = rootView.findViewById(R.id.layout_managenewspaper);
+        layout_bill_summary = rootView.findViewById(R.id.layout_bill_summary);
+        layout_settings = rootView.findViewById(R.id.layout_settings);
+        totalOrdersDate = rootView.findViewById(R.id.txt_vendor_total_orderdate);
+
+        totalOrdersDate.setText(CommonUtils.convertDate(new Date(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR));
+
+        layout_manage_newspapers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*AddNewspapers fragment = new AddNewspapers();
+                Utility.nextFragment(getActivity(), fragment);*/
+                startActivity(Utility.nextIntent(getActivity(), ManageNewspapersActivity.class, true));
+            }
+        });
+
+        layout_total_orders.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utility.nextFragment(getActivity(), DailySummaryFragment.newInstance());
+            }
+        });
+
+
+        layout_settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Utility.nextFragment(getActivity(), Settings.newInstance());
+                startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
+            }
+        });
+
+        layout_bill_summary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Utility.nextFragment(getActivity(), BillsSummary.newInstance());
+                startActivity(Utility.nextIntent(getActivity(), BillSummaryActivity.class, true));
+
+            }
+        });
+
+        if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
+            layout_total_orders.setVisibility(View.GONE);
+            layout_manage_newspapers.setVisibility(View.GONE);
+            layout_bill_summary.setVisibility(View.GONE);
+            layout_settings.setVisibility(View.GONE);
+
+        } else {
+            layoutMyProducts.setVisibility(View.GONE);
+
+        }
 
         return rootView;
     }

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.reso.bill.SettingsActivity">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    tools:context="com.reso.bill.VendorRegistration"
+                    tools:showIn="@layout/fragment_settings">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!--    <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical">
+
+                    <TextView
+                        style="@style/basic_text_field"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/fab_margin"
+                        android:text="Customer \nInformation"
+                        />
+
+
+
+                </LinearLayout>-->
+
+            <android.support.v4.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/fab_margin"
+                android:background="@color/white"
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:orientation="vertical"
+                    >
+
+
+                    <include
+                        layout="@layout/layout_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"/>
+
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/chk_settings_bill_hide"
+                        style="@style/regedittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Show only bill total (No details)"
+                        >
+
+                    </android.support.v7.widget.AppCompatCheckBox>
+
+                    <include
+                        layout="@layout/layout_line"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"/>
+
+                    <!--<android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/chk_hide_bill_details"
+                        style="@style/regedittext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Show only bill total"
+                        >
+
+                    </android.support.v7.widget.AppCompatCheckBox>-->
+
+                    <!--<RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:id="@+id/radio_show_bill_options"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center"    >
+
+                        <RadioButton
+                            android:id="@+id/radio_show_full_bill"
+                            style="@style/basic_sub_text_field"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Show Full Bill"/>
+
+                        <RadioButton
+                            android:id="@+id/radio_show_only_summary"
+                            style="@style/basic_sub_text_field"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Show Only Summary"/>
+                    </RadioGroup>-->
+
+                    <Button
+                        android:id="@+id/btn_save_settings"
+                        style="@style/basic_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|right"
+                        android:layout_margin="@dimen/fab_margin"
+                        android:text="Save"/>
+                </LinearLayout>
+
+
+            </android.support.v4.widget.NestedScrollView>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>

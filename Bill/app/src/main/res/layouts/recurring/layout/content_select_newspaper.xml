@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.reso.bill.SelectNewspaper"
-    tools:showIn="@layout/activity_select_newspaper">
+    tools:showIn="@layout/activity_select_newspaper_old">
   <!--  <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 android:id="@+id/relativeLayout2"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 android:background="@color/white"
+                                                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                                                 tools:context="com.reso.bill.VendorRegistration"
+                                                 tools:showIn="@layout/generic_fragment_update_bill">
+
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/gen_textviewtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:text="Name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/et_product_name"
+            style="@style/gen_regedittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:drawableRight="@drawable/person"
+            android:hint="Enter Name"
+            android:maxLength="30"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"/>
+
+        <TextView
+            android:id="@+id/textView3"
+            style="@style/gen_textviewtitle"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Email"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_product_name"/>
+
+        <EditText
+            android:id="@+id/et_customer_email"
+            style="@style/gen_regedittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:hint="Enter Email"
+            android:maxLength="40"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"/>
+
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/gen_textviewtitle"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Phone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_customer_email"/>
+
+        <EditText
+            android:id="@+id/et_product_description"
+            style="@style/gen_regedittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:hint="Enter Phone number"
+            android:inputType="phone"
+            android:maxLength="20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4"/>
+
+        <TextView
+            android:id="@+id/textView5"
+            style="@style/gen_textviewtitle"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Total Bill Amount"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_product_description"/>
+
+        <EditText
+            android:id="@+id/et_customer_bill_amount"
+            style="@style/gen_regedittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:hint="Enter Bill Amount"
+            android:inputType="numberDecimal"
+            android:maxLength="5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"/>
+
+        <TextView
+            android:id="@+id/btn_gn_bill_details"
+            style="@style/basic_text_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:gravity="right"
+            android:text="DETAILS .."
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_customer_bill_amount"/>
+
+
+        <include
+            android:id="@+id/include2"
+            layout="@layout/layout_line"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/gn_btn_save_bill"
+            app:layout_constraintTop_toBottomOf="@+id/gn_create_bill_payment_layout"/>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/gn_create_bill_payment_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_gn_bill_details">
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/chk_gn_bill_offline_payment"
+                style="@style/regedittext"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="Cash payment"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="parent"
+                />
+
+            <ImageView
+                android:id="@+id/img_gn_delete_inv_item"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_invoice_paid"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/txt_bill_paid_details"
+                style="@style/gen_textviewtitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginStart="8dp"
+                android:text="Paid at "
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_gn_delete_inv_item"
+                app:layout_constraintTop_toTopOf="@+id/img_gn_delete_inv_item"/>
+
+        </android.support.constraint.ConstraintLayout>
+
+
+        <Button
+            android:id="@+id/gn_btn_save_bill"
+            style="@style/basic_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include2"
+            app:layout_constraintWidth_percent="0.4"/>
+
+        <Button
+            android:id="@+id/gn_btn_send_bill"
+            style="@style/basic_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="send"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/gn_btn_save_bill"
+            app:layout_constraintWidth_percent="0.4"/>
+
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

@@ -1,22 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:tools="http://schemas.android.com/tools"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 tools:context="com.reso.bill.SelectNewspaper">
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.reso.bill.SelectNewspaperActivity">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    tools:context="com.reso.bill.SelectNewspaper"
+                    tools:showIn="@layout/activity_select_newspaper_old">
+        <!--  <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:id="@+id/layout_select_newspaper"
+
+              android:background="@color/white">
+
+          &lt;!&ndash;<TextView
+              android:id="@+id/txt_selected_newspaper"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="@dimen/fab_margin"
+              android:background="@color/bgGray"
+              style="@style/basic_text_field"
+              android:text="loksatta,ToI"/>&ndash;&gt;
+          </LinearLayout>-->
+
+        <!--   <LinearLayout
+               android:id="@+id/layout_selected_items"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_below="@+id/layout_select_newspaper"
+               android:background="@color/white"
+               android:orientation="vertical">
+               &lt;!&ndash;<TextView
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:text="Selected Newspapers"
+                   style="@style/basic_text_field"
+                   />&ndash;&gt;
+
+               <TextView
+                   android:id="@+id/txt_selected_items"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_marginTop="10dp"
+                   android:text="Selected Newspapers"
+                   style="@style/basic_sub_text_field"
+                   />
+
+               <Button
+                   android:id="@+id/btn_save_business_items"
+                   style="@style/basic_button"
+                   android:layout_width="wrap_content"
+                   android:layout_gravity="top|right"
+                   android:layout_marginRight="10dp"
+                   android:text="Save"/>
+
+               <View
+                   android:layout_marginTop="15dp"
+                   android:layout_width="fill_parent"
+                   android:layout_height="1dp"
+                   android:background="@color/bgGray"/>
 
 
-    <include layout="@layout/content_select_newspaper"/>
+           </LinearLayout>-->
 
-    <!--<android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_save_business_items"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="20dp"
-        android:backgroundTint="@color/buttonColor"
-        app:srcCompat="@mipmap/mark" />-->
+        <LinearLayout
+            android:id="@+id/layout_selected_items"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <!-- <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:gravity="right"
+                 android:background="@color/white"
+                 android:orientation="vertical">
+                 <TextView
+                     android:id="@+id/txt_selected_items"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="10dp"
+                     android:text="Selected Newspapers"
+                     style="@style/basic_sub_text_field"
+                     />
+                 <Button
+                     android:id="@+id/btn_save_business_items"
+                     style="@style/basic_button"
+                     android:layout_width="wrap_content"
+                     android:layout_gravity="top|right"
+                     android:layout_margin="10dp"
+                     android:text="Save"/>
 
 
-</android.support.design.widget.CoordinatorLayout>
+
+             </LinearLayout>-->
+
+            <LinearLayout
+                android:id="@+id/layout_addnewspaper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/txt_selected_items"
+                        android:layout_width="250dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="10dp"
+                        android:singleLine="true"
+                        android:text="Selected Newspapers"
+                        style="@style/basic_sub_text_field"
+                        />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="right">
+
+                        <Button
+                            android:id="@+id/btn_save_business_items"
+                            style="@style/basic_button"
+                            android:layout_width="wrap_content"
+                            android:layout_gravity="top|right"
+                            android:layout_margin="10dp"
+                            android:text="save"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <include
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_below="@id/layout_add_cust"
+                    layout="@layout/layout_line" />
+
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layout_selected_items"
+                android:id="@+id/recycler_view_select_newspaper">
+
+            </android.support.v7.widget.RecyclerView>
+
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>

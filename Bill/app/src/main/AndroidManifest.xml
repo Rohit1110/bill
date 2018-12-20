@@ -49,7 +49,6 @@
             android:label="@string/title_activity_dashboard"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize"/>
-
         <activity
             android:name=".Main2Activity"
             android:label="@string/title_activity_main2"/>
@@ -80,10 +79,99 @@
             android:label="@string/title_activity_terms_nconditions"
             android:theme="@style/AppTheme">
         </activity>
+        <!-- Fragments to Activities -->
         <activity
-            android:name="com.reso.bill.generic.GenericMyProductsActivity"
+            android:name=".generic.GenericMyProductsActivity"
             android:label="My Products"
             android:parentActivityName=".generic.GenericDashboard"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".generic.GenericAddProductActivity"
+            android:label="Add/Edit Product"
+            android:parentActivityName=".generic.GenericMyProductsActivity"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".generic.GenericTransactionsActivity"
+            android:label="Transactions"
+            android:parentActivityName=".generic.GenericDashboard"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".generic.GenericCreateBillActivity"
+            android:label="Update Bill"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".generic.GenericUpdateInvoiceItemsActivity"
+            android:label="Bill Details"
+            android:parentActivityName=".generic.GenericCreateBillActivity"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".generic.GenericBankDetailsActivity"
+            android:label="Bank Details"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".generic.GenericCustomerProfileActivity"
+            android:label="Customer Profile"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".generic.GenericCustomerInfoActivity"
+            android:label="Customer Information"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".generic.GenericCustomerInvoicesActivity"
+            android:label="Customer Invoices"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".ManageNewspapersActivity"
+            android:label="Manage newspapers"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".PauseBusinessActivity"
+            android:label="Pause business"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".SelectNewspaperActivity"
+            android:label="Select newspapers"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Settings"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".BillSummaryActivity"
+            android:label="Bills Summary"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".CustomerSubscriptionsActivity"
+            android:label="Customer subscriptions"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".ChangeQuantityActivity"
+            android:label="Change Quantity"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".DaysToDeliverActivity"
+            android:label="Days to deliver"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".PauseCustomerSubscriptionActivity"
+            android:label="Pause newspaper"
             android:theme="@style/ActivityTheme">
         </activity>
     </application>

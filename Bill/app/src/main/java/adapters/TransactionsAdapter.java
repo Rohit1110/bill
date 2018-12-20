@@ -3,6 +3,7 @@ package adapters;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -86,6 +87,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         BillUser txn = (BillUser) users.get(position);
         ViewHolder1 view = (ViewHolder1) holder;
         view.txtName.setText(txn.getName());
+        if(TextUtils.isEmpty(txn.getName())) {
+            view.txtName.setText(txn.getPhone());
+        }
         view.txtDate.setText(CommonUtils.convertDate(txn.getCurrentInvoice().getCreatedDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR));
         BillInvoice currentInvoice = txn.getCurrentInvoice();
         if (currentInvoice != null) {

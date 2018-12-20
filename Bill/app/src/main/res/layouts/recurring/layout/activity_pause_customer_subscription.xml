@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.reso.bill.PauseCustomerSubscriptionActivity">
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        />
+
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/white"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <!--    <LinearLayout
+                    android:id="@+id/flayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/bgGray">
+                    <TextView
+                        android:id="@+id/txt_pause_delivery_customer_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/basic_text_field"
+                        android:text="Ajinkya Kulkarni"/>
+                </LinearLayout>-->
+            <LinearLayout
+                android:id="@+id/imglayout"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_below="@+id/flayout"
+                android:gravity="center"
+                >
+
+                <ImageView
+                    android:id="@+id/img_pause_delivery_item_icon"
+                    android:layout_width="350dp"
+                    android:layout_height="230dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/sakal"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/imglayout"
+                android:background="@color/bgGray"
+                android:orientation="vertical">
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/fab_margin"
+                    android:layout_marginTop="@dimen/fab_margin"
+                    android:text="Pause Delivery from"/>
+
+                <EditText
+                    android:id="@+id/txt_from_date"
+                    style="@style/basic_text_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/fab_margin"
+                    android:editable="false"
+                    android:text="select date"/>
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/fab_margin"
+                    android:layout_marginTop="@dimen/fab_margin"
+                    android:text="Pause Delivery to"/>
+
+                <EditText
+                    android:id="@+id/txt_to_date"
+                    style="@style/basic_text_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/fab_margin"
+                    android:editable="false"
+                    android:text="select date"/>
+
+                <TextView
+                    android:id="@+id/txt_paused_days"
+                    style="@style/basic_text_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/fab_margin"
+                    android:text="Pause delivery for 2 days"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/fab_pause_time"
+                    style="@style/basic_button"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="top|right"
+                    android:layout_margin="10dp"
+                    android:text="save"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+</android.support.constraint.ConstraintLayout>

@@ -1,26 +1,27 @@
-package com.reso.bill.generic;
+package com.reso.bill;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.reso.bill.R;
+import com.rns.web.billapp.service.bo.domain.BillBusiness;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
@@ -33,7 +34,7 @@ import adapters.AddNewspaperAdapter;
 import util.ServiceUtil;
 import util.Utility;
 
-public class GenericMyProductsActivity extends AppCompatActivity {
+public class ManageNewspapersActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     //private List<ListTwo> list = new ArrayList<>();
@@ -45,7 +46,7 @@ public class GenericMyProductsActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
     private List<BillItem> businessItems;
     private Button add;
-    //private ImageView img;
+    private ImageView img;
 
     //private List<BillItem> = new ArrayList<>();
     List<BillItem> filterList = new ArrayList<BillItem>();
@@ -54,41 +55,46 @@ public class GenericMyProductsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_generic_my_products);
+        setContentView(R.layout.activity_add_newspapers);
 
-        String title = "My Products";
-        ActionBar actionBar = getSupportActionBar();
-        Utility.setActionBar(title, actionBar);
-
+        Utility.setActionBar("Manage Newspapers", getSupportActionBar());
+        //recyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        // ManageNewspapersActivity.this.getActionBar().setDisplayHomeAsUpEnabled(true);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+       /* toolbar.setTitle("Title");
+        toolbar.setNavigationIcon(R.mipmap.backarrow);*/
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_newspaper);
-
+        img = (ImageView) findViewById(R.id.btn_paus);
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Utility.nextFragment(ManageNewspapersActivity.this, PauseBusiness.newInstance());
+                startActivity(Utility.nextIntent(ManageNewspapersActivity.this, PauseBusinessActivity.class, true));
+            }
+        });
         add = (Button) findViewById(R.id.btn_gn_add_product);
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Add new product
-                startActivity(Utility.nextIntent(GenericMyProductsActivity.this, GenericAddProductActivity.class, false));
+                //SelectNewspaper fragment = new SelectNewspaper();
+                //fragment.setSelectedItems(businessItems);
+                //Utility.nextFragment(ManageNewspapersActivity.this, fragment);
+                BillBusiness currBusiness = new BillBusiness();
+                currBusiness.setItems(businessItems);
+                startActivity(Utility.nextIntent(ManageNewspapersActivity.this, SelectNewspaperActivity.class, true, currBusiness, Utility.BUSINESS_KEY));
             }
         });
 
-        user = (BillUser) Utility.readObject(GenericMyProductsActivity.this, Utility.USER_KEY);
-
-        //getActionBar().setCustomView(R.layout.layout_app_bar);
-        //Utility.AppBarTitleActivity("My Products", GenericMyProductsActivity.this);
-
+        user = (BillUser) Utility.readObject(ManageNewspapersActivity.this, Utility.USER_KEY);
     }
 
-
     @Override
-    protected void onResume() {
-        super.onResume();
-        loadBusinessItems();
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return Utility.backDefault(item, this);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //return super.onCreateOptionsMenu(menu);
-
         menu.clear();
         getMenuInflater().inflate(R.menu.search, menu);
         MenuItem item = menu.findItem(R.id.action_search);
@@ -112,12 +118,26 @@ public class GenericMyProductsActivity extends AppCompatActivity {
         return true;
     }
 
-    private void loadBusinessItems() {
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (user == null || user.getCurrentBusiness() == null) {
+            Utility.createAlert(ManageNewspapersActivity.this, "Please complete your profile first!", "Error");
+            return;
+        }
+
+        loadNewsPapers();
+
+    }
+
+    private void loadNewsPapers() {
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
-        pDialog = Utility.getProgressDialogue("Loading..", GenericMyProductsActivity.this);
-        StringRequest myReq = ServiceUtil.getStringRequest("loadBusinessItems", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, GenericMyProductsActivity.this), request);
-        RequestQueue queue = Volley.newRequestQueue(GenericMyProductsActivity.this);
+        pDialog = Utility.getProgressDialogue("Loading..", ManageNewspapersActivity.this);
+        StringRequest myReq = ServiceUtil.getStringRequest("loadBusinessItems", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, ManageNewspapersActivity.this), request);
+        RequestQueue queue = Volley.newRequestQueue(ManageNewspapersActivity.this);
         queue.add(myReq);
     }
 
@@ -131,11 +151,14 @@ public class GenericMyProductsActivity extends AppCompatActivity {
 
                 serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
+                    recyclerView.setLayoutManager(new LinearLayoutManager(ManageNewspapersActivity.this));
+                    businessItems = new ArrayList<>();
                     businessItems = serviceResponse.getItems();
-                    setAdapter(businessItems);
+                    mAdapter = new AddNewspaperAdapter(businessItems, ManageNewspapersActivity.this);
+                    recyclerView.setAdapter(mAdapter);
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
-                    Utility.createAlert(GenericMyProductsActivity.this, serviceResponse.getResponse(), "Error");
+                    Utility.createAlert(ManageNewspapersActivity.this, serviceResponse.getResponse(), "Error");
                 }
 
 
@@ -147,7 +170,7 @@ public class GenericMyProductsActivity extends AppCompatActivity {
 
     public void filter(final String text) {
 
-        //Toast.makeText(getActivity(),text,Toast.LENGTH_LONG).show();
+        //Toast.makeText(ManageNewspapersActivity.this,text,Toast.LENGTH_LONG).show();
 
         // Searching could be complex..so we will dispatch it to a different thread...
         new Thread(new Runnable() {
@@ -176,10 +199,14 @@ public class GenericMyProductsActivity extends AppCompatActivity {
                     }
 
                     // Set on UI Thread
-                    (GenericMyProductsActivity.this).runOnUiThread(new Runnable() {
+                    (ManageNewspapersActivity.this).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            setAdapter(filterList);
+                            //Toast.makeText(ManageNewspapersActivity.this, "SSSSSSSSSSSSSSSSS", Toast.LENGTH_LONG).show();
+                            recyclerView.setLayoutManager(new LinearLayoutManager(ManageNewspapersActivity.this));
+                            mAdapter = new AddNewspaperAdapter(filterList, ManageNewspapersActivity.this);
+                            recyclerView.setAdapter(mAdapter);
+                            mAdapter.notifyDataSetChanged();
 
                         }
                     });
@@ -192,14 +219,5 @@ public class GenericMyProductsActivity extends AppCompatActivity {
             }
         }).start();
 
-    }
-
-    private void setAdapter(List<BillItem> list) {
-        recyclerView.setLayoutManager(new LinearLayoutManager(GenericMyProductsActivity.this));
-        mAdapter = new AddNewspaperAdapter(list, GenericMyProductsActivity.this);
-        mAdapter.setParentActivity(GenericMyProductsActivity.this);
-        mAdapter.setUserBusiness(user.getCurrentBusiness());
-        recyclerView.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
     }
 }

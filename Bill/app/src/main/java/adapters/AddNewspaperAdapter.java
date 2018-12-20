@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +17,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.reso.bill.AddProduct;
 import com.reso.bill.R;
+import com.reso.bill.generic.GenericAddProductActivity;
 import com.rns.web.billapp.service.bo.domain.BillBusiness;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
@@ -115,7 +114,8 @@ public class AddNewspaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             gholder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Utility.nextFragment((FragmentActivity) activity, AddProduct.newInstance(item));
+                    //Utility.nextFragment((FragmentActivity) activity, AddProduct.newInstance(item));
+                    parentActivity.startActivity(Utility.nextIntent(parentActivity, GenericAddProductActivity.class, true, item, Utility.ITEM_KEY));
                 }
             });
 

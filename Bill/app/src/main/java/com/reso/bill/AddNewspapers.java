@@ -93,7 +93,7 @@ public class AddNewspapers extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_add_newspapers, container, false);
+        View rootView = inflater.inflate(R.layout.activity_add_newspapers_old, container, false);
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24>Add Newspapers</font>"));
         Utility.AppBarTitle("Add Newspapers", getActivity());
         //recyclerView = (RecyclerView)rootView.findViewById(R.id.recycler_view);

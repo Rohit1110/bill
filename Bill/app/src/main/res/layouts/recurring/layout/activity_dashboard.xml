@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawertest_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    android:background="@color/white"
-    tools:context="com.reso.bill.Dashboard">
-
+                                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        xmlns:tools="http://schemas.android.com/tools"
+                                        android:id="@+id/drawertest_layout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:background="@color/white"
+                                        android:fitsSystemWindows="true"
+                                        tools:context="com.reso.bill.Dashboard">
 
 
     <!--<android.support.design.widget.FloatingActionButton
@@ -25,31 +24,18 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <include layout="@layout/app_bar_main" />
+        <include layout="@layout/app_bar_main"/>
 
-        <android.support.design.widget.BottomNavigationView
+       <!-- <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-             android:foregroundGravity="center_vertical"
-            android:background="#DCDCDC"
             android:layout_centerVertical="true"
-            app:menu="@menu/navigation" />
-      <!--  <android.support.design.widget.BottomNavigationView
-            android:id="@+id/navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-           android:layout_alignParentBottom="true"
-            android:background="?android:attr/windowBackground"
-            android:foreground="?attr/selectableItemBackground"
-            app:itemIconTint="@android:color/white"
-            app:itemTextColor="@android:color/white"
-            app:menu="@menu/navigation" />-->
-        <!--  android:layout_width="match_parent"
-            android:layout_height="56dp"
-             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"-->
+            android:background="#DCDCDC"
+            android:foregroundGravity="center_vertical"
+            app:menu="@menu/navigation"/>-->
+
 
     </RelativeLayout>
 
@@ -63,9 +49,7 @@
         app:headerLayout="@layout/nav_header_main"
 
         app:itemTextColor="@color/white"
-        app:menu="@menu/activity_main_drawer" />
-
-
+        app:menu="@menu/activity_main_drawer"/>
 
 
 </android.support.v4.widget.DrawerLayout>

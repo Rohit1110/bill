@@ -19,7 +19,6 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.rns.web.billapp.service.bo.domain.BillSector;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
-import com.rns.web.billapp.service.domain.BillServiceResponse;
 
 import java.lang.reflect.Type;
 import java.text.ParseException;
@@ -34,7 +33,7 @@ import java.util.Date;
 public class ServiceUtil {
 
     //public static String HOST = "http://payperbill.in:8080/billapp/"; //PROD IMP
-    public static String HOST = "http://192.168.1.16:8080/billapp-service/";
+    public static String HOST = "http://192.168.0.103:8080/billapp-service/";
     public static String ROOT_URL = HOST + "user/";
     public static String ADMIN_URL = HOST + "admin/";
     public static String BUSINESS_URL = HOST + "business/";
@@ -101,8 +100,16 @@ public class ServiceUtil {
         };
     }
 
-    public static Object fromJson(String response, Class<BillServiceResponse> billServiceResponseClass) {
-        return gsonBuilder().fromJson(response, billServiceResponseClass);
+    public static Object fromJson(String response, Class<?> billServiceResponseClass) {
+        try {
+            if(response == null) {
+                return null;
+            }
+            return gsonBuilder().fromJson(response, billServiceResponseClass);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static Gson gsonBuilder() {

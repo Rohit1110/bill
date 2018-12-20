@@ -73,8 +73,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.reso.bill.CustomerProfileFragment;
 import com.reso.bill.R;
+import com.reso.bill.generic.GenericCustomerProfileActivity;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 
 import java.util.List;
@@ -118,7 +118,8 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
                 movie.setExpanded(!expanded);
                 notifyItemChanged(position);*/
                 movie.getUser().setCurrentBusiness(currentUser.getCurrentBusiness());
-                Utility.nextFragment(context, CustomerProfileFragment.newInstance(movie.getUser()));
+                //Utility.nextFragment(context, CustomerProfileFragment.newInstance(movie.getUser()));
+                context.startActivity(Utility.nextIntent(context, GenericCustomerProfileActivity.class, true, movie.getUser(), Utility.CUSTOMER_KEY));
             }
         });
     }

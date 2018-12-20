@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.reso.bill.FragmentEditInvoice;
 import com.reso.bill.R;
-import com.reso.bill.generic.GenericCreateBill;
+import com.reso.bill.generic.GenericCreateBillActivity;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.util.BillConstants;
@@ -69,8 +69,10 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 public void onClick(View view) {
                     if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
                         customer.setCurrentInvoice(invoice);
-                        Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(customer));
+                        //Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(customer));
+                        activity.startActivity(Utility.nextIntent(activity, GenericCreateBillActivity.class, true, customer, Utility.CUSTOMER_KEY));
                     } else {
+                        //TODO Change to activity
                         Utility.nextFragment((FragmentActivity) activity, FragmentEditInvoice.newInstance(customer, invoice));
                     }
 

@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -18,9 +18,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.reso.bill.ChangeQuantity;
-import com.reso.bill.DaysToDeliver;
-import com.reso.bill.PauseCustomerSubscription;
+import com.reso.bill.ChangeQuantityActivity;
+import com.reso.bill.DaysToDeliverActivity;
+import com.reso.bill.PauseCustomerSubscriptionActivity;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -127,21 +127,28 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
         gholder.txtnewpaperqty.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.nextFragment((FragmentActivity) activity, ChangeQuantity.newInstance(customer, customerSubscription));
-
+                //Utility.nextFragment((FragmentActivity) activity, ChangeQuantity.newInstance(customer, customerSubscription));
+                Intent intent = Utility.nextIntent(parent, ChangeQuantityActivity.class, true, customer, Utility.CUSTOMER_KEY);
+                intent.putExtra(Utility.ITEM_KEY, ServiceUtil.toJson(customerSubscription));
+                parent.startActivity(intent);
             }
         });
         gholder.txtweekdays.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.nextFragment((FragmentActivity) activity, DaysToDeliver.newInstance(customer, customerSubscription));
+                //Utility.nextFragment((FragmentActivity) activity, DaysToDeliver.newInstance(customer, customerSubscription));
+                Intent intent = Utility.nextIntent(parent, DaysToDeliverActivity.class, true, customer, Utility.CUSTOMER_KEY);
+                intent.putExtra(Utility.ITEM_KEY, ServiceUtil.toJson(customerSubscription));
+                parent.startActivity(intent);
             }
         });
         gholder.imgpause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.nextFragment((FragmentActivity) activity, PauseCustomerSubscription.newInstance(customer, customerSubscription));
-
+                //Utility.nextFragment((FragmentActivity) activity, PauseCustomerSubscription.newInstance(customer, customerSubscription));
+                Intent intent = Utility.nextIntent(parent, PauseCustomerSubscriptionActivity.class, true, customer, Utility.CUSTOMER_KEY);
+                intent.putExtra(Utility.ITEM_KEY, ServiceUtil.toJson(customerSubscription));
+                parent.startActivity(intent);
             }
         });
         gholder.imgdiscontinue.setOnClickListener(new View.OnClickListener() {
@@ -175,7 +182,7 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
             txtName.setText(customerSubscription.getName());
         }
 
-        if(customerSubscription.getPrice() != null) {
+        if (customerSubscription.getPrice() != null) {
             txtName.setText(txtName.getText() + " (Scheme)");
         }
 
@@ -196,7 +203,6 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
 
-
     private Response.Listener<String> createMyReqSuccessListener(final BillItem customerSubscription) {
         return new Response.Listener<String>() {
             @Override
@@ -208,7 +214,7 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     Utility.createAlert(activity, "Subscription suspended successfully!", "Done");
                     int position = Utility.indexOf(items, customerSubscription);
-                    if(position >= 0) {
+                    if (position >= 0) {
                         items.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position, items.size());

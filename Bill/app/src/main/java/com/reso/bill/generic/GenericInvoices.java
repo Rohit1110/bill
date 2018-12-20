@@ -125,7 +125,8 @@ public class GenericInvoices extends Fragment {
         createBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.nextFragment(getActivity(), GenericCreateBill.newInstance(null));
+                //Utility.nextFragment(getActivity(), GenericCreateBill.newInstance(null));
+                startActivity(Utility.nextIntent(getActivity(), GenericCreateBillActivity.class, true));
             }
         });
 

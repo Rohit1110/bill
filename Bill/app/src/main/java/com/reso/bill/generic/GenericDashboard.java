@@ -80,8 +80,8 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
     }
 
     private boolean isDrawerFragment(Fragment fragment) {
-        for(Class cls: fragments) {
-            if(fragment.getClass().equals(cls)) {
+        for (Class cls : fragments) {
+            if (fragment.getClass().equals(cls)) {
                 return true;
             }
         }
@@ -131,7 +131,13 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
             @Override
             public void onBackStackChanged() {
                 try {
-                    Fragment currentFragment = getSupportFragmentManager().getFragments().get(0);
+
+                    List<Fragment> fragments = getSupportFragmentManager().getFragments();
+                    if(fragments == null || fragments.size() == 0) {
+                        fragment = null;
+                        finish();
+                    }
+                    Fragment currentFragment = fragments.get(0);
                     /*if (currentFragment instanceof GenericInvoices || currentFragment instanceof GenericMyProducts || currentFragment instanceof GenericTransactions) {
                         //On the main screen, so enable bottom nav
                         *//*getBottomNavigationView().getMenu().getItem(0).setCheckable(true);
@@ -150,9 +156,11 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
                         getBottomNavigationView().getMenu().getItem(1).setCheckable(false);
                         getBottomNavigationView().getMenu().getItem(2).setCheckable(false);
                     }*/
-                    if (isDrawerFragment(currentFragment)) {
+                    /*if (isDrawerFragment(currentFragment)) {
                         setDrawer();
-                    }
+                    }*/
+
+                    System.out.println("...... Fragment changed .... " + fragment + " CURR => " + currentFragment);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -204,9 +212,12 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
         System.out.println("........ On resume called .... " + fragment);
         if (fragment == null) {
             //bottomNavigationView.setSelectedItemId(R.id.action_item1);
-            fragment = GenericInvoices.newInstance();
+            fragment = Utility.getHomeFragment(user);
+            Utility.nextFragment(GenericDashboard.this, fragment);
+        } else if (getSupportFragmentManager().getFragments() == null || getSupportFragmentManager().getFragments().size() == 0) {
+            Utility.nextFragment(GenericDashboard.this, fragment);
         }
-        Utility.nextFragment(GenericDashboard.this, fragment);
+
         if (user != null) {
             username.setText(user.getName());
             if (user.getCurrentBusiness() != null) {
@@ -251,9 +262,9 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
             case R.id.nav_myitems:
                 fragment = new GenericVendorDashBoard();
                 break;
-            case R.id.nav_bank_info:
+            /*case R.id.nav_bank_info:
                 fragment = new BankDetailsFragment();
-                break;
+                break;*/
             case R.id.nav_profile:
                 Intent i = new Intent(GenericDashboard.this, VendorRegistration.class);
                 startActivity(i);

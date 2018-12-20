@@ -31,6 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.reso.bill.components.ClickListener;
+import com.reso.bill.generic.GenericCustomerInfoActivity;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
@@ -122,7 +123,8 @@ public class CustomerList extends Fragment {
                 ft.replace(R.id.frame_layout, fragment);
                 ft.addToBackStack(null);
                 ft.commit();*/
-                Utility.nextFragment(getActivity(), new CustomerInfo());
+                //Utility.nextFragment(getActivity(), new CustomerInfo());
+                startActivity(Utility.nextIntent(getActivity(), GenericCustomerInfoActivity.class, false));
             }
         });
 

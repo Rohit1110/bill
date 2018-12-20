@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -19,7 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.reso.bill.R;
-import com.reso.bill.generic.GenericCreateBill;
+import com.reso.bill.generic.GenericCreateBillActivity;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
@@ -128,7 +127,8 @@ public class CompleteInvoicesAdapter extends RecyclerView.Adapter<RecyclerView.V
         view.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(txn));
+                //Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(txn));
+                activity.startActivity(Utility.nextIntent(activity, GenericCreateBillActivity.class, true, txn, Utility.CUSTOMER_KEY));
             }
         });
 

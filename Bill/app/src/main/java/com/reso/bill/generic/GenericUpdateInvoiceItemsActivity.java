@@ -2,16 +2,12 @@ package com.reso.bill.generic;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -40,11 +36,7 @@ import adapters.generic.GenericInvoiceItemsAdapter;
 import util.ServiceUtil;
 import util.Utility;
 
-/**
- * Created by Rohit on 5/8/2018.
- */
-
-public class GenericUpdateInvoiceItems extends Fragment {
+public class GenericUpdateInvoiceItemsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ProgressDialog pDialog;
@@ -60,37 +52,13 @@ public class GenericUpdateInvoiceItems extends Fragment {
     private BillItem selectedItem;
     private List<BillItem> invoiceItems = new ArrayList<>();
 
-    public static GenericUpdateInvoiceItems newInstance(BillUser user) {
-        GenericUpdateInvoiceItems fragment = new GenericUpdateInvoiceItems();
-        if (user != null) {
-            fragment.invoice = user.getCurrentInvoice();
-            fragment.customer = user;
-        }
-        return fragment;
-    }
-
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
+        setContentView(R.layout.activity_generic_update_invoice_items);
+        Utility.setActionBar("Bill details", getSupportActionBar());
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        menu.clear();
-        //inflater.inflate(R.menu.share, menu);
-        //MenuItem item = menu.findItem(R.id.action_search);
-
-        //searchView.setMenuItem(item);
-    }
-
-    @Override
-    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.generic_fragment_update_bill_details, container, false);
-        Utility.AppBarTitle("Bill details", getActivity());
-        //recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_transactions);
-
-        saveBill = (Button) rootView.findViewById(R.id.gn_btn_save_bill);
+        saveBill = (Button) findViewById(R.id.gn_btn_save_bill);
 
         saveBill.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +67,7 @@ public class GenericUpdateInvoiceItems extends Fragment {
             }
         });
 
-        addProduct = (Button) rootView.findViewById(R.id.gn_btn_add_invoice_item);
+        addProduct = (Button) findViewById(R.id.gn_btn_add_invoice_item);
 
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,7 +84,7 @@ public class GenericUpdateInvoiceItems extends Fragment {
                         }
                     } else {
                         if (TextUtils.isEmpty(productName.getText())) {
-                            Utility.createAlert(getActivity(), "Please enter a product name", "Error");
+                            Utility.createAlert(GenericUpdateInvoiceItemsActivity.this, "Please enter a product name", "Error");
                             return;
                         }
                         BillItem newItem = new BillItem();
@@ -127,8 +95,8 @@ public class GenericUpdateInvoiceItems extends Fragment {
                         invoiceItems.add(newItem);
                     }
                     if (adapter == null) {
-                        adapter = new GenericInvoiceItemsAdapter(invoiceItems, getActivity(), totalBillAmount);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        adapter = new GenericInvoiceItemsAdapter(invoiceItems, GenericUpdateInvoiceItemsActivity.this, totalBillAmount);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(GenericUpdateInvoiceItemsActivity.this));
                         recyclerView.setAdapter(adapter);
                     } else {
                         adapter.setItems(invoiceItems);
@@ -144,18 +112,18 @@ public class GenericUpdateInvoiceItems extends Fragment {
             }
         });
 
-        productName = (AutoCompleteTextView) rootView.findViewById(R.id.et_product_name);
+        productName = (AutoCompleteTextView) findViewById(R.id.et_product_name);
 
         /*productName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
-                Utility.hideKeyboard(getActivity());
+                Utility.hideKeyboard(GenericUpdateInvoiceItemsActivity.this);
             }
         });*/
 
-        totalBillAmount = (TextView) rootView.findViewById(R.id.txt_gn_bill_items_total);
+        totalBillAmount = (TextView) findViewById(R.id.txt_gn_bill_items_total);
 
-        user = (BillUser) Utility.readObject(getContext(), Utility.USER_KEY);
+        user = (BillUser) Utility.readObject(GenericUpdateInvoiceItemsActivity.this, Utility.USER_KEY);
 
         productName.setThreshold(2);
 
@@ -176,25 +144,26 @@ public class GenericUpdateInvoiceItems extends Fragment {
             }
         });
 
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_update_invoice_items);
-        //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
-        Utility.changeDrawer(getActivity(), GenericCreateBill.newInstance(customer));
-
-        return rootView;
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_update_invoice_items);
 
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return Utility.backDefault(item, GenericUpdateInvoiceItemsActivity.this);
+    }
+
 
     private boolean isAlreadyAdded(BillItem item) {
         for (BillItem invItem : invoiceItems) {
             if (invItem.getParentItem() != null && item.getParentItem() != null && invItem.getParentItem().getId() == item.getId()) {
-                Utility.createAlert(getActivity(), "Product already added to the bill!", "Error");
+                Utility.createAlert(GenericUpdateInvoiceItemsActivity.this, "Product already added to the bill!", "Error");
                 return true;
             } else if (invItem.getParentItem() != null && item.getName() != null && item.getName().equalsIgnoreCase(invItem.getParentItem().getName())) {
-                Utility.createAlert(getActivity(), "Product already added to the bill!", "Error");
+                Utility.createAlert(GenericUpdateInvoiceItemsActivity.this, "Product already added to the bill!", "Error");
                 return true;
             } else if (invItem.getName() != null && item.getName() != null && invItem.getName().equalsIgnoreCase(item.getName())) {
-                Utility.createAlert(getActivity(), "Product already added to the bill!", "Error");
+                Utility.createAlert(GenericUpdateInvoiceItemsActivity.this, "Product already added to the bill!", "Error");
                 return true;
             }
         }
@@ -223,7 +192,7 @@ public class GenericUpdateInvoiceItems extends Fragment {
             invoice.setInvoiceDate(new Date());
         }
         if (customer == null || TextUtils.isEmpty(customer.getPhone())) {
-            Utility.createAlert(getActivity(), "Please enter a valid phone number!", "Error");
+            Utility.createAlert(GenericUpdateInvoiceItemsActivity.this, "Please enter a valid phone number!", "Error");
             return;
         }
 
@@ -254,9 +223,9 @@ public class GenericUpdateInvoiceItems extends Fragment {
         request.setInvoice(invoice);
         request.setUser(customer);
         request.setBusiness(user.getCurrentBusiness());
-        pDialog = Utility.getProgressDialogue("Saving", getActivity());
-        StringRequest myReq = ServiceUtil.getBusinessStringRequest("updateBill", billSavedListener(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        pDialog = Utility.getProgressDialogue("Saving", GenericUpdateInvoiceItemsActivity.this);
+        StringRequest myReq = ServiceUtil.getBusinessStringRequest("updateBill", billSavedListener(), ServiceUtil.createMyReqErrorListener(pDialog, GenericUpdateInvoiceItemsActivity.this), request);
+        RequestQueue queue = Volley.newRequestQueue(GenericUpdateInvoiceItemsActivity.this);
         queue.add(myReq);
     }
 
@@ -268,14 +237,14 @@ public class GenericUpdateInvoiceItems extends Fragment {
                 pDialog.dismiss();
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
-                    Utility.createAlert(getActivity(), "Invoice saved successfully!", "Done");
+                    Utility.createAlertWithActivityFinish(GenericUpdateInvoiceItemsActivity.this, "Invoice saved successfully!", "Done", Utility.CUSTOMER_KEY, customer, GenericCreateBillActivity.class, GenericCreateBillActivity.FINISH_BILL_ACTIVITY);
                     if (serviceResponse.getInvoice() != null) {
                         customer.setCurrentInvoice(serviceResponse.getInvoice());
-                        Utility.nextFragmentPopBackstack(getActivity(), GenericCreateBill.newInstance(customer), false);
+                        //Utility.nextFragmentPopBackstack(GenericUpdateInvoiceItemsActivity.this, GenericCreateBill.newInstance(customer), false);
                     }
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
-                    Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
+                    Utility.createAlert(GenericUpdateInvoiceItemsActivity.this, serviceResponse.getResponse(), "Error");
                 }
 
 
@@ -287,6 +256,13 @@ public class GenericUpdateInvoiceItems extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (customer == null) {
+            customer = (BillUser) Utility.getIntentObject(BillUser.class, getIntent(), Utility.CUSTOMER_KEY);
+            if (customer != null) {
+                invoice = customer.getCurrentInvoice();
+            }
+
+        }
         //loadBillDetails();
         prepareInvoice(invoice);
         //if (invoice == null || invoice.getId() == null) {
@@ -297,9 +273,9 @@ public class GenericUpdateInvoiceItems extends Fragment {
     private void loadBusinessItems() {
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
-        //pDialog = Utility.getProgressDialogue("Loading..", getActivity());
-        StringRequest myReq = ServiceUtil.getStringRequest("loadBusinessItems", customersLoaded(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        //pDialog = Utility.getProgressDialogue("Loading..", GenericUpdateInvoiceItemsActivity.this);
+        StringRequest myReq = ServiceUtil.getStringRequest("loadBusinessItems", customersLoaded(), ServiceUtil.createMyReqErrorListener(pDialog, GenericUpdateInvoiceItemsActivity.this), request);
+        RequestQueue queue = Volley.newRequestQueue(GenericUpdateInvoiceItemsActivity.this);
         queue.add(myReq);
     }
 
@@ -312,7 +288,7 @@ public class GenericUpdateInvoiceItems extends Fragment {
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     items = serviceResponse.getItems();
                     if (items != null && items.size() > 0) {
-                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.select_dialog_item, Utility.convertToStringArrayList(items));
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(GenericUpdateInvoiceItemsActivity.this, android.R.layout.select_dialog_item, Utility.convertToStringArrayList(items));
                         productName.setAdapter(adapter);
                     }
                 } else {
@@ -329,8 +305,8 @@ public class GenericUpdateInvoiceItems extends Fragment {
             totalBillAmount.setText(CommonUtils.getStringValue(inv.getPayable()));
             if (inv.getInvoiceItems() != null && inv.getInvoiceItems().size() > 0) {
                 copyAllItems(inv);
-                adapter = new GenericInvoiceItemsAdapter(invoiceItems, getActivity(), totalBillAmount);
-                recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                adapter = new GenericInvoiceItemsAdapter(invoiceItems, GenericUpdateInvoiceItemsActivity.this, totalBillAmount);
+                recyclerView.setLayoutManager(new LinearLayoutManager(GenericUpdateInvoiceItemsActivity.this));
                 recyclerView.setAdapter(adapter);
             }
             if (inv.getStatus() != null && inv.getStatus().equalsIgnoreCase(BillConstants.INVOICE_STATUS_PAID)) {
@@ -357,10 +333,5 @@ public class GenericUpdateInvoiceItems extends Fragment {
         }
 
 
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
     }
 }

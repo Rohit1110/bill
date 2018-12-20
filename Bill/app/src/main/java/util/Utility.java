@@ -19,10 +19,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
@@ -65,6 +67,12 @@ public class Utility {
    /* public  FirebaseFirestore db = FirebaseFirestore.getInstance();*/
 
     public static final String USER_KEY = "billUser";
+    public static final String ITEM_KEY = "Item";
+    public static final String INVOICE_KEY = "Invoice";
+    public static final String CUSTOMER_KEY = "Customer";
+    public static final String BUSINESS_KEY = "Business";
+
+
     public static final String COLOR_BLUE = "#00A6FF";
     public static final String TITLE_FONT = "#343F4B";
     public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
@@ -83,7 +91,7 @@ public class Utility {
             alertDialogBuilder.setTitle(title);
         }
         alertDialogBuilder.setMessage(message);
-        alertDialogBuilder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
 
@@ -91,6 +99,35 @@ public class Utility {
         });
 
         AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    public static void createAlertWithActivityFinish(final Activity activity, String message, String title, final String key, final Object object, final Class<?> cls, final String finishIntent) {
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+        if (title != null) {
+            alertDialogBuilder.setTitle(title);
+        }
+        alertDialogBuilder.setMessage(message);
+        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                if (object == null) {
+                    activity.finish();
+                } else {
+                    if (finishIntent != null) {
+                        Intent intent = new Intent(finishIntent);
+                        activity.sendBroadcast(intent);
+                    }
+                    activity.startActivity(nextIntent(activity, cls, false, object, key));
+                }
+
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        if (finishIntent != null) {
+            alertDialog.setCancelable(false);
+        }
         alertDialog.show();
     }
 
@@ -515,7 +552,8 @@ public class Utility {
         if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
             return new Intent(currentActivity, GenericDashboard.class);
         }
-        return new Intent(currentActivity, Dashboard.class);
+        //return new Intent(currentActivity, Dashboard.class);
+        return new Intent(currentActivity, GenericDashboard.class);
     }
 
     public static AppCompatActivity castActivity(Activity activity) {
@@ -533,7 +571,7 @@ public class Utility {
     }
 
     public static String getDecimalText(BigDecimal decimal) {
-        if(decimal == null) {
+        if (decimal == null) {
             return "";
         }
         return decimal.stripTrailingZeros().toPlainString();
@@ -572,8 +610,50 @@ public class Utility {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    public static Intent nextIntent(Activity parent, Class<?> cls) {
-        return new Intent(parent, cls);
+    public static Intent nextIntent(Activity parent, Class<?> cls, boolean addToBackStack) {
+        Intent intent = new Intent(parent, cls);
+        if (!addToBackStack) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        }
+        return intent;
 
+    }
+
+    public static Intent nextIntent(Activity parent, Class<?> cls, boolean addToBackStack, Object obj, String key) {
+        Intent intent = new Intent(parent, cls);
+        if (obj != null) {
+            intent.putExtra(key, ServiceUtil.toJson(obj));
+        }
+        if (!addToBackStack) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        }
+        return intent;
+
+    }
+
+
+    public static Object getIntentObject(Class<?> clsName, Intent intent, String key) {
+        String json = intent.getStringExtra(key);
+        return ServiceUtil.fromJson(json, clsName);
+    }
+
+
+    public static void setActionBar(String title, ActionBar actionBar) {
+        actionBar.setCustomView(R.layout.layout_app_bar);
+        //actionBar.setTitle("My Products");
+        actionBar.setTitle(Html.fromHtml("<font color='#343F4B' size = '18' ><small>" + title + "</small></font>"));
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setElevation(0);
+    }
+
+    public static boolean backDefault(MenuItem item, Activity activity) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //Back button click
+                activity.finish();
+                return true;
+
+        }
+        return false;
     }
 }
