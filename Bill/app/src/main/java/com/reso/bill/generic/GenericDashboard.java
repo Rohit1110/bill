@@ -21,6 +21,7 @@ import android.widget.Toast;
 
 import com.reso.bill.AddBusinessLogo;
 import com.reso.bill.CustomerList;
+import com.reso.bill.HelpActivity;
 import com.reso.bill.R;
 import com.reso.bill.VendorRegistration;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -270,11 +271,11 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
             case R.id.nav_home:
                 fragment = Utility.getHomeFragment(user);
                 break;
-            /*case R.id.nav_help:
-                Intent helpI = new Intent(Dashboard.this, HelpActivity.class);
+            case R.id.nav_help:
+                Intent helpI = new Intent(GenericDashboard.this, HelpActivity.class);
                 startActivity(helpI);
                 break;
-            case R.id.nav_settings:
+            /*case R.id.nav_settings:
                 fragment = Settings.newInstance();
                 break;*/
 

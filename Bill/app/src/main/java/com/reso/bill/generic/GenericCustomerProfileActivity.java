@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +22,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.reso.bill.CustomerOrderHistoryActivity;
 import com.reso.bill.CustomerSubscriptionsActivity;
+import com.reso.bill.EditInvoiceActivity;
 import com.reso.bill.R;
+import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
@@ -31,6 +34,7 @@ import com.rns.web.billapp.service.util.CommonUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import adapters.CustomerInvoiceAdapter;
 import model.ListThree;
 import util.ServiceUtil;
 import util.Utility;
@@ -41,13 +45,14 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
     private BillUser selectedCustomer;
     private TextView name, email, phone, address, billsDue, lastPaid;
     private View manageSubscriptions, viewactivity, billSummary;
-    private TextView editProfile, billDetails;
+    private TextView editProfile, billDetails, addNewBill;
     private ImageView call;
 
 
     private List<ListThree> list = new ArrayList<>();
     private ProgressDialog pDialog;
     private BillUser user;
+    private List<BillInvoice> invoices;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,11 +138,28 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
             }
         });
 
+        addNewBill = (TextView) findViewById(R.id.btn_add_new_bill);
+        addNewBill.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
+                    //customer.setCurrentInvoice(invoice);
+                    //Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(customer));
+                    startActivity(Utility.nextIntent(GenericCustomerProfileActivity.this, GenericCreateBillActivity.class, true));
+                } else {
+
+                    //Utility.nextFragment((FragmentActivity) activity, FragmentEditInvoice.newInstance(customer, invoice));
+                    startActivity(Utility.nextIntent(GenericCustomerProfileActivity.this, EditInvoiceActivity.class, true, selectedCustomer, Utility.CUSTOMER_KEY));
+                }
+            }
+        });
+
         if (!BillConstants.FRAMEWORK_RECURRING.equals(Utility.getFramework(user))) {
             manageSubscriptions.setVisibility(View.GONE);
             viewactivity.setVisibility(View.GONE);
         }
 
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_customer_pending_bills);
 
     }
 
@@ -191,6 +213,13 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
                 lastPaid.setText("No payment found");
             }
 
+            if (invoices != null && invoices.size() > 0) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                CustomerInvoiceAdapter adapter = new CustomerInvoiceAdapter(invoices, this, selectedCustomer);
+                adapter.setUser(user);
+                recyclerView.setAdapter(adapter);
+            }
+
         } else {
             Utility.createAlert(GenericCustomerProfileActivity.this, "No Customer selected", "Error");
         }
@@ -223,7 +252,7 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
                 if (serviceResponse != null && serviceResponse.getStatus() == 200 && serviceResponse.getUser() != null && serviceResponse.getUser().getCurrentSubscription() != null) {
 
                     selectedCustomer = serviceResponse.getUser();
-
+                    invoices = serviceResponse.getInvoices();
                     setCustomerInfo();
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
