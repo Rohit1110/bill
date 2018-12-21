@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -45,7 +44,8 @@ public class VendorRegistration extends AppCompatActivity {
 
     private static final int PICK_PHOTO_FOR_AVATAR = 1;
     private Button register;
-    private EditText name, panNumber, aadharNumber, email, phone, businessName;
+    private EditText name, /*panNumber, aadharNumber,*/
+            email, phone, businessName;
     private MultiSelectionSpinner areas;
     private LocationAdapter adapter;
     private ProgressDialog pDialog;
@@ -54,7 +54,7 @@ public class VendorRegistration extends AppCompatActivity {
     private File selectedFile;
     String identy;
     private BillUser user;
-    private EditText businessLicense;
+    //private EditText businessLicense;
     private TextView tnc;
     private Spinner sectors;
     private ProgressDialog pDialogSectors;
@@ -101,22 +101,22 @@ public class VendorRegistration extends AppCompatActivity {
                 if(requestUser != null) {
                     requestUser.setId(user.getId());
                 }*/
-                if (!name.getText().toString().equals("") && !panNumber.getText().toString().equals("") && !aadharNumber.getText().toString().equals("") && !businessName.getText().toString().equals("")) {
+                if (!name.getText().toString().equals("") && /*!panNumber.getText().toString().equals("") && !aadharNumber.getText().toString().equals("") &&*/ !businessName.getText().toString().equals("")) {
                     if (Utility.isValidEmail(email.getText().toString())) {
                         int selectedItemOfMySpinner = areas.getSelectedItemPosition();
                         String actualPositionOfMySpinner = (String) areas.getItemAtPosition(selectedItemOfMySpinner);
 
-                        if (actualPositionOfMySpinner.isEmpty()) {
-                            Utility.createAlert(VendorRegistration.this, "Please select a location!", "Error");
+                        if (actualPositionOfMySpinner == null || actualPositionOfMySpinner.isEmpty()) {
+                            Toast.makeText(VendorRegistration.this, "Please select a location!", Toast.LENGTH_LONG);
                             return;
                         }
                         List<BillLocation> billLocations = areas.selectedLocations();
                         if (!"Other".equals(cities.getSelectedItem()) && (billLocations == null || billLocations.size() == 0)) {
-                            Utility.createAlert(VendorRegistration.this, "Please select atleast one location!", "Error");
+                            Toast.makeText(VendorRegistration.this, "Please select atleast one location!", Toast.LENGTH_LONG);
                             return;
                         }
                         if (sectors.isEnabled() && sectors.getSelectedItem().toString().trim().length() == 0) {
-                            Utility.createAlert(VendorRegistration.this, "Please select area of business!", "Error");
+                            Toast.makeText(VendorRegistration.this, "Please select area of business!", Toast.LENGTH_LONG);
                             return;
                         }
                         BillUser requestUser = new BillUser();
@@ -125,18 +125,22 @@ public class VendorRegistration extends AppCompatActivity {
                         }
                         requestUser.setName(name.getText().toString());
                         requestUser.setEmail(email.getText().toString());
-                        requestUser.setPanDetails(panNumber.getText().toString());
+                        //requestUser.setPanDetails(panNumber.getText().toString());
                         requestUser.setPhone(FirebaseUtil.getPhone());
-                        requestUser.setAadharNumber(aadharNumber.getText().toString());
+                        //requestUser.setAadharNumber(aadharNumber.getText().toString());
                         BillBusiness business = new BillBusiness();
                         if (user != null && user.getCurrentBusiness() != null) {
                             business.setId(user.getCurrentBusiness().getId());
                         }
                         business.setName(businessName.getText().toString());
-                        business.setIdentificationNumber(businessLicense.getText().toString());
+                        //business.setIdentificationNumber(businessLicense.getText().toString());
                         business.setBusinessLocations(billLocations);
                         business.setAddress(address.getText().toString());
                         if (sectors.isEnabled()) {
+                            if(sectors.getSelectedItemPosition() == 0) {
+                                Toast.makeText(VendorRegistration.this, "Select an area of business", Toast.LENGTH_LONG).show();
+                                return;
+                            }
                             business.setBusinessSector((BillSector) Utility.findInStringList(sectorsList, sectors.getSelectedItem().toString()));
                         }
 
@@ -144,22 +148,22 @@ public class VendorRegistration extends AppCompatActivity {
                         saveUserInfo(requestUser);
 
                     } else {
-                        Toast.makeText(VendorRegistration.this, "Enter valid emailid", Toast.LENGTH_LONG).show();
+                        Toast.makeText(VendorRegistration.this, "Enter valid email", Toast.LENGTH_LONG).show();
                     }
                 } else {
-                    Toast.makeText(VendorRegistration.this, "All fields are compulsary", Toast.LENGTH_LONG).show();
+                    Toast.makeText(VendorRegistration.this, "Some fields are missing", Toast.LENGTH_LONG).show();
                 }
                 //saveUserInfo(requestUser);
             }
         });
 
         name = (EditText) findViewById(R.id.et_name);
-        panNumber = (EditText) findViewById(R.id.et_pan_number);
-        aadharNumber = (EditText) findViewById(R.id.et_aadhar_number);
+        //panNumber = (EditText) findViewById(R.id.et_pan_number);
+        //aadharNumber = (EditText) findViewById(R.id.et_aadhar_number);
         phone = (EditText) findViewById(R.id.et_phone);
         email = (EditText) findViewById(R.id.et_email);
         businessName = (EditText) findViewById(R.id.et_business_name);
-        businessLicense = (EditText) findViewById(R.id.et_business_license);
+        //businessLicense = (EditText) findViewById(R.id.et_business_license);
         phone.setText(FirebaseUtil.getPhone());
         phone.setEnabled(false);
 
@@ -170,7 +174,7 @@ public class VendorRegistration extends AppCompatActivity {
         address = (EditText) findViewById(R.id.et_business_address);
         //adapter = new LocationAdapter(this, R.layout.spinner_multi_select, new ArrayList<BillLocation>(), VendorRegistration.this);
         //areas.setAdapter(adapter);
-        aadharNumber.setOnTouchListener(new View.OnTouchListener() {
+        /*aadharNumber.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 final int DRAWABLE_LEFT = 0;
@@ -179,14 +183,14 @@ public class VendorRegistration extends AppCompatActivity {
                 final int DRAWABLE_BOTTOM = 3;
 
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    /*if (event.getRawX() >= (aadharNumber.getRight() - aadharNumber.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                    *//*if (event.getRawX() >= (aadharNumber.getRight() - aadharNumber.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
                         Utility.checkcontactPermission(VendorRegistration.this);
                         pickImage();
                         identy = "aadhar";
                         // aadharNumber.setText(identy);
                         return true;
-                    }*/
+                    }*//*
                 }
                 return false;
             }
@@ -202,29 +206,29 @@ public class VendorRegistration extends AppCompatActivity {
                 final int DRAWABLE_BOTTOM = 3;
 
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    /*if (event.getRawX() >= (panNumber.getRight() - panNumber.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                    *//*if (event.getRawX() >= (panNumber.getRight() - panNumber.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
                         // your action here
                         Utility.checkcontactPermission(VendorRegistration.this);
                         pickImage();
                         identy = "pan";
                         return true;
-                    }*/
+                    }*//*
                 }
                 return false;
             }
-        });
+        });*/
 
         cities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 System.out.println("City selected => " + cities.getSelectedItem());
                 List<BillLocation> cityLocations = new ArrayList<>();
-                for(BillLocation loc: locations) {
-                    if(loc.getCity() != null && loc.getCity().equals(cities.getSelectedItem())) {
+                for (BillLocation loc : locations) {
+                    if (loc.getCity() != null && loc.getCity().equals(cities.getSelectedItem())) {
                         cityLocations.add(loc);
                     }
                 }
-                if(cityLocations.size() > 0) {
+                if (cityLocations.size() > 0) {
                     setLocationsAdapter(cityLocations);
                     areas.setVisibility(View.VISIBLE);
                 } else {
@@ -250,11 +254,11 @@ public class VendorRegistration extends AppCompatActivity {
         if (user != null) {
             name.setText(user.getName());
             email.setText(user.getEmail());
-            aadharNumber.setText(user.getAadharNumber());
-            panNumber.setText(user.getPanDetails());
+            //aadharNumber.setText(user.getAadharNumber());
+            //panNumber.setText(user.getPanDetails());
             if (user.getCurrentBusiness() != null) {
                 businessName.setText(user.getCurrentBusiness().getName());
-                businessLicense.setText(user.getCurrentBusiness().getIdentificationNumber());
+                //businessLicense.setText(user.getCurrentBusiness().getIdentificationNumber());
                 address.setText(user.getCurrentBusiness().getAddress());
 
                 if (user.getCurrentBusiness().getBusinessSector() != null) {
@@ -262,7 +266,7 @@ public class VendorRegistration extends AppCompatActivity {
                 } else {
                     loadSectors();
                 }
-                if(user.getCurrentBusiness().getBusinessLocations() != null && user.getCurrentBusiness().getBusinessLocations().size() > 0) {
+                if (user.getCurrentBusiness().getBusinessLocations() != null && user.getCurrentBusiness().getBusinessLocations().size() > 0) {
                     cities.setVisibility(View.GONE);
                 } else {
                     areas.setVisibility(View.GONE);
@@ -307,12 +311,12 @@ public class VendorRegistration extends AppCompatActivity {
                 if (identy.equals("aadhar")) {
                     //aadharNumber.setText(data.getData().getPath());
                     String filename = data.getData().getPath().substring(data.getData().getPath().lastIndexOf("/") + 1);
-                    aadharNumber.setText(filename);
+                    //aadharNumber.setText(filename);
                 }
                 if (identy.equals("pan")) {
                     // panNumber.setText(data.getData().getPath());
                     String filename = data.getData().getPath().substring(data.getData().getPath().lastIndexOf("/") + 1);
-                    panNumber.setText(filename);
+                    //panNumber.setText(filename);
                 }
 
                 identy = data.getData().getPath();
@@ -378,7 +382,12 @@ public class VendorRegistration extends AppCompatActivity {
                     System.out.println("Sectors loaded successfully!");
 
                     sectorsList = serviceResponse.getSectors();
-                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(VendorRegistration.this, android.R.layout.simple_spinner_item, Utility.convertToStringArrayList(sectorsList));
+                    List<String> strings = Utility.convertToStringArrayList(sectorsList);
+                    if(strings == null) {
+                        strings = new ArrayList<>();
+                    }
+                    strings.add(0, "Select sector");
+                    final ArrayAdapter<String> adapter = new ArrayAdapter<String>(VendorRegistration.this, android.R.layout.simple_spinner_item, strings);
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     VendorRegistration.this.sectors.setAdapter(adapter);
                     //sectors.setSelection(Calendar.getInstance().get(Calendar.MONTH) + 1);

@@ -23,9 +23,9 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.rns.web.billapp.service.bo.domain.BillUser;
+import com.rns.web.billapp.service.domain.BillCache;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
-import com.rns.web.billapp.service.util.CommonUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -166,10 +166,18 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             Utility.createAlert(getContext(), "Profile not set correctly! Please login to the app again!", "Error");
             return;
         }
+
+        //Load from cache
+        users = BillCache.getDeliveries(getActivity());
+        addUsers(false);
+
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
         request.setRequestedDate(date);
-        pDialog = Utility.getProgressDialogue("Loading..", getActivity());
+
+        //Removed to unblock the UI
+        //pDialog = Utility.getProgressDialogue("Loading..", getActivity());
+
         StringRequest myReq = ServiceUtil.getStringRequest("getDeliveries", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(myReq);
@@ -180,12 +188,13 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
             @Override
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
-                pDialog.dismiss();
+                //pDialog.dismiss();
 
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     users = serviceResponse.getUsers();
-                    addUsers();
+                    BillCache.addDeliveries(users, getActivity()); //Add to cache
+                    addUsers(true);
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
                     Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
@@ -197,7 +206,7 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         };
     }
 
-    private void addUsers() {
+    private void addUsers(boolean loaded) {
         orders = new ArrayList<>();
         if (users != null && users.size() > 0) {
             noOrdersMessage.setVisibility(View.GONE);
@@ -209,6 +218,9 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                 }
             }
             setDeliveriesListView(orders);
+        } else if (!loaded) {
+            noOrdersMessage.setVisibility(View.VISIBLE);
+            noOrdersMessage.setText("Loading ...");
         } else {
             noOrdersMessage.setVisibility(View.VISIBLE);
             noOrdersMessage.setText("No orders today");

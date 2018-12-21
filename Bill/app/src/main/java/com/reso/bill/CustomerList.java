@@ -33,6 +33,7 @@ import com.android.volley.toolbox.Volley;
 import com.reso.bill.components.ClickListener;
 import com.reso.bill.generic.GenericCustomerInfoActivity;
 import com.rns.web.billapp.service.bo.domain.BillUser;
+import com.rns.web.billapp.service.domain.BillCache;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
 import com.rns.web.billapp.service.util.BillConstants;
@@ -229,9 +230,13 @@ public class CustomerList extends Fragment {
     }
 
     private void loadCustomers() {
+        //Load from Cache
+        setCustomerList(BillCache.getCustomers(getActivity()));
+
+
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
-        pDialog = Utility.getProgressDialogue("Loading..", getActivity());
+        //pDialog = Utility.getProgressDialogue("Loading..", getActivity());
         StringRequest myReq = ServiceUtil.getStringRequest("getAllCustomers", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(myReq);
@@ -243,19 +248,13 @@ public class CustomerList extends Fragment {
             @Override
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
-                pDialog.dismiss();
+                //pDialog.dismiss();
 
-                list = new ArrayList<>();
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
-                    if (serviceResponse.getUsers() != null && serviceResponse.getUsers().size() > 0) {
-                        for (BillUser user : serviceResponse.getUsers()) {
-                            list.add(new BillCustomer(user));
-                        }
-                        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        adapter = new CustomerListAdapter(list, getActivity(), user);
-                        recyclerView.setAdapter(adapter);
-                    }
+                    //Add customers to cache
+                    BillCache.addCustomers(serviceResponse.getUsers(), getActivity());
+                    setCustomerList(serviceResponse.getUsers());
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
                     Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
@@ -265,6 +264,18 @@ public class CustomerList extends Fragment {
             }
 
         };
+    }
+
+    private void setCustomerList(List<BillUser> users) {
+        list = new ArrayList<>();
+        if (users != null && users.size() > 0) {
+            for (BillUser user : users) {
+                list.add(new BillCustomer(user));
+            }
+        }
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = new CustomerListAdapter(list, getActivity(), user);
+        recyclerView.setAdapter(adapter);
     }
 
     public void filter(final String text) {

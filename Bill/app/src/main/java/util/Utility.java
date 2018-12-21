@@ -577,9 +577,17 @@ public class Utility {
     }
 
     public static String getDecimalString(BigDecimal decimal) {
-        DecimalFormat decimalFormat = new DecimalFormat("0.#####");
-        String result = decimalFormat.format(decimal);
-        return result;
+        try {
+            if(decimal == null) {
+                return "0";
+            }
+            DecimalFormat decimalFormat = new DecimalFormat("0.#####");
+            String result = decimalFormat.format(decimal);
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public static void changeDrawer(final FragmentActivity activity, final Fragment backFragment) {

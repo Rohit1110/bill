@@ -37,7 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="Name"
+                    android:text="Name *"
                     android:textSize="13sp"/>
 
                 <EditText
@@ -55,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="Email"
+                    android:text="Email *"
                     android:textSize="13sp"/>
 
                 <EditText
@@ -87,7 +87,7 @@
 
                     />
 
-                <TextView
+                <!--<TextView
                     style="@style/basic_sub_text_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -104,7 +104,7 @@
                     android:hint="Enter Pan ID"
                     android:maxLength="10"
                     />
-                <!-- android:drawableRight="@mipmap/attchment"-->
+
                 <TextView
                     style="@style/basic_sub_text_field"
                     android:layout_width="match_parent"
@@ -121,14 +121,14 @@
                     android:layout_marginRight="10dp"
                     android:hint="Enter Adhar number"
                     android:maxLength="15"
-                    />
+                    />-->
 
                 <TextView
                     style="@style/basic_sub_text_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="Business Name"
+                    android:text="Business Name *"
                     android:textSize="13sp"/>
 
                 <EditText
@@ -141,7 +141,7 @@
                     android:maxLength="40"
                     />
 
-                <TextView
+                <!--<TextView
                     style="@style/basic_sub_text_field"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -157,7 +157,7 @@
                     android:layout_marginRight="10dp"
                     android:hint="Enter Business License number"
                     android:maxLength="20"
-                    />
+                    />-->
 
                 <TextView
                     style="@style/basic_sub_text_field"
@@ -174,8 +174,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
                     android:hint="Enter Business Address"
-                    android:singleLine="false"
                     android:maxLength="100"
+                    android:singleLine="false"
                     />
 
                 <TextView
@@ -183,7 +183,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="Locations"
+                    android:text="Locations *"
                     android:textSize="13sp"/>
 
                 <Spinner
@@ -220,7 +220,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="Area of business"
+                    android:text="Area of business *"
                     android:textSize="13sp"/>
 
                 <Spinner
