@@ -66,14 +66,12 @@ List<BillCustomer> users = new ArrayList<BillCustomer>();
 package adapters;
 
 import android.app.Activity;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.reso.bill.CustomerProfileFragment;
 import com.reso.bill.R;
 import com.reso.bill.generic.GenericCustomerProfileActivity;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -166,9 +164,7 @@ public class DeliveriesAdapter extends RecyclerView.Adapter<DeliveriesAdapter.Re
             viewProfile.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    CustomerProfileFragment fragment = CustomerProfileFragment.newInstance(customerUser);
-                    customerUser.setCurrentBusiness(currentUser.getCurrentBusiness());
-                    Utility.nextFragment((FragmentActivity) activity, fragment);
+                    activity.startActivity(Utility.nextIntent(activity, GenericCustomerProfileActivity.class, true, customer.getUser(), Utility.CUSTOMER_KEY));
                 }
             });
         }

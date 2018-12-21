@@ -2,7 +2,6 @@ package adapters;
 
 import android.app.Activity;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.reso.bill.CustomerProfileFragment;
 import com.reso.bill.R;
+import com.reso.bill.generic.GenericCustomerProfileActivity;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -165,7 +164,8 @@ public class BillSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Utility.nextFragment((FragmentActivity) activity, CustomerProfileFragment.newInstance(txn));
+                    //Utility.nextFragment((FragmentActivity) activity, CustomerProfileFragment.newInstance(txn));
+                    activity.startActivity(Utility.nextIntent(activity, GenericCustomerProfileActivity.class, true, txn, Utility.CUSTOMER_KEY));
                 }
             });
 
@@ -176,6 +176,7 @@ public class BillSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         view.bind(txn);
 
     }
+
     private void showHelpfulToast(ImageView imageView, final String message) {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -184,6 +185,7 @@ public class BillSummaryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             }
         });
     }
+
     @Override
     public int getItemCount() {
         if (users == null) {

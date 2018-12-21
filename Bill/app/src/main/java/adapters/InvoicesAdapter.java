@@ -66,7 +66,6 @@ List<BillCustomer> users = new ArrayList<BillCustomer>();
 package adapters;
 
 import android.app.Activity;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,8 +75,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 
-import com.reso.bill.CustomerProfileFragment;
 import com.reso.bill.R;
+import com.reso.bill.generic.GenericCustomerProfileActivity;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 
 import java.util.ArrayList;
@@ -123,7 +122,8 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
                 if (isMultiSelect) {
                     holder.selected.setChecked(!holder.selected.isChecked());
                 } else {
-                    Utility.nextFragment((FragmentActivity) activity, CustomerProfileFragment.newInstance(customer));
+                    //Utility.nextFragment((FragmentActivity) activity, CustomerProfileFragment.newInstance(customer));
+                    activity.startActivity(Utility.nextIntent(activity, GenericCustomerProfileActivity.class, true, customer, Utility.CUSTOMER_KEY));
                 }
             }
         });
@@ -147,7 +147,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
             public void onCheckedChanged(CompoundButton compoundButton, boolean selected) {
                 if (selected) {
                     int index = findCustomer(customer, selectedCustomers);
-                    if(index < 0) {
+                    if (index < 0) {
                         selectedCustomers.add(customer);
                     }
                 } else {
@@ -162,7 +162,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
         multiSelect(holder.selected);
 
         int index = findCustomer(customer, selectedCustomers);
-        if(index >= 0) {
+        if (index >= 0) {
             holder.selected.setChecked(true);
             System.out.println("Customer found .. " + customer.getName());
         } else {
