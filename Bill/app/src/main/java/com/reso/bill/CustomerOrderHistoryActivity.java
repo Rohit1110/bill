@@ -64,13 +64,13 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
         customer = (BillUser) Utility.getIntentObject(BillUser.class, getIntent(), Utility.CUSTOMER_KEY);
 
         Utility.setActionBar("Customer Activity", getSupportActionBar());
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_cust_list);
-        orders = (RadioButton) findViewById(R.id.radio_orders);
+        recyclerView = findViewById(R.id.recycler_view_cust_list);
+        orders = findViewById(R.id.radio_orders);
         orders.setSelected(true);
         orders.setChecked(true);
-        holiday = (RadioButton) findViewById(R.id.radio_holiday);
-        months = (Spinner) findViewById(R.id.spinner_month);
-        years = (Spinner) findViewById(R.id.spinner_year);
+        holiday = findViewById(R.id.radio_holiday);
+        months = findViewById(R.id.spinner_month);
+        years = findViewById(R.id.spinner_year);
         yearsList = Utility.createYearsArray();
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(CustomerOrderHistoryActivity.this, android.R.layout.simple_spinner_item, yearsList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

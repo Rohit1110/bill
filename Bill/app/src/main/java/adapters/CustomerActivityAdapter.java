@@ -105,14 +105,11 @@ public class CustomerActivityAdapter extends RecyclerView.Adapter<CustomerActivi
         holder.bind(movie);
 
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*boolean expanded = movie.isExpanded();
-                movie.setExpanded(!expanded);
-                notifyItemChanged(position);*/
-            }
-        });
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//            }
+//        });
     }
 
     @Override
@@ -123,17 +120,11 @@ public class CustomerActivityAdapter extends RecyclerView.Adapter<CustomerActivi
     public class RecViewHolder extends RecyclerView.ViewHolder {
 
         private TextView txtName, txtItemName;
-        //private TextView txtAddress, txtViewprofile;
-        private TextView year;
-        //private View subItem;
 
         public RecViewHolder(View itemView) {
             super(itemView);
-            txtName = (TextView) itemView.findViewById(R.id.txt_order_customer_name);
-            txtItemName = (TextView) itemView.findViewById(R.id.txt_customer_row_item_name);
-            /*txtAddress = (TextView) itemView.findViewById(R.id.txt_order_customer_address);
-            subItem = itemView.findViewById(R.id.customer_details);
-            txtViewprofile = (TextView) itemView.findViewById(R.id.btn_order_view_profile);*/
+            txtName =  itemView.findViewById(R.id.txt_order_customer_name);
+            txtItemName =  itemView.findViewById(R.id.txt_customer_row_item_name);
 
         }
 
