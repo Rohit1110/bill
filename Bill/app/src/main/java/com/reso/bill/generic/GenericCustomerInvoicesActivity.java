@@ -60,7 +60,7 @@ public class GenericCustomerInvoicesActivity extends AppCompatActivity {
 
         customer = (BillUser) Utility.getIntentObject(BillUser.class, getIntent(), Utility.CUSTOMER_KEY);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_customer_bill_details);
+        recyclerView = findViewById(R.id.recycler_view_customer_bill_details);
 
         /*sp = (Spinner) findViewById(R.id.spinner1);
         List<String> list = new ArrayList<String>();
