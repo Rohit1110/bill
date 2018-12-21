@@ -11,9 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Contacts;
 import android.provider.ContactsContract;
-import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -32,8 +30,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.reso.bill.CustomerList;
-import com.reso.bill.CustomerProfileFragment;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillLocation;
 import com.rns.web.billapp.service.bo.domain.BillSubscription;
@@ -331,7 +327,7 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
         };
     }
 
-    @NonNull
+    /*@NonNull
     private Fragment getNextFragment() {
         if (customer != null && customer.getId() == null && customerId != null) {
             customer.setId(customerId);
@@ -341,7 +337,7 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
             return CustomerProfileFragment.newInstance(customer);
         }
         return new CustomerList();
-    }
+    }*/
 
     private void getNextIntent() {
         String message = "Customer details updated successfully!";

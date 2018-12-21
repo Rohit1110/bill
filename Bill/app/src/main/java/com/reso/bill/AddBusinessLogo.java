@@ -167,7 +167,7 @@ public class AddBusinessLogo extends Fragment {
                 GenericDashboard activity = (GenericDashboard) getActivity();
                 activity.updateBusinessLogo(user);
             } else {
-                Dashboard activity = (Dashboard) getActivity();
+                GenericDashboard activity = (GenericDashboard) getActivity();
                 activity.updateBusinessLogo(user);
             }
         }

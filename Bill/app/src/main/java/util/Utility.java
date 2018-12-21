@@ -35,7 +35,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
-import com.reso.bill.Dashboard;
 import com.reso.bill.HomeFragment;
 import com.reso.bill.R;
 import com.reso.bill.generic.GenericDashboard;
@@ -557,10 +556,10 @@ public class Utility {
     }
 
     public static AppCompatActivity castActivity(Activity activity) {
-        if (activity instanceof GenericDashboard) {
-            return (GenericDashboard) activity;
-        }
-        return (Dashboard) activity;
+        //if (activity instanceof GenericDashboard) {
+        return (GenericDashboard) activity;
+        //}
+        //return (Dashboard) activity;
     }
 
     public static Fragment getHomeFragment(BillUser user) {

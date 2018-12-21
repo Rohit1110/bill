@@ -20,14 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.reso.bill.AddBusinessLogo;
-import com.reso.bill.BankDetailsFragment;
 import com.reso.bill.CustomerList;
 import com.reso.bill.R;
 import com.reso.bill.VendorRegistration;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import util.ServiceUtil;
@@ -50,7 +48,7 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private boolean drawerChanged = true;
-    private List<Class<?>> fragments = new ArrayList<Class<?>>();
+    //private List<Class<?>> fragments = new ArrayList<Class<?>>();
 
     /*public BottomNavigationView getBottomNavigationView() {
         return bottomNavigationView;
@@ -72,21 +70,21 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
         this.drawerChanged = drawerChanged;
     }
 
-    private void initFragments() {
+    /*private void initFragments() {
         fragments.add(GenericInvoices.class);
         fragments.add(CustomerList.class);
         fragments.add(BankDetailsFragment.class);
         fragments.add(GenericVendorDashBoard.class);
-    }
+    }*/
 
-    private boolean isDrawerFragment(Fragment fragment) {
+    /*private boolean isDrawerFragment(Fragment fragment) {
         for (Class cls : fragments) {
             if (fragment.getClass().equals(cls)) {
                 return true;
             }
         }
         return false;
-    }
+    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +96,7 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
 
         user = (BillUser) Utility.readObject(GenericDashboard.this, Utility.USER_KEY);
 
-        initFragments();
+        //initFragments();
         /*
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
