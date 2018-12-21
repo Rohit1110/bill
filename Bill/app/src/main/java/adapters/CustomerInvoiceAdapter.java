@@ -1,8 +1,8 @@
 package adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.reso.bill.FragmentEditInvoice;
+import com.reso.bill.EditInvoiceActivity;
 import com.reso.bill.R;
 import com.reso.bill.generic.GenericCreateBillActivity;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
@@ -21,6 +21,7 @@ import com.rns.web.billapp.service.util.CommonUtils;
 import java.util.ArrayList;
 import java.util.List;
 
+import util.ServiceUtil;
 import util.Utility;
 
 /**
@@ -73,7 +74,10 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         activity.startActivity(Utility.nextIntent(activity, GenericCreateBillActivity.class, true, customer, Utility.CUSTOMER_KEY));
                     } else {
                         //TODO Change to activity
-                        Utility.nextFragment((FragmentActivity) activity, FragmentEditInvoice.newInstance(customer, invoice));
+                        //Utility.nextFragment((FragmentActivity) activity, FragmentEditInvoice.newInstance(customer, invoice));
+                        Intent intent = Utility.nextIntent(activity, EditInvoiceActivity.class, true, invoice, Utility.INVOICE_KEY);
+                        intent.putExtra(Utility.CUSTOMER_KEY, ServiceUtil.toJson(customer));
+                        activity.startActivity(intent);
                     }
 
                 }

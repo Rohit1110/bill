@@ -23,6 +23,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.reso.bill.EditInvoiceActivity;
 import com.reso.bill.R;
 import com.reso.bill.components.ClickListener;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
@@ -130,8 +131,9 @@ public class GenericCustomerInvoicesActivity extends AppCompatActivity {
                     //Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(customer));
                     startActivity(Utility.nextIntent(GenericCustomerInvoicesActivity.this, GenericCreateBillActivity.class, true));
                 } else {
-                    //TODO Change to activity
+
                     //Utility.nextFragment((FragmentActivity) activity, FragmentEditInvoice.newInstance(customer, invoice));
+                    startActivity(Utility.nextIntent(GenericCustomerInvoicesActivity.this, EditInvoiceActivity.class, true, customer, Utility.CUSTOMER_KEY));
                 }
             }
         });

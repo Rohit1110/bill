@@ -79,6 +79,7 @@
             android:label="@string/title_activity_terms_nconditions"
             android:theme="@style/AppTheme">
         </activity>
+
         <!-- Fragments to Activities -->
         <activity
             android:name=".generic.GenericMyProductsActivity"
@@ -172,6 +173,11 @@
         <activity
             android:name=".PauseCustomerSubscriptionActivity"
             android:label="Pause newspaper"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".EditInvoiceActivity"
+            android:label="Add/Edit Invoice"
             android:theme="@style/ActivityTheme">
         </activity>
     </application>
