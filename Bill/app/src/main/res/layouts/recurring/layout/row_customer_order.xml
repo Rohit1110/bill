@@ -40,77 +40,63 @@
         android:layout_marginLeft="@dimen/fab_margin"
         android:layout_marginRight="@dimen/fab_margin"
         android:background="#7E55F3" />-->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout6"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:layout_editor_absoluteY="25dp">
 
     <TextView
         android:id="@+id/txt_order_customer_name"
         style="@style/rownametitle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/lato"
-        android:text="Ajinkya Kulkarni"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/rownamesubtitle"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txt_order_items"
-            android:textColor="#969FAA"
-            android:text="Sakal: 1"/>
-
-    </LinearLayout>
+        android:text="Ajinkya Kulkarni"
+        android:textSize="@dimen/list_text_main_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/txt_order_items"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Sakal: 1"
+        android:textColor="@android:color/secondary_text_dark"
+        android:textSize="@dimen/list_text_sub_text"
+        app:layout_constraintStart_toStartOf="@+id/txt_order_customer_name"
+        app:layout_constraintTop_toBottomOf="@+id/txt_order_customer_name" />
+
+
+    <TextView
         android:id="@+id/txt_order_customer_address"
-        android:textColor="#969FAA"
-        android:layout_marginTop="-7dp"
         style="@style/rownamesubtitle"
-        android:layout_marginLeft="@dimen/fab_margin"
-        android:singleLine="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="8dp"
         android:ellipsize="end"
-        android:text="Customer address line 1"/>
+        android:singleLine="true"
+        android:text="Customer address line 1"
+        android:textColor="@android:color/secondary_text_dark"
+        android:textSize="@dimen/list_text_sub_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_order_items" />
+
     <include
-        android:layout_width="match_parent"
+        android:id="@+id/include10"
+        layout="@layout/layout_line"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/layout_add_cust"
-        layout="@layout/layout_line" />
-    <LinearLayout
-        android:id="@+id/customer_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFDCDCDC"
-        android:orientation="vertical">
-
-        <!--<TextView
-            android:id="@+id/txt_order_customer_address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textSize="18sp"
-            tools:text="Pune" />-->
-        <TextView
-            android:id="@+id/btn_order_view_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:layout_margin="@dimen/fab_margin"
-            style="@style/basic_text_button"
-            android:text="View Profile" />
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
-    </LinearLayout>
-
-
-
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>
