@@ -273,8 +273,6 @@ public class GenericInvoices extends Fragment {
 
     public void filter(final String text) {
 
-        //Toast.makeText(getActivity(),text,Toast.LENGTH_LONG).show();
-
         // Searching could be complex..so we will dispatch it to a different thread...
         new Thread(new Runnable() {
             @Override

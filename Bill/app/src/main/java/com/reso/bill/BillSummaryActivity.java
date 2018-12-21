@@ -254,7 +254,6 @@ public class BillSummaryActivity extends AppCompatActivity {
     }
 
     public void filter(final String text) {
-        //Toast.makeText(BillSummaryActivity.this,text,Toast.LENGTH_LONG).show();
         // Searching could be complex..so we will dispatch it to a different thread...
         new Thread(new Runnable() {
             @Override
