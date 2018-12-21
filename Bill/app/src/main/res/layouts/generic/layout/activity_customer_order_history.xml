@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.reso.bill.CustomerOrderHistoryActivity">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+
+        <LinearLayout
+            android:id="@+id/layout_add_cust"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/layout_add_cust2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+                    <!--<TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@android:color/black"
+                        android:layout_marginLeft="@dimen/fab_margin"
+                        android:background="@color/white"
+                        android:text="select year"/>-->
+                    <Spinner
+                        android:id="@+id/spinner_year"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="@dimen/fab_margin"
+                        android:layout_marginTop="3dp"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:gravity="center_horizontal"
+
+                    android:orientation="vertical">
+                    <!--<TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/fab_margin"
+                        android:textColor="@android:color/black"
+                        android:background="@color/white"
+                        android:text="select month"/>-->
+                    <Spinner
+                        android:id="@+id/spinner_month"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:popupBackground="@color/white"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="@dimen/fab_margin"
+                        android:layout_marginTop="3dp"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"
+                        />
+                </LinearLayout>
+
+
+
+
+
+
+            </LinearLayout>
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/layout_add_cust"
+
+                layout="@layout/layout_line" />
+
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/radio_order_type"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_margin="8dp"
+                        android:layout_marginBottom="0dp"
+                        android:gravity="center"    >
+
+                <RadioButton
+                    android:id="@+id/radio_orders"
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="50dp"
+                    android:layout_marginBottom="0dp"
+                    android:text="Order History"/>
+
+                <RadioButton
+                    android:id="@+id/radio_holiday"
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="0dp"
+                    android:text="Holidays"/>
+            </RadioGroup>
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@id/layout_add_cust"
+                layout="@layout/layout_line" />
+
+
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_cust_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:fadeScrollbars="true"
+            android:layout_below="@id/layout_add_cust"
+            />
+
+    </RelativeLayout>
+
+
+</android.support.constraint.ConstraintLayout>

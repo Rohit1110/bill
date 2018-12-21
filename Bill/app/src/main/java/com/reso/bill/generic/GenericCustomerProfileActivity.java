@@ -19,7 +19,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.reso.bill.ActivityScreen;
+import com.reso.bill.CustomerOrderHistoryActivity;
 import com.reso.bill.CustomerSubscriptionsActivity;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -108,7 +108,8 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
         viewactivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.nextFragment(GenericCustomerProfileActivity.this, ActivityScreen.newInstance(selectedCustomer));
+                //Utility.nextFragment(GenericCustomerProfileActivity.this, ActivityScreen.newInstance(selectedCustomer));
+                startActivity(Utility.nextIntent(GenericCustomerProfileActivity.this, CustomerOrderHistoryActivity.class, true, selectedCustomer, Utility.CUSTOMER_KEY));
             }
         });
 

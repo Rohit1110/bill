@@ -75,6 +75,7 @@ import android.widget.TextView;
 
 import com.reso.bill.CustomerProfileFragment;
 import com.reso.bill.R;
+import com.reso.bill.generic.GenericCustomerProfileActivity;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 
 import java.util.List;
@@ -113,9 +114,11 @@ public class DeliveriesAdapter extends RecyclerView.Adapter<DeliveriesAdapter.Re
                 customer.setExpanded(!expanded);
                 notifyItemChanged(position);*/
 
-                CustomerProfileFragment fragment = CustomerProfileFragment.newInstance(customer.getUser());
+                /*CustomerProfileFragment fragment = CustomerProfileFragment.newInstance(customer.getUser());
                 customer.getUser().setCurrentBusiness(currentUser.getCurrentBusiness());
-                Utility.nextFragment((FragmentActivity) activity, fragment);
+                Utility.nextFragment((FragmentActivity) activity, fragment);*/
+
+                activity.startActivity(Utility.nextIntent(activity, GenericCustomerProfileActivity.class, true, customer.getUser(), Utility.CUSTOMER_KEY));
 
             }
         });
