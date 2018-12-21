@@ -1,68 +1,3 @@
-/*
-package adapters;
-
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
-
-
-import com.reso.bill.R;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import model.Listone;
-
-*/
-/**
- * Created by Rohit on 5/10/2018.
- *//*
-
-
-public class DeliveriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
-List<BillCustomer> users = new ArrayList<BillCustomer>();
-
-    public DeliveriesAdapter(List<BillCustomer> users) {
-        this.users = users;
-    }
-    class ViewHolder1 extends RecyclerView.ViewHolder {
-        private TextView txtName;
-        //private TextView time, name;
-        View appointmentindicator;
-
-        public ViewHolder1(View itemView) {
-            super(itemView);
-            txtName=(TextView)itemView.findViewById(R.id.txt_name);
-
-        }
-    }
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View item = inflater.inflate(R.layout.row_customer_order, parent, false);
-        return new ViewHolder1(item);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        BillCustomer listone =(BillCustomer)users.get(position);
-        ViewHolder1 gholder = (ViewHolder1) holder;
-        gholder.txtName.setText(listone.getName());
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return users.size();
-    }
-}
-*/
-
-
 package adapters;
 
 import android.app.Activity;
@@ -129,28 +64,16 @@ public class DeliveriesAdapter extends RecyclerView.Adapter<DeliveriesAdapter.Re
 
     public class RecViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView viewProfile;
-        private TextView items;
-        private TextView txtName;
-        private TextView txtAddress;
-        private TextView year;
-        private View subItem;
+        private TextView items, txtName, txtAddress;
 
         public RecViewHolder(View itemView) {
             super(itemView);
-            txtName = (TextView) itemView.findViewById(R.id.txt_order_customer_name);
-            txtAddress = (TextView) itemView.findViewById(R.id.txt_order_customer_address);
-            subItem = itemView.findViewById(R.id.customer_details);
-            items = (TextView) itemView.findViewById(R.id.txt_order_items);
-            viewProfile = (TextView) itemView.findViewById(R.id.btn_order_view_profile);
+            txtName = itemView.findViewById(R.id.txt_order_customer_name);
+            txtAddress = itemView.findViewById(R.id.txt_order_customer_address);
+            items = itemView.findViewById(R.id.txt_order_items);
         }
 
         private void bind(final BillCustomer customer) {
-
-            boolean expanded = customer.isExpanded();
-
-            subItem.setVisibility(expanded ? View.VISIBLE : View.GONE);
-
             final BillUser customerUser = customer.getUser();
             txtName.setText(customerUser.getName());
             txtAddress.setText(customerUser.getAddress());
@@ -160,13 +83,6 @@ public class DeliveriesAdapter extends RecyclerView.Adapter<DeliveriesAdapter.Re
             } else {
                 items.setText("No subscriptions");
             }
-
-            viewProfile.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    activity.startActivity(Utility.nextIntent(activity, GenericCustomerProfileActivity.class, true, customer.getUser(), Utility.CUSTOMER_KEY));
-                }
-            });
         }
     }
 }

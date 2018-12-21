@@ -1,41 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:background="@color/white"
-              android:orientation="vertical">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout7"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    tools:layout_editor_absoluteY="25dp">
 
     <TextView
         android:id="@+id/txt_order_customer_name"
         style="@style/rownametitle"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/lato"
-        android:text="Ajinkya Kulkarni"/>
+        android:text="Ajinkya Kulkarni"
+        android:textSize="@dimen/list_text_main_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        style="@style/rownamesubtitle"
-        android:layout_width="match_parent"
+
+    <TextView
+        android:id="@+id/txt_customer_row_item_name"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="Sakal: 1"
+        android:textColor="@android:color/secondary_text_dark"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_order_customer_name" />
 
-        <TextView
-            android:id="@+id/txt_customer_row_item_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Sakal: 1"
-            android:textColor="#969FAA"/>
-
-
-    </LinearLayout>
 
     <include
+        android:id="@+id/include11"
         layout="@layout/layout_line"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/layout_add_cust"/>
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 
-</LinearLayout>
+</android.support.constraint.ConstraintLayout>

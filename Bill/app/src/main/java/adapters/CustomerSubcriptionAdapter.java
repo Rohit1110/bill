@@ -41,7 +41,7 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
 
     private final Activity parent;
     private TextView txtName;
-    private List<BillItem> items = new ArrayList<BillItem>();
+    private List<BillItem> items;
     private Context activity;
     private BillUser customer;
     private ProgressDialog pDialog;
@@ -58,16 +58,15 @@ public class CustomerSubcriptionAdapter extends RecyclerView.Adapter<RecyclerVie
         private ImageView newspaperimg;
         private TextView txtweekdays;
         private ImageView imgpause, imgdiscontinue;
-        //View appointmentindicator;
 
         public ViewHolder1(View itemView) {
             super(itemView);
-            txtName = (TextView) itemView.findViewById(R.id.txt_customer_subscription_item_name);
-            newspaperimg = (ImageView) itemView.findViewById(R.id.img_customer_subscription_item_icon);
-            txtnewpaperqty = (TextView) itemView.findViewById(R.id.txt_newspaperqty);
-            txtweekdays = (TextView) itemView.findViewById(R.id.txt_weekdays);
-            imgpause = (ImageView) itemView.findViewById(R.id.img_paus);
-            imgdiscontinue = (ImageView) itemView.findViewById(R.id.img_cross);
+            txtName =  itemView.findViewById(R.id.txt_customer_subscription_item_name);
+            newspaperimg =  itemView.findViewById(R.id.img_customer_subscription_item_icon);
+            txtnewpaperqty =  itemView.findViewById(R.id.txt_newspaperqty);
+            txtweekdays =  itemView.findViewById(R.id.txt_weekdays);
+            imgpause =  itemView.findViewById(R.id.img_paus);
+            imgdiscontinue =  itemView.findViewById(R.id.img_cross);
 
 
         }
