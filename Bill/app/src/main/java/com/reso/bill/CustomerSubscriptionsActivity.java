@@ -54,12 +54,10 @@ public class CustomerSubscriptionsActivity extends AppCompatActivity {
         customer = (BillUser) Utility.getIntentObject(BillUser.class, getIntent(), Utility.CUSTOMER_KEY);
         Utility.setActionBar("Subscribed Newspapers", getSupportActionBar());
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_newspaper_subcription);
+        recyclerView =  findViewById(R.id.recycler_view_newspaper_subcription);
 
-        // CustomerSubscriptionsActivity.this.getActionBar().setDisplayHomeAsUpEnabled(true);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        sp = (Spinner) findViewById(R.id.spinner_newspaper);
-        fabAddCustomerItem = (Button) findViewById(R.id.fab_add_customer_item);
+        sp =  findViewById(R.id.spinner_newspaper);
+        fabAddCustomerItem =  findViewById(R.id.fab_add_customer_item);
         fabAddCustomerItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
