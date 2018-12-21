@@ -105,7 +105,7 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             gholder.txtMonths.setText("");
         }
         if (invoice.getPayable() != null) {
-            gholder.txtamount.setText("INR " + invoice.getPayable().toString());
+            gholder.txtamount.setText(invoice.getPayable().toString() + "/-");
         }
         gholder.txtstatus.setText(invoice.getStatus());
         if (invoice.getStatus() != null && BillConstants.INVOICE_STATUS_PAID.equals(invoice.getStatus())) {
