@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.reso.bill.EditInvoiceActivity;
 import com.reso.bill.R;
@@ -46,7 +47,7 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     }
 
     class ViewHolder1 extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView txtMonths, txtamount, txtstatus;
+        private TextView txtMonths, txtamount;
         ImageView statusImg;
         //private TextView time, name;
         //View appointmentindicator;
@@ -55,7 +56,6 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             super(itemView);
             txtMonths = (TextView) itemView.findViewById(R.id.txt_months);
             txtamount = (TextView) itemView.findViewById(R.id.txt_amount);
-            txtstatus = (TextView) itemView.findViewById(R.id.status);
             statusImg = (ImageView) itemView.findViewById(R.id.status_img);
         }
 
@@ -107,17 +107,29 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         if (invoice.getPayable() != null) {
             gholder.txtamount.setText(invoice.getPayable().toString() + "/-");
         }
-        gholder.txtstatus.setText(invoice.getStatus());
         if (invoice.getStatus() != null && BillConstants.INVOICE_STATUS_PAID.equals(invoice.getStatus())) {
             gholder.statusImg.setImageResource(R.drawable.ic_invoice_paid);
+            showHelpfulToast(gholder.statusImg, "Invoice Paid");
         } else if (invoice.getStatus() != null && "Failed".equals(invoice.getStatus())) {
             gholder.statusImg.setImageResource(R.drawable.ic_invoice_failed);
+            showHelpfulToast(gholder.statusImg, "Invoice Failed");
+        }else if (invoice.getStatus() != null && "Pending".equals(invoice.getStatus())) {
+            gholder.statusImg.setImageResource(R.drawable.ic_invoice_pending);
+            showHelpfulToast(gholder.statusImg, "Invoice Pending");
         }
 
         gholder.bind(invoice);
 
     }
 
+    private void showHelpfulToast(ImageView imageView, final String message) {
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     @Override
     public int getItemCount() {
         if (items == null) {
