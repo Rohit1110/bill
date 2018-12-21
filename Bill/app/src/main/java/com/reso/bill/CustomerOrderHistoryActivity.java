@@ -171,6 +171,9 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
     }
 
     private void loadActivity() {
+        if (years.getSelectedItem() == null || years.getSelectedItemPosition() <= 0) {
+            return;
+        }
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(customer.getCurrentBusiness());
         BillInvoice invoice = new BillInvoice();
