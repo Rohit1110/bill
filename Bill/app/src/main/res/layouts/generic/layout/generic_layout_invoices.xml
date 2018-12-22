@@ -21,15 +21,12 @@
     <Spinner
         android:id="@+id/spn_txn_duration_filter"
         style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toStartOf="@+id/btn_gn_add_bill"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <!--<Spinner
@@ -50,16 +47,6 @@
             android:gravity="right"
             android:orientation="vertical">-->
 
-    <Button
-        android:id="@+id/btn_gn_add_bill"
-        style="@style/basic_button"
-        android:layout_width="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:text="NEW"
-        app:layout_constraintBottom_toBottomOf="@+id/spn_txn_duration_filter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/spn_txn_duration_filter"/>
-
 
     <!--</LinearLayout>
 
@@ -71,13 +58,12 @@
         layout="@layout/layout_line"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spn_txn_duration_filter"/>
+        app:layout_constraintTop_toBottomOf="@+id/spn_txn_duration_filter" />
 
 
     <!--<Button
@@ -92,8 +78,6 @@
         android:id="@+id/recycler_update_invoice_items"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
         android:fadeScrollbars="true"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -109,17 +93,32 @@
         style="@style/basic_text_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:text="No payments this week"
+        android:textColor="@android:color/secondary_text_dark"
+        android:textSize="@dimen/list_text_main_text"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include"/>
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addNewBillFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        app:backgroundTint="@color/buttonColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_add_white_24dp" />
 
 
 </android.support.constraint.ConstraintLayout>
