@@ -3,6 +3,7 @@ package com.reso.bill.generic;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -60,7 +62,6 @@ public class GenericInvoices extends Fragment {
     private List<BillUser> users;
     private List<BillUser> filterList = new ArrayList<>();
     private Date date;
-    private Button createBill;
     private Spinner durations;
     //private Spinner year;
     private List<String> yearsList;
@@ -119,28 +120,14 @@ public class GenericInvoices extends Fragment {
         date = new Date();
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Invoice Summary</font>"));
         Utility.AppBarTitle("Payments", getActivity());
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_update_invoice_items);
+        recyclerView =  rootView.findViewById(R.id.recycler_update_invoice_items);
 
-        createBill = (Button) rootView.findViewById(R.id.btn_gn_add_bill);
-        createBill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Utility.nextFragment(getActivity(), GenericCreateBill.newInstance(null));
-                startActivity(Utility.nextIntent(getActivity(), GenericCreateBillActivity.class, true));
-            }
-        });
-
-
-        durations = (Spinner) rootView.findViewById(R.id.spn_txn_duration_filter);
+        durations =  rootView.findViewById(R.id.spn_txn_duration_filter);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_basic_text_white, getResources().getStringArray(R.array.durations_arrays));
         durations.setAdapter(adapter);
         durations.setSelection(1);
 
-        txtNoPayments = (TextView) rootView.findViewById(R.id.txt_txn_no_payments);
-        /*year = (Spinner) rootView.findViewById(R.id.spn_txn_year);
-        yearsList = Utility.createYearsArray();
-        year.setAdapter(new ArrayAdapter<String>(getActivity(), R.layout.spinner_basic_text_white, yearsList));
-        year.setSelection(yearsList.indexOf(String.valueOf(Calendar.getInstance().get(Calendar.YEAR))));*/
+        txtNoPayments =  rootView.findViewById(R.id.txt_txn_no_payments);
 
         user = (BillUser) Utility.readObject(getContext(), Utility.USER_KEY);
 
@@ -171,6 +158,14 @@ public class GenericInvoices extends Fragment {
             }
         }));
 
+        FloatingActionButton addNewBillFab = rootView.findViewById(R.id.addNewBillFab);
+        addNewBillFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(getActivity(), "FAB Tapped", Toast.LENGTH_SHORT).show();
+                startActivity(Utility.nextIntent(getActivity(), GenericCreateBillActivity.class, true));
+            }
+        });
 
         return rootView;
 
