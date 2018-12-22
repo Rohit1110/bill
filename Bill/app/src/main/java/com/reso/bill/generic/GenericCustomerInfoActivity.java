@@ -66,7 +66,7 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_generic_customer_info);
 
         customer = (BillUser) Utility.getIntentObject(BillUser.class, getIntent(), Utility.CUSTOMER_KEY);
-        Utility.setActionBar("Customer information", getSupportActionBar());
+        Utility.setActionBar("Edit Customer Info", getSupportActionBar());
 
         fabsubscription = (Button) findViewById(R.id.btn_gn_save_product);
         fabsubscription.setOnClickListener(new View.OnClickListener() {

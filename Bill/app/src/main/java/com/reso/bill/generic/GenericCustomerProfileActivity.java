@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -31,11 +32,9 @@ import com.rns.web.billapp.service.domain.BillServiceResponse;
 import com.rns.web.billapp.service.util.BillConstants;
 import com.rns.web.billapp.service.util.CommonUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import adapters.CustomerInvoiceAdapter;
-import model.ListThree;
 import util.ServiceUtil;
 import util.Utility;
 
@@ -44,12 +43,10 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private BillUser selectedCustomer;
     private TextView name, email, phone, address, billsDue, lastPaid;
-    private View manageSubscriptions, viewactivity, billSummary;
-    private TextView editProfile, billDetails, addNewBill;
-    private ImageView call;
+    private View billSummary;
+    private TextView billDetails, addNewBill;
+    private ImageView editProfile, call, btn_manage_subscriptions, btn_view_customer_activities;
 
-
-    private List<ListThree> list = new ArrayList<>();
     private ProgressDialog pDialog;
     private BillUser user;
     private List<BillInvoice> invoices;
@@ -59,16 +56,18 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generic_customer_profile);
 
-        Utility.setActionBar("Customer Profile", getSupportActionBar());
+        Utility.setActionBar("Customer's Profile", getSupportActionBar());
 
-        name = (TextView) findViewById(R.id.txt_profile_customer_name);
-        email = (TextView) findViewById(R.id.txt_profile_customer_email);
-        phone = (TextView) findViewById(R.id.txt_profile_customer_phone);
-        address = (TextView) findViewById(R.id.txt_profile_customer_address);
-        editProfile = (TextView) findViewById(R.id.btn_edit_profile);
-        billsDue = (TextView) findViewById(R.id.txt_profile_bills_due);
-        lastPaid = (TextView) findViewById(R.id.txt_profile_last_paid_bill);
-        call = (ImageView) findViewById(R.id.img_profile_call_customer);
+        name = findViewById(R.id.txt_profile_customer_name);
+        email = findViewById(R.id.txt_profile_customer_email);
+        phone = findViewById(R.id.txt_profile_customer_phone);
+        address = findViewById(R.id.txt_profile_customer_address);
+        editProfile = findViewById(R.id.btn_edit_profile);
+        billsDue = findViewById(R.id.txt_profile_bills_due);
+        lastPaid = findViewById(R.id.txt_profile_last_paid_bill);
+        call = findViewById(R.id.img_profile_call_customer);
+        btn_manage_subscriptions = findViewById(R.id.btn_manage_subscriptions);
+        btn_view_customer_activities = findViewById(R.id.btn_view_customer_activities);
 
         user = (BillUser) Utility.readObject(GenericCustomerProfileActivity.this, Utility.USER_KEY);
 
@@ -79,19 +78,44 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
                 startActivity(Utility.nextIntent(GenericCustomerProfileActivity.this, GenericCustomerInfoActivity.class, true, selectedCustomer, Utility.CUSTOMER_KEY));
             }
         });
-
-        manageSubscriptions = (View) findViewById(R.id.layout_profile_customer_subscriptions);
-
-        manageSubscriptions.setOnClickListener(new View.OnClickListener() {
+        editProfile.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public void onClick(View view) {
-                //Utility.nextFragment(GenericCustomerProfileActivity.this, AddSubcription.newInstance(selectedCustomer));
-                startActivity(Utility.nextIntent(GenericCustomerProfileActivity.this, CustomerSubscriptionsActivity.class, true, selectedCustomer, Utility.CUSTOMER_KEY));
+            public boolean onLongClick(View v) {
+                Toast.makeText(GenericCustomerProfileActivity.this, "Edit Profile", Toast.LENGTH_SHORT).show();
+                return true;
             }
         });
 
+        btn_manage_subscriptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(Utility.nextIntent(GenericCustomerProfileActivity.this, CustomerSubscriptionsActivity.class, true, selectedCustomer, Utility.CUSTOMER_KEY));
+            }
+        });
+        btn_manage_subscriptions.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(GenericCustomerProfileActivity.this, "Manage Subscriptions", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
 
-        billSummary = (View) findViewById(R.id.layout_profile_customer_bill_summary);
+        btn_view_customer_activities.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Utility.nextFragment(GenericCustomerProfileActivity.this, ActivityScreen.newInstance(selectedCustomer));
+                startActivity(Utility.nextIntent(GenericCustomerProfileActivity.this, CustomerOrderHistoryActivity.class, true, selectedCustomer, Utility.CUSTOMER_KEY));
+            }
+        });
+        btn_view_customer_activities.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(GenericCustomerProfileActivity.this, "View Customer Activity", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
+
+        billSummary =  findViewById(R.id.layout_profile_customer_bill_summary);
         billSummary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,7 +124,7 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
             }
         });
 
-        billDetails = (TextView) findViewById(R.id.btn_view_customer_bills);
+        billDetails =  findViewById(R.id.btn_view_customer_bills);
 
         billDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,14 +133,7 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
 
             }
         });
-        viewactivity = (View) findViewById(R.id.layout_profile_customer_activities);
-        viewactivity.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Utility.nextFragment(GenericCustomerProfileActivity.this, ActivityScreen.newInstance(selectedCustomer));
-                startActivity(Utility.nextIntent(GenericCustomerProfileActivity.this, CustomerOrderHistoryActivity.class, true, selectedCustomer, Utility.CUSTOMER_KEY));
-            }
-        });
+
 
         call.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,8 +154,15 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
 
             }
         });
+        call.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(GenericCustomerProfileActivity.this, "Call Customer", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
 
-        addNewBill = (TextView) findViewById(R.id.btn_add_new_bill);
+        addNewBill = findViewById(R.id.btn_add_new_bill);
         addNewBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,11 +179,11 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
         });
 
         if (!BillConstants.FRAMEWORK_RECURRING.equals(Utility.getFramework(user))) {
-            manageSubscriptions.setVisibility(View.GONE);
-            viewactivity.setVisibility(View.GONE);
+            btn_manage_subscriptions.setVisibility(View.GONE);
+            btn_view_customer_activities.setVisibility(View.GONE);
         }
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_customer_pending_bills);
+        recyclerView = findViewById(R.id.recycler_view_customer_pending_bills);
 
     }
 
