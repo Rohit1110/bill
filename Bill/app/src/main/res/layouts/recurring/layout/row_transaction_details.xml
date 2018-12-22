@@ -68,29 +68,32 @@
         android:text="135/-"
         android:textSize="@dimen/list_text_amount_text"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/txt_txn_customer_name"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/txt_txn_customer_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txt_txn_customer_name" />
 
     <ImageView
         android:id="@+id/img_txn_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_centerVertical="true"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:padding="12dp"
         android:src="@drawable/ic_invoice_pending"
         app:layout_constraintEnd_toStartOf="@+id/img_txn_mode"
         app:layout_constraintTop_toTopOf="@+id/img_txn_mode" />
 
     <ImageView
         android:id="@+id/img_txn_mode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_centerVertical="true"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="8dp"
+        android:padding="12dp"
         android:src="@drawable/ic_invoice_pending"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
