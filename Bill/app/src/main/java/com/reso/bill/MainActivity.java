@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -109,20 +110,23 @@ public class MainActivity extends AppCompatActivity {
                     user = serviceResponse.getUser();
                     Utility.writeObject(MainActivity.this, Utility.USER_KEY, user);
                     if (serviceResponse.getWarningCode() != null) {
-                        //Utility.createAlert(MainActivity.this, serviceResponse.getWarningText(), "Warning");
-                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
-                        alertDialogBuilder.setTitle("Warning");
-                        alertDialogBuilder.setMessage(serviceResponse.getWarningText());
-                        alertDialogBuilder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                startActivity(Utility.getDashboardIntent(MainActivity.this, user));
-                                finish();
-                            }
-                        });
-
-                        AlertDialog alertDialog = alertDialogBuilder.create();
-                        alertDialog.show();
+//                        //Utility.createAlert(MainActivity.this, serviceResponse.getWarningText(), "Warning");
+//                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
+//                        alertDialogBuilder.setTitle("Warning");
+//                        alertDialogBuilder.setMessage(serviceResponse.getWarningText());
+//                        alertDialogBuilder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface arg0, int arg1) {
+//                                startActivity(Utility.getDashboardIntent(MainActivity.this, user));
+//                                finish();
+//                            }
+//                        });
+//
+//                        AlertDialog alertDialog = alertDialogBuilder.create();
+//                        alertDialog.show();
+                        Toast.makeText(MainActivity.this, serviceResponse.getWarningText(), Toast.LENGTH_LONG).show();
+                        startActivity(Utility.getDashboardIntent(MainActivity.this, user));
+                        finish();
                     } else {
                         startActivity(Utility.getDashboardIntent(MainActivity.this, user));
                         finish();
