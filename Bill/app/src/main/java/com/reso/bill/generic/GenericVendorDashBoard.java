@@ -38,7 +38,7 @@ public class GenericVendorDashBoard extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.generic_fragment_vendor_dashboard, container, false);
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Dashboard</font>"));
-        Utility.AppBarTitle("Dashboard ", getActivity());
+        Utility.AppBarTitle("Dashboard", getActivity());
         //recyclerView = (RecyclerView)rootView.findViewById(R.id.recycler_view);
         // getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
         Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);

@@ -12,293 +12,231 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context="com.reso.bill.generic.GenericCustomerProfileActivity">
 
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        xmlns:tools="http://schemas.android.com/tools"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            >
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-
-                >
-
-                <android.support.constraint.ConstraintLayout
-                    android:id="@+id/layout_profile_customer_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/layout_profile_customer_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
 
-                    <TextView
-                        android:id="@+id/txt_profile_customer_name"
-                        style="@style/basic_text_field"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        android:text="Ajinkya Kulkarni"
-                        android:textSize="@dimen/list_text_main_text"
-                        app:layout_constraintEnd_toStartOf="@+id/img_profile_call_customer"
-                        app:layout_constraintHorizontal_bias="0.0"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
-
-                    <ImageView
-                        android:id="@+id/img_profile_call_customer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginStart="16dp"
-                        android:src="@drawable/ic_phone"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_profile_customer_phone"/>
+            <TextView
+                android:id="@+id/txt_profile_customer_name"
+                style="@style/basic_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Ajinkya Kulkarni"
+                android:textSize="@dimen/list_text_main_text"
+                app:layout_constraintEnd_toStartOf="@+id/img_profile_call_customer"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-                    <TextView
-                        android:id="@+id/txt_profile_customer_address"
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginStart="16dp"
-                        android:text="B504, ABC apartments, Sadashiv peth, Pune 411010  "
-                        android:textColor="?android:attr/textColorSecondary"
-                        android:textSize="@dimen/list_text_sub_text"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_profile_customer_name"/>
+            <TextView
+                android:id="@+id/txt_profile_customer_address"
+                style="@style/basic_sub_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:text="B504, ABC apartments, Sadashiv peth, Pune 411010  "
+                android:textColor="@android:color/secondary_text_dark"
+                android:textSize="@dimen/list_text_sub_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_profile_customer_name" />
 
-                    <TextView
-                        android:id="@+id/txt_profile_customer_email"
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginStart="16dp"
-                        android:text="ajinkyashiva@gmail.com"
-                        android:textColor="?android:attr/textColorSecondary"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_profile_customer_address"/>
+            <TextView
+                android:id="@+id/txt_profile_customer_email"
+                style="@style/basic_sub_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:text="ajinkyashiva@gmail.com"
+                android:textColor="@android:color/secondary_text_dark"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_profile_customer_address" />
 
-                    <TextView
-                        android:id="@+id/txt_profile_customer_phone"
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="16dp"
-                        android:layout_marginStart="16dp"
-                        android:text="9423040642"
-                        android:textColor="?android:attr/textColorSecondary"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_profile_customer_email"/>
+            <TextView
+                android:id="@+id/txt_profile_customer_phone"
+                style="@style/basic_sub_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:text="9423040642"
+                android:textColor="@android:color/secondary_text_dark"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_profile_customer_email" />
 
-                    <TextView
-                        android:id="@+id/btn_edit_profile"
-                        style="@style/basic_text_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginRight="8dp"
-                        android:gravity="right"
-                        android:padding="8dp"
-                        android:text="Edit Profile"
-                        app:layout_constraintBottom_toBottomOf="@+id/img_profile_call_customer"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/img_profile_call_customer"/>
-
-                    <!--<View
+            <!--<View
                         android:layout_marginTop="15dp"
                         android:layout_width="fill_parent"
                         android:layout_height="1dp"
                         android:background="@color/bgGray"/>-->
 
-                    <include
-                        android:id="@+id/include6"
-                        layout="@layout/layout_line"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="parent"/>
+            <ImageView
+                android:id="@+id/img_profile_call_customer"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="8dp"
+                android:padding="12dp"
+                app:layout_constraintEnd_toStartOf="@+id/btn_edit_profile"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_profile_customer_phone"
+                app:srcCompat="@drawable/ic_call_blue_24dp" />
+
+            <ImageView
+                android:id="@+id/btn_edit_profile"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="12dp"
+                app:layout_constraintEnd_toStartOf="@+id/btn_manage_subscriptions"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/img_profile_call_customer"
+                app:layout_constraintTop_toTopOf="@+id/img_profile_call_customer"
+                app:srcCompat="@drawable/ic_edit_blue_24dp" />
+
+            <ImageView
+                android:id="@+id/btn_manage_subscriptions"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="12dp"
+                app:layout_constraintEnd_toStartOf="@+id/btn_view_customer_activities"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btn_edit_profile"
+                app:layout_constraintTop_toTopOf="@+id/btn_edit_profile"
+                app:srcCompat="@drawable/ic_view_list_blue_24dp" />
+
+            <ImageView
+                android:id="@+id/btn_view_customer_activities"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/btn_manage_subscriptions"
+                app:layout_constraintTop_toTopOf="@+id/btn_manage_subscriptions"
+                app:srcCompat="@drawable/ic_assignment_blue_24dp" />
+
+            <include
+                android:id="@+id/include6"
+                layout="@layout/layout_line"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="parent" />
 
 
-                </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
 
-                <LinearLayout
-                    android:id="@+id/layout_profile_customer_bill_summary"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/layout_profile_customer_info"
-                    android:layout_marginTop="24dp"
-                    android:orientation="vertical"
-                    >
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/layout_profile_customer_bill_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout_profile_customer_info"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_profile_customer_info">
 
-                    <TextView
-                        android:id="@+id/txt_profile_bills_due"
-                        style="@style/basic_text_field"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2 Bills Due"
-                        android:textSize="@dimen/list_text_main_text"/>
+            <TextView
+                android:id="@+id/txt_profile_bills_due"
+                style="@style/basic_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:text="2 Bills Due"
+                android:textSize="@dimen/list_text_main_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/txt_profile_last_paid_bill"
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Last paid on 2018/03/22"
-                        android:textColor="?android:attr/textColorSecondary"
-                        android:textSize="@dimen/list_text_sub_text"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@id/layout_profile_customer_info"
-                        android:layout_marginTop="10dp"
-                        android:orientation="horizontal"
-                        >
-
-                        <TextView
-                            android:id="@+id/btn_add_new_bill"
-                            style="@style/basic_text_button"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:layout_weight="0.5"
-                            android:text="Add New Bill"/>
-
-                        <TextView
-                            android:id="@+id/btn_view_customer_bills"
-                            style="@style/basic_text_button"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:layout_marginBottom="10dp"
-                            android:layout_weight="0.5"
-                            android:text="View Details"/>
-                    </LinearLayout>
+            <TextView
+                android:id="@+id/txt_profile_last_paid_bill"
+                style="@style/basic_sub_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:text="Last paid on 2018/03/22"
+                android:textColor="@android:color/secondary_text_dark"
+                android:textSize="@dimen/list_text_sub_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_profile_bills_due" />
 
 
-                    <include
-                        layout="@layout/layout_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"/>
+            <TextView
+                android:id="@+id/btn_add_new_bill"
+                style="@style/basic_text_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:padding="8dp"
+                android:text="Add New Bill"
+                android:textAllCaps="true"
+                android:textColor="@color/buttonColor"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_profile_last_paid_bill" />
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler_view_customer_pending_bills"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fadeScrollbars="true"
-                        android:scrollbars="vertical"
-                        >
-
-                    </android.support.v7.widget.RecyclerView>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/layout_profile_customer_subscriptions"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/layout_profile_customer_bill_summary"
-                    android:layout_marginTop="24dp"
-                    android:orientation="vertical"
-                    >
-
-                    <TextView
-                        android:id="@+id/txt_profile_manage_subscriptions"
-                        style="@style/basic_text_field"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Manage subscriptions"
-                        android:textSize="@dimen/list_text_main_text"/>
-
-                    <TextView
-                        android:id="@+id/txt_profile_manage_subscriptions_subtext"
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="24dp"
-                        android:text="Add/Remove/Pause delivery"
-                        android:textColor="?android:attr/textColorSecondary"
-                        android:textSize="@dimen/list_text_sub_text"/>
-
-                    <include
-                        layout="@layout/layout_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"/>
+            <TextView
+                android:id="@+id/btn_view_customer_bills"
+                style="@style/basic_text_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:padding="8dp"
+                android:text="View Details"
+                android:textAllCaps="true"
+                android:textColor="@color/buttonColor"
+                app:layout_constraintBaseline_toBaselineOf="@+id/btn_add_new_bill"
+                app:layout_constraintEnd_toEndOf="parent" />
 
 
-                </LinearLayout>
+            <TextView
+                android:id="@+id/textView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Pending Bills:"
+                android:textColor="@android:color/secondary_text_dark"
+                android:textSize="@dimen/list_text_sub_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_new_bill" />
 
-                <LinearLayout
-                    android:id="@+id/layout_profile_customer_activities"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/layout_profile_customer_subscriptions"
-                    android:layout_marginTop="24dp"
-                    android:orientation="vertical"
-                    >
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view_customer_pending_bills"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fadeScrollbars="true"
+                android:scrollbars="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView12">
 
-                    <TextView
-                        android:id="@+id/txt_profile_view_activities"
-                        style="@style/basic_text_field"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="View Activities"
-                        android:textSize="@dimen/list_text_main_text"/>
-
-                    <TextView
-                        android:id="@+id/txt_profile_view_activities_subtext"
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="24dp"
-                        android:text="View cancellations/changes"
-                        android:textColor="?android:attr/textColorSecondary"
-                        android:textSize="@dimen/list_text_sub_text"/>
-
-                    <include
-                        layout="@layout/layout_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"/>
+            </android.support.v7.widget.RecyclerView>
 
 
-                </LinearLayout>
-
-                <!--<LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/view_customer_info">
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recycler_view_bill_details"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:scrollbars="vertical"
-                        android:fadeScrollbars="true">
-
-                    </android.support.v7.widget.RecyclerView>
-                </LinearLayout>-->
-
-
-            </RelativeLayout>
-
-        </RelativeLayout>
+        </android.support.constraint.ConstraintLayout>
 
 
     </android.support.constraint.ConstraintLayout>

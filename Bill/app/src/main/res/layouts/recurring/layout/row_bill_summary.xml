@@ -38,7 +38,7 @@
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="@dimen/list_text_sub_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_bill_summary_customer_name"
+        app:layout_constraintTop_toBottomOf="@+id/img_bill_summary_status"
         tools:text="Details" />
 
 
@@ -52,17 +52,19 @@
         android:text="135/-"
         android:textSize="@dimen/list_text_amount_text"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/txt_bill_summary_customer_name"
-        app:layout_constraintEnd_toStartOf="@+id/img_bill_summary_status" />
+        app:layout_constraintBottom_toBottomOf="@+id/img_bill_summary_status"
+        app:layout_constraintEnd_toStartOf="@+id/img_bill_summary_status"
+        app:layout_constraintTop_toTopOf="@+id/img_bill_summary_status" />
 
     <ImageView
         android:id="@+id/img_bill_summary_status"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:padding="12dp"
         android:src="@drawable/ic_invoice_pending"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
