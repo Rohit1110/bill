@@ -190,7 +190,7 @@
                 android:padding="8dp"
                 android:text="Add New Bill"
                 android:textAllCaps="true"
-                android:textColor="#3C3CFF"
+                android:textColor="@color/buttonColor"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txt_profile_last_paid_bill" />
 
@@ -204,7 +204,7 @@
                 android:padding="8dp"
                 android:text="View Details"
                 android:textAllCaps="true"
-                android:textColor="#3C3CFF"
+                android:textColor="@color/buttonColor"
                 app:layout_constraintBaseline_toBaselineOf="@+id/btn_add_new_bill"
                 app:layout_constraintEnd_toEndOf="parent" />
 

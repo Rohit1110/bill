@@ -8,7 +8,7 @@
     <color name="bgcolor">#DCDCDC</color>
     <color name="drewerbg">#263445</color>
     <color name="red">#FFEC2E18</color>
-    <color name="buttonColor">#00A6FF</color>
+    <color name="buttonColor1">#00A6FF</color>
     <color name="navigationDrawerColor">#263445</color>
     <color name="navigationDrawerColorDark">#1d2d41</color>
 </resources>
