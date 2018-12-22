@@ -53,11 +53,8 @@ import util.Utility;
 public class GenericCreateBillActivity extends AppCompatActivity {
 
     public static final String FINISH_BILL_ACTIVITY = "finish billActivity";
-    private RecyclerView recyclerView;
     private ProgressDialog pDialog;
-    private TransactionsAdapter adapter;
     private Button saveBill;
-    private Button sendBill;
     private AutoCompleteTextView customerName;
     private EditText customerPhone;
     private EditText customerEmail;
@@ -75,9 +72,9 @@ public class GenericCreateBillActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generic_create_bill);
-        Utility.setActionBar("Update bill", getSupportActionBar());
+        Utility.setActionBar("Add/Update bill", getSupportActionBar());
 
-        saveBill = (Button) findViewById(R.id.gn_btn_save_bill);
+        saveBill =  findViewById(R.id.gn_btn_save_bill);
 
         saveBill.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,25 +83,17 @@ public class GenericCreateBillActivity extends AppCompatActivity {
             }
         });
 
-        sendBill = (Button) findViewById(R.id.gn_btn_send_bill);
-        sendBill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                sendCustomerBill();
-            }
-        });
+        customerName =  findViewById(R.id.et_product_name);
+        customerEmail =  findViewById(R.id.et_customer_email);
+        customerPhone =  findViewById(R.id.et_product_description);
 
-        customerName = (AutoCompleteTextView) findViewById(R.id.et_product_name);
-        customerEmail = (EditText) findViewById(R.id.et_customer_email);
-        customerPhone = (EditText) findViewById(R.id.et_product_description);
+        billAmount =  findViewById(R.id.et_customer_bill_amount);
 
-        billAmount = (EditText) findViewById(R.id.et_customer_bill_amount);
+        cashPayment =  findViewById(R.id.chk_gn_bill_offline_payment);
+        paidIcon =  findViewById(R.id.img_gn_delete_inv_item);
+        billPaidDetails =  findViewById(R.id.txt_bill_paid_details);
 
-        cashPayment = (CheckBox) findViewById(R.id.chk_gn_bill_offline_payment);
-        paidIcon = (ImageView) findViewById(R.id.img_gn_delete_inv_item);
-        billPaidDetails = (TextView) findViewById(R.id.txt_bill_paid_details);
-
-        billDetails = (TextView) findViewById(R.id.btn_gn_bill_details);
+        billDetails =  findViewById(R.id.btn_gn_bill_details);
         billDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -150,7 +139,7 @@ public class GenericCreateBillActivity extends AppCompatActivity {
                 return false;
             }
         });
-        ;
+
 
         customerName.setThreshold(2);
 
