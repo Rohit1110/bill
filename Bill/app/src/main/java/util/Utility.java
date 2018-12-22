@@ -149,7 +149,7 @@ public class Utility {
 
     public static void AppBarTitle(String title, Activity context) {
         //size = 24
-        context.setTitle(Html.fromHtml("<font color='#343F4B' >" + title + "</font>"));
+        context.setTitle(Html.fromHtml("<font color='#343F4B' ><small>" + title + "</small></font>"));
         //context.setTitle("My Products");
     }
 
