@@ -227,9 +227,9 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
             address.setText(selectedCustomer.getAddress());
 
             if (selectedCustomer.getCurrentSubscription() != null) {
-                billsDue.setText(selectedCustomer.getCurrentSubscription().getBillsDue() + " Bills Due");
+                billsDue.setText("Bills Due: "+selectedCustomer.getCurrentSubscription().getBillsDue());
                 if (selectedCustomer.getCurrentSubscription().getLastBillPaid() != null) {
-                    lastPaid.setText("Last paid on " + CommonUtils.convertDate(selectedCustomer.getCurrentSubscription().getLastBillPaid()));
+                    lastPaid.setText("Last paid on: " + CommonUtils.convertDate(selectedCustomer.getCurrentSubscription().getLastBillPaid()));
                 } else {
                     lastPaid.setText("No payment found");
                 }
