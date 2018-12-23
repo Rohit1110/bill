@@ -8,6 +8,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -262,6 +263,20 @@ public class Utility {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void saveToSharedPref(Activity activity, String keyString, Object object) {
+        SharedPreferences sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(keyString, ServiceUtil.toJson(object));
+        editor.commit();
+
+    }
+
+    public static Object readFromSharedPref(Activity activity, String key, Class<?> cls) {
+        SharedPreferences sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
+        return ServiceUtil.fromJson(sharedPreferences.getString(key, null), cls);
     }
 
     public static void nextFragment(FragmentActivity activity, Fragment fragment) {
@@ -578,7 +593,7 @@ public class Utility {
 
     public static String getDecimalString(BigDecimal decimal) {
         try {
-            if(decimal == null) {
+            if (decimal == null) {
                 return "0";
             }
             DecimalFormat decimalFormat = new DecimalFormat("0.#####");

@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -39,6 +40,7 @@ import com.rns.web.billapp.service.domain.BillServiceResponse;
 import com.rns.web.billapp.service.util.BillConstants;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import adapters.CustomerListAdapter;
@@ -230,9 +232,12 @@ public class CustomerList extends Fragment {
     }
 
     private void loadCustomers() {
-        //Load from Cache
-        setCustomerList(BillCache.getCustomers(getActivity()));
 
+        Date date = new Date();
+        //Load from Cache
+        List<BillUser> customers = BillCache.getCustomers(getActivity());
+        setCustomerList(customers);
+        Log.d("CustomerList", ".. Ended redering .." + (new Date().getTime() - date.getTime()));
 
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
@@ -271,11 +276,21 @@ public class CustomerList extends Fragment {
         if (users != null && users.size() > 0) {
             for (BillUser user : users) {
                 list.add(new BillCustomer(user));
+            /*    count++;
+                if (count > 10) {
+                    break;
+                }*/
             }
         }
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new CustomerListAdapter(list, getActivity(), user);
+        recyclerView.setHasFixedSize(true);
+        /*recyclerView.setItemViewCacheSize(50);
+        recyclerView.setDrawingCacheEnabled(true);
+        recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);*/
         recyclerView.setAdapter(adapter);
+
     }
 
     public void filter(final String text) {

@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,6 +51,8 @@ public class SelectNewspaperActivity extends AppCompatActivity {
     private TextView txtSelectedItems;
     private Button save;
     private List<BillItemHolder> filterList = new ArrayList<>();
+    private CheckBox selectAll;
+    private SelectNewsPaperAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +109,26 @@ public class SelectNewspaperActivity extends AppCompatActivity {
                 // show it
                 alertDialog.show();
 
+            }
+        });
+
+        selectAll = (CheckBox) findViewById(R.id.chk_select_all_newspapers);
+        selectAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (adapter == null || adapter.getList() == null || adapter.getList().size() == 0) {
+                    return;
+                }
+                if (b) {
+                    for (BillItemHolder holder : adapter.getList()) {
+                        selectItem(holder.getItem(), holder);
+                    }
+                } else {
+                    for (BillItemHolder holder : adapter.getList()) {
+                        deselectItem(holder.getItem(), holder);
+                    }
+                }
+                adapter.notifyDataSetChanged();
             }
         });
     }
@@ -240,8 +264,7 @@ public class SelectNewspaperActivity extends AppCompatActivity {
                             if (selectedItems != null && selectedItems.size() > 0) {
                                 for (BillItem selectedItem : selectedItems) {
                                     if (item.getId() == selectedItem.getParentItem().getId()) {
-                                        holder.setSelected(true);
-                                        txtSelectedItems.setText(txtSelectedItems.getText() + item.getName() + ",");
+                                        selectItem(item, holder);
                                     }
                                 }
                             }
@@ -250,7 +273,7 @@ public class SelectNewspaperActivity extends AppCompatActivity {
                         }
                     }
                     recyclerView.setLayoutManager(new LinearLayoutManager(SelectNewspaperActivity.this));
-                    SelectNewsPaperAdapter adapter = new SelectNewsPaperAdapter(list);
+                    adapter = new SelectNewsPaperAdapter(list);
                     adapter.setSelectedItems(txtSelectedItems);
                     recyclerView.setAdapter(adapter);
                 } else {
@@ -262,6 +285,22 @@ public class SelectNewspaperActivity extends AppCompatActivity {
             }
 
         };
+    }
+
+    private void selectItem(BillItem item, BillItemHolder holder) {
+        if (holder == null || item == null) {
+            return;
+        }
+        holder.setSelected(true);
+        txtSelectedItems.setText(txtSelectedItems.getText() + item.getName() + ",");
+    }
+
+    private void deselectItem(BillItem item, BillItemHolder holder) {
+        if (holder == null || item == null) {
+            return;
+        }
+        holder.setSelected(false);
+        txtSelectedItems.setText(txtSelectedItems.getText().toString().replace(item.getName() + ",", ""));
     }
 
 

@@ -48,7 +48,8 @@ public class BillCache implements Serializable {
     public static void addDeliveries(List<BillUser> deliveries, Activity activity) {
         BillCache cache = getBillCache(activity);
         cache.setDeliveries(deliveries);
-        Utility.writeObject(activity, BILL_CACHE_KEY, cache);
+        //Utility.writeObject(activity, BILL_CACHE_KEY, cache);
+        saveCache(activity, cache);
     }
 
     @NonNull
@@ -61,7 +62,8 @@ public class BillCache implements Serializable {
     }
 
     private static BillCache readCache(Activity activity) {
-        return (BillCache) Utility.readObject(activity, BILL_CACHE_KEY);
+        //return (BillCache) Utility.readObject(activity, BILL_CACHE_KEY);
+        return (BillCache) Utility.readFromSharedPref(activity, BILL_CACHE_KEY, BillCache.class);
     }
 
     public static List<BillUser> getDeliveries(Activity activity) {
@@ -75,7 +77,12 @@ public class BillCache implements Serializable {
     public static void addCustomers(List<BillUser> customers, Activity activity) {
         BillCache cache = getBillCache(activity);
         cache.setCustomers(customers);
-        Utility.writeObject(activity, BILL_CACHE_KEY, cache);
+        //Utility.writeObject(activity, BILL_CACHE_KEY, cache);
+        saveCache(activity, cache);
+    }
+
+    private static void saveCache(Activity activity, BillCache cache) {
+        Utility.saveToSharedPref(activity, BILL_CACHE_KEY, cache);
     }
 
     public static List<BillUser> getCustomers(Activity activity) {

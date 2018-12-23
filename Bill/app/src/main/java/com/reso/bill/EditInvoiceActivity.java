@@ -66,7 +66,7 @@ public class EditInvoiceActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_invoice);
 
         invoice = (BillInvoice) Utility.getIntentObject(BillInvoice.class, getIntent(), Utility.INVOICE_KEY);
-        if(invoice == null) {
+        if (invoice == null) {
             invoice = new BillInvoice();
         }
         customer = (BillUser) Utility.getIntentObject(BillUser.class, getIntent(), Utility.CUSTOMER_KEY);
@@ -415,6 +415,9 @@ public class EditInvoiceActivity extends AppCompatActivity {
 
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
+                    if (serviceResponse.getInvoice() != null) {
+                        invoice = serviceResponse.getInvoice();
+                    }
                     Utility.createAlert(EditInvoiceActivity.this, "Invoice updated successfully!", "Done");
                     //Utility.nextFragment(EditInvoiceActivity.this, FragmentCustomerInvoices.newInstance(customer));
                 } else {

@@ -12,6 +12,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -21,10 +22,12 @@ import android.widget.Toast;
 
 import com.reso.bill.AddBusinessLogo;
 import com.reso.bill.CustomerList;
+import com.reso.bill.FragmentInvoiceSummary;
 import com.reso.bill.HelpActivity;
 import com.reso.bill.R;
 import com.reso.bill.VendorRegistration;
 import com.rns.web.billapp.service.bo.domain.BillUser;
+import com.rns.web.billapp.service.util.BillConstants;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -96,6 +99,12 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
         drawer = (DrawerLayout) findViewById(R.id.drawertest_layout);
 
         user = (BillUser) Utility.readObject(GenericDashboard.this, Utility.USER_KEY);
+
+        if (!BillConstants.FRAMEWORK_RECURRING.equals(Utility.getFramework(user))) {
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            Menu nav_Menu = navigationView.getMenu();
+            nav_Menu.findItem(R.id.nav_quick_bill).setVisible(false);
+        }
 
         //initFragments();
         /*
@@ -182,6 +191,7 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
 
         drawer.addDrawerListener(toggle);
         toggle.syncState();
@@ -275,10 +285,15 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
                 Intent helpI = new Intent(GenericDashboard.this, HelpActivity.class);
                 startActivity(helpI);
                 break;
+            case R.id.nav_pending_invoices:
+                fragment = FragmentInvoiceSummary.newInstance(user);
+                break;
+            case R.id.nav_quick_bill:
+                //TODO fragment = GenericInvoices.newInstance();
+                break;
             /*case R.id.nav_settings:
                 fragment = Settings.newInstance();
                 break;*/
-
 
         }
         if (fragment != null) {

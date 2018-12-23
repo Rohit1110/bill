@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -115,7 +116,7 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
             }
         });
 
-        billSummary =  findViewById(R.id.layout_profile_customer_bill_summary);
+        billSummary = findViewById(R.id.layout_profile_customer_bill_summary);
         billSummary.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,7 +125,7 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
             }
         });
 
-        billDetails =  findViewById(R.id.btn_view_customer_bills);
+        billDetails = findViewById(R.id.btn_view_customer_bills);
 
         billDetails.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,8 +227,19 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
             phone.setText(selectedCustomer.getPhone());
             address.setText(selectedCustomer.getAddress());
 
+            if (TextUtils.isEmpty(name.getText())) {
+                name.setText("No name");
+            }
+            if (TextUtils.isEmpty(email.getText())) {
+                email.setText("No email");
+            }
+
+            if (TextUtils.isEmpty(address.getText())) {
+                address.setText("No address");
+            }
+
             if (selectedCustomer.getCurrentSubscription() != null) {
-                billsDue.setText("Bills Due: "+selectedCustomer.getCurrentSubscription().getBillsDue());
+                billsDue.setText("Bills Due: " + selectedCustomer.getCurrentSubscription().getBillsDue());
                 if (selectedCustomer.getCurrentSubscription().getLastBillPaid() != null) {
                     lastPaid.setText("Last paid on: " + CommonUtils.convertDate(selectedCustomer.getCurrentSubscription().getLastBillPaid()));
                 } else {

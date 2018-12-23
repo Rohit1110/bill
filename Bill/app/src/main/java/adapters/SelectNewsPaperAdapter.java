@@ -45,6 +45,10 @@ public class SelectNewsPaperAdapter extends RecyclerView.Adapter<SelectNewsPaper
     private List<BillItemHolder> list;
     private TextView selectedItems;
 
+    public List<BillItemHolder> getList() {
+        return list;
+    }
+
     public SelectNewsPaperAdapter(List<BillItemHolder> list) {
         this.list = list;
     }
@@ -98,6 +102,8 @@ public class SelectNewsPaperAdapter extends RecyclerView.Adapter<SelectNewsPaper
             txtName = (TextView) itemView.findViewById(R.id.sub_item_name);
 
         }
+
+
 
         private void bind(BillItemHolder mainItem, final int pos) {
             boolean expanded = mainItem.isExpanded();

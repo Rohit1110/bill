@@ -114,11 +114,8 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*boolean expanded = movie.isExpanded();
-                movie.setExpanded(!expanded);
-                notifyItemChanged(position);*/
+
                 movie.getUser().setCurrentBusiness(currentUser.getCurrentBusiness());
-                //Utility.nextFragment(context, CustomerProfileFragment.newInstance(movie.getUser()));
                 context.startActivity(Utility.nextIntent(context, GenericCustomerProfileActivity.class, true, movie.getUser(), Utility.CUSTOMER_KEY));
             }
         });
@@ -148,7 +145,7 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
 
             final BillUser customerUser = customer.getUser();
             txtName.setText(customerUser.getName());
-            if(TextUtils.isEmpty(txtName.getText())) {
+            if (TextUtils.isEmpty(txtName.getText())) {
                 txtName.setText(customerUser.getPhone());
             }
 
