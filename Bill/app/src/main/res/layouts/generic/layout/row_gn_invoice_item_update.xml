@@ -20,7 +20,7 @@
         android:text="Product name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintWidth_percent="0.45"
         />
 
     <TextView
@@ -33,7 +33,8 @@
         android:singleLine="true"
         android:text="1 "
         app:layout_constraintStart_toEndOf="@+id/txt_update_inv_item_cross"
-        app:layout_constraintTop_toTopOf="@+id/txt_update_inv_item_name"/>
+        app:layout_constraintTop_toTopOf="@+id/txt_update_inv_item_name"
+        app:layout_constraintWidth_percent="0.15"/>
 
     <TextView
         android:id="@+id/txt_update_inv_item_cross"
@@ -69,7 +70,8 @@
         android:singleLine="false"
         android:text="0"
         app:layout_constraintStart_toEndOf="@+id/txt_update_inv_item_equals"
-        app:layout_constraintTop_toTopOf="@+id/txt_update_inv_item_equals"/>
+        app:layout_constraintTop_toTopOf="@+id/txt_update_inv_item_equals"
+        app:layout_constraintWidth_percent="0.15"/>
 
     <ImageView
         android:id="@+id/img_gn_delete_inv_item"

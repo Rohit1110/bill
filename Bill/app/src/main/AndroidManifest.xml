@@ -90,13 +90,15 @@
         <activity
             android:name=".generic.GenericCreateBillActivity"
             android:label="Update Bill"
-            android:theme="@style/ActivityTheme">
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name=".generic.GenericUpdateInvoiceItemsActivity"
             android:label="Bill Details"
             android:parentActivityName=".generic.GenericCreateBillActivity"
-            android:theme="@style/ActivityTheme">
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustResize">
         </activity>
         <activity
             android:name=".generic.GenericBankDetailsActivity"

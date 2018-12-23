@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            >
+
 
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/relativeLayout2"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     android:scrollbars="vertical"
     android:background="@color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -93,24 +101,26 @@
 
 
     <Spinner
-        android:id="@+id/spinnerMonth"
+        android:id="@+id/spn_gn_month"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/spinnerYear"
+        app:layout_constraintEnd_toStartOf="@+id/spn_gn_year"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_gn_bill_details" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_gn_bill_details"
+        android:visibility="gone"/>
 
     <Spinner
-        android:id="@+id/spinnerYear"
+        android:id="@+id/spn_gn_year"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/spinnerMonth"
-        app:layout_constraintTop_toBottomOf="@+id/btn_gn_bill_details" />
+        app:layout_constraintStart_toEndOf="@+id/spn_gn_month"
+        app:layout_constraintTop_toBottomOf="@+id/btn_gn_bill_details"
+        android:visibility="gone"/>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/gn_create_bill_payment_layout"
@@ -118,7 +128,7 @@
         android:layout_height="33dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinnerMonth">
+        app:layout_constraintTop_toBottomOf="@+id/spn_gn_month">
 
         <android.support.v7.widget.AppCompatCheckBox
             android:id="@+id/chk_gn_bill_offline_payment"
@@ -182,3 +192,4 @@
 
 
 </android.support.constraint.ConstraintLayout>
+</ScrollView>

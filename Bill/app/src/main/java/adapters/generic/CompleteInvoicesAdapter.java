@@ -110,7 +110,11 @@ public class CompleteInvoicesAdapter extends RecyclerView.Adapter<RecyclerView.V
             } else {
                 view.txtInvoiceRef.setText("Invoice #" + CommonUtils.getStringValue(currentInvoice.getId()));
             }
-            view.txtAmount.setText("INR " + CommonUtils.getStringValue(currentInvoice.getAmount()));
+            if(currentInvoice.getPayable() != null) {
+                view.txtAmount.setText("INR " + CommonUtils.getStringValue(currentInvoice.getPayable()));
+            } else {
+                view.txtAmount.setText("INR " + CommonUtils.getStringValue(currentInvoice.getAmount()));
+            }
 
             if (currentInvoice.getStatus() != null && BillConstants.INVOICE_STATUS_PAID.equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_paid);

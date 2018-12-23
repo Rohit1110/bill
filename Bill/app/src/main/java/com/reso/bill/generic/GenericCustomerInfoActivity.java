@@ -1,9 +1,11 @@
 package com.reso.bill.generic;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -90,10 +92,11 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
                     name.setError("Please enter name");
                     return;
                 }
-                if (address.getText().toString().equals("")) {
+
+                /*if (address.getText().toString().equals("")) {
                     address.setError("Please enter address");
                     return;
-                }
+                }*/
                 /*if (serviceCharge.getText().toString().equals("")) {
                     serviceCharge.setError("Please enter serviceCharge");
                     return;
@@ -347,7 +350,22 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
             if (customer.getCurrentSubscription() != null) {
                 customer.getCurrentSubscription().setId(customerId);
             }
-            Utility.createAlertWithActivityFinish(this, message, title, Utility.CUSTOMER_KEY, customer, GenericCustomerProfileActivity.class, null);
+            //Utility.createAlertWithActivityFinish(this, message, title, Utility.CUSTOMER_KEY, customer, GenericCustomerProfileActivity.class, null);
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            if (title != null) {
+                alertDialogBuilder.setTitle(title);
+            }
+            alertDialogBuilder.setMessage(message);
+            alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    startActivity(Utility.nextIntent(GenericCustomerInfoActivity.this, GenericCustomerProfileActivity.class, true, customer, Utility.CUSTOMER_KEY));
+                    finish();
+                }
+            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
             return;
         }
         Utility.createAlertWithActivityFinish(this, message, title, null, null, null, null);

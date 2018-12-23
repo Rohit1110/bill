@@ -289,7 +289,7 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
                 fragment = FragmentInvoiceSummary.newInstance(user);
                 break;
             case R.id.nav_quick_bill:
-                //TODO fragment = GenericInvoices.newInstance();
+                fragment = GenericInvoices.newInstance();
                 break;
             /*case R.id.nav_settings:
                 fragment = Settings.newInstance();

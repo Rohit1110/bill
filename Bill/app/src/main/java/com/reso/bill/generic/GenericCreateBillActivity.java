@@ -13,13 +13,13 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -43,10 +44,11 @@ import com.rns.web.billapp.service.util.BillConstants;
 import com.rns.web.billapp.service.util.CommonUtils;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import adapters.TransactionsAdapter;
 import util.ServiceUtil;
 import util.Utility;
 
@@ -67,6 +69,10 @@ public class GenericCreateBillActivity extends AppCompatActivity {
     private TextView billPaidDetails;
     private List<BillUser> customers;
     private TextView billDetails;
+    private Spinner month;
+    private Spinner year;
+    private String[] monthsArray;
+    private List<String> yearsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +80,10 @@ public class GenericCreateBillActivity extends AppCompatActivity {
         setContentView(R.layout.activity_generic_create_bill);
         Utility.setActionBar("Add/Update bill", getSupportActionBar());
 
-        saveBill =  findViewById(R.id.gn_btn_save_bill);
+        //Hide keyboard on load
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+        saveBill = findViewById(R.id.gn_btn_save_bill);
 
         saveBill.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,17 +92,17 @@ public class GenericCreateBillActivity extends AppCompatActivity {
             }
         });
 
-        customerName =  findViewById(R.id.et_product_name);
-        customerEmail =  findViewById(R.id.et_customer_email);
-        customerPhone =  findViewById(R.id.et_product_description);
+        customerName = findViewById(R.id.et_product_name);
+        customerEmail = findViewById(R.id.et_customer_email);
+        customerPhone = findViewById(R.id.et_product_description);
 
-        billAmount =  findViewById(R.id.et_customer_bill_amount);
+        billAmount = findViewById(R.id.et_customer_bill_amount);
 
-        cashPayment =  findViewById(R.id.chk_gn_bill_offline_payment);
-        paidIcon =  findViewById(R.id.img_gn_delete_inv_item);
-        billPaidDetails =  findViewById(R.id.txt_bill_paid_details);
+        cashPayment = findViewById(R.id.chk_gn_bill_offline_payment);
+        paidIcon = findViewById(R.id.img_gn_delete_inv_item);
+        billPaidDetails = findViewById(R.id.txt_bill_paid_details);
 
-        billDetails =  findViewById(R.id.btn_gn_bill_details);
+        billDetails = findViewById(R.id.btn_gn_bill_details);
         billDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,6 +122,9 @@ public class GenericCreateBillActivity extends AppCompatActivity {
                 startActivity(Utility.nextIntent(GenericCreateBillActivity.this, GenericUpdateInvoiceItemsActivity.class, false, currCustomer, Utility.CUSTOMER_KEY));
             }
         });
+
+        month = (Spinner) findViewById(R.id.spn_gn_month);
+        year = (Spinner) findViewById(R.id.spn_gn_year);
 
         user = (BillUser) Utility.readObject(this, Utility.USER_KEY);
 
@@ -175,6 +187,32 @@ public class GenericCreateBillActivity extends AppCompatActivity {
             }
         };
         registerReceiver(broadcastReciever, new IntentFilter(FINISH_BILL_ACTIVITY));
+
+        if (BillConstants.FRAMEWORK_RECURRING.equals(Utility.getFramework(user))) {
+            //Show Month and Year
+            month.setVisibility(View.VISIBLE);
+            year.setVisibility(View.VISIBLE);
+
+            if (invoice != null && invoice.getMonth() != null && invoice.getYear() != null) {
+                month.setSelection(invoice.getMonth());
+                month.setEnabled(false);
+                year.setSelection(yearsList.indexOf(invoice.getYear().toString()));
+                year.setEnabled(false);
+            } else {
+                monthsArray = getResources().getStringArray(R.array.months_arrays);
+                month.setPrompt("Select month");
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_basic_text_white, monthsArray);
+                month.setAdapter(adapter);
+                yearsList = Utility.createYearsArray();
+                /*if (invoice == null || invoice.getId() == null) {
+                    yearsList.add("Select Year");
+                }*/
+                year.setAdapter(new ArrayAdapter<String>(this, R.layout.spinner_basic_text_white, yearsList));
+                year.setPrompt("Select year");
+                setCurrentMonthAndYear();
+            }
+        }
+
     }
 
     @Override
@@ -251,23 +289,7 @@ public class GenericCreateBillActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
                             //Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
-                            Intent whatsappIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + "" + customerPhone.getText().toString() + "?body=" + serviceResponse.getResponse()));
-                            //whatsappIntent.setType("text/plain");
-                            whatsappIntent.setPackage("com.whatsapp");
-                            //whatsappIntent.putExtra(Intent.EXTRA_TEXT, serviceResponse.getResponse());
-                            try {
-
-                                Intent intent = new Intent(Intent.ACTION_VIEW);
-                                String whatsappNumber = customerPhone.getText().toString();
-                                if (whatsappNumber != null && !whatsappNumber.contains("+91")) {
-                                    whatsappNumber = "+91" + whatsappNumber;
-                                }
-                                intent.setData(Uri.parse("http://api.whatsapp.com/send?phone=" + whatsappNumber + "&text=" + serviceResponse.getResponse()));
-
-                                GenericCreateBillActivity.this.startActivity(intent);
-                            } catch (android.content.ActivityNotFoundException ex) {
-                                System.out.println("No whatsapp!!!" + ex);
-                            }
+                            shareViaWhatsapp(serviceResponse.getResponse());
                         }
                     });
                     alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -290,6 +312,26 @@ public class GenericCreateBillActivity extends AppCompatActivity {
         };
     }
 
+    private void shareViaWhatsapp(String serviceResponse) {
+        Intent whatsappIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + "" + customerPhone.getText().toString() + "?body=" + serviceResponse));
+        //whatsappIntent.setType("text/plain");
+        whatsappIntent.setPackage("com.whatsapp");
+        //whatsappIntent.putExtra(Intent.EXTRA_TEXT, serviceResponse.getResponse());
+        try {
+
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            String whatsappNumber = customerPhone.getText().toString();
+            if (whatsappNumber != null && !whatsappNumber.contains("+91")) {
+                whatsappNumber = "+91" + whatsappNumber;
+            }
+            intent.setData(Uri.parse("http://api.whatsapp.com/send?phone=" + whatsappNumber + "&text=" + serviceResponse));
+
+            GenericCreateBillActivity.this.startActivity(intent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            System.out.println("No whatsapp!!!" + ex);
+        }
+    }
+
     private void saveBill() {
         BillUser customer = prepareInvoice(false);
         if (customer == null) return;
@@ -304,12 +346,41 @@ public class GenericCreateBillActivity extends AppCompatActivity {
         queue.add(myReq);
     }
 
+    private void setCurrentMonthAndYear() {
+        Calendar cal = Calendar.getInstance();
+        //By default select previous month
+        cal.add(Calendar.MONTH, -1);
+        month.setSelection(cal.get(Calendar.MONTH) + 1);
+        year.setSelection(yearsList.indexOf(String.valueOf(cal.get(Calendar.YEAR))));
+    }
+
+    private Integer getMonth() {
+        int index = Arrays.asList(monthsArray).indexOf(month.getSelectedItem());
+        if (index > 0) {
+            return (index);
+        }
+        return null;
+    }
+
     @Nullable
     private BillUser prepareInvoice(boolean ignoreBillAmount) {
         if (invoice == null) {
             invoice = new BillInvoice();
-            invoice.setInvoiceDate(new Date());
+
         }
+        if (invoice.getId() == null) {
+            if (month.getVisibility() == View.VISIBLE) {
+                if (month.getSelectedItemPosition() == 0 || year.getSelectedItemPosition() == 0) {
+                    Utility.createAlert(this, "Please select month and year!", "Error");
+                    return null;
+                }
+                invoice.setMonth(getMonth());
+                invoice.setYear(new Integer(year.getSelectedItem().toString()));
+            } else {
+                invoice.setInvoiceDate(new Date());
+            }
+        }
+
         if (customerPhone.getText() == null || customerPhone.getText().toString().length() < 10) {
             Utility.createAlert(GenericCreateBillActivity.this, "Please enter a valid phone number!", "Error");
             return null;
@@ -347,7 +418,10 @@ public class GenericCreateBillActivity extends AppCompatActivity {
                         message = " Now you can send the invoice via SMS/Email";
                     }
                     if (serviceResponse.getInvoice() != null) {
+                        BigDecimal oldAmount = new BigDecimal(invoice.getAmount().toString());
                         invoice = serviceResponse.getInvoice();
+                        invoice.setAmount(oldAmount);
+                        invoice.setPayable(oldAmount);
                         customerPhone.setEnabled(false);
                         prepareInvoice(invoice);
                     }
@@ -463,7 +537,7 @@ public class GenericCreateBillActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.action_share:
-                shareIt();
+                showShareOptions();
                 return true;
             case android.R.id.home:
                 //Back button click
@@ -472,6 +546,44 @@ public class GenericCreateBillActivity extends AppCompatActivity {
 
         }
         return false;
+    }
+
+    private void showShareOptions() {
+        if (invoice == null || invoice.getId() == null || TextUtils.isEmpty(invoice.getPaymentMessage())) {
+            Utility.createAlert(this, "Please save the invoice before sharing", "Error");
+            return;
+        }
+
+        final CharSequence[] items = {"SMS/Email", "WhatsApp", "Other"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Share invoice with");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                System.out.println("Selected option => " + item);
+                switch (item) {
+                    case 0:
+                        sendCustomerBill();
+                        break;
+                    case 1:
+                        shareViaWhatsapp(invoice.getPaymentMessage());
+                        break;
+                    case 2:
+                        shareIt();
+                        break;
+                }
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
     }
 
     private void shareIt() {

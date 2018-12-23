@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -58,6 +59,9 @@ public class GenericUpdateInvoiceItemsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_generic_update_invoice_items);
         Utility.setActionBar("Bill details", getSupportActionBar());
 
+        //Hide keyboard on load
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         saveBill = (Button) findViewById(R.id.gn_btn_save_bill);
 
         saveBill.setOnClickListener(new View.OnClickListener() {
@@ -68,6 +72,7 @@ public class GenericUpdateInvoiceItemsActivity extends AppCompatActivity {
         });
 
         addProduct = (Button) findViewById(R.id.gn_btn_add_invoice_item);
+
 
         addProduct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +88,11 @@ public class GenericUpdateInvoiceItemsActivity extends AppCompatActivity {
                             updateInvoiceItems(invoiceItems);
                         }
                     } else {
+                        if (BillConstants.FRAMEWORK_RECURRING.equals(Utility.getFramework(user))) {
+                            Utility.createAlert(GenericUpdateInvoiceItemsActivity.this, "Please add this product to your profile first", "Error");
+                            return;
+                        }
+
                         if (TextUtils.isEmpty(productName.getText())) {
                             Utility.createAlert(GenericUpdateInvoiceItemsActivity.this, "Please enter a product name", "Error");
                             return;
@@ -180,7 +190,7 @@ public class GenericUpdateInvoiceItemsActivity extends AppCompatActivity {
         }
         BillItem parent = new BillItem();
         parent.setId(selectedItem.getId());
-        parent.setName(selectedItem.getName());
+        parent.setName(Utility.getItemName(selectedItem));
         invoiceItem.setParentItem(parent);
         invoiceItems.add(invoiceItem);
     }

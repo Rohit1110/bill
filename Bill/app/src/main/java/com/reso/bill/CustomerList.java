@@ -127,7 +127,7 @@ public class CustomerList extends Fragment {
                 ft.addToBackStack(null);
                 ft.commit();*/
                 //Utility.nextFragment(getActivity(), new CustomerInfo());
-                startActivity(Utility.nextIntent(getActivity(), GenericCustomerInfoActivity.class, false));
+                startActivity(Utility.nextIntent(getActivity(), GenericCustomerInfoActivity.class, true));
             }
         });
 
