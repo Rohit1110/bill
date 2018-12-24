@@ -7,12 +7,12 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -23,9 +23,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -56,13 +54,10 @@ public class CustomerList extends Fragment {
     private List<BillCustomer> list = new ArrayList<>();
     private List<BillCustomer> filterList = new ArrayList<>();
     private RecyclerView recyclerView;
-    private LinearLayout layout;
     private ProgressDialog pDialog;
     private BillUser user;
-    private Button addcust;
     private AlertDialog alertDialog;
     private CustomerListAdapter adapter;
-    //EditText search;
 
     public static CustomerList newInstance() {
         CustomerList fragment = new CustomerList();
@@ -113,24 +108,15 @@ public class CustomerList extends Fragment {
         View rootView = inflater.inflate(R.layout.customer_list_main, container, false);
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Customer List</font>"));
         Utility.AppBarTitle("Customer List", getActivity());
-        recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_cust_list);
-        addcust = (Button) rootView.findViewById(R.id.fab_addcustomer);
-        //layout = (LinearLayout) rootView.findViewById(R.id.layout_add_cust);
-        //search = ( EditText)rootView.findViewById(R.id.txt_search_cust);
-        addcust.setOnClickListener(new View.OnClickListener() {
+        recyclerView = rootView.findViewById(R.id.recycler_view_cust_list);
+
+        FloatingActionButton addNewBillFab = rootView.findViewById(R.id.addNewCustomerFab);
+        addNewBillFab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                //Utility.nextFragment(getActivity(), new CustomerInfo());
-                /*  Fragment fragment = new CustomerInfo();
-                FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frame_layout, fragment);
-                ft.addToBackStack(null);
-                ft.commit();*/
-                //Utility.nextFragment(getActivity(), new CustomerInfo());
+            public void onClick(View v) {
                 startActivity(Utility.nextIntent(getActivity(), GenericCustomerInfoActivity.class, true));
             }
         });
-
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new ClickListener() {
 
@@ -153,7 +139,6 @@ public class CustomerList extends Fragment {
                                     alertDialog.dismiss();
                                 }
                                 deleteCustomer(billCustomer);
-
                             }
                         }
                     }
@@ -162,28 +147,7 @@ public class CustomerList extends Fragment {
                 alertDialog.show();
             }
         }));
-        // getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-        /*search.addTextChangedListener(new TextWatcher() {
-                                          @Override
-                                          public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-                                          }
-
-                                          @Override
-                                          public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-
-                                              String text = search.getText().toString().toLowerCase(Locale.getDefault());
-
-                                              filter(text);
-                                          }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });*/
-        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
         return rootView;
     }
 
