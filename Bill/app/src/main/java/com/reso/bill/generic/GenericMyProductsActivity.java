@@ -2,6 +2,7 @@ package com.reso.bill.generic;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -36,20 +36,15 @@ import util.Utility;
 public class GenericMyProductsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    //private List<ListTwo> list = new ArrayList<>();
-    private List<BillItem> listtwo = new ArrayList<>();
     BillServiceResponse serviceResponse;
     private AddNewspaperAdapter mAdapter;
-    private LinearLayout layoutaddnewspaper;
     private BillUser user;
     private ProgressDialog pDialog;
     private List<BillItem> businessItems;
     private Button add;
-    //private ImageView img;
 
     //private List<BillItem> = new ArrayList<>();
     List<BillItem> filterList = new ArrayList<BillItem>();
-    List<BillItem> list = new ArrayList<BillItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,21 +55,18 @@ public class GenericMyProductsActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         Utility.setActionBar(title, actionBar);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view_newspaper);
+        recyclerView = findViewById(R.id.recycler_view_newspaper);
 
-        add = (Button) findViewById(R.id.btn_gn_add_product);
-        add.setOnClickListener(new View.OnClickListener() {
+
+        FloatingActionButton addNewProductFab = findViewById(R.id.addNewProductFab);
+        addNewProductFab.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                //Add new product
+            public void onClick(View v) {
                 startActivity(Utility.nextIntent(GenericMyProductsActivity.this, GenericAddProductActivity.class, false));
             }
         });
 
         user = (BillUser) Utility.readObject(GenericMyProductsActivity.this, Utility.USER_KEY);
-
-        //getActionBar().setCustomView(R.layout.layout_app_bar);
-        //Utility.AppBarTitleActivity("My Products", GenericMyProductsActivity.this);
 
     }
 

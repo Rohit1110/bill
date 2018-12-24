@@ -47,9 +47,9 @@ public class GenericVendorDashBoard extends Fragment {
 
         BillUser user = (BillUser) Utility.readObject(getActivity(), Utility.USER_KEY);
 
-        layoutMyProducts = (ConstraintLayout) rootView.findViewById(R.id.layout_my_products);
-        layoutTransactions = (ConstraintLayout) rootView.findViewById(R.id.layout_transactions);
-        layoutBankInformation = (ConstraintLayout) rootView.findViewById(R.id.layout_bank_info);
+        layoutMyProducts = rootView.findViewById(R.id.layout_my_products);
+        layoutTransactions = rootView.findViewById(R.id.layout_transactions);
+        layoutBankInformation = rootView.findViewById(R.id.layout_bank_info);
 
         layoutMyProducts.setOnClickListener(new View.OnClickListener() {
             @Override
