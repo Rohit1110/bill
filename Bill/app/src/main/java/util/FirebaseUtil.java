@@ -12,9 +12,9 @@ public class FirebaseUtil {
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             return FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber();
         }
-        //return  null;
+        return  null;
         //return "+919923283604";
-        return "9423040642";
+        //return "9423040642";
         //return "+919623736773";
         //return "+919028928867";
         //return "1122334455";
@@ -22,9 +22,13 @@ public class FirebaseUtil {
         //return "1234567123";
         //return "1911191119";
         //return "+911090901025";
-
+        //return "+919623490889";
+        //return "1112223332";
     }
 
+    public static void logout() {
+        FirebaseAuth.getInstance().signOut();
+    }
 }
 
 
