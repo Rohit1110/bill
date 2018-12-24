@@ -6,8 +6,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -40,15 +40,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private EditText mPhoneNumberField, mVerificationField;
     private TextView mCodeNumberField;
     private Button mVerifyButton, mResendButton;
-    private ProgressDialog proDialog;
+//    private ProgressDialog proDialog;
     private Button mStartButton;
 
     private FirebaseAuth mAuth;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     private String mVerificationId;
-    private LinearLayout layoutvarification;
-    private LinearLayout phoneAuth, layOutReg;
+    private ConstraintLayout layoutvarification, phoneAuth;
 
     private static final String TAG = "PhoneAuthActivity";
 
@@ -67,21 +66,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mainlogin);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.ltoolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
-        mPhoneNumberField = (EditText) findViewById(R.id.field_phone_number);
-        mVerificationField = (EditText) findViewById(R.id.field_verification_code);
-        mCodeNumberField = (TextView) findViewById(R.id.field_code_number);
+        setContentView(R.layout.activity_login_new);
+        mPhoneNumberField = findViewById(R.id.field_phone_number);
+        mVerificationField = findViewById(R.id.field_verification_code);
+        mCodeNumberField = findViewById(R.id.field_code_number);
 
 
-        mStartButton = (Button) findViewById(R.id.button_start_verification);
-        mVerifyButton = (Button) findViewById(R.id.button_verify_phone);
-        mResendButton = (Button) findViewById(R.id.button_resend);
-        layoutvarification = (LinearLayout) findViewById(R.id.layoutvarification);
-        phoneAuth = (LinearLayout) findViewById(R.id.layoutauth);
-        //layOutReg=(LinearLayout)findViewById(R.id.reglayout);
+        mStartButton = findViewById(R.id.button_start_verification);
+        mVerifyButton = findViewById(R.id.button_verify_phone);
+        mResendButton = findViewById(R.id.button_resend);
+        layoutvarification = findViewById(R.id.layoutvarification);
+        phoneAuth = findViewById(R.id.layoutauth);
+        //layOutReg=findViewById(R.id.reglayout);
 
         mStartButton.setOnClickListener(this);
         mVerifyButton.setOnClickListener(this);
@@ -115,10 +111,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             @Override
             public void onCodeSent(String verificationId, PhoneAuthProvider.ForceResendingToken token) {
                 Log.d(TAG, "onCodeSent:" + verificationId);
-                proDialog.dismiss();
+//                proDialog.dismiss();
                 mVerificationId = verificationId;
                 mResendToken = token;
-                phoneAuth.setVisibility(View.GONE);
+                phoneAuth.setVisibility(View.INVISIBLE);
                 mStartButton.setVisibility(View.GONE);
                 //layOutReg.setVisibility(View.GONE);
                 layoutvarification.setVisibility(VISIBLE);
@@ -204,12 +200,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (view.getId()) {
             case R.id.button_start_verification:
                 System.out.println("Login button clicked");
-                proDialog = new ProgressDialog(LoginActivity.this);
-                proDialog.setMessage("Signing in....");
-                proDialog.setCancelable(false);
-                proDialog.show();
+//                proDialog = new ProgressDialog(LoginActivity.this);
+//                proDialog.setMessage("Please wait. We're logging you in....");
+//                proDialog.setCancelable(false);
+//                proDialog.show();
                 if (Utility.isInternetOn(LoginActivity.this)) {
-                    phoneAuth.setVisibility(View.GONE);
+                    Toast.makeText(this, "Please wait for SMS code", Toast.LENGTH_SHORT).show();
+                    phoneAuth.setVisibility(View.INVISIBLE);
                     mStartButton.setVisibility(View.GONE);
                     layoutvarification.setVisibility(view.VISIBLE);
 
@@ -218,26 +215,25 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         mStartButton.setVisibility(View.VISIBLE);
                         //layOutReg.setVisibility(View.GONE);
                         layoutvarification.setVisibility(view.GONE);
-                        proDialog.dismiss();
+//                        proDialog.dismiss();
                         return;
                     }
                     startPhoneNumberVerification(mCodeNumberField.getText().toString() + mPhoneNumberField.getText().toString());
                 } else {
-                    proDialog.dismiss();
-                    Toast.makeText(LoginActivity.this, "Check Internet Connection..!!", Toast.LENGTH_LONG).show();
+//                    proDialog.dismiss();
+                    Toast.makeText(LoginActivity.this, "Please Check Your Internet Connection.", Toast.LENGTH_LONG).show();
                 }
-
-
                 break;
+
             case R.id.button_verify_phone:
                 String code = mVerificationField.getText().toString();
                 if (TextUtils.isEmpty(code)) {
                     mVerificationField.setError("Cannot be empty.");
                     return;
                 }
-
                 verifyPhoneNumberWithCode(mVerificationId, code);
                 break;
+
             case R.id.button_resend:
                 resendVerificationCode(mPhoneNumberField.getText().toString(), mResendToken);
                 break;
