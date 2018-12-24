@@ -59,37 +59,9 @@ public class AddNewspaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.userBusiness = userBusiness;
     }
 
-    class ViewHolder1 extends RecyclerView.ViewHolder {
-        //private TextView price;
-        private ImageView image;
-        private TextView name;
-        ImageView iv;
-        private TextView price;
-
-        //View appointmentindicator;
-
-        public ViewHolder1(View itemView) {
-            super(itemView);
-            image = (ImageView) itemView.findViewById(R.id.img_addnewspaper);
-            //price = (TextView) itemView.findViewById(R.id.txt_newspaper_rates);
-            name = (TextView) itemView.findViewById(R.id.txt_add_subscription_item_name);
-            price = (TextView) itemView.findViewById(R.id.txt_item_price);
-            //iv = (ImageView) itemView.findViewById(R.id.btn_paus);
-
-        }
-    }
-
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View item = inflater.inflate(R.layout.add_newspaper_row, parent, false);
-        return new ViewHolder1(item);
-    }
-
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        final BillItem item = (BillItem) items.get(position);
+        final BillItem item = items.get(position);
         ViewHolder1 gholder = (ViewHolder1) holder;
 
         Integer itemId = item.getId();
@@ -140,6 +112,32 @@ public class AddNewspaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             });
         }
 
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View item = inflater.inflate(R.layout.add_newspaper_row, parent, false);
+        return new ViewHolder1(item);
+    }
+
+    class ViewHolder1 extends RecyclerView.ViewHolder {
+        private ImageView image;
+        private TextView name;
+        ImageView iv;
+        private TextView price;
+
+
+        public ViewHolder1(View itemView) {
+            super(itemView);
+            image = itemView.findViewById(R.id.img_addnewspaper);
+            //price =  itemView.findViewById(R.id.txt_newspaper_rates);
+            name = itemView.findViewById(R.id.txt_add_subscription_item_name);
+            price = itemView.findViewById(R.id.txt_item_price);
+            //iv =  itemView.findViewById(R.id.btn_paus);
+
+        }
     }
 
     private void deleteItem(BillItem item) {
