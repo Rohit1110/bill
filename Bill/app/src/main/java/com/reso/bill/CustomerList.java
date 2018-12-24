@@ -110,8 +110,8 @@ public class CustomerList extends Fragment {
         Utility.AppBarTitle("Customer List", getActivity());
         recyclerView = rootView.findViewById(R.id.recycler_view_cust_list);
 
-        FloatingActionButton addNewBillFab = rootView.findViewById(R.id.addNewCustomerFab);
-        addNewBillFab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton addNewCustomerFab = rootView.findViewById(R.id.addNewCustomerFab);
+        addNewCustomerFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(Utility.nextIntent(getActivity(), GenericCustomerInfoActivity.class, true));
