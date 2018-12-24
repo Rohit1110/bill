@@ -137,20 +137,6 @@
                         android:hint="Enter Branch address"
                         />
 
-                    <include
-                        layout="@layout/layout_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/fab_margin"/>
-
-                    <Button
-                        android:id="@+id/fab_bank_details"
-                        style="@style/basic_button"
-                        android:layout_width="wrap_content"
-                        android:layout_gravity="bottom|right"
-                        android:layout_margin="@dimen/fab_margin"
-                        android:text="Save"/>
-
 
                 </LinearLayout>
 
