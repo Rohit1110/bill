@@ -15,8 +15,12 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:text="Name"
         android:textSize="@dimen/list_text_main_text"
+        app:layout_constraintEnd_toStartOf="@+id/txt_item_price"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,7 +45,7 @@
         android:layout_marginRight="16dp"
         android:text="0.00"
         android:textSize="@dimen/list_text_main_text"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
