@@ -1,249 +1,312 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.reso.bill.generic.GenericCustomerInfoActivity">
+    android:layout_height="fill_parent"
+    android:background="@android:color/white">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    xmlns:tools="http://schemas.android.com/tools"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    tools:context="com.reso.bill.VendorRegistration"
-                    tools:showIn="@layout/generic_fragment_update_bill">
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.reso.bill.generic.GenericCustomerInfoActivity">
 
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView19"
+            style="@style/textviewtitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Name"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/list_text_sub_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <!--    <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="vertical">
+        <EditText
+            android:id="@+id/et_product_name"
+            style="@style/regedittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
 
-                    <TextView
-                        style="@style/basic_text_field"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/fab_margin"
-                        android:text="Customer \nInformation"
-                        />
-
-
-
-                </LinearLayout>-->
-
-            <android.support.v4.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:layout_marginBottom="@dimen/fab_margin"
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginLeft="10dp"
-                    >
-
-                    <TextView
-                        style="@style/textviewtitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Name"
-                        android:layout_marginLeft="15dp"/>
-
-                    <EditText
-                        android:id="@+id/et_product_name"
-                        style="@style/regedittext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter Name"
-                        android:layout_marginRight="10dp"
-                        android:drawableRight="@drawable/person"
-
-                        />
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:drawableRight="@drawable/person"
+            android:hint="Enter Name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
 
-                    <TextView
-                        style="@style/textviewtitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Contact"
-                        android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/textView21"
+            style="@style/textviewtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Contact"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/list_text_sub_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_product_name" />
 
-                    <EditText
-                        android:id="@+id/et_product_description"
-                        style="@style/regedittext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter Contact"
-                        android:layout_marginRight="10dp"
-                        />
+        <EditText
+            android:id="@+id/et_product_description"
+            style="@style/regedittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="Enter Contact"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView21" />
 
-                    <TextView
-                        style="@style/textviewtitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Email ID"
-                        android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/textView18"
+            style="@style/textviewtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Email ID"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/list_text_sub_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_product_description" />
 
-                    <EditText
-                        android:id="@+id/et_customer_email"
-                        style="@style/regedittext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:hint="Enter Email ID"
-                        />
+        <EditText
+            android:id="@+id/et_customer_email"
+            style="@style/regedittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="Enter Email ID"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
-                    <TextView
-                        style="@style/textviewtitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Area"
-                        android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/textView20"
+            style="@style/textviewtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Area"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/list_text_sub_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_customer_email" />
 
-                    <Spinner
-                        android:id="@+id/sp_customer_area"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        style="@style/Widget.AppCompat.Spinner.Underlined"
-                        />
+        <Spinner
+            android:id="@+id/sp_customer_area"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
-                    <TextView
-                        style="@style/textviewtitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Customer Address"
-                        android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/textView23"
+            style="@style/textviewtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Customer Address"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/list_text_sub_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sp_customer_area" />
 
-                    <EditText
-                        android:id="@+id/et_customer_address"
-                        style="@style/regedittext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter Customer Address"
-                        android:layout_marginRight="10dp"
-                        />
+        <EditText
+            android:id="@+id/et_customer_address"
+            style="@style/regedittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="Enter Customer Address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView23" />
 
-                    <TextView
-                        style="@style/textviewtitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Service charge monthly Rs."
-                        android:layout_marginLeft="10dp"/>
+        <TextView
+            android:id="@+id/textView22"
+            style="@style/textviewtitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Service charge monthly Rs."
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/list_text_sub_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_customer_address" />
 
-                    <EditText
-                        android:id="@+id/et_customer_service_charge"
-                        style="@style/regedittext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Enter Service Charge monthly"
-                        android:layout_marginRight="10dp"
-                        />
+        <EditText
+            android:id="@+id/et_customer_service_charge"
+            style="@style/regedittext"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="Enter Service Charge monthly"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
-                    <!--<LinearLayout
-                        android:id="@+id/layout_subscriptions"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/fab_margin"
-                        android:background="#ffffff">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            style="@style/basic_text_field"
-                            android:text="Add Subscriptions"/>
+        <!--<LinearLayout
+            android:id="@+id/layout_subscriptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fab_margin"
+            android:background="#ffffff">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/basic_text_field"
+                android:text="Add Subscriptions"/>
 
-                    </LinearLayout>-->
-                    <include
-                        layout="@layout/layout_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"/>
+        </LinearLayout>-->
+        <include
+            android:id="@+id/include16"
+            layout="@layout/layout_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_customer_service_charge" />
 
-                    <android.support.v7.widget.AppCompatCheckBox
-                        android:id="@+id/chk_add_to_contact"
-                        style="@style/regedittext"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Add contact to phone book"
-                        >
+        <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/chk_add_to_contact"
+            style="@style/regedittext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Add contact to phone book"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include16">
 
-                    </android.support.v7.widget.AppCompatCheckBox>
+        </android.support.v7.widget.AppCompatCheckBox>
 
-                    <include
-                        layout="@layout/layout_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"/>
+        <include
+            android:id="@+id/include17"
+            layout="@layout/layout_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chk_add_to_contact" />
 
-                    <!--<android.support.v7.widget.AppCompatCheckBox
-                        android:id="@+id/chk_hide_bill_details"
-                        style="@style/regedittext"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Show only bill total"
-                        >
+        <!--<android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/chk_hide_bill_details"
+            style="@style/regedittext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Show only bill total"
+            >
 
-                    </android.support.v7.widget.AppCompatCheckBox>-->
+        </android.support.v7.widget.AppCompatCheckBox>-->
 
-                    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-                                android:id="@+id/radio_show_bill_options"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:gravity="center"    >
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/radio_show_bill_options"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include17">
 
-                        <RadioButton
-                            android:id="@+id/radio_show_full_bill"
-                            style="@style/basic_sub_text_field"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Show Full Bill"/>
+            <RadioButton
+                android:id="@+id/radio_show_full_bill"
+                style="@style/basic_sub_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Show Full Bill" />
 
-                        <RadioButton
-                            android:id="@+id/radio_show_only_summary"
-                            style="@style/basic_sub_text_field"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Show Only Summary"/>
-                    </RadioGroup>
+            <RadioButton
+                android:id="@+id/radio_show_only_summary"
+                style="@style/basic_sub_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Show Only Summary" />
+        </RadioGroup>
 
-                    <Button
-                        android:id="@+id/btn_gn_save_product"
-                        style="@style/basic_button"
-                        android:layout_width="wrap_content"
-                        android:layout_gravity="bottom|right"
-                        android:layout_margin="@dimen/fab_margin"
-                        android:text="Save"/>
-                </LinearLayout>
-
-
-            </android.support.v4.widget.NestedScrollView>
-
-
-        </LinearLayout>
-
-
-    </RelativeLayout>
+        <Button
+            android:id="@+id/btn_gn_save_product"
+            style="@style/basic_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_margin="@dimen/fab_margin"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp"
+            android:text="Save"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radio_show_bill_options" />
 
 
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
 </ScrollView>
