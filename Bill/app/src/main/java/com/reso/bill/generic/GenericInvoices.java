@@ -18,11 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -162,7 +160,6 @@ public class GenericInvoices extends Fragment {
         addNewBillFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Toast.makeText(getActivity(), "FAB Tapped", Toast.LENGTH_SHORT).show();
                 startActivity(Utility.nextIntent(getActivity(), GenericCreateBillActivity.class, true));
             }
         });
