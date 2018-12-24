@@ -120,20 +120,6 @@
                         android:layout_height="120dp"/>
 
 
-                    <include
-                        layout="@layout/layout_line"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"/>
-
-
-                    <Button
-                        android:id="@+id/btn_gn_save_product"
-                        style="@style/basic_button"
-                        android:layout_width="match_parent"
-                        android:layout_gravity="bottom|right"
-                        android:layout_margin="@dimen/fab_margin"
-                        android:text="Save"/>
                 </LinearLayout>
 
 

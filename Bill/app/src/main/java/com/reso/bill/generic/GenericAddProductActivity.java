@@ -11,12 +11,14 @@ import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
@@ -40,11 +42,11 @@ import util.ServiceUtil;
 import util.Utility;
 
 public class GenericAddProductActivity extends AppCompatActivity {
+    private static final String TAG = "GenericAddProductActivi";
 
     private static final int PICK_PHOTO_FOR_AVATAR = 1;
     private EditText photoupload;
     private ImageView img;
-    private String filestring;
     private BillItem item;
     private TextView productName;
     private TextView productDescription;
@@ -52,7 +54,6 @@ public class GenericAddProductActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     private Bitmap bitmap;
     private String filename;
-    private Button save;
     private BillUser user;
 
     @Override
@@ -73,13 +74,6 @@ public class GenericAddProductActivity extends AppCompatActivity {
 
         photoupload = findViewById(R.id.et_product_image);
         img = findViewById(R.id.selected_img);
-        save = findViewById(R.id.btn_gn_save_product);
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                uploadBitmap();
-            }
-        });
 
         photoupload.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -102,9 +96,9 @@ public class GenericAddProductActivity extends AppCompatActivity {
             }
         });
 
-        productName = (TextView) findViewById(R.id.et_product_name);
-        productDescription = (TextView) findViewById(R.id.et_product_description);
-        productPrice = (TextView) findViewById(R.id.et_product_price);
+        productName = findViewById(R.id.et_product_name);
+        productDescription = findViewById(R.id.et_product_description);
+        productPrice = findViewById(R.id.et_product_price);
 
         if (this.item != null) {
             productName.setText(this.item.getName());
@@ -118,6 +112,25 @@ public class GenericAddProductActivity extends AppCompatActivity {
         if (this.item != null && this.item.getId() != null) {
             Picasso.get().load(Utility.getBusinessItemImageURL(this.item.getId())).into(img);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.edit_bank_info_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+
+        if (id == R.id.save_menu_item) {
+            uploadBitmap();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -173,7 +186,7 @@ public class GenericAddProductActivity extends AppCompatActivity {
     private void uploadBitmap() {
 
         if (TextUtils.isEmpty(productName.getText())) {
-            Utility.createAlert(this, "Please enter the product name!", "Error");
+            Toast.makeText(this, "Please enter the product name", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -187,26 +200,27 @@ public class GenericAddProductActivity extends AppCompatActivity {
                 progressDialog.dismiss();
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(new String(response.data), BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
-                    Utility.createAlertWithActivityFinish(GenericAddProductActivity.this, "Product saved successfully!", "Done", null, null, null, null);
 
+                    Toast.makeText(GenericAddProductActivity.this, "New product added successfully", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(GenericAddProductActivity.this, GenericMyProductsActivity.class));
                 } else {
-                    Utility.createAlert(GenericAddProductActivity.this, serviceResponse.getResponse(), "Error");
+                    Toast.makeText(GenericAddProductActivity.this, "Error: " + serviceResponse.getResponse(), Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 progressDialog.dismiss();
-                Utility.createAlert(GenericAddProductActivity.this, "Error in saving ..", "Error");
+                Toast.makeText(GenericAddProductActivity.this, "There was some error while saving", Toast.LENGTH_SHORT).show();
             }
         }) {
 
             /*
-            * If you want to add more parameters with the image
-            * you can do it here
-            * here we have only one parameter with the image
-            * which is tags
-            * */
+             * If you want to add more parameters with the image
+             * you can do it here
+             * here we have only one parameter with the image
+             * which is tags
+             * */
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
@@ -226,8 +240,8 @@ public class GenericAddProductActivity extends AppCompatActivity {
             }
 
             /*
-            * Here we are passing image by renaming it with a unique name
-            * */
+             * Here we are passing image by renaming it with a unique name
+             * */
             @Override
             protected Map<String, DataPart> getByteData() {
                 Map<String, DataPart> params = new HashMap<>();
