@@ -1,5 +1,6 @@
 package com.reso.bill.generic;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +10,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
@@ -24,6 +26,7 @@ import com.reso.bill.AddBusinessLogo;
 import com.reso.bill.CustomerList;
 import com.reso.bill.FragmentInvoiceSummary;
 import com.reso.bill.HelpActivity;
+import com.reso.bill.LoginActivity;
 import com.reso.bill.R;
 import com.reso.bill.VendorRegistration;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -32,6 +35,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import util.FirebaseUtil;
 import util.ServiceUtil;
 import util.Utility;
 
@@ -290,6 +294,23 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.nav_quick_bill:
                 fragment = GenericInvoices.newInstance();
+                break;
+            case R.id.nav_logout:
+                new AlertDialog.Builder(GenericDashboard.this)
+                        .setTitle("Logout?")
+                        .setMessage("Do you really want to logout?")
+//                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                FirebaseUtil.logout();
+
+                                startActivity(Utility.nextIntent(GenericDashboard.this, LoginActivity.class, false));
+                                GenericDashboard.this.finish();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, null).show();
+
                 break;
             /*case R.id.nav_settings:
                 fragment = Settings.newInstance();

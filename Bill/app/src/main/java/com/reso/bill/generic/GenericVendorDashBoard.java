@@ -1,12 +1,10 @@
 package com.reso.bill.generic;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +13,6 @@ import android.widget.TextView;
 
 import com.reso.bill.BillSummaryActivity;
 import com.reso.bill.DailySummaryFragment;
-import com.reso.bill.LoginActivity;
 import com.reso.bill.ManageNewspapersActivity;
 import com.reso.bill.R;
 import com.reso.bill.SettingsActivity;
@@ -25,7 +22,6 @@ import com.rns.web.billapp.service.util.CommonUtils;
 
 import java.util.Date;
 
-import util.FirebaseUtil;
 import util.Utility;
 
 public class GenericVendorDashBoard extends Fragment {
@@ -36,7 +32,6 @@ public class GenericVendorDashBoard extends Fragment {
     //Recurring layouts
     private ConstraintLayout layout_total_orders, layout_manage_newspapers, layout_bill_summary, layout_settings;
     private TextView totalOrdersDate;
-    private ConstraintLayout layoutLogout;
 
     @Nullable
     @Override
@@ -55,7 +50,6 @@ public class GenericVendorDashBoard extends Fragment {
         layoutMyProducts = (ConstraintLayout) rootView.findViewById(R.id.layout_my_products);
         layoutTransactions = (ConstraintLayout) rootView.findViewById(R.id.layout_transactions);
         layoutBankInformation = (ConstraintLayout) rootView.findViewById(R.id.layout_bank_info);
-        layoutLogout = (ConstraintLayout) rootView.findViewById(R.id.layout_logout);
 
         layoutMyProducts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,26 +76,6 @@ public class GenericVendorDashBoard extends Fragment {
             }
         });
 
-        layoutLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new AlertDialog.Builder(getContext())
-                        .setTitle("Logout?")
-                        .setMessage("Do you really want to logout?")
-//                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-
-                            public void onClick(DialogInterface dialog, int whichButton) {
-                                FirebaseUtil.logout();
-
-                                startActivity(Utility.nextIntent(getActivity(), LoginActivity.class, false));
-                                getActivity().finish();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null).show();
-
-            }
-        });
 
         //Newspaper specific
         layout_total_orders = rootView.findViewById(R.id.layout_totalorder);
