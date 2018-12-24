@@ -1,66 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    >
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <LinearLayout
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/layout_add_cust"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
-        <!--<EditText
-            android:id="@+id/txt_search_cust"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Search customer"
-            android:layout_gravity="left"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:textColor="@android:color/black"
-            android:drawableRight="@android:drawable/ic_menu_search"/>-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:background="@color/white">
-        <Button
-            android:id="@+id/fab_addcustomer"
-            style="@style/basic_button"
-            android:layout_width="wrap_content"
-            android:layout_gravity="top|right"
-            android:layout_margin="10dp"
-            android:text="add"/>
+        android:layout_height="wrap_content">
 
-        </LinearLayout>
 
-    </LinearLayout>
-
-    <include
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@id/layout_add_cust"
-        layout="@layout/layout_line" />
-
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_cust_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        android:fadeScrollbars="true"
-        android:layout_below="@id/layout_add_cust"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
 
-         />
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="0dp"
+        android:fadeScrollbars="true"
+        android:scrollbars="vertical" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addNewCustomerFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="48dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="16dp"
+        android:clickable="true"
+        app:backgroundTint="@color/buttonColor"
+        app:srcCompat="@drawable/ic_add_white_24dp" />
 
 </RelativeLayout>
