@@ -59,15 +59,21 @@ public class GenericAddProductActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generic_add_product);
-        Utility.setActionBar("Add/Edit Product", getSupportActionBar());
+
 
         user = (BillUser) Utility.readObject(this, Utility.USER_KEY);
         //Fetch item from the intent
         this.item = (BillItem) Utility.getIntentObject(BillItem.class, getIntent(), Utility.ITEM_KEY);
 
-        photoupload = (EditText) findViewById(R.id.et_product_image);
-        img = (ImageView) findViewById(R.id.selected_img);
-        save = (Button) findViewById(R.id.btn_gn_save_product);
+        if (this.item == null) {
+            Utility.setActionBar("Add Product", getSupportActionBar());
+        } else {
+            Utility.setActionBar("Edit Product", getSupportActionBar());
+        }
+
+        photoupload = findViewById(R.id.et_product_image);
+        img = findViewById(R.id.selected_img);
+        save = findViewById(R.id.btn_gn_save_product);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
