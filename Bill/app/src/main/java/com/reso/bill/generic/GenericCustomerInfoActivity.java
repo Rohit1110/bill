@@ -210,9 +210,10 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
         if (id == R.id.save_menu_item) {
             Log.d(TAG, "onOptionsItemSelected: Save bank info");
             validateCustomerInfoFields();
-
+            return super.onOptionsItemSelected(item);
+        } else {
+            return Utility.backDefault(item, GenericCustomerInfoActivity.this);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     private void contactPicked(Intent data) {
