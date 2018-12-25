@@ -30,7 +30,6 @@ import com.reso.bill.MainActivity;
 import com.reso.bill.R;
 import com.reso.bill.components.ClickListener;
 import com.reso.bill.components.RecycleClickListener;
-import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.bo.domain.BillUserLog;
@@ -62,7 +61,7 @@ public class GenericInvoices extends Fragment {
     private Date date;
     private Spinner durations;
     //private Spinner year;
-    private List<String> yearsList;
+//    private List<String> yearsList;
     private TextView txtNoPayments;
     private boolean screenLoaded = false;
     private CompleteInvoicesAdapter invoicesAdapter;
@@ -313,42 +312,42 @@ public class GenericInvoices extends Fragment {
 
     }
 
-    private void deleteInvoice(BillInvoice invoice) {
-        if (invoice == null || invoice.getId() == null) {
-            return;
-        }
-        invoice.setStatus(BillConstants.INVOICE_STATUS_DELETED);
-        //}
-        BillServiceRequest request = new BillServiceRequest();
-        request.setInvoice(invoice);
-        pDialog = Utility.getProgressDialogue("Deleting..", getActivity());
-        StringRequest myReq = ServiceUtil.getStringRequest("updateCustomerInvoice", invoiceDeletionResponse(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
-        RequestQueue queue = Volley.newRequestQueue(getActivity());
-        queue.add(myReq);
-    }
+//    private void deleteInvoice(BillInvoice invoice) {
+//        if (invoice == null || invoice.getId() == null) {
+//            return;
+//        }
+//        invoice.setStatus(BillConstants.INVOICE_STATUS_DELETED);
+//        //}
+//        BillServiceRequest request = new BillServiceRequest();
+//        request.setInvoice(invoice);
+//        pDialog = Utility.getProgressDialogue("Deleting..", getActivity());
+//        StringRequest myReq = ServiceUtil.getStringRequest("updateCustomerInvoice", invoiceDeletionResponse(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
+//        RequestQueue queue = Volley.newRequestQueue(getActivity());
+//        queue.add(myReq);
+//    }
 
-    private Response.Listener<String> invoiceDeletionResponse() {
-        return new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                System.out.println("## response:" + response);
-                pDialog.dismiss();
-
-                BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
-                if (serviceResponse != null && serviceResponse.getStatus() == 200) {
-                    loadInvoices();
-                    Utility.createAlert(getContext(), "Invoice deleted successfully!", "Done");
-                } else {
-                    System.out.println("Error .." + serviceResponse.getResponse());
-                    Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
-                }
-
-            }
-
-        };
-
-
-    }
+//    private Response.Listener<String> invoiceDeletionResponse() {
+//        return new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                System.out.println("## response:" + response);
+//                pDialog.dismiss();
+//
+//                BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
+//                if (serviceResponse != null && serviceResponse.getStatus() == 200) {
+//                    loadInvoices();
+//                    Utility.createAlert(getContext(), "Invoice deleted successfully!", "Done");
+//                } else {
+//                    System.out.println("Error .." + serviceResponse.getResponse());
+//                    Utility.createAlert(getActivity(), serviceResponse.getResponse(), "Error");
+//                }
+//
+//            }
+//
+//        };
+//
+//
+//    }
 
 
 }
