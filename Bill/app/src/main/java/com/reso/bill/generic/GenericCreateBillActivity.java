@@ -123,8 +123,8 @@ public class GenericCreateBillActivity extends AppCompatActivity {
             }
         });
 
-        month = (Spinner) findViewById(R.id.spn_gn_month);
-        year = (Spinner) findViewById(R.id.spn_gn_year);
+        month = findViewById(R.id.spn_gn_month);
+        year = findViewById(R.id.spn_gn_year);
 
         user = (BillUser) Utility.readObject(this, Utility.USER_KEY);
 
