@@ -3,7 +3,7 @@
 
     <string name="btn_login">LOGIN</string>
     <string name="hint_code_number">+91</string>
-    <string name="hint_verification_code">Verification Code</string>
+    <string name="hint_verification_code">Enter Verification Code</string>
     <string name="hint_phone_number">Enter Phone Number</string>
     <string name="start_phone_auth">Login</string>
     <string name="verify_phone_auth">Verify</string>

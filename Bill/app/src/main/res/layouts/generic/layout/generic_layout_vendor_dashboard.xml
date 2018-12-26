@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
             android:layout_height="fill_parent">
     <!--
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -137,30 +138,30 @@
                 style="@style/basic_text_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
                 android:text="Total orders for today"
                 android:textSize="@dimen/list_text_main_text"
                 app:layout_constraintBottom_toTopOf="@+id/txt_vendor_total_orderdate"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="spread_inside"/>
+                app:layout_constraintVertical_chainStyle="spread" />
 
             <TextView
                 android:id="@+id/txt_vendor_total_orderdate"
                 style="@style/basic_sub_text_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:text="Today"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="8dp"
+                android:text="Check orders"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="@dimen/list_text_sub_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_vendor_total_order"/>
+                app:layout_constraintTop_toBottomOf="@+id/txt_vendor_total_order" />
 
             <include
                 layout="@layout/layout_line"
@@ -201,16 +202,15 @@
                 style="@style/basic_sub_text_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="8dp"
                 android:text="Add/Update newspapers in your profile"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="@dimen/list_text_sub_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_vendor_manage_newspaper"/>
+                app:layout_constraintTop_toBottomOf="@+id/txt_vendor_manage_newspaper" />
 
             <include
                 layout="@layout/layout_line"
@@ -250,16 +250,15 @@
                 style="@style/basic_sub_text_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="8dp"
                 android:text="Overview of all your bills"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="@dimen/list_text_sub_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_vendor_accounting"/>
+                app:layout_constraintTop_toBottomOf="@+id/txt_vendor_accounting" />
 
             <include
                 layout="@layout/layout_line"
@@ -300,16 +299,15 @@
                 style="@style/basic_sub_text_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="8dp"
                 android:text="Review all payment transactions"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="@dimen/list_text_sub_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_vendor_transactions"/>
+                app:layout_constraintTop_toBottomOf="@+id/txt_vendor_transactions" />
 
             <include
                 layout="@layout/layout_line"
@@ -349,16 +347,15 @@
                 style="@style/basic_sub_text_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="8dp"
                 android:text="Profile settings"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="@dimen/list_text_sub_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_vendor_settings"/>
+                app:layout_constraintTop_toBottomOf="@+id/txt_vendor_settings" />
 
             <include
                 layout="@layout/layout_line"
@@ -396,16 +393,15 @@
                 style="@style/basic_sub_text_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="8dp"
                 android:text="Manage your products"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="@dimen/list_text_sub_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_my_products"/>
+                app:layout_constraintTop_toBottomOf="@+id/txt_my_products" />
 
             <include
                 layout="@layout/layout_line"
@@ -443,63 +439,15 @@
                 style="@style/basic_sub_text_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginBottom="8dp"
                 android:text="Update your bank account details"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="@dimen/list_text_sub_text"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_bank_info"/>
-
-            <include
-                layout="@layout/layout_line"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
-        </android.support.constraint.ConstraintLayout>
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/layout_logout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_bank_info">
-
-            <TextView
-                android:id="@+id/txt_logout"
-                style="@style/basic_text_field"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="Logout"
-                android:textSize="@dimen/list_text_main_text"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
-
-            <TextView
-                style="@style/basic_sub_text_field"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                android:text="Log out of the application"
-                android:textColor="?android:attr/textColorSecondary"
-                android:textSize="@dimen/list_text_sub_text"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txt_logout"/>
+                app:layout_constraintTop_toBottomOf="@+id/txt_bank_info" />
 
             <include
                 layout="@layout/layout_line"

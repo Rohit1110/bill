@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.reso.bill.BillSummaryActivity;
 import com.reso.bill.DailySummaryFragment;
-import com.reso.bill.LoginActivity;
 import com.reso.bill.ManageNewspapersActivity;
 import com.reso.bill.R;
 import com.reso.bill.SettingsActivity;
@@ -23,7 +22,6 @@ import com.rns.web.billapp.service.util.CommonUtils;
 
 import java.util.Date;
 
-import util.FirebaseUtil;
 import util.Utility;
 
 public class GenericVendorDashBoard extends Fragment {
@@ -34,7 +32,6 @@ public class GenericVendorDashBoard extends Fragment {
     //Recurring layouts
     private ConstraintLayout layout_total_orders, layout_manage_newspapers, layout_bill_summary, layout_settings;
     private TextView totalOrdersDate;
-    private ConstraintLayout layoutLogout;
 
     @Nullable
     @Override
@@ -50,10 +47,9 @@ public class GenericVendorDashBoard extends Fragment {
 
         BillUser user = (BillUser) Utility.readObject(getActivity(), Utility.USER_KEY);
 
-        layoutMyProducts = (ConstraintLayout) rootView.findViewById(R.id.layout_my_products);
-        layoutTransactions = (ConstraintLayout) rootView.findViewById(R.id.layout_transactions);
-        layoutBankInformation = (ConstraintLayout) rootView.findViewById(R.id.layout_bank_info);
-        layoutLogout = (ConstraintLayout) rootView.findViewById(R.id.layout_logout);
+        layoutMyProducts = rootView.findViewById(R.id.layout_my_products);
+        layoutTransactions = rootView.findViewById(R.id.layout_transactions);
+        layoutBankInformation = rootView.findViewById(R.id.layout_bank_info);
 
         layoutMyProducts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -80,14 +76,6 @@ public class GenericVendorDashBoard extends Fragment {
             }
         });
 
-        layoutLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                FirebaseUtil.logout();
-                startActivity(Utility.nextIntent(getActivity(), LoginActivity.class, false));
-                getActivity().finish();
-            }
-        });
 
         //Newspaper specific
         layout_total_orders = rootView.findViewById(R.id.layout_totalorder);

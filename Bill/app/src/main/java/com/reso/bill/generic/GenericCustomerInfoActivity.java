@@ -3,7 +3,6 @@ package com.reso.bill.generic;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,11 +16,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -47,8 +46,9 @@ import util.ServiceUtil;
 import util.Utility;
 
 public class GenericCustomerInfoActivity extends AppCompatActivity {
+    private static final String TAG = "GenericCustomerInfoActi";
 
-    private Button fabsubscription;
+    //    private Button fabsubscription;
     private List<BillCustomer> list = new ArrayList<>();
     private LinearLayout layout;
     private BillUser customer;
@@ -68,88 +68,11 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_generic_customer_info);
 
         customer = (BillUser) Utility.getIntentObject(BillUser.class, getIntent(), Utility.CUSTOMER_KEY);
-        Utility.setActionBar("Edit Customer Info", getSupportActionBar());
-
-        fabsubscription = (Button) findViewById(R.id.btn_gn_save_product);
-        fabsubscription.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BillSubscription subscription = null;
-                if (customer == null) {
-                    customer = new BillUser();
-                    subscription = new BillSubscription();
-                } else {
-                    subscription = customer.getCurrentSubscription();
-                    if (subscription == null) {
-                        subscription = new BillSubscription();
-                    }
-                }
-                /*if (!Utility.isValidEmail(email.getText().toString())) {
-                    email.setError("Please enter a valid email");
-                    return;
-                }*/
-                if (name.getText().toString().equals("")) {
-                    name.setError("Please enter name");
-                    return;
-                }
-
-                /*if (address.getText().toString().equals("")) {
-                    address.setError("Please enter address");
-                    return;
-                }*/
-                /*if (serviceCharge.getText().toString().equals("")) {
-                    serviceCharge.setError("Please enter serviceCharge");
-                    return;
-                }*/
-
-
-                if (!Utility.textViewFilled(contact) || contact.getText().toString().length() < 10) {
-                    contact.setError("Please enter a valid mobile number");
-                    return;
-                }
-                int selectedItemOfMySpinner = areas.getSelectedItemPosition();
-                String actualPositionOfMySpinner = (String) areas.getItemAtPosition(selectedItemOfMySpinner);
-
-                if (actualPositionOfMySpinner.isEmpty()) {
-                    Utility.createAlert(GenericCustomerInfoActivity.this, "Please select a location!", "Error");
-                    return;
-                }
-                customer.setName(name.getText().toString());
-                customer.setEmail(email.getText().toString());
-                customer.setPhone(contact.getText().toString());
-                customer.setAddress(address.getText().toString());
-                if (hideFullBill.isChecked()) {
-                    customer.setShowBillDetails("N");
-                } else if (showFullBill.isChecked()) {
-                    customer.setShowBillDetails("Y");
-                }
-                subscription.setServiceCharge(Utility.getDecimal(serviceCharge));
-
-
-
-               /* if (areas.getSelectedItem() == null || areas.getSelectedItem().toString().trim().length() == 0) {
-                    Utility.createAlert(GenericCustomerInfoActivity.this, "Please select a location!", "Error");
-                    return;
-                }*/
-                subscription.setArea(findArea());
-                customer.setCurrentSubscription(subscription);
-                saveCustomer();
-
-            }
-
-
-        });
-
-        /*layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AddSubcription fragment = new AddSubcription();
-                FragmentTransaction ft = GenericCustomerInfoActivity.this.getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.frame_layout, fragment);
-                ft.commit();
-
-            }
-        });*/
+        if (customer == null) {
+            Utility.setActionBar("Add New Customer", getSupportActionBar());
+        } else {
+            Utility.setActionBar("Edit Customer Info", getSupportActionBar());
+        }
 
         name = (EditText) findViewById(R.id.et_product_name);
         email = (EditText) findViewById(R.id.et_customer_email);
@@ -192,6 +115,55 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Validates customer input fields and saves the data
+     */
+    private void validateCustomerInfoFields() {
+        BillSubscription subscription = null;
+        if (customer == null) {
+            customer = new BillUser();
+            subscription = new BillSubscription();
+        } else {
+            subscription = customer.getCurrentSubscription();
+            if (subscription == null) {
+                subscription = new BillSubscription();
+            }
+        }
+
+        if (name.getText().toString().equals("")) {
+            name.setError("Please enter name");
+            return;
+        }
+
+
+        if (!Utility.textViewFilled(contact) || contact.getText().toString().length() < 10) {
+            contact.setError("Please enter a valid mobile number");
+            return;
+        }
+        int selectedItemOfMySpinner = areas.getSelectedItemPosition();
+        String actualPositionOfMySpinner = (String) areas.getItemAtPosition(selectedItemOfMySpinner);
+
+        if (actualPositionOfMySpinner.isEmpty()) {
+            Utility.createAlert(GenericCustomerInfoActivity.this, "Please select a location!", "Error");
+            return;
+        }
+        customer.setName(name.getText().toString());
+        customer.setEmail(email.getText().toString());
+        customer.setPhone(contact.getText().toString());
+        customer.setAddress(address.getText().toString());
+        if (hideFullBill.isChecked()) {
+            customer.setShowBillDetails("N");
+        } else if (showFullBill.isChecked()) {
+            customer.setShowBillDetails("Y");
+        }
+        subscription.setServiceCharge(Utility.getDecimal(serviceCharge));
+
+
+        subscription.setArea(findArea());
+        customer.setCurrentSubscription(subscription);
+        saveCustomer();
+    }
+
     private void setCustomerInfo() {
         if (customer != null) {
             name.setText(customer.getName());
@@ -223,8 +195,25 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.edit_bank_info_menu, menu);
+
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return Utility.backDefault(item, this);
+
+        int id = item.getItemId();
+
+        if (id == R.id.save_menu_item) {
+            Log.d(TAG, "onOptionsItemSelected: Save bank info");
+            validateCustomerInfoFields();
+            return super.onOptionsItemSelected(item);
+        } else {
+            return Utility.backDefault(item, GenericCustomerInfoActivity.this);
+        }
     }
 
     private void contactPicked(Intent data) {
@@ -330,17 +319,6 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
         };
     }
 
-    /*@NonNull
-    private Fragment getNextFragment() {
-        if (customer != null && customer.getId() == null && customerId != null) {
-            customer.setId(customerId);
-            if (customer.getCurrentSubscription() != null) {
-                customer.getCurrentSubscription().setId(customerId);
-            }
-            return CustomerProfileFragment.newInstance(customer);
-        }
-        return new CustomerList();
-    }*/
 
     private void getNextIntent() {
         String message = "Customer details updated successfully!";
@@ -371,32 +349,7 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
         Utility.createAlertWithActivityFinish(this, message, title, null, null, null, null);
     }
 
-    /*private void insertContactPhoneNumber(String phoneNumber) {
-        Uri addContactsUri = ContactsContract.Data.CONTENT_URI;
 
-        // Add an empty contact and get the generated id.
-        long rowContactId = getRawContactId();
-        // Create a ContentValues object.
-        ContentValues contentValues = new ContentValues();
-
-        // Each contact must has an id to avoid java.lang.IllegalArgumentException: raw_contact_id is required error.
-        contentValues.put(ContactsContract.Data.RAW_CONTACT_ID, rowContactId);
-
-        // Each contact must has an mime type to avoid java.lang.IllegalArgumentException: mimetype is required error.
-        contentValues.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
-
-        // Put phone number value.
-        contentValues.put(ContactsContract.CommonDataKinds.Phone.NUMBER, phoneNumber);
-
-        contentValues.put(ContactsContract.CommonDataKinds.Phone.TYPE, ContactsContract.CommonDataKinds.Phone.TYPE_WORK);
-        // Insert new contact data into phone contact list.
-        GenericCustomerInfoActivity.this.getContentResolver().insert(addContactsUri, contentValues);
-
-        System.out.println("Added to contacts!");
-
-        Utility.nextFragment(GenericCustomerInfoActivity.this, new CustomerList());
-
-    }*/
 
     private void addContact(BillUser customer) {
         ContentValues values = new ContentValues();
@@ -441,16 +394,6 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
         }
 
         return false;
-    }
-
-
-    private long getRawContactId() {
-        // Inser an empty contact.
-        ContentValues contentValues = new ContentValues();
-        Uri rawContactUri = GenericCustomerInfoActivity.this.getContentResolver().insert(ContactsContract.RawContacts.CONTENT_URI, contentValues);
-        // Get the newly created contact raw id.
-        long ret = ContentUris.parseId(rawContactUri);
-        return ret;
     }
 
     @Override

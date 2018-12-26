@@ -22,12 +22,12 @@
            >
             <!--app:popupTheme="@style/AppTheme.PopupOverlay"-->
             <TextView
+                style="@style/basic_text_field"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:text="Registration"
-                style="@style/basic_text_field"
-               />
+                android:textSize="@dimen/list_text_main_text" />
 
         </android.support.v7.widget.Toolbar>
 

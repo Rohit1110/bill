@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -40,7 +41,7 @@ public class CompleteInvoicesAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private Activity activity;
     List<BillUser> users = new ArrayList<>();
-    private BillUser customer;
+    //    private BillUser customer;
     private ProgressDialog pDialog;
     private BillUser selectedUser;
 
@@ -110,20 +111,24 @@ public class CompleteInvoicesAdapter extends RecyclerView.Adapter<RecyclerView.V
             } else {
                 view.txtInvoiceRef.setText("Invoice #" + CommonUtils.getStringValue(currentInvoice.getId()));
             }
-            if(currentInvoice.getPayable() != null) {
-                view.txtAmount.setText("INR " + CommonUtils.getStringValue(currentInvoice.getPayable()));
+            if (currentInvoice.getPayable() != null) {
+                view.txtAmount.setText(CommonUtils.getStringValue(currentInvoice.getPayable()) + "/-");
             } else {
-                view.txtAmount.setText("INR " + CommonUtils.getStringValue(currentInvoice.getAmount()));
+                view.txtAmount.setText(CommonUtils.getStringValue(currentInvoice.getAmount()) + "/-");
             }
 
             if (currentInvoice.getStatus() != null && BillConstants.INVOICE_STATUS_PAID.equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_paid);
+                showHelpfulToast(view.imgStatus, "Invoice Paid");
             } else if (currentInvoice.getStatus() != null && "Settled".equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_txn_settled);
+                showHelpfulToast(view.imgStatus, "Transaction Settled");
             } else if (currentInvoice.getStatus() != null && "Failed".equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_failed);
+                showHelpfulToast(view.imgStatus, "Invoice Failed");
             } else {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_pending);
+                showHelpfulToast(view.imgStatus, "Invoice Pending");
             }
 
         }
@@ -162,6 +167,14 @@ public class CompleteInvoicesAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     }
 
+    private void showHelpfulToast(ImageView imageView, final String message) {
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     @Override
     public int getItemCount() {
         if (users == null) {

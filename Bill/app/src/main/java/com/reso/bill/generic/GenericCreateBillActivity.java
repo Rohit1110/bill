@@ -23,18 +23,17 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.reso.bill.MainActivity;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -56,8 +55,7 @@ public class GenericCreateBillActivity extends AppCompatActivity {
 
     public static final String FINISH_BILL_ACTIVITY = "finish billActivity";
     private ProgressDialog pDialog;
-    private Button saveBill;
-    private AutoCompleteTextView customerName;
+    private static final int MENU_ITEM_SAVE = 1;
     private EditText customerPhone;
     private EditText customerEmail;
     private BillInvoice invoice;
@@ -73,6 +71,8 @@ public class GenericCreateBillActivity extends AppCompatActivity {
     private Spinner year;
     private String[] monthsArray;
     private List<String> yearsList;
+    //    private Button saveBill;
+    private AutoCompleteTextView customerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,14 +83,14 @@ public class GenericCreateBillActivity extends AppCompatActivity {
         //Hide keyboard on load
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        saveBill = findViewById(R.id.gn_btn_save_bill);
+//        saveBill = findViewById(R.id.gn_btn_save_bill);
 
-        saveBill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveBill();
-            }
-        });
+//        saveBill.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                saveBill();
+//            }
+//        });
 
         customerName = findViewById(R.id.et_product_name);
         customerEmail = findViewById(R.id.et_customer_email);
@@ -123,8 +123,8 @@ public class GenericCreateBillActivity extends AppCompatActivity {
             }
         });
 
-        month = (Spinner) findViewById(R.id.spn_gn_month);
-        year = (Spinner) findViewById(R.id.spn_gn_year);
+        month = findViewById(R.id.spn_gn_month);
+        year = findViewById(R.id.spn_gn_year);
 
         user = (BillUser) Utility.readObject(this, Utility.USER_KEY);
 
@@ -219,7 +219,27 @@ public class GenericCreateBillActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.clear();
         getMenuInflater().inflate(R.menu.share, menu);
+        menu.add(Menu.NONE, MENU_ITEM_SAVE, Menu.NONE, "Save").setIcon(R.drawable.ic_check_blue_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_share:
+                showShareOptions();
+                return true;
+            case android.R.id.home:
+                //Back button click
+                finish();
+                return true;
+            case MENU_ITEM_SAVE:
+//                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show();;
+                saveBill();
+                return true;
+        }
+        return false;
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -382,11 +402,13 @@ public class GenericCreateBillActivity extends AppCompatActivity {
         }
 
         if (customerPhone.getText() == null || customerPhone.getText().toString().length() < 10) {
-            Utility.createAlert(GenericCreateBillActivity.this, "Please enter a valid phone number!", "Error");
+//            Utility.createAlert(GenericCreateBillActivity.this, "Please enter a valid phone number!", "Error");
+            Toast.makeText(this, "Please enter a valid phone number", Toast.LENGTH_LONG).show();
             return null;
         }
         if (!ignoreBillAmount && (billAmount.getText() == null || billAmount.getText().toString().length() == 0)) {
-            Utility.createAlert(GenericCreateBillActivity.this, "Please enter a valid bill amount!", "Error");
+//            Utility.createAlert(GenericCreateBillActivity.this, "Please enter a valid bill amount!", "Error");
+            Toast.makeText(this, "Please enter a valid bill amount", Toast.LENGTH_SHORT).show();
             return null;
         }
         invoice.setAmount(Utility.getDecimal(billAmount));
@@ -486,67 +508,51 @@ public class GenericCreateBillActivity extends AppCompatActivity {
 
         };
     }
+//
+//    private void loadBillDetails() {
+//        if (user == null || user.getCurrentBusiness() == null) {
+//            GenericCreateBillActivity.this.startActivity(new Intent(GenericCreateBillActivity.this, MainActivity.class));
+//            return;
+//        }
+//
+//        if (invoice == null || invoice.getId() == null) {
+//            return;
+//        }
+//        /*if (durations.getSelectedItemPosition() < 1) {
+//            Utility.createAlert(GenericCreateBillActivity.this, "Please select a durations!", "Error");
+//            return;
+//        }*/
+//        BillServiceRequest request = new BillServiceRequest();
+//        request.setRequestType("READONLY");
+//        request.setBusiness(user.getCurrentBusiness());
+//        request.setInvoice(invoice);
+//        pDialog = Utility.getProgressDialogue("Loading", GenericCreateBillActivity.this);
+//        StringRequest myReq = ServiceUtil.getStringRequest("sendInvoice", invoiceLoader(), ServiceUtil.createMyReqErrorListener(pDialog, GenericCreateBillActivity.this), request);
+//        RequestQueue queue = Volley.newRequestQueue(GenericCreateBillActivity.this);
+//        queue.add(myReq);
+//    }
 
-    private void loadBillDetails() {
-        if (user == null || user.getCurrentBusiness() == null) {
-            GenericCreateBillActivity.this.startActivity(new Intent(GenericCreateBillActivity.this, MainActivity.class));
-            return;
-        }
-
-        if (invoice == null || invoice.getId() == null) {
-            return;
-        }
-        /*if (durations.getSelectedItemPosition() < 1) {
-            Utility.createAlert(GenericCreateBillActivity.this, "Please select a durations!", "Error");
-            return;
-        }*/
-        BillServiceRequest request = new BillServiceRequest();
-        request.setRequestType("READONLY");
-        request.setBusiness(user.getCurrentBusiness());
-        request.setInvoice(invoice);
-        pDialog = Utility.getProgressDialogue("Loading", GenericCreateBillActivity.this);
-        StringRequest myReq = ServiceUtil.getStringRequest("sendInvoice", invoiceLoader(), ServiceUtil.createMyReqErrorListener(pDialog, GenericCreateBillActivity.this), request);
-        RequestQueue queue = Volley.newRequestQueue(GenericCreateBillActivity.this);
-        queue.add(myReq);
-    }
-
-    private Response.Listener<String> invoiceLoader() {
-        return new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                System.out.println("## response:" + response);
-                pDialog.dismiss();
-                BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
-                if (serviceResponse != null && serviceResponse.getStatus() == 200) {
-                    prepareInvoice(serviceResponse.getInvoice(), serviceResponse.getUser());
-                } else {
-                    System.out.println("Error .." + serviceResponse.getResponse());
-                    Utility.createAlert(GenericCreateBillActivity.this, serviceResponse.getResponse(), "Error");
-                }
-
-
-            }
-
-        };
-
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.action_share:
-                showShareOptions();
-                return true;
-            case android.R.id.home:
-                //Back button click
-                finish();
-                return true;
-
-        }
-        return false;
-    }
+//    private Response.Listener<String> invoiceLoader() {
+//        return new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                System.out.println("## response:" + response);
+//                pDialog.dismiss();
+//                BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
+//                if (serviceResponse != null && serviceResponse.getStatus() == 200) {
+//                    prepareInvoice(serviceResponse.getInvoice(), serviceResponse.getUser());
+//                } else {
+//                    System.out.println("Error .." + serviceResponse.getResponse());
+//                    Utility.createAlert(GenericCreateBillActivity.this, serviceResponse.getResponse(), "Error");
+//                }
+//
+//
+//            }
+//
+//        };
+//
+//
+//    }
 
     private void showShareOptions() {
         if (invoice == null || invoice.getId() == null || TextUtils.isEmpty(invoice.getPaymentMessage())) {
