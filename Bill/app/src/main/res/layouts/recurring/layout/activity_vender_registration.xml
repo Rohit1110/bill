@@ -1,48 +1,273 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.reso.bill.VendorRegistration"
-    android:background="@color/white"
-   >
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="match_parent"
+                                             android:layout_above="@+id/fab_vregister"
+                                             android:background="@color/white"
+                                             app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                                             tools:context="com.reso.bill.VendorRegistration"
+                                             tools:showIn="@layout/activity_vender_registration">
 
-    <android.support.design.widget.AppBarLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:elevation="0dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/vtoolbar"
+
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-           >
-            <!--app:popupTheme="@style/AppTheme.PopupOverlay"-->
-            <TextView
-                style="@style/basic_text_field"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/fab_margin"
+            android:layout_marginTop="5dp"
+            android:background="@color/white">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="Registration"
-                android:textSize="@dimen/list_text_main_text" />
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@color/white"
+                android:orientation="vertical"
+                >
 
-        </android.support.v7.widget.Toolbar>
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Name *"
+                    android:textColor="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/list_text_sub_text" />
+
+                <EditText
+                    android:id="@+id/et_name"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:hint="Enter Name"
+                    android:maxLength="75"
+                    />
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Email *"
+                    android:textColor="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/list_text_sub_text" />
+
+                <EditText
+                    android:id="@+id/et_email"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:hint="Enter Email address"
+                    android:maxLength="50"
+                    />
 
 
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Contact"
+                    android:textColor="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/list_text_sub_text" />
 
-    </android.support.design.widget.AppBarLayout>
+                <EditText
+                    android:id="@+id/et_phone"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:hint="Enter Contact"
 
-    <include layout="@layout/content_vender_registration" />
+                    />
 
-   <!-- <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_vregister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@mipmap/mark" />-->
+                <!--<TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Pan ID"
+                    android:textSize="13sp"/>
 
-</android.support.design.widget.CoordinatorLayout>
+                <EditText
+                    android:id="@+id/et_pan_number"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:hint="Enter Pan ID"
+                    android:maxLength="10"
+                    />
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Adhar Number"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_aadhar_number"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:hint="Enter Adhar number"
+                    android:maxLength="15"
+                    />-->
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Business Name *"
+                    android:textColor="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/list_text_sub_text" />
+
+                <EditText
+                    android:id="@+id/et_business_name"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:hint="Enter Business Name"
+                    android:maxLength="40"
+                    />
+
+                <!--<TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Business license"
+                    android:textSize="13sp"/>
+
+                <EditText
+                    android:id="@+id/et_business_license"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:hint="Enter Business License number"
+                    android:maxLength="20"
+                    />-->
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Address"
+                    android:textColor="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/list_text_sub_text" />
+
+                <EditText
+                    android:id="@+id/et_business_address"
+                    style="@style/regedittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:hint="Enter Business Address"
+                    android:maxLength="100"
+                    android:singleLine="false"
+                    />
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Locations *"
+                    android:textColor="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/list_text_sub_text" />
+
+                <Spinner
+                    android:id="@+id/sp_select_city"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="3dp"
+                    />
+
+                <!--<Spinner
+                    android:id="@+id/sp_area"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="100px"
+                    android:drawSelectorOnTop="true" />-->
+
+                <com.reso.bill.components.MultiSelectionSpinner
+                    android:id="@+id/sp_area"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginRight="10dp"
+                    android:padding="@dimen/margin"
+                    />
+
+                <TextView
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:text="Area of business *"
+                    android:textColor="@android:color/secondary_text_dark"
+                    android:textSize="@dimen/list_text_sub_text" />
+
+                <Spinner
+                    android:id="@+id/sp_select_sector"
+                    style="@style/Widget.AppCompat.Spinner.Underlined"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="3dp"
+                    />
+
+                <include
+                    layout="@layout/layout_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"/>
+
+                <TextView
+                    android:id="@+id/txt_tnc"
+                    style="@style/basic_sub_text_field"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="By submitting your information you agree to the terms and conditions"/>
+
+                <Button
+                    android:id="@+id/fab_vregister"
+                    style="@style/basic_button"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="bottom|right"
+                    android:layout_margin="@dimen/fab_margin"
+                    android:text="Save"/>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

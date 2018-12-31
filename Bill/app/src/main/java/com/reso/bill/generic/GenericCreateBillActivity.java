@@ -220,6 +220,13 @@ public class GenericCreateBillActivity extends AppCompatActivity {
         menu.clear();
         getMenuInflater().inflate(R.menu.share, menu);
         menu.add(Menu.NONE, MENU_ITEM_SAVE, Menu.NONE, "Save").setIcon(R.drawable.ic_check_blue_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        //Disable save button if invoice is paid
+        if(invoice != null && invoice.getId() != null && invoice.getStatus() != null && invoice.getStatus().equals(BillConstants.INVOICE_STATUS_PAID)) {
+            menu.getItem(1).setEnabled(false);
+            menu.getItem(1).setIcon(R.drawable.ic_action_check_disabled);
+        }
+
         return true;
     }
 

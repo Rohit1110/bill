@@ -37,7 +37,9 @@
         <activity android:name=".FilePicker"/>
         <activity
             android:name=".VendorRegistration"
-            android:label="@string/title_activity_vendor_registration"/>
+            android:label="@string/title_activity_vendor_registration"
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustResize"/>
 
         <!-- android:windowSoftInputMode="stateAlwaysHidden|adjustResize" -->
         <activity

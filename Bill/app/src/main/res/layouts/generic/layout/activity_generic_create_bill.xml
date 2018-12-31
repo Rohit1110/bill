@@ -126,8 +126,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_gn_bill_details">
+        app:layout_constraintTop_toBottomOf="@+id/spn_gn_year">
 
         <android.support.v7.widget.AppCompatCheckBox
             android:id="@+id/chk_gn_bill_offline_payment"
@@ -137,34 +138,34 @@
             android:layout_marginStart="16dp"
             android:text="Cash payment"
             android:visibility="visible"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"/>
 
         <ImageView
             android:id="@+id/img_gn_delete_inv_item"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
+            android:layout_marginBottom="8dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:src="@drawable/ic_invoice_paid"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/txt_bill_paid_details"
             style="@style/gen_textviewtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
             android:text="Paid at "
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/img_gn_delete_inv_item"
-            app:layout_constraintTop_toTopOf="@+id/img_gn_delete_inv_item" />
+            app:layout_constraintTop_toTopOf="@+id/img_gn_delete_inv_item"/>
 
     </android.support.constraint.ConstraintLayout>
 

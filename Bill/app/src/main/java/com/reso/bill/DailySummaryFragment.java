@@ -102,7 +102,7 @@ public class DailySummaryFragment extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_order);
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Total Orders - " + CommonUtils.convertDate(date) + "</font>"));
         Utility.AppBarTitle("Total Orders - "+CommonUtils.convertDate(date, Utility.DATE_FORMAT_DISPLAY),getActivity());
-        user = (BillUser) Utility.readObject(getContext(), Utility.USER_KEY);
+        user = (BillUser) Utility.readObject(getActivity(), Utility.USER_KEY);
         totalProfit = rootView.findViewById(R.id.txt_daily_total_profit);
         totalCost = rootView.findViewById(R.id.txt_daily_total_cost);
         switchView = rootView.findViewById(R.id.btn_daily_summary_switch_view);

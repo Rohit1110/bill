@@ -126,7 +126,7 @@ public class GenericInvoices extends Fragment {
 
         txtNoPayments =  rootView.findViewById(R.id.txt_txn_no_payments);
 
-        user = (BillUser) Utility.readObject(getContext(), Utility.USER_KEY);
+        user = (BillUser) Utility.readObject(getActivity(), Utility.USER_KEY);
 
         durations.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

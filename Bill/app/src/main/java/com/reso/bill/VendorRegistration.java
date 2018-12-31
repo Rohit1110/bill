@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -67,23 +66,11 @@ public class VendorRegistration extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vender_registration);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.vtoolbar);
-        setSupportActionBar(toolbar);
-        register = (Button) findViewById(R.id.fab_vregister);
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.vtoolbar);
+        setSupportActionBar(toolbar);*/
 
-        /*ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setHomeButtonEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }*/
-/*
-        final Drawable upArrow = getResources().getDrawable(R.mipmap.backarrow);
-        *//*upArrow.setColorFilter(Color.parseColor(""), PorterDuff.Mode.SRC_ATOP);*//*
 
-        getSupportActionBar().setHomeAsUpIndicator(upArrow);*/
-
-        //toolbar.setTitle("Registration11");
-        toolbar.setNavigationIcon(R.mipmap.backarrow);
+        /*toolbar.setNavigationIcon(R.mipmap.backarrow);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,8 +78,11 @@ public class VendorRegistration extends AppCompatActivity {
                 startActivity(i);
 
             }
-        });
+        });*/
 
+        Utility.setActionBar("User Information", getSupportActionBar());
+
+        register = (Button) findViewById(R.id.fab_vregister);
 
         register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,7 +127,7 @@ public class VendorRegistration extends AppCompatActivity {
                         business.setBusinessLocations(billLocations);
                         business.setAddress(address.getText().toString());
                         if (sectors.isEnabled()) {
-                            if(sectors.getSelectedItemPosition() == 0) {
+                            if (sectors.getSelectedItemPosition() == 0) {
                                 Toast.makeText(VendorRegistration.this, "Select an area of business", Toast.LENGTH_LONG).show();
                                 return;
                             }
@@ -290,6 +280,7 @@ public class VendorRegistration extends AppCompatActivity {
 
     }
 
+
     public void pickImage() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
         intent.setType("image/*");
@@ -340,13 +331,7 @@ public class VendorRegistration extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                // app icon in action bar clicked; go home
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+        return Utility.backDefault(item, this);
     }
 
     //Services
@@ -383,7 +368,7 @@ public class VendorRegistration extends AppCompatActivity {
 
                     sectorsList = serviceResponse.getSectors();
                     List<String> strings = Utility.convertToStringArrayList(sectorsList);
-                    if(strings == null) {
+                    if (strings == null) {
                         strings = new ArrayList<>();
                     }
                     strings.add(0, "Select sector");
@@ -417,7 +402,12 @@ public class VendorRegistration extends AppCompatActivity {
 
                     if (saveRequest) {
                         System.out.println("User saved successfully!");
-                        startActivity(new Intent(VendorRegistration.this, MainActivity.class));
+                        if (user != null && user.getId() != null) {
+                            Utility.createAlertWithActivityFinish(VendorRegistration.this, "Saved successfully!", "Done", null, null, null, null);
+                        } else {
+                            startActivity(new Intent(VendorRegistration.this, MainActivity.class));
+                        }
+
                     } else {
                         System.out.println("Locations loaded successfully!");
                         locations = prepareLocations(serviceResponse);

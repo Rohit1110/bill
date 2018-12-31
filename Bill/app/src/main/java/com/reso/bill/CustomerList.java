@@ -190,7 +190,7 @@ public class CustomerList extends Fragment {
     public void onResume() {
         super.onResume();
 
-        user = (BillUser) Utility.readObject(getContext(), Utility.USER_KEY);
+        user = (BillUser) Utility.readObject(getActivity(), Utility.USER_KEY);
         loadCustomers();
 
     }
