@@ -77,6 +77,7 @@ public class Utility {
     public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
     public static final int MY_PERMISSIONS_REQUEST_CONTACTS = 2;
     public static final int MY_PERMISSIONS_READ_CONTACTS = 3;
+    public static final String PREF_NAME = "PayPerBill";
     private static int selectedElement = 0;
     public static int LIST_OPT_DELETE = 0;
     public static String[] LIST_OPTIONS = {"Delete"};
@@ -274,7 +275,7 @@ public class Utility {
     }
 
     public static void saveToSharedPref(Activity activity, String keyString, Object object) {
-        SharedPreferences sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(keyString, ServiceUtil.toJson(object));
@@ -283,7 +284,7 @@ public class Utility {
     }
 
     public static Object readFromSharedPref(Activity activity, String key, Class<?> cls) {
-        SharedPreferences sharedPreferences = activity.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
         return ServiceUtil.fromJson(sharedPreferences.getString(key, null), cls);
     }
 

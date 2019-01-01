@@ -67,6 +67,7 @@ package adapters;
 
 import android.app.Activity;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -247,6 +248,9 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
         private void bind(BillUser customerUser) {
             //customerUser.setVisible(true);
             txtName.setText(customerUser.getName());
+            if(TextUtils.isEmpty(txtName.getText())) {
+                txtName.setText(customerUser.getPhone());
+            }
             txtAddress.setText(customerUser.getAddress());
             //status.setImageResource(R.drawable.ic_invoice_pending);
             if (customerUser.getCurrentInvoice() != null && customerUser.getCurrentInvoice().getPayable() != null) {

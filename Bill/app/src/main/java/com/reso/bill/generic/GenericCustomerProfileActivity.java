@@ -170,9 +170,8 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
                 if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
                     //customer.setCurrentInvoice(invoice);
                     //Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(customer));
-                    startActivity(Utility.nextIntent(GenericCustomerProfileActivity.this, GenericCreateBillActivity.class, true));
+                    startActivity(Utility.nextIntent(GenericCustomerProfileActivity.this, GenericCreateBillActivity.class, true, selectedCustomer, Utility.CUSTOMER_KEY));
                 } else {
-
                     //Utility.nextFragment((FragmentActivity) activity, FragmentEditInvoice.newInstance(customer, invoice));
                     startActivity(Utility.nextIntent(GenericCustomerProfileActivity.this, EditInvoiceActivity.class, true, selectedCustomer, Utility.CUSTOMER_KEY));
                 }

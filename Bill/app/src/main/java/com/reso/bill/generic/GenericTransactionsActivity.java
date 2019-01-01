@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,12 +46,13 @@ public class GenericTransactionsActivity extends AppCompatActivity {
     private List<BillUser> users;
     private List<BillUser> filterList = new ArrayList<>();
     private Date date;
-    private Button requestTransactions;
+    //private Button requestTransactions;
     private TransactionsAdapter adapter;
     private Button clear;
     private Spinner month;
     private Spinner year;
     private List<String> yearsList;
+    private boolean loading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,14 +64,14 @@ public class GenericTransactionsActivity extends AppCompatActivity {
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_update_invoice_items);
 
-        requestTransactions = (Button) findViewById(R.id.btn_get_transactions);
+        /*requestTransactions = (Button) findViewById(R.id.btn_get_transactions);
 
         requestTransactions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 loadTransactions();
             }
-        });
+        });*/
 
         month = (Spinner) findViewById(R.id.spn_txn_month);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_basic_text_white, getResources().getStringArray(R.array.months_arrays));
@@ -82,6 +84,36 @@ public class GenericTransactionsActivity extends AppCompatActivity {
         year.setSelection(yearsList.indexOf(String.valueOf(Calendar.getInstance().get(Calendar.YEAR))));
 
         user = (BillUser) Utility.readObject(this, Utility.USER_KEY);
+
+        month.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!loading) {
+                    loadTransactions();
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        year.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (!loading) {
+                    loadTransactions();
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
 
@@ -131,6 +163,7 @@ public class GenericTransactionsActivity extends AppCompatActivity {
             Utility.createAlert(this, "Please select a month and year!", "Error");
             return;
         }
+        loading = true;
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
         BillInvoice currInvoice = new BillInvoice();
@@ -149,7 +182,7 @@ public class GenericTransactionsActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
                 pDialog.dismiss();
-
+                loading = false;
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     users = serviceResponse.getUsers();

@@ -190,7 +190,7 @@ public class GenericInvoices extends Fragment {
         BillUserLog log = new BillUserLog();
         if ("Today".equalsIgnoreCase(durations.getSelectedItem().toString())) {
             log.setFromDate(CommonUtils.startDate(new Date()));
-            log.setToDate(CommonUtils.endDate(new Date()));
+            log.setToDate(CommonUtils.startDate(new Date()));
         } else if ("This week".equalsIgnoreCase(durations.getSelectedItem().toString())) {
             log.setFromDate(CommonUtils.getWeekFirstDate());
             log.setToDate(CommonUtils.getWeekLastDate());
