@@ -14,7 +14,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -48,7 +47,7 @@ import util.Utility;
 public class PauseBusinessActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private Button pause;
+    //private Button pause;
     private BillUser user;
     private List<BillItemHolder> list = new ArrayList<>();
     //private List<BillItem> businessItems;
@@ -77,7 +76,7 @@ public class PauseBusinessActivity extends AppCompatActivity {
         txtto.setClickable(true);
 
         pausedDays = (TextView) findViewById(R.id.txt_pause_delivery_business_days);
-        pause = (Button) findViewById(R.id.btn_pause_business_items);
+        //pause = (Button) findViewById(R.id.btn_pause_business_items);
         user = (BillUser) Utility.readObject(PauseBusinessActivity.this, Utility.USER_KEY);
         final Calendar calendar = Calendar.getInstance();
         int yy = calendar.get(Calendar.YEAR);
@@ -169,17 +168,28 @@ public class PauseBusinessActivity extends AppCompatActivity {
 
         calculateNoOfDays();
 
-        pause.setOnClickListener(new View.OnClickListener() {
+        /*pause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 pauseItems();
             }
-        });
+        });*/
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return Utility.backDefault(item, this);
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //Back button click
+                finish();
+                return true;
+            case Utility.MENU_ITEM_SAVE:
+//                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show();;
+                pauseItems();
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -210,6 +220,9 @@ public class PauseBusinessActivity extends AppCompatActivity {
 
             }
         });
+
+        menu.add(Menu.NONE, Utility.MENU_ITEM_SAVE, Menu.NONE, "Save").setIcon(R.drawable.ic_check_blue_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
         return true;
     }
 

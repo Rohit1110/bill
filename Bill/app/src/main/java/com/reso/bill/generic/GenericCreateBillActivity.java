@@ -73,6 +73,8 @@ public class GenericCreateBillActivity extends AppCompatActivity {
     private List<String> yearsList;
     //    private Button saveBill;
     private AutoCompleteTextView customerName;
+    private EditText serviceCharge;
+    private EditText address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,6 +128,9 @@ public class GenericCreateBillActivity extends AppCompatActivity {
         month = findViewById(R.id.spn_gn_month);
         year = findViewById(R.id.spn_gn_year);
 
+        serviceCharge = findViewById(R.id.et_customer_service_charge);
+        address = findViewById(R.id.et_customer_address);
+
         user = (BillUser) Utility.readObject(this, Utility.USER_KEY);
 
         customerName.setOnTouchListener(new View.OnTouchListener() {
@@ -167,6 +172,10 @@ public class GenericCreateBillActivity extends AppCompatActivity {
                         if (!TextUtils.isEmpty(selectedCustomer.getEmail())) {
                             customerEmail.setText(selectedCustomer.getEmail());
                         }
+                        if (selectedCustomer.getServiceCharge() != null) {
+                            serviceCharge.setText(Utility.getDecimalString(selectedCustomer.getServiceCharge()));
+                        }
+                        address.setText(selectedCustomer.getAddress());
                     }
                 } catch (Exception e) {
                     System.out.println("Error in setting customer .." + e);
@@ -192,6 +201,9 @@ public class GenericCreateBillActivity extends AppCompatActivity {
             //Show Month and Year
             month.setVisibility(View.VISIBLE);
             year.setVisibility(View.VISIBLE);
+            serviceCharge.setVisibility(View.VISIBLE);
+
+            address.setVisibility(View.VISIBLE);
 
             if (invoice != null && invoice.getMonth() != null && invoice.getYear() != null) {
                 month.setSelection(invoice.getMonth());
@@ -222,7 +234,7 @@ public class GenericCreateBillActivity extends AppCompatActivity {
         menu.add(Menu.NONE, MENU_ITEM_SAVE, Menu.NONE, "Save").setIcon(R.drawable.ic_check_blue_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
         //Disable save button if invoice is paid
-        if(invoice != null && invoice.getId() != null && invoice.getStatus() != null && invoice.getStatus().equals(BillConstants.INVOICE_STATUS_PAID)) {
+        if (invoice != null && invoice.getId() != null && invoice.getStatus() != null && invoice.getStatus().equals(BillConstants.INVOICE_STATUS_PAID)) {
             menu.getItem(1).setEnabled(false);
             menu.getItem(1).setIcon(R.drawable.ic_action_check_disabled);
         }
@@ -418,7 +430,11 @@ public class GenericCreateBillActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enter a valid bill amount", Toast.LENGTH_SHORT).show();
             return null;
         }
-        invoice.setAmount(Utility.getDecimal(billAmount));
+        BigDecimal amountDecimal = Utility.getDecimal(billAmount);
+        BigDecimal serviceChargeDecimal = Utility.getDecimal(this.serviceCharge);
+
+        invoice.setServiceCharge(serviceChargeDecimal);
+        invoice.setAmount(amountDecimal);
         if (cashPayment.isChecked()) {
             invoice.setStatus(BillConstants.INVOICE_STATUS_PAID);
             invoice.setPaidDate(new Date());
@@ -430,6 +446,11 @@ public class GenericCreateBillActivity extends AppCompatActivity {
         }
         if (customerName.getText() != null) {
             customer.setName(customerName.getText().toString());
+        }
+        customer.setServiceCharge(serviceChargeDecimal);
+
+        if (!TextUtils.isEmpty(address.getText())) {
+            customer.setAddress(address.getText().toString());
         }
         return customer;
     }
@@ -618,13 +639,20 @@ public class GenericCreateBillActivity extends AppCompatActivity {
             customerEmail.setText(user.getEmail());
             customerPhone.setText(user.getPhone());
             customerPhone.setEnabled(false);
+            if (user.getServiceCharge() != null) {
+                serviceCharge.setText(Utility.getDecimalString(user.getServiceCharge()));
+            }
+            address.setText(user.getAddress());
         }
         prepareInvoice(invoice);
     }
 
     private void prepareInvoice(BillInvoice inv) {
         if (inv != null) {
-            billAmount.setText(Utility.getDecimalText(inv.getPayable()));
+            billAmount.setText(Utility.getDecimalText(inv.getAmount()));
+            if (inv.getServiceCharge() != null) {
+                serviceCharge.setText(Utility.getDecimalString(inv.getServiceCharge()));
+            }
             if (inv.getStatus() != null && inv.getStatus().equalsIgnoreCase(BillConstants.INVOICE_STATUS_PAID)) {
                 cashPayment.setVisibility(View.GONE);
                 billPaidDetails.setVisibility(View.VISIBLE);

@@ -6,11 +6,11 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -42,7 +42,7 @@ import util.Utility;
 public class VendorRegistration extends AppCompatActivity {
 
     private static final int PICK_PHOTO_FOR_AVATAR = 1;
-    private Button register;
+    //private Button register;
     private EditText name, /*panNumber, aadharNumber,*/
             email, phone, businessName;
     private MultiSelectionSpinner areas;
@@ -82,70 +82,19 @@ public class VendorRegistration extends AppCompatActivity {
 
         Utility.setActionBar("User Information", getSupportActionBar());
 
-        register = (Button) findViewById(R.id.fab_vregister);
+        //register = (Button) findViewById(R.id.fab_vregister);
 
-        register.setOnClickListener(new View.OnClickListener() {
+        /*register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*BillUser requestUser = new BillUser();
+                *//*BillUser requestUser = new BillUser();
                 if(requestUser != null) {
                     requestUser.setId(user.getId());
-                }*/
-                if (!name.getText().toString().equals("") && /*!panNumber.getText().toString().equals("") && !aadharNumber.getText().toString().equals("") &&*/ !businessName.getText().toString().equals("")) {
-                    if (Utility.isValidEmail(email.getText().toString())) {
-                        int selectedItemOfMySpinner = areas.getSelectedItemPosition();
-                        String actualPositionOfMySpinner = (String) areas.getItemAtPosition(selectedItemOfMySpinner);
-
-                        if (actualPositionOfMySpinner == null || actualPositionOfMySpinner.isEmpty()) {
-                            Toast.makeText(VendorRegistration.this, "Please select a location!", Toast.LENGTH_LONG);
-                            return;
-                        }
-                        List<BillLocation> billLocations = areas.selectedLocations();
-                        if (!"Other".equals(cities.getSelectedItem()) && (billLocations == null || billLocations.size() == 0)) {
-                            Toast.makeText(VendorRegistration.this, "Please select atleast one location!", Toast.LENGTH_LONG);
-                            return;
-                        }
-                        if (sectors.isEnabled() && sectors.getSelectedItem().toString().trim().length() == 0) {
-                            Toast.makeText(VendorRegistration.this, "Please select area of business!", Toast.LENGTH_LONG);
-                            return;
-                        }
-                        BillUser requestUser = new BillUser();
-                        if (user != null) {
-                            requestUser.setId(user.getId());
-                        }
-                        requestUser.setName(name.getText().toString());
-                        requestUser.setEmail(email.getText().toString());
-                        //requestUser.setPanDetails(panNumber.getText().toString());
-                        requestUser.setPhone(FirebaseUtil.getPhone());
-                        //requestUser.setAadharNumber(aadharNumber.getText().toString());
-                        BillBusiness business = new BillBusiness();
-                        if (user != null && user.getCurrentBusiness() != null) {
-                            business.setId(user.getCurrentBusiness().getId());
-                        }
-                        business.setName(businessName.getText().toString());
-                        //business.setIdentificationNumber(businessLicense.getText().toString());
-                        business.setBusinessLocations(billLocations);
-                        business.setAddress(address.getText().toString());
-                        if (sectors.isEnabled()) {
-                            if (sectors.getSelectedItemPosition() == 0) {
-                                Toast.makeText(VendorRegistration.this, "Select an area of business", Toast.LENGTH_LONG).show();
-                                return;
-                            }
-                            business.setBusinessSector((BillSector) Utility.findInStringList(sectorsList, sectors.getSelectedItem().toString()));
-                        }
-
-                        requestUser.setCurrentBusiness(business);
-                        saveUserInfo(requestUser);
-
-                    } else {
-                        Toast.makeText(VendorRegistration.this, "Enter valid email", Toast.LENGTH_LONG).show();
-                    }
-                } else {
-                    Toast.makeText(VendorRegistration.this, "Some fields are missing", Toast.LENGTH_LONG).show();
-                }
+                }*//*
+                register();
                 //saveUserInfo(requestUser);
             }
-        });
+        });*/
 
         name = (EditText) findViewById(R.id.et_name);
         //panNumber = (EditText) findViewById(R.id.et_pan_number);
@@ -280,6 +229,62 @@ public class VendorRegistration extends AppCompatActivity {
 
     }
 
+    private void register() {
+        if (!name.getText().toString().equals("") && /*!panNumber.getText().toString().equals("") && !aadharNumber.getText().toString().equals("") &&*/ !businessName.getText().toString().equals("")) {
+            if (Utility.isValidEmail(email.getText().toString())) {
+                int selectedItemOfMySpinner = areas.getSelectedItemPosition();
+                String actualPositionOfMySpinner = (String) areas.getItemAtPosition(selectedItemOfMySpinner);
+
+                if (actualPositionOfMySpinner == null || actualPositionOfMySpinner.isEmpty()) {
+                    Toast.makeText(VendorRegistration.this, "Please select a location!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                List<BillLocation> billLocations = areas.selectedLocations();
+                if (!"Other".equals(cities.getSelectedItem()) && (billLocations == null || billLocations.size() == 0)) {
+                    Toast.makeText(VendorRegistration.this, "Please select atleast one location!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (sectors.isEnabled() && sectors.getSelectedItem().toString().trim().length() == 0) {
+                    Toast.makeText(VendorRegistration.this, "Please select area of business!", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                BillUser requestUser = new BillUser();
+                if (user != null) {
+                    requestUser.setId(user.getId());
+                }
+                requestUser.setName(name.getText().toString());
+                requestUser.setEmail(email.getText().toString());
+                //requestUser.setPanDetails(panNumber.getText().toString());
+                requestUser.setPhone(FirebaseUtil.getPhone());
+                //requestUser.setAadharNumber(aadharNumber.getText().toString());
+                BillBusiness business = new BillBusiness();
+                if (user != null && user.getCurrentBusiness() != null) {
+                    business.setId(user.getCurrentBusiness().getId());
+                }
+                business.setName(businessName.getText().toString());
+                //business.setIdentificationNumber(businessLicense.getText().toString());
+                business.setBusinessLocations(billLocations);
+                business.setAddress(address.getText().toString());
+                if (sectors.isEnabled()) {
+                    if (sectors.getSelectedItemPosition() == 0) {
+                        Toast.makeText(VendorRegistration.this, "Select an area of business", Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    business.setBusinessSector((BillSector) Utility.findInStringList(sectorsList, sectors.getSelectedItem().toString()));
+                }
+
+                requestUser.setCurrentBusiness(business);
+                saveUserInfo(requestUser);
+
+            } else {
+                Toast.makeText(VendorRegistration.this, "Enter valid email", Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Toast.makeText(VendorRegistration.this, "Some fields are missing", Toast.LENGTH_LONG).show();
+        }
+    }
+
 
     public void pickImage() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -330,8 +335,25 @@ public class VendorRegistration extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(Menu.NONE, Utility.MENU_ITEM_SAVE, Menu.NONE, "Save").setIcon(R.drawable.ic_check_blue_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return Utility.backDefault(item, this);
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //Back button click
+                finish();
+                return true;
+            case Utility.MENU_ITEM_SAVE:
+//                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show();;
+                register();
+                return true;
+        }
+        return false;
     }
 
     //Services

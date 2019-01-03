@@ -56,14 +56,14 @@
 
                         />
 
-                    <Button
+                    <!--<Button
                         android:id="@+id/btn_send_invoice"
                         style="@style/basic_button"
                         android:layout_width="0dp"
                         android:layout_gravity="top|right"
                         android:layout_margin="10dp"
                         android:layout_weight="0.3"
-                        android:text="SEND"/>
+                        android:text="SEND"/>-->
 
 
                 </LinearLayout>
@@ -268,7 +268,7 @@
                 </LinearLayout>
 
 
-                <Button
+                <!--<Button
                     android:id="@+id/fab_save_invoice"
                     style="@style/basic_button"
                     android:layout_width="match_parent"
@@ -276,7 +276,7 @@
                     android:layout_margin="10dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:text="SAVE CHANGES"/>
+                    android:text="SAVE CHANGES"/>-->
 
             </LinearLayout>
 
