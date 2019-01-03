@@ -228,7 +228,7 @@ public class GenericInvoiceItemsAdapter extends RecyclerView.Adapter<RecyclerVie
                 total = total.add(item.getPrice());
             }
         }
-        billAmount.setText(total.toString());
+        billAmount.setText(Utility.getDecimalString(total));
     }
 
     @Override

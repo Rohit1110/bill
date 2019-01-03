@@ -37,7 +37,7 @@
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
-        android:text="INR"
+        android:text="Rs."
         app:layout_constraintEnd_toStartOf="@+id/et_dialog_invoice_item_amount_multiple"
         app:layout_constraintTop_toTopOf="@+id/et_dialog_invoice_item_amount_multiple"/>
 
@@ -55,7 +55,7 @@
         android:inputType="numberDecimal"
         app:layout_constraintEnd_toEndOf="@+id/include4"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.4"/>
+        app:layout_constraintWidth_percent="0.25"/>
     <!--<ImageView
                 android:id="@+id/edit_bill"
                 android:layout_width="wrap_content"

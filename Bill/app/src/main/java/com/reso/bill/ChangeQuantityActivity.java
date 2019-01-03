@@ -5,9 +5,9 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -43,7 +43,7 @@ public class ChangeQuantityActivity extends AppCompatActivity {
     private EditText quantity, schemePrice;
     private BillUser customer;
     private BillItem subItem;
-    private Button changeQuantity;
+    //private Button changeQuantity;
     private ProgressDialog pDialog;
     private CheckBox scheme;
     private EditText startDate, endDate;
@@ -63,7 +63,7 @@ public class ChangeQuantityActivity extends AppCompatActivity {
 
         subItemIcon = (ImageView) findViewById(R.id.img_change_quantity_sub_item);
         quantity = (EditText) findViewById(R.id.et_change_quantity);
-        changeQuantity = (Button) findViewById(R.id.btn_change_quantity);
+        //changeQuantity = (Button) findViewById(R.id.btn_change_quantity);
         scheme = (CheckBox) findViewById(R.id.chk_subscription_scheme);
         schemePrice = (EditText) findViewById(R.id.et_scheme_price);
         startDate = (EditText) findViewById(R.id.et_scheme_start_date);
@@ -103,29 +103,14 @@ public class ChangeQuantityActivity extends AppCompatActivity {
             }
         });
 
-        changeQuantity.setOnClickListener(new View.OnClickListener() {
+        /*changeQuantity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (quantity.getText().toString() == null || quantity.getText().toString().trim().length() == 0) {
-                    Utility.createAlert(ChangeQuantityActivity.this, "Please select the quantity", "Error");
-                    return;
-                }
-                subItem.setQuantity(new BigDecimal(quantity.getText().toString()));
 
-                if (scheme.isChecked()) {
-                    if (TextUtils.isEmpty(schemePrice.getText())) {
-                        subItem.setPrice(BigDecimal.ZERO);
-                        subItem.setPriceType(null);
-                    } else {
-                        subItem.setPriceType("MONTHLY");
-                        subItem.setPrice(new BigDecimal(schemePrice.getText().toString()));
-                    }
-
-                }
 
                 saveQuantity();
             }
-        });
+        });*/
 
         startDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,8 +128,25 @@ public class ChangeQuantityActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(Menu.NONE, Utility.MENU_ITEM_SAVE, Menu.NONE, "Save").setIcon(R.drawable.ic_check_blue_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return Utility.backDefault(item, this);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //Back button click
+                finish();
+                return true;
+            case Utility.MENU_ITEM_SAVE:
+//                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show();;
+                saveQuantity();
+                return true;
+        }
+        return false;
+
     }
 
     private void prepareDatePicker(final String type) {
@@ -188,6 +190,23 @@ public class ChangeQuantityActivity extends AppCompatActivity {
 
 
     private void saveQuantity() {
+        if (quantity.getText().toString() == null || quantity.getText().toString().trim().length() == 0) {
+            Utility.createAlert(ChangeQuantityActivity.this, "Please select the quantity", "Error");
+            return;
+        }
+        subItem.setQuantity(new BigDecimal(quantity.getText().toString()));
+
+        if (scheme.isChecked()) {
+            if (TextUtils.isEmpty(schemePrice.getText())) {
+                subItem.setPrice(BigDecimal.ZERO);
+                subItem.setPriceType(null);
+            } else {
+                subItem.setPriceType("MONTHLY");
+                subItem.setPrice(new BigDecimal(schemePrice.getText().toString()));
+            }
+
+        }
+
         BillServiceRequest request = new BillServiceRequest();
         request.setUser(customer);
         BillItem subscribedItem = new BillItem();

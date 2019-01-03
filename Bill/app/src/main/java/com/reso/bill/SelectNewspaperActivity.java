@@ -15,7 +15,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -49,7 +48,7 @@ public class SelectNewspaperActivity extends AppCompatActivity {
     private BillUser user;
     private List<BillItem> selectedItems;
     private TextView txtSelectedItems;
-    private Button save;
+    //private Button save;
     private List<BillItemHolder> filterList = new ArrayList<>();
     private CheckBox selectAll;
     private SelectNewsPaperAdapter adapter;
@@ -64,13 +63,13 @@ public class SelectNewspaperActivity extends AppCompatActivity {
         selectedItems = currBusiness.getItems();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_select_newspaper);
-        save = (Button) findViewById(R.id.btn_save_business_items);
-        save.setOnClickListener(new View.OnClickListener() {
+        //save = (Button) findViewById(R.id.btn_save_business_items);
+        /*save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveItems();
             }
-        });
+        });*/
         txtSelectedItems = (TextView) findViewById(R.id.txt_selected_items);
         txtSelectedItems.setText("");
         txtSelectedItems.setOnClickListener(new View.OnClickListener() {
@@ -135,7 +134,20 @@ public class SelectNewspaperActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return Utility.backDefault(item, this);
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //Back button click
+                finish();
+                return true;
+            case Utility.MENU_ITEM_SAVE:
+//                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show();;
+                saveItems();
+                return true;
+        }
+        return false;
+
+        //return Utility.backDefault(item, this);
     }
 
     @Override
@@ -166,6 +178,10 @@ public class SelectNewspaperActivity extends AppCompatActivity {
 
             }
         });
+
+        menu.add(Menu.NONE, Utility.MENU_ITEM_SAVE, Menu.NONE, "Save").setIcon(R.drawable.ic_check_blue_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+
         return true;
     }
 

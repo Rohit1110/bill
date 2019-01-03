@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -42,7 +43,7 @@ public class GenericUpdateInvoiceItemsActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ProgressDialog pDialog;
     private GenericInvoiceItemsAdapter adapter;
-    private Button saveBill;
+    //private Button saveBill;
     private Button addProduct;
     private AutoCompleteTextView productName;
     private BillInvoice invoice;
@@ -62,14 +63,14 @@ public class GenericUpdateInvoiceItemsActivity extends AppCompatActivity {
         //Hide keyboard on load
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-        saveBill = (Button) findViewById(R.id.gn_btn_save_bill);
+        //saveBill = (Button) findViewById(R.id.gn_btn_save_bill);
 
-        saveBill.setOnClickListener(new View.OnClickListener() {
+        /*saveBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveBill();
             }
-        });
+        });*/
 
         addProduct = (Button) findViewById(R.id.gn_btn_add_invoice_item);
 
@@ -159,8 +160,24 @@ public class GenericUpdateInvoiceItemsActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(Menu.NONE, Utility.MENU_ITEM_SAVE, Menu.NONE, "Save").setIcon(R.drawable.ic_check_blue_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return Utility.backDefault(item, GenericUpdateInvoiceItemsActivity.this);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //Back button click
+                finish();
+                return true;
+            case Utility.MENU_ITEM_SAVE:
+//                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show();;
+                saveBill();
+                return true;
+        }
+        return true;
     }
 
 
@@ -312,7 +329,7 @@ public class GenericUpdateInvoiceItemsActivity extends AppCompatActivity {
 
     private void prepareInvoice(BillInvoice inv) {
         if (inv != null) {
-            totalBillAmount.setText(CommonUtils.getStringValue(inv.getPayable()));
+            totalBillAmount.setText(CommonUtils.getStringValue(inv.getAmount()));
             if (inv.getInvoiceItems() != null && inv.getInvoiceItems().size() > 0) {
                 copyAllItems(inv);
                 adapter = new GenericInvoiceItemsAdapter(invoiceItems, GenericUpdateInvoiceItemsActivity.this, totalBillAmount);

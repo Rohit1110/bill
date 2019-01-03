@@ -3,6 +3,7 @@ package com.reso.bill;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -32,7 +33,7 @@ public class DaysToDeliverActivity extends AppCompatActivity {
     private Button save;
     private TextView txtSelectedDays;
     private ImageView itemIcon;
-    private Button saveDays;
+    //private Button saveDays;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,7 +98,7 @@ public class DaysToDeliverActivity extends AppCompatActivity {
         //customerName = (TextView) findViewById(R.id.txt_delivery_days_customer_name);
         itemIcon = (ImageView) findViewById(R.id.img_delivery_days_item_icon);
         txtSelectedDays = (TextView) findViewById(R.id.txt_selected_days);
-        saveDays = (Button) findViewById(R.id.fab_save_days);
+        //saveDays = (Button) findViewById(R.id.fab_save_days);
 
         //customerName.setText(customer.getName());
         Integer itemId = null;
@@ -119,17 +120,34 @@ public class DaysToDeliverActivity extends AppCompatActivity {
             initDay(txtsat, "7");
         }
 
-        saveDays.setOnClickListener(new View.OnClickListener() {
+        /*saveDays.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 saveDays();
             }
-        });
+        });*/
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(Menu.NONE, Utility.MENU_ITEM_SAVE, Menu.NONE, "Save").setIcon(R.drawable.ic_check_blue_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return Utility.backDefault(item, this);
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //Back button click
+                finish();
+                return true;
+            case Utility.MENU_ITEM_SAVE:
+//                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show();;
+                saveDays();
+                return true;
+        }
+        return false;
     }
 
     @Override

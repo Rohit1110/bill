@@ -4,9 +4,9 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -42,7 +42,7 @@ public class PauseCustomerSubscriptionActivity extends AppCompatActivity {
     private BillUser customer;
     private BillItem subscribedItem;
     private ProgressDialog pDialog;
-    private Button pause;
+    //private Button pause;
     private TextView pausedDays;
     private Date fromDate, toDate;
 
@@ -149,7 +149,7 @@ public class PauseCustomerSubscriptionActivity extends AppCompatActivity {
             }
         });
 
-        pause = (Button) findViewById(R.id.fab_pause_time);
+        /*pause = (Button) findViewById(R.id.fab_pause_time);
 
 
         pause.setOnClickListener(new View.OnClickListener() {
@@ -157,7 +157,7 @@ public class PauseCustomerSubscriptionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 pauseDelivery();
             }
-        });
+        });*/
 
         //customerName = (TextView) findViewById(R.id.txt_pause_delivery_customer_name);
         //customerName.setText(customer.getName());
@@ -173,8 +173,25 @@ public class PauseCustomerSubscriptionActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(Menu.NONE, Utility.MENU_ITEM_SAVE, Menu.NONE, "Save").setIcon(R.drawable.ic_check_blue_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return Utility.backDefault(item, this);
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                //Back button click
+                finish();
+                return true;
+            case Utility.MENU_ITEM_SAVE:
+//                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show();;
+                pauseDelivery();
+                return true;
+        }
+        return false;
+        //return Utility.backDefault(item, this);
     }
 
     private void calculateNoOfDays() {

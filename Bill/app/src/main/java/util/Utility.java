@@ -85,6 +85,8 @@ public class Utility {
     public static final String DATE_FORMAT_DISPLAY = "MMM dd";
     public static final int RESULT_PICK_CONTACT = 1;
 
+    public static final int MENU_ITEM_SAVE = 1;
+
     public static void createAlert(Context context, String message, String title) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
         if (title != null) {

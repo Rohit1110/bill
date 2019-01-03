@@ -2,6 +2,7 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -17,16 +18,14 @@
                                              tools:layout_editor_absoluteY="25dp"
                                              tools:showIn="@layout/generic_fragment_update_bill_details">-->
 
-    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                                                 xmlns:tools="http://schemas.android.com/tools"
-                                                 android:id="@+id/relativeLayout2"
-                                                 android:layout_width="match_parent"
-                                                 android:layout_height="match_parent"
-                                                 android:background="@color/white"
-                                                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                                                 tools:context="com.reso.bill.VendorRegistration"
-                                                 tools:showIn="@layout/generic_fragment_update_bill_details">
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/relativeLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context="com.reso.bill.VendorRegistration"
+        tools:showIn="@layout/generic_fragment_update_bill_details">
 
 
         <AutoCompleteTextView
@@ -51,8 +50,9 @@
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/gn_btn_save_bill"
+            app:layout_constraintBottom_toTopOf="@+id/textView6"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <Button
@@ -72,18 +72,15 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
 
-            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/txt_gn_bill_items_total"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recycler_update_invoice_items"/>
+            app:layout_constraintTop_toBottomOf="@+id/et_product_name"/>
 
 
-        <Button
+        <!--<Button
             android:id="@+id/gn_btn_save_bill"
             style="@style/basic_button"
             android:layout_width="0dp"
@@ -92,10 +89,11 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:text="Save"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            />
+            />-->
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_update_invoice_items"
@@ -107,11 +105,11 @@
             android:layout_marginTop="8dp"
             android:fadeScrollbars="true"
             android:isScrollContainer="false"
-            app:layout_constraintBottom_toTopOf="@+id/include_top"
+            app:layout_constraintBottom_toTopOf="@+id/include2"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_product_name"/>
+            app:layout_constraintTop_toBottomOf="@+id/include_top"/>
 
         <!--<android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_update_invoice_items"
@@ -133,13 +131,11 @@
             style="@style/basic_text_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="16dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
             android:text="Total Amount = INR "
-            app:layout_constraintBottom_toTopOf="@+id/include2"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_top"
             app:layout_constraintWidth_percent="0.7"/>
 
         <TextView

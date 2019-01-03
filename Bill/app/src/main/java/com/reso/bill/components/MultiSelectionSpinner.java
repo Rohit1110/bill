@@ -135,8 +135,14 @@ public class MultiSelectionSpinner extends android.support.v7.widget.AppCompatSp
         List<BillLocation> selectedLocations = new ArrayList<>();
         for(BillLocation loc: locations) {
             if(loc.getStatus() != null && loc.getStatus().equalsIgnoreCase("Selected")) {
-                loc.setStatus("A");
-                selectedLocations.add(loc);
+                try {
+                    BillLocation clone = (BillLocation) loc.clone();
+                    clone.setStatus("A");
+                    selectedLocations.add(clone);
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
+
             }
         }
         return selectedLocations;

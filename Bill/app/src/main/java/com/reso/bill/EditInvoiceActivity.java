@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,7 +14,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -52,8 +52,8 @@ public class EditInvoiceActivity extends AppCompatActivity {
     private List<String> yearsList;
     private Spinner yearsSpinner;
     private EditText amount, serviceCharge, credit, pending;
-    private Button save;
-    private Button send;
+    //private Button save;
+    //private Button send;
     private Spinner invoiceStatusSpinner;
     private List<String> statusList;
     private TextView payableAmount;
@@ -111,11 +111,11 @@ public class EditInvoiceActivity extends AppCompatActivity {
         serviceCharge = (EditText) findViewById(R.id.et_bill_details_service_charge);
         serviceCharge.setEnabled(true);
 
-        save = (Button) findViewById(R.id.fab_save_invoice);
-        save.setOnClickListener(new View.OnClickListener() {
+        //save = (Button) findViewById(R.id.fab_save_invoice);
+        /*save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*if (yearsSpinner.getSelectedItemPosition() > 0) {
+                *//*if (yearsSpinner.getSelectedItemPosition() > 0) {
 
                     int selectedItemOfMySpinner = yearsSpinner.getSelectedItemPosition();
 
@@ -140,18 +140,18 @@ public class EditInvoiceActivity extends AppCompatActivity {
                 } else {
                     Utility.createAlert(EditInvoiceActivity.this, "Please select a month!", "Error");
                     return;
-                }*/
+                }*//*
                 saveInvoice();
             }
-        });
+        });*/
 
-        send = (Button) findViewById(R.id.btn_send_invoice);
+        /*send = (Button) findViewById(R.id.btn_send_invoice);
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sendInvoice();
             }
-        });
+        });*/
 
         vendor = (BillUser) Utility.readObject(EditInvoiceActivity.this, Utility.USER_KEY);
 
@@ -166,6 +166,8 @@ public class EditInvoiceActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.share, menu);
+        menu.add(Menu.NONE, Utility.MENU_ITEM_SAVE, Menu.NONE, "Save").setIcon(R.drawable.ic_check_blue_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
         return true;
     }
 
@@ -173,14 +175,76 @@ public class EditInvoiceActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share:
-                shareIt();
+                shareOptions();
                 return true;
             case android.R.id.home:
                 finish();
                 return true;
+            case Utility.MENU_ITEM_SAVE:
+//                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show();;
+                saveInvoice();
+                return true;
 
         }
         return false;
+    }
+
+    private void shareOptions() {
+        if (invoice == null || invoice.getId() == null || TextUtils.isEmpty(invoice.getPaymentMessage())) {
+            Utility.createAlert(this, "Please save the invoice before sharing", "Error");
+            return;
+        }
+
+        final CharSequence[] items = {"SMS/Email", "WhatsApp", "Other"};
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Share invoice with");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                System.out.println("Selected option => " + item);
+                switch (item) {
+                    case 0:
+                        sendInvoice();
+                        break;
+                    case 1:
+                        shareViaWhatsapp(invoice.getPaymentMessage());
+                        break;
+                    case 2:
+                        shareIt();
+                        break;
+                }
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        builder.show();
+    }
+
+    private void shareViaWhatsapp(String paymentMessage) {
+        Intent whatsappIntent = new Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:" + "" + customer.getPhone() + "?body=" + paymentMessage));
+        //whatsappIntent.setType("text/plain");
+        whatsappIntent.setPackage("com.whatsapp");
+        //whatsappIntent.putExtra(Intent.EXTRA_TEXT, serviceResponse.getResponse());
+        try {
+
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            String whatsappNumber = customer.getPhone();
+            if (whatsappNumber != null && !whatsappNumber.contains("+91")) {
+                whatsappNumber = "+91" + whatsappNumber;
+            }
+            intent.setData(Uri.parse("http://api.whatsapp.com/send?phone=" + whatsappNumber + "&text=" + paymentMessage));
+
+            startActivity(intent);
+        } catch (android.content.ActivityNotFoundException ex) {
+            System.out.println("No whatsapp!!!" + ex);
+        }
     }
 
     private void shareIt() {
@@ -455,21 +519,14 @@ public class EditInvoiceActivity extends AppCompatActivity {
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     //Utility.createAlert(EditInvoiceActivity.this, "Invoice sent to customer successfully!", "Done");
 
+
                     AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(EditInvoiceActivity.this);
                     alertDialogBuilder.setTitle("Success");
                     alertDialogBuilder.setMessage("Invoice sent to customer via Email/ SMS successfully! Do you want to share it via WhatsApp?");
                     alertDialogBuilder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface arg0, int arg1) {
-                            Intent whatsappIntent = new Intent(Intent.ACTION_SEND);
-                            whatsappIntent.setType("text/plain");
-                            whatsappIntent.setPackage("com.whatsapp");
-                            whatsappIntent.putExtra(Intent.EXTRA_TEXT, serviceResponse.getResponse());
-                            try {
-                                startActivity(whatsappIntent);
-                            } catch (android.content.ActivityNotFoundException ex) {
-                                System.out.println("No whatsapp!!!");
-                            }
+                            shareViaWhatsapp(serviceResponse.getResponse());
                         }
                     });
                     alertDialogBuilder.setNegativeButton("No", new DialogInterface.OnClickListener() {

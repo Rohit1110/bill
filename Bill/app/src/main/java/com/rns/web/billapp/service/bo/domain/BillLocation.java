@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 
-public class BillLocation implements Serializable {
+public class BillLocation implements Serializable, Cloneable {
 
 	/**
 	 *
@@ -69,5 +69,10 @@ public class BillLocation implements Serializable {
 
 	public String getCity() {
 		return city;
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		return super.clone();
 	}
 }
