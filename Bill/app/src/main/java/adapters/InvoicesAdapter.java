@@ -254,7 +254,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
             txtAddress.setText(customerUser.getAddress());
             //status.setImageResource(R.drawable.ic_invoice_pending);
             if (customerUser.getCurrentInvoice() != null && customerUser.getCurrentInvoice().getPayable() != null) {
-                amount.setText("INR " + customerUser.getCurrentInvoice().getPayable().toString());
+                amount.setText(customerUser.getCurrentInvoice().getPayable().toString() + "/-");
                 /*if(customerUser.getCurrentInvoice().getAmount().compareTo(BigDecimal.ZERO) > 0) {
                     status.setImageResource(R.drawable.ic_invoice_pending);
                 }*/
