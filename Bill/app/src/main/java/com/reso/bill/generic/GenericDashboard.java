@@ -27,8 +27,8 @@ import com.reso.bill.CustomerList;
 import com.reso.bill.FragmentInvoiceSummary;
 import com.reso.bill.HelpActivity;
 import com.reso.bill.LoginActivity;
+import com.reso.bill.ProfileDisplayActivity;
 import com.reso.bill.R;
-import com.reso.bill.VendorRegistration;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.util.BillConstants;
 import com.squareup.picasso.Picasso;
@@ -279,7 +279,7 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
                 fragment = new BankDetailsFragment();
                 break;*/
             case R.id.nav_profile:
-                Intent i = new Intent(GenericDashboard.this, VendorRegistration.class);
+                Intent i = new Intent(GenericDashboard.this, ProfileDisplayActivity.class);
                 startActivity(i);
                 break;
             case R.id.nav_home:
