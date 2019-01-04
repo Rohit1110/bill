@@ -261,7 +261,7 @@ public class Utility {
         try {
 
             BillUser user = (BillUser) readFromSharedPref(context, key, BillUser.class);
-            if(user == null) {
+            if (user == null) {
                 FileInputStream fis = context.openFileInput(key);
                 ObjectInputStream ois = new ObjectInputStream(fis);
                 Object object = ois.readObject();
@@ -688,5 +688,19 @@ public class Utility {
 
         }
         return false;
+    }
+
+    public static String getLocationString(List<BillLocation> businessLocations) {
+        if (businessLocations == null || businessLocations.size() == 0) {
+            return "No locations found";
+        }
+        StringBuilder locBuilder = new StringBuilder();
+        for (int i = 0; i < businessLocations.size(); i++) {
+            locBuilder.append(businessLocations.get(i).getName());
+            if (i < (businessLocations.size() - 1)) {
+                locBuilder.append(",");
+            }
+        }
+        return locBuilder.toString();
     }
 }

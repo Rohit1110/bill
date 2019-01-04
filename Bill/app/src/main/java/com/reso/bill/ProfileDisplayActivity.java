@@ -1,14 +1,17 @@
 package com.reso.bill;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.rns.web.billapp.service.bo.domain.BillBusiness;
 import com.rns.web.billapp.service.bo.domain.BillUser;
+import com.squareup.picasso.Picasso;
 
+import util.ServiceUtil;
 import util.Utility;
 
 public class ProfileDisplayActivity extends AppCompatActivity {
@@ -16,6 +19,7 @@ public class ProfileDisplayActivity extends AppCompatActivity {
 
     private TextView nameTextView, emailTextView, contactTextView, businessNameTextView, businessAddressTextView, locationsTextView, areaOfBusinessTextView;
     private BillUser user;
+    private ImageView businessLogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,7 @@ public class ProfileDisplayActivity extends AppCompatActivity {
             Utility.setActionBar("Profile", getSupportActionBar());
         }
 
+        businessLogo = (ImageView) findViewById(R.id.businessLogoImageView);
         nameTextView = findViewById(R.id.nameTextView);
         emailTextView = findViewById(R.id.emailTextView);
         contactTextView = findViewById(R.id.contactTextView);
@@ -42,6 +47,20 @@ public class ProfileDisplayActivity extends AppCompatActivity {
         if (user != null) {
             nameTextView.setText(user.getName());
             emailTextView.setText(user.getEmail());
+            contactTextView.setText(user.getPhone());
+            BillBusiness currentBusiness = user.getCurrentBusiness();
+            if (currentBusiness != null) {
+                businessNameTextView.setText(currentBusiness.getName());
+                businessAddressTextView.setText(currentBusiness.getAddress());
+                if (currentBusiness.getBusinessSector() != null) {
+                    areaOfBusinessTextView.setText(currentBusiness.getBusinessSector().getName());
+                }
+                if (currentBusiness.getBusinessLocations() != null && currentBusiness.getBusinessLocations().size() > 0) {
+                    locationsTextView.setText(Utility.getLocationString(currentBusiness.getBusinessLocations()));
+                }
+
+            }
+            Picasso.get().load(ServiceUtil.ROOT_URL + "getImage/logo/" + user.getCurrentBusiness().getId()).into(businessLogo);
         }
     }
 
@@ -60,8 +79,7 @@ public class ProfileDisplayActivity extends AppCompatActivity {
                 finish();
                 return true;
             case MENU_ITEM_EDIT:
-                Intent editProfileActivity = new Intent(ProfileDisplayActivity.this, VendorRegistration.class);
-                startActivity(editProfileActivity);
+                startActivity(Utility.nextIntent(this, VendorRegistration.class, false));
                 return true;
         }
         return false;

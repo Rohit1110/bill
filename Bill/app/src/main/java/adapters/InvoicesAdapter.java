@@ -74,7 +74,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.reso.bill.R;
 import com.reso.bill.generic.GenericCustomerProfileActivity;
@@ -235,6 +237,8 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
         private TextView txtName;
         private CheckBox selected;
         private TextView txtAddress;
+        private ImageView reminderCount;
+        private TextView reminderCountVal;
 
         public RecViewHolder(View itemView) {
             super(itemView);
@@ -243,12 +247,14 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
             //status = (ImageView) itemView.findViewById(R.id.img_status_invoice_summary);
             selected = (CheckBox) itemView.findViewById(R.id.chkbox_invoices_select_customer);
             txtAddress = (TextView) itemView.findViewById(R.id.txt_invoice_summary_cust_address);
+            reminderCount = (ImageView) itemView.findViewById(R.id.img_reminder_count);
+            reminderCountVal = (TextView) itemView.findViewById(R.id.txt_reminder_count);
         }
 
-        private void bind(BillUser customerUser) {
+        private void bind(final BillUser customerUser) {
             //customerUser.setVisible(true);
             txtName.setText(customerUser.getName());
-            if(TextUtils.isEmpty(txtName.getText())) {
+            if (TextUtils.isEmpty(txtName.getText())) {
                 txtName.setText(customerUser.getPhone());
             }
             txtAddress.setText(customerUser.getAddress());
@@ -258,11 +264,40 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
                 /*if(customerUser.getCurrentInvoice().getAmount().compareTo(BigDecimal.ZERO) > 0) {
                     status.setImageResource(R.drawable.ic_invoice_pending);
                 }*/
+                if (customerUser.getCurrentInvoice().getNoOfReminders() != null && customerUser.getCurrentInvoice().getNoOfReminders() > 0) {
+                    reminderCountVal.setText(customerUser.getCurrentInvoice().getNoOfReminders().toString());
+                    reminderCount.setVisibility(View.VISIBLE);
+                    reminderCountVal.setVisibility(View.VISIBLE);
+                } else {
+                    reminderCount.setVisibility(View.GONE);
+                    reminderCountVal.setVisibility(View.GONE);
+                }
             }
+
+            reminderCount.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    remindCountHelp(customerUser);
+                }
+            });
+
+            reminderCountVal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    remindCountHelp(customerUser);
+                }
+            });
+
             multiSelect(selected);
         }
 
 
+    }
+
+    private void remindCountHelp(BillUser customerUser) {
+        if (customerUser != null && customerUser.getCurrentInvoice() != null && customerUser.getCurrentInvoice().getNoOfReminders() != null) {
+            Toast.makeText(activity,  "You have sent " + customerUser.getCurrentInvoice().getNoOfReminders() + " reminders to " + customerUser.getName() + " so far", Toast.LENGTH_LONG).show();
+        }
     }
 
     private void multiSelect(CheckBox selected) {

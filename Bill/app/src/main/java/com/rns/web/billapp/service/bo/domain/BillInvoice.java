@@ -33,6 +33,7 @@ public class BillInvoice {
     private String paymentMode;
     private String paymentMessage;
     private Date invoiceDate;
+    private Integer noOfReminders;
 
     public Integer getId() {
         return id;
@@ -248,5 +249,13 @@ public class BillInvoice {
 
     public void setInvoiceDate(Date invoiceDate) {
         this.invoiceDate = invoiceDate;
+    }
+
+    public Integer getNoOfReminders() {
+        return noOfReminders;
+    }
+
+    public void setNoOfReminders(Integer noOfReminders) {
+        this.noOfReminders = noOfReminders;
     }
 }
