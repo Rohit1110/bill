@@ -4,8 +4,162 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".BankInfoDisplayActivity"
+    tools:context=".generic.GenericBankInfoDisplayActivity"
     tools:showIn="@layout/activity_bank_info_display">
+
+    <include
+        android:id="@+id/include1"
+        layout="@layout/layout_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/bankNameImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/include2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include1"
+        app:srcCompat="@drawable/ic_account_balance_grey_24dp" />
+
+    <TextView
+        android:id="@+id/bankNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Bank Name"
+        android:textColor="@color/material_drawer_primary_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/bankNameImageView"
+        app:layout_constraintTop_toBottomOf="@+id/include1" />
+
+    <TextView
+        android:id="@+id/bankNameSubtitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bank Name"
+        android:textColor="@android:color/secondary_text_dark"
+        android:textSize="@dimen/list_text_sub_text"
+        app:layout_constraintStart_toStartOf="@+id/bankNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/bankNameTextView" />
+
+    <include
+        android:id="@+id/include2"
+        layout="@layout/layout_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bankNameSubtitleTextView" />
+
+    <ImageView
+        android:id="@+id/accountNumberImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/include3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include2"
+        app:srcCompat="@drawable/ic_account_balance_grey_24dp" />
+
+    <TextView
+        android:id="@+id/accountNumberTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="12345678901"
+        android:textColor="@color/material_drawer_primary_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/accountNumberImageView"
+        app:layout_constraintTop_toBottomOf="@+id/include2" />
+
+    <TextView
+        android:id="@+id/accountNumberSubtitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Account Number"
+        android:textColor="@android:color/secondary_text_dark"
+        android:textSize="@dimen/list_text_sub_text"
+        app:layout_constraintStart_toStartOf="@+id/accountNumberTextView"
+        app:layout_constraintTop_toBottomOf="@+id/accountNumberTextView" />
+
+    <include
+        android:id="@+id/include3"
+        layout="@layout/layout_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accountNumberSubtitleTextView" />
+
+    <ImageView
+        android:id="@+id/accountHolderNameImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/include4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include3"
+        app:srcCompat="@drawable/ic_account_balance_grey_24dp" />
+
+    <TextView
+        android:id="@+id/accountHolderNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="Account Holder Name"
+        android:textColor="@color/material_drawer_primary_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/accountHolderNameImageView"
+        app:layout_constraintTop_toBottomOf="@+id/include3" />
+
+    <TextView
+        android:id="@+id/accountHolderNameSubtitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Account Holder Name"
+        android:textColor="@android:color/secondary_text_dark"
+        android:textSize="@dimen/list_text_sub_text"
+        app:layout_constraintStart_toStartOf="@+id/accountHolderNameTextView"
+        app:layout_constraintTop_toBottomOf="@+id/accountHolderNameTextView" />
+
+    <include
+        android:id="@+id/include4"
+        layout="@layout/layout_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accountHolderNameSubtitleTextView" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,15 +1,15 @@
-package com.reso.bill;
+package com.reso.bill.generic;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.reso.bill.generic.GenericBankDetailsActivity;
+import com.reso.bill.R;
 
 import util.Utility;
 
-public class BankInfoDisplayActivity extends AppCompatActivity {
+public class GenericBankInfoDisplayActivity extends AppCompatActivity {
 
     private static final int MENU_ITEM_EDIT = 35;
 

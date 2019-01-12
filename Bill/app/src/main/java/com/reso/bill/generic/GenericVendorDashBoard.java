@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.reso.bill.BankInfoDisplayActivity;
 import com.reso.bill.BillSummaryActivity;
 import com.reso.bill.DailySummaryFragment;
 import com.reso.bill.ManageNewspapersActivity;
@@ -73,7 +72,7 @@ public class GenericVendorDashBoard extends Fragment {
         layoutBankInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(Utility.nextIntent(getActivity(), BankInfoDisplayActivity.class, false));
+                startActivity(Utility.nextIntent(getActivity(), GenericBankInfoDisplayActivity.class, false));
             }
         });
 
