@@ -1,4 +1,4 @@
-package com.reso.bill;
+package com.reso.bill.generic;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +7,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.reso.bill.R;
+import com.reso.bill.VendorRegistration;
 import com.rns.web.billapp.service.bo.domain.BillBusiness;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.squareup.picasso.Picasso;
@@ -14,7 +16,7 @@ import com.squareup.picasso.Picasso;
 import util.ServiceUtil;
 import util.Utility;
 
-public class ProfileDisplayActivity extends AppCompatActivity {
+public class GenericProfileDisplayActivity extends AppCompatActivity {
     private static final int MENU_ITEM_EDIT = 33;
 
     private TextView nameTextView, emailTextView, contactTextView, businessNameTextView, businessAddressTextView, locationsTextView, areaOfBusinessTextView;
@@ -39,7 +41,7 @@ public class ProfileDisplayActivity extends AppCompatActivity {
         locationsTextView = findViewById(R.id.locationsTextView);
         areaOfBusinessTextView = findViewById(R.id.areaOfBusinessTextView);
 
-        Object o = Utility.readObject(ProfileDisplayActivity.this, Utility.USER_KEY);
+        Object o = Utility.readObject(GenericProfileDisplayActivity.this, Utility.USER_KEY);
         if (o != null) {
             user = (BillUser) o;
         }

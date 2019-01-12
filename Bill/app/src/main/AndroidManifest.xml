@@ -159,7 +159,7 @@
             android:label="Customer activity"
             android:theme="@style/ActivityTheme"></activity>
         <activity
-            android:name=".ProfileDisplayActivity"
+            android:name=".generic.GenericProfileDisplayActivity"
             android:label="Profile"
             android:theme="@style/ActivityTheme"
             android:windowSoftInputMode="adjustResize"></activity>
