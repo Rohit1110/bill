@@ -72,7 +72,7 @@ public class GenericVendorDashBoard extends Fragment {
         layoutBankInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(Utility.nextIntent(getActivity(), GenericBankDetailsActivity.class, false));
+                startActivity(Utility.nextIntent(getActivity(), GenericBankInfoDisplayActivity.class, false));
             }
         });
 

@@ -28,8 +28,8 @@
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -61,108 +61,113 @@
         <activity
             android:name=".HelpActivity"
             android:label="@string/title_activity_help"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".TermsNConditionsActivity"
             android:label="@string/title_activity_terms_nconditions"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
 
         <!-- Fragments to Activities -->
         <activity
             android:name=".generic.GenericMyProductsActivity"
             android:label="My Products"
             android:parentActivityName=".generic.GenericDashboard"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".generic.GenericAddProductActivity"
             android:label="Add/Edit Product"
             android:parentActivityName=".generic.GenericMyProductsActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".generic.GenericTransactionsActivity"
             android:label="Transactions"
             android:parentActivityName=".generic.GenericDashboard"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".generic.GenericCreateBillActivity"
             android:label="Update Bill"
             android:theme="@style/ActivityTheme"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".generic.GenericUpdateInvoiceItemsActivity"
             android:label="Bill Details"
             android:parentActivityName=".generic.GenericCreateBillActivity"
             android:theme="@style/ActivityTheme"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".generic.GenericBankDetailsActivity"
             android:label="Bank Details"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".generic.GenericCustomerProfileActivity"
             android:label="Customer Profile"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".generic.GenericCustomerInfoActivity"
             android:label="Customer Information"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".generic.GenericCustomerInvoicesActivity"
             android:label="Customer Invoices"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".ManageNewspapersActivity"
             android:label="Manage newspapers"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".PauseBusinessActivity"
             android:label="Pause business"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".SelectNewspaperActivity"
             android:label="Select newspapers"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".SettingsActivity"
             android:label="Settings"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".BillSummaryActivity"
             android:label="Bills Summary"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".CustomerSubscriptionsActivity"
             android:label="Customer subscriptions"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".ChangeQuantityActivity"
             android:label="Change Quantity"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".DaysToDeliverActivity"
             android:label="Days to deliver"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".PauseCustomerSubscriptionActivity"
             android:label="Pause newspaper"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".EditInvoiceActivity"
             android:label="Add/Edit Invoice"
-            android:windowSoftInputMode="adjustResize"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".CustomerOrderHistoryActivity"
             android:label="Customer activity"
-            android:theme="@style/ActivityTheme"></activity>
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".generic.GenericProfileDisplayActivity"
             android:label="Profile"
             android:theme="@style/ActivityTheme"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".generic.GenericBankInfoDisplayActivity"
+            android:label="@string/title_activity_bank_info_display"
+            android:theme="@style/ActivityTheme"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

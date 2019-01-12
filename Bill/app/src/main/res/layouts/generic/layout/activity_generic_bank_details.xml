@@ -1,155 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.reso.bill.generic.GenericBankDetailsActivity">
+    android:fillViewport="true"
+    tools:context=".generic.GenericBankDetailsActivity">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:app="http://schemas.android.com/apk/res-auto"
-                    xmlns:tools="http://schemas.android.com/tools"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                    tools:context="com.reso.bill.VendorRegistration"
-                    tools:showIn="@layout/fragment_bank_details">
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <!--    <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        style="@style/basic_text_field"
-                        android:layout_marginLeft="@dimen/fab_margin"
-                        android:text="Bank Information"
-                        />
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
 
 
-                </LinearLayout>-->
-            <android.support.v4.widget.NestedScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="@dimen/fab_margin"
-                android:background="@color/white">
+        <TextView
+            android:id="@+id/textView24"
+            style="@style/textviewtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Bank Name"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/list_text_sub_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:orientation="vertical">
+        <EditText
+            android:id="@+id/et_bank_name"
+            style="@style/regedittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter Bank Name"
+            android:maxLength="40"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView24" />
 
-                    <TextView
-                        style="@style/textviewtitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="Bank Name"
-                        android:textColor="@android:color/secondary_text_dark"
-                        android:textSize="@dimen/list_text_sub_text" />
+        <TextView
 
-                    <EditText
-                        android:id="@+id/et_bank_name"
-                        style="@style/regedittext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:hint="Enter Bank Name"
-                        android:maxLength="40" />
+            android:id="@+id/textView25"
+            style="@style/textviewtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Account Number"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/list_text_sub_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_bank_name" />
 
-                    <TextView
+        <EditText
+            android:id="@+id/et_account_number"
+            style="@style/regedittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter Account number"
+            android:maxLength="20"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView25" />
 
-                        style="@style/textviewtitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="Account Number"
-                        android:textColor="@android:color/secondary_text_dark"
-                        android:textSize="@dimen/list_text_sub_text" />
+        <TextView
 
-                    <EditText
-                        android:id="@+id/et_account_number"
-                        style="@style/regedittext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:hint="Enter Account number"
-                        android:maxLength="20" />
+            android:id="@+id/textView26"
+            style="@style/textviewtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Account Holder Name"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/list_text_sub_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_account_number" />
 
-                    <TextView
+        <EditText
+            android:id="@+id/et_account_holder"
+            style="@style/regedittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter Account Holder Name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView26" />
 
-                        style="@style/textviewtitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="Account Holder Name"
-                        android:textColor="@android:color/secondary_text_dark"
-                        android:textSize="@dimen/list_text_sub_text" />
+        <TextView
+            android:id="@+id/textView27"
+            style="@style/textviewtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="IFSC Code"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/list_text_sub_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_account_holder" />
 
-                    <EditText
-                        android:id="@+id/et_account_holder"
-                        style="@style/regedittext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:hint="Enter Account Holder Name" />
+        <EditText
+            android:id="@+id/et_ifsc_code"
+            style="@style/regedittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter IFSC Code"
+            android:maxLength="11"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView27" />
 
-                    <TextView
-                        style="@style/textviewtitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="IFSC Code"
-                        android:textColor="@android:color/secondary_text_dark"
-                        android:textSize="@dimen/list_text_sub_text" />
+        <TextView
+            android:id="@+id/textView28"
+            style="@style/textviewtitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Bank Address"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/list_text_sub_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_ifsc_code" />
 
-                    <EditText
-                        android:id="@+id/et_ifsc_code"
-                        style="@style/regedittext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:hint="Enter IFSC Code"
-                        android:maxLength="11" />
-
-                    <TextView
-                        style="@style/textviewtitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:text="Bank Address"
-                        android:textColor="@android:color/secondary_text_dark"
-                        android:textSize="@dimen/list_text_sub_text" />
-
-                    <EditText
-                        android:id="@+id/et_bank_address"
-                        style="@style/regedittext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:hint="Enter Branch address" />
-
-
-                </LinearLayout>
-
-
-            </android.support.v4.widget.NestedScrollView>
-
-
-        </LinearLayout>
+        <EditText
+            android:id="@+id/et_bank_address"
+            style="@style/regedittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="Enter Branch address"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView28" />
 
 
-    </RelativeLayout>
-
-
-</android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
