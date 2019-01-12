@@ -75,7 +75,7 @@
         app:layout_constraintBottom_toTopOf="@+id/include3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include2"
-        app:srcCompat="@drawable/ic_account_balance_grey_24dp" />
+        app:srcCompat="@drawable/ic_account_balance_wallet_grey_24dp" />
 
     <TextView
         android:id="@+id/accountNumberTextView"
@@ -123,7 +123,7 @@
         app:layout_constraintBottom_toTopOf="@+id/include4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include3"
-        app:srcCompat="@drawable/ic_account_balance_grey_24dp" />
+        app:srcCompat="@drawable/ic_account_circle_grey_24dp" />
 
     <TextView
         android:id="@+id/accountHolderNameTextView"
@@ -171,7 +171,7 @@
         app:layout_constraintBottom_toTopOf="@+id/include5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include4"
-        app:srcCompat="@drawable/ic_account_balance_grey_24dp" />
+        app:srcCompat="@drawable/ic_enhanced_encryption_grey_24dp" />
 
     <TextView
         android:id="@+id/ifscTextView"
