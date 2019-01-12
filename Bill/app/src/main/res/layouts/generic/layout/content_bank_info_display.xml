@@ -1,261 +1,265 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".generic.GenericBankInfoDisplayActivity"
-    tools:showIn="@layout/activity_bank_info_display">
+    android:fillViewport="true"
+    tools:context=".generic.GenericBankInfoDisplayActivity">
 
-    <include
-        android:id="@+id/include1"
-        layout="@layout/layout_line"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
 
-    <ImageView
-        android:id="@+id/bankNameImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/include2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include1"
-        app:srcCompat="@drawable/ic_account_balance_grey_24dp" />
+        <include
+            android:id="@+id/include1"
+            layout="@layout/layout_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/bankNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Bank Name"
-        android:textColor="@color/material_drawer_primary_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/bankNameImageView"
-        app:layout_constraintTop_toBottomOf="@+id/include1" />
+        <ImageView
+            android:id="@+id/bankNameImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/include2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include1"
+            app:srcCompat="@drawable/ic_account_balance_grey_24dp" />
 
-    <TextView
-        android:id="@+id/bankNameSubtitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bank Name"
-        android:textColor="@android:color/secondary_text_dark"
-        android:textSize="@dimen/list_text_sub_text"
-        app:layout_constraintStart_toStartOf="@+id/bankNameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/bankNameTextView" />
+        <TextView
+            android:id="@+id/bankNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Bank Name"
+            android:textColor="@color/material_drawer_primary_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/bankNameImageView"
+            app:layout_constraintTop_toBottomOf="@+id/include1" />
 
-    <include
-        android:id="@+id/include2"
-        layout="@layout/layout_line"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bankNameSubtitleTextView" />
+        <TextView
+            android:id="@+id/bankNameSubtitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bank Name"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/list_text_sub_text"
+            app:layout_constraintStart_toStartOf="@+id/bankNameTextView"
+            app:layout_constraintTop_toBottomOf="@+id/bankNameTextView" />
 
-    <ImageView
-        android:id="@+id/accountNumberImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/include3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
-        app:srcCompat="@drawable/ic_account_balance_wallet_grey_24dp" />
+        <include
+            android:id="@+id/include2"
+            layout="@layout/layout_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bankNameSubtitleTextView" />
 
-    <TextView
-        android:id="@+id/accountNumberTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="12345678901"
-        android:textColor="@color/material_drawer_primary_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/accountNumberImageView"
-        app:layout_constraintTop_toBottomOf="@+id/include2" />
+        <ImageView
+            android:id="@+id/accountNumberImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/include3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include2"
+            app:srcCompat="@drawable/ic_account_balance_wallet_grey_24dp" />
 
-    <TextView
-        android:id="@+id/accountNumberSubtitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Account Number"
-        android:textColor="@android:color/secondary_text_dark"
-        android:textSize="@dimen/list_text_sub_text"
-        app:layout_constraintStart_toStartOf="@+id/accountNumberTextView"
-        app:layout_constraintTop_toBottomOf="@+id/accountNumberTextView" />
+        <TextView
+            android:id="@+id/accountNumberTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="12345678901"
+            android:textColor="@color/material_drawer_primary_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/accountNumberImageView"
+            app:layout_constraintTop_toBottomOf="@+id/include2" />
 
-    <include
-        android:id="@+id/include3"
-        layout="@layout/layout_line"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountNumberSubtitleTextView" />
+        <TextView
+            android:id="@+id/accountNumberSubtitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Account Number"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/list_text_sub_text"
+            app:layout_constraintStart_toStartOf="@+id/accountNumberTextView"
+            app:layout_constraintTop_toBottomOf="@+id/accountNumberTextView" />
 
-    <ImageView
-        android:id="@+id/accountHolderNameImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/include4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include3"
-        app:srcCompat="@drawable/ic_account_circle_grey_24dp" />
+        <include
+            android:id="@+id/include3"
+            layout="@layout/layout_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/accountNumberSubtitleTextView" />
 
-    <TextView
-        android:id="@+id/accountHolderNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Account Holder Name"
-        android:textColor="@color/material_drawer_primary_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/accountHolderNameImageView"
-        app:layout_constraintTop_toBottomOf="@+id/include3" />
+        <ImageView
+            android:id="@+id/accountHolderNameImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/include4"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include3"
+            app:srcCompat="@drawable/ic_account_circle_grey_24dp" />
 
-    <TextView
-        android:id="@+id/accountHolderNameSubtitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Account Holder Name"
-        android:textColor="@android:color/secondary_text_dark"
-        android:textSize="@dimen/list_text_sub_text"
-        app:layout_constraintStart_toStartOf="@+id/accountHolderNameTextView"
-        app:layout_constraintTop_toBottomOf="@+id/accountHolderNameTextView" />
+        <TextView
+            android:id="@+id/accountHolderNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Account Holder Name"
+            android:textColor="@color/material_drawer_primary_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/accountHolderNameImageView"
+            app:layout_constraintTop_toBottomOf="@+id/include3" />
 
-    <include
-        android:id="@+id/include4"
-        layout="@layout/layout_line"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/accountHolderNameSubtitleTextView" />
+        <TextView
+            android:id="@+id/accountHolderNameSubtitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Account Holder Name"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/list_text_sub_text"
+            app:layout_constraintStart_toStartOf="@+id/accountHolderNameTextView"
+            app:layout_constraintTop_toBottomOf="@+id/accountHolderNameTextView" />
 
-    <ImageView
-        android:id="@+id/ifscImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/include5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include4"
-        app:srcCompat="@drawable/ic_enhanced_encryption_grey_24dp" />
+        <include
+            android:id="@+id/include4"
+            layout="@layout/layout_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/accountHolderNameSubtitleTextView" />
 
-    <TextView
-        android:id="@+id/ifscTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="IFSC"
-        android:textColor="@color/material_drawer_primary_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/ifscImageView"
-        app:layout_constraintTop_toBottomOf="@+id/include4" />
+        <ImageView
+            android:id="@+id/ifscImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/include5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include4"
+            app:srcCompat="@drawable/ic_enhanced_encryption_grey_24dp" />
 
-    <TextView
-        android:id="@+id/ifscSubtitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="IFSC"
-        android:textColor="@android:color/secondary_text_dark"
-        android:textSize="@dimen/list_text_sub_text"
-        app:layout_constraintStart_toStartOf="@+id/ifscTextView"
-        app:layout_constraintTop_toBottomOf="@+id/ifscTextView" />
+        <TextView
+            android:id="@+id/ifscTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="IFSC"
+            android:textColor="@color/material_drawer_primary_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/ifscImageView"
+            app:layout_constraintTop_toBottomOf="@+id/include4" />
 
-    <include
-        android:id="@+id/include5"
-        layout="@layout/layout_line"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ifscSubtitleTextView" />
+        <TextView
+            android:id="@+id/ifscSubtitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IFSC"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/list_text_sub_text"
+            app:layout_constraintStart_toStartOf="@+id/ifscTextView"
+            app:layout_constraintTop_toBottomOf="@+id/ifscTextView" />
 
-    <ImageView
-        android:id="@+id/bankAddressImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/include6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include5"
-        app:srcCompat="@drawable/ic_location_on_grey_24dp" />
+        <include
+            android:id="@+id/include5"
+            layout="@layout/layout_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ifscSubtitleTextView" />
 
-    <TextView
-        android:id="@+id/bankAddressTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:text="Bank Address"
-        android:textColor="@color/material_drawer_primary_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/bankAddressImageView"
-        app:layout_constraintTop_toBottomOf="@+id/include5" />
+        <ImageView
+            android:id="@+id/bankAddressImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/include6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include5"
+            app:srcCompat="@drawable/ic_location_on_grey_24dp" />
 
-    <TextView
-        android:id="@+id/bankAddressSubtitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bank Address"
-        android:textColor="@android:color/secondary_text_dark"
-        android:textSize="@dimen/list_text_sub_text"
-        app:layout_constraintStart_toStartOf="@+id/bankAddressTextView"
-        app:layout_constraintTop_toBottomOf="@+id/bankAddressTextView" />
+        <TextView
+            android:id="@+id/bankAddressTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:text="Bank Address"
+            android:textColor="@color/material_drawer_primary_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/bankAddressImageView"
+            app:layout_constraintTop_toBottomOf="@+id/include5" />
 
-    <include
-        android:id="@+id/include6"
-        layout="@layout/layout_line"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bankAddressSubtitleTextView" />
+        <TextView
+            android:id="@+id/bankAddressSubtitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bank Address"
+            android:textColor="@android:color/secondary_text_dark"
+            android:textSize="@dimen/list_text_sub_text"
+            app:layout_constraintStart_toStartOf="@+id/bankAddressTextView"
+            app:layout_constraintTop_toBottomOf="@+id/bankAddressTextView" />
 
-</android.support.constraint.ConstraintLayout>
+        <include
+            android:id="@+id/include6"
+            layout="@layout/layout_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bankAddressSubtitleTextView" />
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
