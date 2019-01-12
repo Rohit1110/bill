@@ -164,7 +164,7 @@
             android:theme="@style/ActivityTheme"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".BankInfoDisplayActivity"
+            android:name=".generic.GenericBankInfoDisplayActivity"
             android:label="@string/title_activity_bank_info_display"
             android:theme="@style/ActivityTheme"
             android:windowSoftInputMode="adjustResize" />
