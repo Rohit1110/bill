@@ -168,6 +168,10 @@
             android:label="@string/title_activity_bank_info_display"
             android:theme="@style/ActivityTheme"
             android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".generic.GenericBillDisplayActivity"
+                  android:theme="@style/ActivityTheme">
+        </activity>
+
     </application>
 
 </manifest>

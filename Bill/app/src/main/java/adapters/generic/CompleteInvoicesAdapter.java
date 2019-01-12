@@ -19,7 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.reso.bill.R;
-import com.reso.bill.generic.GenericCreateBillActivity;
+import com.reso.bill.generic.GenericBillDisplayActivity;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
@@ -106,11 +106,10 @@ public class CompleteInvoicesAdapter extends RecyclerView.Adapter<RecyclerView.V
         view.txtDate.setText(CommonUtils.convertDate(txn.getCurrentInvoice().getInvoiceDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR_TIME));
         final BillInvoice currentInvoice = txn.getCurrentInvoice();
         if (currentInvoice != null) {
-            if (currentInvoice.getMonth() != null && currentInvoice.getYear() != null) {
-                view.txtInvoiceRef.setText("Invoice for " + BillConstants.MONTHS[currentInvoice.getMonth() - 1] + " " + currentInvoice.getYear());
-            } else {
-                view.txtInvoiceRef.setText("Invoice #" + CommonUtils.getStringValue(currentInvoice.getId()));
-            }
+            String purpose = Utility.invoicePurpose(currentInvoice);
+
+            view.txtInvoiceRef.setText(purpose);
+
             if (currentInvoice.getPayable() != null) {
                 view.txtAmount.setText(CommonUtils.getStringValue(currentInvoice.getPayable()) + "/-");
             } else {
@@ -137,7 +136,7 @@ public class CompleteInvoicesAdapter extends RecyclerView.Adapter<RecyclerView.V
             @Override
             public void onClick(View view) {
                 //Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(txn));
-                activity.startActivity(Utility.nextIntent(activity, GenericCreateBillActivity.class, true, txn, Utility.CUSTOMER_KEY));
+                activity.startActivity(Utility.nextIntent(activity, GenericBillDisplayActivity.class, true, txn, Utility.CUSTOMER_KEY));
             }
         });
 
@@ -167,6 +166,7 @@ public class CompleteInvoicesAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     }
 
+
     private void showHelpfulToast(ImageView imageView, final String message) {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,6 +175,7 @@ public class CompleteInvoicesAdapter extends RecyclerView.Adapter<RecyclerView.V
             }
         });
     }
+
     @Override
     public int getItemCount() {
         if (users == null) {

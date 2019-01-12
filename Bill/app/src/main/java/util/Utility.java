@@ -30,6 +30,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -41,11 +42,13 @@ import com.reso.bill.R;
 import com.reso.bill.generic.GenericDashboard;
 import com.reso.bill.generic.GenericInvoices;
 import com.rns.web.billapp.service.bo.domain.BillBusiness;
+import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillLocation;
 import com.rns.web.billapp.service.bo.domain.BillSector;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.util.BillConstants;
+import com.rns.web.billapp.service.util.CommonUtils;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -703,4 +706,24 @@ public class Utility {
         }
         return locBuilder.toString();
     }
+
+    public static String invoicePurpose(BillInvoice currentInvoice) {
+        String purpose = "";
+        if (currentInvoice.getMonth() != null && currentInvoice.getYear() != null) {
+            purpose = "Invoice for " + BillConstants.MONTHS[currentInvoice.getMonth() - 1] + " " + currentInvoice.getYear();
+        } else {
+            purpose = "Invoice #" + CommonUtils.getStringValue(currentInvoice.getId());
+        }
+        return purpose;
+    }
+
+    public static void showHelpfulToast(ImageView imageView, final String message, final Activity activity) {
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }

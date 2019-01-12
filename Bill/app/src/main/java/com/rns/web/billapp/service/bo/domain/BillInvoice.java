@@ -34,6 +34,8 @@ public class BillInvoice {
     private String paymentMessage;
     private Date invoiceDate;
     private Integer noOfReminders;
+    private BigDecimal outstandingBalance;
+    private Integer paymentAttempt;
 
     public Integer getId() {
         return id;
@@ -257,5 +259,21 @@ public class BillInvoice {
 
     public void setNoOfReminders(Integer noOfReminders) {
         this.noOfReminders = noOfReminders;
+    }
+
+    public BigDecimal getOutstandingBalance() {
+        return outstandingBalance;
+    }
+
+    public void setOutstandingBalance(BigDecimal outstandingBalance) {
+        this.outstandingBalance = outstandingBalance;
+    }
+
+    public void setPaymentAttempt(Integer paymentAttempt) {
+        this.paymentAttempt = paymentAttempt;
+    }
+
+    public Integer getPaymentAttempt() {
+        return paymentAttempt;
     }
 }
