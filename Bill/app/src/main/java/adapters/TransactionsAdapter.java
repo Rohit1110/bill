@@ -90,7 +90,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if(TextUtils.isEmpty(txn.getName())) {
             view.txtName.setText(txn.getPhone());
         }
-        view.txtDate.setText(CommonUtils.convertDate(txn.getCurrentInvoice().getCreatedDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR));
+        view.txtDate.setText(CommonUtils.convertDate(txn.getCurrentInvoice().getCreatedDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR_TIME));
         BillInvoice currentInvoice = txn.getCurrentInvoice();
         if (currentInvoice != null) {
             if (currentInvoice.getMonth() != null && currentInvoice.getYear() != null) {
@@ -105,7 +105,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 showHelpfulToast(view.imgStatus, "Invoice Paid");
             } else if (currentInvoice.getStatus() != null && "Settled".equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_txn_settled);
-                showHelpfulToast(view.imgStatus, "Transaction Settled");
+                showHelpfulToast(view.imgStatus, "Invoice Paid and Settled");
             } else if (currentInvoice.getStatus() != null && "Failed".equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_failed);
                 showHelpfulToast(view.imgStatus, "Invoice Failed");

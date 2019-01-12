@@ -33,6 +33,7 @@ import com.rns.web.billapp.service.domain.BillServiceResponse;
 import com.rns.web.billapp.service.util.BillConstants;
 import com.rns.web.billapp.service.util.CommonUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import adapters.CustomerInvoiceAdapter;
@@ -251,6 +252,11 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
             if (invoices != null && invoices.size() > 0) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
                 CustomerInvoiceAdapter adapter = new CustomerInvoiceAdapter(invoices, this, selectedCustomer);
+                adapter.setUser(user);
+                recyclerView.setAdapter(adapter);
+            } else {
+                recyclerView.setLayoutManager(new LinearLayoutManager(this));
+                CustomerInvoiceAdapter adapter = new CustomerInvoiceAdapter(new ArrayList<BillInvoice>(), this, selectedCustomer);
                 adapter.setUser(user);
                 recyclerView.setAdapter(adapter);
             }

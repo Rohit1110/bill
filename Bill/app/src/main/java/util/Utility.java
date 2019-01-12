@@ -698,7 +698,7 @@ public class Utility {
         for (int i = 0; i < businessLocations.size(); i++) {
             locBuilder.append(businessLocations.get(i).getName());
             if (i < (businessLocations.size() - 1)) {
-                locBuilder.append(",");
+                locBuilder.append(", ");
             }
         }
         return locBuilder.toString();

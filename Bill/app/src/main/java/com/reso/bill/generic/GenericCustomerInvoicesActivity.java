@@ -3,7 +3,6 @@ package com.reso.bill.generic;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -81,7 +80,7 @@ public class GenericCustomerInvoicesActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(R.mipmap.backarrow);*/
         Utility.setActionBar("Bill by Year - " + customer.getName(), getSupportActionBar());
         //customerName = (TextView) findViewById(R.id.txt_customer_invoices_customer_name);
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(GenericCustomerInvoicesActivity.this, recyclerView, new ClickListener() {
+        /*recyclerView.addOnItemTouchListener(new RecyclerTouchListener(GenericCustomerInvoicesActivity.this, recyclerView, new ClickListener() {
 
             @Override
             public void onClick(View view, int position) {
@@ -109,18 +108,18 @@ public class GenericCustomerInvoicesActivity extends AppCompatActivity {
                     }
                 });
 
-                /*builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                *//*builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
                     }
-                });*/
+                });*//*
 
                 alertDialog = builder.create();
                 alertDialog.show();
 
             }
-        }));
+        }));*/
         addInvoice = (Button) findViewById(R.id.fab_add_invoice);
         addInvoice.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -182,43 +181,6 @@ public class GenericCustomerInvoicesActivity extends AppCompatActivity {
         return Utility.backDefault(item, this);
     }
 
-    private void deleteInvoice(BillInvoice invoice) {
-        if (invoice == null || invoice.getId() == null || customer == null) {
-            return;
-        }
-        invoice.setStatus(BillConstants.INVOICE_STATUS_DELETED);
-        //}
-        BillServiceRequest request = new BillServiceRequest();
-        request.setInvoice(invoice);
-        request.setUser(customer);
-        pDialog = Utility.getProgressDialogue("Deleting..", GenericCustomerInvoicesActivity.this);
-        StringRequest myReq = ServiceUtil.getStringRequest("updateCustomerInvoice", invoiceDeletionResponse(), ServiceUtil.createMyReqErrorListener(pDialog, GenericCustomerInvoicesActivity.this), request);
-        RequestQueue queue = Volley.newRequestQueue(GenericCustomerInvoicesActivity.this);
-        queue.add(myReq);
-    }
-
-    private Response.Listener<String> invoiceDeletionResponse() {
-        return new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                System.out.println("## response:" + response);
-                pDialog.dismiss();
-
-                BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
-                if (serviceResponse != null && serviceResponse.getStatus() == 200) {
-                    loadCustomerInvoices();
-                    Utility.createAlert(GenericCustomerInvoicesActivity.this, "Invoice deleted successfully!", "Done");
-                } else {
-                    System.out.println("Error .." + serviceResponse.getResponse());
-                    Utility.createAlert(GenericCustomerInvoicesActivity.this, serviceResponse.getResponse(), "Error");
-                }
-
-            }
-
-        };
-
-
-    }
 
     @Override
     public void onResume() {
