@@ -1,6 +1,9 @@
 package adapters;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,11 +14,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.reso.bill.EditInvoiceActivity;
 import com.reso.bill.R;
 import com.reso.bill.generic.GenericCreateBillActivity;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillUser;
+import com.rns.web.billapp.service.domain.BillServiceRequest;
+import com.rns.web.billapp.service.domain.BillServiceResponse;
 import com.rns.web.billapp.service.util.BillConstants;
 import com.rns.web.billapp.service.util.CommonUtils;
 
@@ -35,6 +44,7 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     List<BillInvoice> items = new ArrayList<>();
     private BillUser customer;
     private BillUser user;
+    private ProgressDialog pDialog;
 
     public CustomerInvoiceAdapter(List<BillInvoice> items, Activity activity, BillUser customer) {
         this.items = items;
@@ -82,7 +92,68 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
                 }
             });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    final CharSequence[] items = {"Delete"};
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+                    builder.setTitle("Action for invoice #" + invoice.getId());
+                    builder.setItems(items, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int item) {
+                            System.out.println("Selected option => " + item);
+                            deleteInvoice(invoice);
+
+                        }
+                    });
+                    builder.show();
+                    return true;
+
+                }
+            });
         }
+    }
+
+    private void deleteInvoice(BillInvoice invoice) {
+        if (invoice == null || invoice.getId() == null || customer == null) {
+            return;
+        }
+        invoice.setStatus(BillConstants.INVOICE_STATUS_DELETED);
+        //}
+        BillServiceRequest request = new BillServiceRequest();
+        request.setInvoice(invoice);
+        request.setUser(customer);
+        pDialog = Utility.getProgressDialogue("Deleting..", activity);
+        StringRequest myReq = ServiceUtil.getStringRequest("updateCustomerInvoice", invoiceDeletionResponse(invoice), ServiceUtil.createMyReqErrorListener(pDialog, activity), request);
+        RequestQueue queue = Volley.newRequestQueue(activity);
+        queue.add(myReq);
+    }
+
+    private Response.Listener<String> invoiceDeletionResponse(final BillInvoice invoice) {
+        return new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println("## response:" + response);
+                pDialog.dismiss();
+
+                BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
+                if (serviceResponse != null && serviceResponse.getStatus() == 200) {
+                    items.remove(invoice);
+                    notifyDataSetChanged();
+                    Utility.createAlert(activity, "Invoice deleted successfully!", "Done");
+                } else {
+                    System.out.println("Error .." + serviceResponse.getResponse());
+                    Utility.createAlert(activity, serviceResponse.getResponse(), "Error");
+                }
+
+            }
+
+        };
+
+
     }
 
     @NonNull
@@ -113,7 +184,7 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         } else if (invoice.getStatus() != null && "Failed".equals(invoice.getStatus())) {
             gholder.statusImg.setImageResource(R.drawable.ic_invoice_failed);
             showHelpfulToast(gholder.statusImg, "Invoice Failed");
-        }else if (invoice.getStatus() != null && "Pending".equals(invoice.getStatus())) {
+        } else if (invoice.getStatus() != null && "Pending".equals(invoice.getStatus())) {
             gholder.statusImg.setImageResource(R.drawable.ic_invoice_pending);
             showHelpfulToast(gholder.statusImg, "Invoice Pending");
         }
@@ -130,6 +201,7 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             }
         });
     }
+
     @Override
     public int getItemCount() {
         if (items == null) {
