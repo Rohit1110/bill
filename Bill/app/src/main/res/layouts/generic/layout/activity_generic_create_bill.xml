@@ -96,8 +96,8 @@
         android:hint="Enter Customer service charge (Optional)"
         android:inputType="numberDecimal"
         android:maxLength="5"
-        android:visibility="gone"
         android:textSize="@dimen/list_text_main_text"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_customer_bill_amount" />
@@ -182,27 +182,32 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:src="@drawable/ic_invoice_paid"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_bill_paid_details"
+            app:layout_constraintEnd_toStartOf="@+id/txt_bill_paid_details"
+            app:layout_constraintTop_toTopOf="@+id/txt_bill_paid_details" />
 
         <TextView
             android:id="@+id/txt_bill_paid_details"
             style="@style/gen_textviewtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginLeft="64dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginRight="64dp"
             android:layout_marginBottom="8dp"
-            android:layout_marginStart="8dp"
             android:text="Paid at "
-            android:visibility="gone"
+            android:textSize="@dimen/list_text_main_text"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/img_gn_delete_inv_item"
-            app:layout_constraintTop_toTopOf="@+id/img_gn_delete_inv_item"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chk_gn_bill_offline_payment" />
 
     </android.support.constraint.ConstraintLayout>
 
