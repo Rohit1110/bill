@@ -133,7 +133,7 @@ public class GenericInvoiceItemsDisplayAdapter extends RecyclerView.Adapter<Recy
                 total = total.add(item.getPrice());
             }
         }
-        billAmount.setText(Utility.getDecimalString(total));
+        billAmount.setText("Total = " + Utility.getDecimalString(total));
     }
 
     @Override
