@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.reso.bill.generic.GenericBillDisplayActivity">
+
+    <TextView
+        android:id="@+id/txt_gn_bill_display_invoice_purpose"
+        style="@style/basic_text_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Purpose"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_percent="0.45"/>
+
+    <TextView
+        android:id="@+id/txt_gn_bill_display_customer_info"
+        style="@style/basic_text_field_grey"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="Customer name/Phone"
+        app:layout_constraintWidth_percent="0.45"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txt_gn_bill_display_invoice_purpose"/>
+
+    <ImageView
+        android:id="@+id/img_bill_display_reminder_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_action_message"
+        app:layout_constraintStart_toStartOf="@+id/txt_gn_bill_display_invoice_purpose"
+        app:layout_constraintTop_toBottomOf="@+id/txt_gn_bill_display_invoice_purpose"/>
+
+    <ImageView
+        android:id="@+id/img_bill_display_bill_seen_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:src="@drawable/ic_action_invoice_unseen"
+        app:layout_constraintStart_toEndOf="@+id/txt_bill_display_reminder_count"
+        app:layout_constraintTop_toTopOf="@+id/img_bill_display_reminder_count"/>
+
+    <TextView
+        android:id="@+id/txt_bill_display_reminder_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:paddingTop="0dp"
+        android:text="0"
+        android:textColor="@android:color/secondary_text_dark"
+        app:layout_constraintStart_toEndOf="@+id/img_bill_display_reminder_count"
+        app:layout_constraintTop_toTopOf="@+id/img_bill_display_reminder_count"/>
+
+    <ImageView
+        android:id="@+id/img_bill_display_invoice_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_invoice_pending"
+        app:layout_constraintEnd_toStartOf="@+id/txt_bill_display_invoice_paid_time"
+        app:layout_constraintTop_toTopOf="@+id/img_bill_display_bill_seen_status"/>
+
+    <TextView
+        android:id="@+id/txt_bill_display_invoice_paid_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:paddingTop="0dp"
+        android:text="time"
+        android:visibility="gone"
+        android:textColor="@android:color/secondary_text_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/img_bill_display_invoice_status"/>
+
+    <include
+        android:id="@+id/include19"
+        layout="@layout/layout_line"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/img_bill_display_invoice_status"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_bill_display_invoice_items"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:fadeScrollbars="true"
+        android:isScrollContainer="false"
+        app:layout_constraintBottom_toTopOf="@+id/line_above_outstanding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include19"/>
+
+
+    <include
+        android:id="@+id/line_above_outstanding"
+        layout="@layout/layout_line"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_gn_bill_display_total"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/txt_gn_bill_display_service_charge"
+        style="@style/basic_text_field_grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Service charge = 0"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/txt_gn_bill_display_outstanding"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="@id/txt_gn_bill_display_total_payable"/>
+
+    <TextView
+        android:id="@+id/txt_gn_bill_display_pending_balance"
+        style="@style/basic_text_field_grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Pending balance = 0"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/txt_gn_bill_display_service_charge"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="@id/txt_gn_bill_display_total_payable"/>
+
+    <TextView
+        android:id="@+id/txt_gn_bill_display_total"
+        style="@style/basic_text_field_grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Total = 0"
+        app:layout_constraintBottom_toTopOf="@+id/txt_gn_bill_display_pending_balance"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
+        app:layout_constraintStart_toStartOf="@id/txt_gn_bill_display_total_payable"/>
+
+
+
+    <TextView
+        android:id="@+id/txt_gn_bill_display_outstanding"
+        style="@style/basic_text_field_grey"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Oustanding = 0"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/txt_gn_bill_display_total_payable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintStart_toStartOf="@id/txt_gn_bill_display_total_payable"/>
+
+
+    <include
+        android:id="@+id/line_above_total_payable"
+        layout="@layout/layout_line"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/txt_gn_bill_display_total_payable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/txt_gn_bill_display_total_payable"
+        style="@style/basic_text_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:text="Total payable = 0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+</android.support.constraint.ConstraintLayout>

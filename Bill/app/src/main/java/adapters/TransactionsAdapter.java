@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
@@ -87,7 +86,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         BillUser txn = (BillUser) users.get(position);
         ViewHolder1 view = (ViewHolder1) holder;
         view.txtName.setText(txn.getName());
-        if(TextUtils.isEmpty(txn.getName())) {
+        if (TextUtils.isEmpty(txn.getName())) {
             view.txtName.setText(txn.getPhone());
         }
         view.txtDate.setText(CommonUtils.convertDate(txn.getCurrentInvoice().getCreatedDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR_TIME));
@@ -102,27 +101,27 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
             if (currentInvoice.getStatus() != null && BillConstants.INVOICE_STATUS_PAID.equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_paid);
-                showHelpfulToast(view.imgStatus, "Invoice Paid");
+                Utility.showHelpfulToast(view.imgStatus, "Invoice Paid", activity);
             } else if (currentInvoice.getStatus() != null && "Settled".equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_txn_settled);
-                showHelpfulToast(view.imgStatus, "Invoice Paid and Settled");
+                Utility.showHelpfulToast(view.imgStatus, "Invoice Paid and Settled", activity);
             } else if (currentInvoice.getStatus() != null && "Failed".equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_failed);
-                showHelpfulToast(view.imgStatus, "Invoice Failed");
+                Utility.showHelpfulToast(view.imgStatus, "Invoice Failed", activity);
             } else if (currentInvoice.getStatus() != null && "Deleted".equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_action_delete);
-                showHelpfulToast(view.imgStatus, "Invoice Deleted");
+                Utility.showHelpfulToast(view.imgStatus, "Invoice Deleted", activity);
             } else {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_pending);
-                showHelpfulToast(view.imgStatus, "Invoice Pending");
+                Utility.showHelpfulToast(view.imgStatus, "Invoice Pending", activity);
             }
 
             if (currentInvoice.getPaymentMedium() != null && currentInvoice.getPaymentMedium().equals("CASH")) {
                 view.imgPaymentMedium.setImageResource(R.drawable.ic_payment_medium_cash);
-                showHelpfulToast(view.imgPaymentMedium, "Cash Payment");
+                Utility.showHelpfulToast(view.imgPaymentMedium, "Cash Payment", activity);
             } else {
                 view.imgPaymentMedium.setImageResource(R.drawable.ic_payment_medium_online);
-                showHelpfulToast(view.imgPaymentMedium, "Online Payment");
+                Utility.showHelpfulToast(view.imgPaymentMedium, "Online Payment", activity);
             }
 
         }
@@ -132,14 +131,6 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     }
 
-    private void showHelpfulToast(ImageView imageView, final String message) {
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
 
     @Override
     public int getItemCount() {

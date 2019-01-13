@@ -90,17 +90,17 @@
         app:layout_constraintStart_toStartOf="parent"/>
 
     <ImageView
-        android:id="@+id/img_reminder_count"
+        android:id="@+id/img_bill_display_reminder_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginEnd="8dp"
         android:src="@drawable/ic_action_message"
-        app:layout_constraintEnd_toStartOf="@+id/txt_reminder_count"
+        app:layout_constraintEnd_toStartOf="@+id/txt_bill_display_reminder_count"
         app:layout_constraintTop_toTopOf="@+id/txt_invoice_summary_customer_name"/>
 
     <TextView
-        android:id="@+id/txt_reminder_count"
+        android:id="@+id/txt_bill_display_reminder_count"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -108,5 +108,5 @@
         android:text="0"
         android:textColor="@android:color/secondary_text_dark"
         app:layout_constraintEnd_toStartOf="@+id/chkbox_invoices_select_customer"
-        app:layout_constraintTop_toTopOf="@+id/img_reminder_count"/>
+        app:layout_constraintTop_toTopOf="@+id/img_bill_display_reminder_count"/>
 </android.support.constraint.ConstraintLayout>
