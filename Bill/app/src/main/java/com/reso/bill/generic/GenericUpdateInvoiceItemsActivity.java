@@ -58,7 +58,7 @@ public class GenericUpdateInvoiceItemsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generic_update_invoice_items);
-        Utility.setActionBar("Bill details", getSupportActionBar());
+        Utility.setActionBar("Invoice details", getSupportActionBar());
 
         //Hide keyboard on load
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
