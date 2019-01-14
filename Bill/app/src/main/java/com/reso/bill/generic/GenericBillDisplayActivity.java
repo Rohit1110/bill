@@ -40,7 +40,7 @@ public class GenericBillDisplayActivity extends AppCompatActivity {
 
     private ProgressDialog pDialog;
     private static final int MENU_ITEM_EDIT = 1;
-    private TextView customerPhone, invoiceNumberTextView, noProductsAvailableTextView, payable, credit, outstanding, pending, serviceCharge, noOfReminders, paidTime, billAmount, invoicePurpose;
+    private TextView customerPhone, noProductsAvailableTextView, payable, credit, outstanding, pending, serviceCharge, noOfReminders, paidTime, billAmount, invoicePurpose;
     private ImageView paidIcon, invoiceSeenStatus, reminders;
     private GenericInvoiceItemsDisplayAdapter adapter;
     private RecyclerView recyclerView;
@@ -56,11 +56,8 @@ public class GenericBillDisplayActivity extends AppCompatActivity {
             invoice = customer.getCurrentInvoice();
         }
 
-//        Utility.setActionBar("Invoice # " + invoice.getId(), getSupportActionBar());
-        Utility.setActionBar("Invoice", getSupportActionBar());
+        Utility.setActionBar("Invoice # " + invoice.getId(), getSupportActionBar());
 
-        invoiceNumberTextView = findViewById(R.id.invoiceNumberTextView);
-        invoiceNumberTextView.setText(String.valueOf(invoice.getId()));
         customerPhone = findViewById(R.id.txt_gn_bill_display_customer_info);
         invoicePurpose = findViewById(R.id.txt_gn_bill_display_invoice_purpose);
         payable = findViewById(R.id.txt_gn_bill_display_total_payable);

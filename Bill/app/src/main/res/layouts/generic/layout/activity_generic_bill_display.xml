@@ -25,8 +25,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/invoiceNumberconstraintLayout"
+            android:id="@+id/constraintLayout7"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,36 +35,71 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/invoiceDetailsSubtitleTextView">
 
-            <TextView
-                android:id="@+id/invoiceNumberTextView"
-                style="@style/basic_text_field"
+            <ImageView
+                android:id="@+id/img_bill_display_reminder_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:padding="12dp"
+                android:src="@drawable/ic_action_message"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/img_bill_display_bill_seen_status"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/img_bill_display_bill_seen_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
-                android:text="12345"
-                android:textSize="@dimen/list_text_main_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintWidth_percent="0.45" />
+                android:padding="12dp"
+                android:src="@drawable/ic_action_invoice_unseen"
+                app:layout_constraintEnd_toStartOf="@+id/img_bill_display_invoice_status"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/img_bill_display_reminder_count"
+                app:layout_constraintTop_toTopOf="@+id/img_bill_display_reminder_count" />
 
             <TextView
-                android:id="@+id/invoiceNumberSubtitleTextView"
+                android:id="@+id/txt_bill_display_reminder_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Invoice Number"
+                android:paddingTop="0dp"
+                android:text="0"
+                android:textColor="@android:color/secondary_text_dark"
+                app:layout_constraintBottom_toBottomOf="@+id/img_bill_display_reminder_count"
+                app:layout_constraintEnd_toStartOf="@+id/img_bill_display_reminder_count"
+                app:layout_constraintTop_toTopOf="@+id/img_bill_display_reminder_count" />
+
+            <ImageView
+                android:id="@+id/img_bill_display_invoice_status"
+                android:layout_width="48dp"
+                android:layout_height="49dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:padding="12dp"
+                android:src="@drawable/ic_invoice_pending"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_bill_display_bill_seen_status"
+                app:layout_constraintTop_toTopOf="@+id/img_bill_display_bill_seen_status" />
+
+            <TextView
+                android:id="@+id/txt_bill_display_invoice_paid_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="0dp"
+                android:text="time"
                 android:textColor="@android:color/secondary_text_dark"
                 android:textSize="@dimen/list_text_sub_text"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/invoiceNumberTextView"
-                app:layout_constraintTop_toBottomOf="@+id/invoiceNumberTextView" />
-
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/img_bill_display_invoice_status"
+                app:layout_constraintEnd_toEndOf="@+id/img_bill_display_invoice_status"
+                app:layout_constraintStart_toStartOf="@+id/img_bill_display_invoice_status" />
             <include
                 layout="@layout/layout_line"
                 android:layout_width="match_parent"
@@ -73,6 +109,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
         </android.support.constraint.ConstraintLayout>
 
+
         <android.support.constraint.ConstraintLayout
             android:id="@+id/purposeConstraintLayout"
             android:layout_width="0dp"
@@ -80,7 +117,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/invoiceNumberconstraintLayout">
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout7">
 
             <TextView
                 android:id="@+id/txt_gn_bill_display_invoice_purpose"
@@ -105,7 +142,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Purpose"
+                android:text="Invoice For"
                 android:textColor="@android:color/secondary_text_dark"
                 android:textSize="@dimen/list_text_sub_text"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -357,92 +394,9 @@
                 app:layout_constraintStart_toStartOf="@+id/txt_gn_bill_display_total_payable"
                 app:layout_constraintTop_toBottomOf="@+id/txt_gn_bill_display_total_payable" />
 
-            <include
-                layout="@layout/layout_line"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-        </android.support.constraint.ConstraintLayout>
-
-
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout7"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/totalPayableConstraintLayout">
-
-            <ImageView
-                android:id="@+id/img_bill_display_reminder_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:padding="12dp"
-                android:src="@drawable/ic_action_message"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/img_bill_display_bill_seen_status"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/img_bill_display_bill_seen_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:padding="12dp"
-                android:src="@drawable/ic_action_invoice_unseen"
-                app:layout_constraintEnd_toStartOf="@+id/img_bill_display_invoice_status"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/img_bill_display_reminder_count"
-                app:layout_constraintTop_toTopOf="@+id/img_bill_display_reminder_count" />
-
-            <TextView
-                android:id="@+id/txt_bill_display_reminder_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="0dp"
-                android:text="0"
-                android:textColor="@android:color/secondary_text_dark"
-                app:layout_constraintBottom_toBottomOf="@+id/img_bill_display_reminder_count"
-                app:layout_constraintEnd_toStartOf="@+id/img_bill_display_reminder_count"
-                app:layout_constraintTop_toTopOf="@+id/img_bill_display_reminder_count" />
-
-            <ImageView
-                android:id="@+id/img_bill_display_invoice_status"
-                android:layout_width="48dp"
-                android:layout_height="49dp"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="8dp"
-                android:layout_marginRight="8dp"
-                android:padding="12dp"
-                android:src="@drawable/ic_invoice_pending"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/img_bill_display_bill_seen_status"
-                app:layout_constraintTop_toTopOf="@+id/img_bill_display_bill_seen_status" />
-
-            <TextView
-                android:id="@+id/txt_bill_display_invoice_paid_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="0dp"
-                android:text="time"
-                android:textColor="@android:color/secondary_text_dark"
-                android:textSize="@dimen/list_text_sub_text"
-                android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@+id/img_bill_display_invoice_status"
-                app:layout_constraintEnd_toEndOf="@+id/img_bill_display_invoice_status"
-                app:layout_constraintStart_toStartOf="@+id/img_bill_display_invoice_status" />
 
         </android.support.constraint.ConstraintLayout>
+
 
         <TextView
             android:id="@+id/productsDetailsSubtitleTextView"
@@ -454,7 +408,7 @@
             android:textSize="@dimen/list_text_sub_text"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/constraintLayout7" />
+            app:layout_constraintTop_toBottomOf="@+id/totalPayableConstraintLayout" />
 
         <TextView
             android:id="@+id/noProductsAvailableTextView"
