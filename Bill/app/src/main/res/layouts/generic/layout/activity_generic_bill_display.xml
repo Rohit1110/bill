@@ -26,7 +26,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout0"
+            android:id="@+id/invoiceNumberconstraintLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -44,7 +44,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
-                android:text="Purpose"
+                android:text="12345"
                 android:textSize="@dimen/list_text_main_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -74,13 +74,13 @@
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout1"
+            android:id="@+id/purposeConstraintLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout0">
+            app:layout_constraintTop_toBottomOf="@+id/invoiceNumberconstraintLayout">
 
             <TextView
                 android:id="@+id/txt_gn_bill_display_invoice_purpose"
@@ -122,13 +122,13 @@
         </android.support.constraint.ConstraintLayout>
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout2"
+            android:id="@+id/customerNameConstraintLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout1">
+            app:layout_constraintTop_toBottomOf="@+id/purposeConstraintLayout">
 
             <TextView
                 android:id="@+id/txt_gn_bill_display_customer_info"
@@ -171,13 +171,13 @@
 
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout3"
+            android:id="@+id/pendingBalanceConstraintLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+            app:layout_constraintTop_toBottomOf="@+id/customerNameConstraintLayout">
 
             <TextView
                 android:id="@+id/txt_gn_bill_display_pending_balance"
@@ -220,13 +220,13 @@
 
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout4"
+            android:id="@+id/serviceChargeConstraintLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+            app:layout_constraintTop_toBottomOf="@+id/pendingBalanceConstraintLayout">
 
             <TextView
                 android:id="@+id/txt_gn_bill_display_service_charge"
@@ -269,13 +269,13 @@
 
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout5"
+            android:id="@+id/outstandingConstraintLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+            app:layout_constraintTop_toBottomOf="@+id/serviceChargeConstraintLayout">
 
             <TextView
                 android:id="@+id/txt_gn_bill_display_outstanding"
@@ -318,13 +318,13 @@
 
 
         <android.support.constraint.ConstraintLayout
-            android:id="@+id/constraintLayout6"
+            android:id="@+id/totalPayableConstraintLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
+            app:layout_constraintTop_toBottomOf="@+id/outstandingConstraintLayout">
 
             <TextView
                 android:id="@+id/txt_gn_bill_display_total_payable"
@@ -374,7 +374,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout6">
+            app:layout_constraintTop_toBottomOf="@+id/totalPayableConstraintLayout">
 
             <ImageView
                 android:id="@+id/img_bill_display_reminder_count"

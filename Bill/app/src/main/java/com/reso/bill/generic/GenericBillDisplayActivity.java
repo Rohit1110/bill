@@ -57,7 +57,7 @@ public class GenericBillDisplayActivity extends AppCompatActivity {
         }
 
 //        Utility.setActionBar("Invoice # " + invoice.getId(), getSupportActionBar());
-        Utility.setActionBar("Invoice # " + invoice.getId(), getSupportActionBar());
+        Utility.setActionBar("Invoice", getSupportActionBar());
 
         invoiceNumberTextView = findViewById(R.id.invoiceNumberTextView);
         invoiceNumberTextView.setText(String.valueOf(invoice.getId()));
