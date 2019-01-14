@@ -185,7 +185,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:src="@drawable/ic_invoice_paid"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/txt_bill_paid_details"
             app:layout_constraintEnd_toStartOf="@+id/txt_bill_paid_details"
             app:layout_constraintTop_toTopOf="@+id/txt_bill_paid_details" />
@@ -203,7 +203,7 @@
             android:layout_marginBottom="8dp"
             android:text="Paid at "
             android:textSize="@dimen/list_text_main_text"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
