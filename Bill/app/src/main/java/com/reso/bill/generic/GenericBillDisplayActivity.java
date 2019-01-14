@@ -40,21 +40,10 @@ public class GenericBillDisplayActivity extends AppCompatActivity {
 
     private ProgressDialog pDialog;
     private static final int MENU_ITEM_EDIT = 1;
-    private TextView customerPhone;
-    private TextView billAmount;
-    private ImageView paidIcon;
-    private ImageView invoiceSeenStatus;
-    private TextView paidTime;
-    private TextView noOfReminders;
-    private TextView serviceCharge;
-    private TextView pending;
-    private TextView outstanding;
-    private TextView credit;
+    private TextView customerPhone, invoiceNumberTextView, noProductsAvailableTextView, payable, credit, outstanding, pending, serviceCharge, noOfReminders, paidTime, billAmount, invoicePurpose;
+    private ImageView paidIcon, invoiceSeenStatus, reminders;
     private GenericInvoiceItemsDisplayAdapter adapter;
-    private TextView invoicePurpose;
     private RecyclerView recyclerView;
-    private TextView payable;
-    private ImageView reminders;
 
 
     @Override
@@ -67,8 +56,11 @@ public class GenericBillDisplayActivity extends AppCompatActivity {
             invoice = customer.getCurrentInvoice();
         }
 
+//        Utility.setActionBar("Invoice # " + invoice.getId(), getSupportActionBar());
         Utility.setActionBar("Invoice # " + invoice.getId(), getSupportActionBar());
 
+        invoiceNumberTextView = findViewById(R.id.invoiceNumberTextView);
+        invoiceNumberTextView.setText(String.valueOf(invoice.getId()));
         customerPhone = findViewById(R.id.txt_gn_bill_display_customer_info);
         invoicePurpose = findViewById(R.id.txt_gn_bill_display_invoice_purpose);
         payable = findViewById(R.id.txt_gn_bill_display_total_payable);
@@ -82,6 +74,7 @@ public class GenericBillDisplayActivity extends AppCompatActivity {
         outstanding = findViewById(R.id.txt_gn_bill_display_outstanding);
         billAmount = findViewById(R.id.txt_gn_bill_display_total);
         reminders = findViewById(R.id.img_bill_display_reminder_count);
+        noProductsAvailableTextView = findViewById(R.id.noProductsAvailableTextView);
 
     }
 
@@ -138,18 +131,18 @@ public class GenericBillDisplayActivity extends AppCompatActivity {
             purpose = CommonUtils.convertDate(invoice.getInvoiceDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR);
         }
         invoicePurpose.setText(purpose);
-        payable.setText("Total payable = " + Utility.getDecimalString(invoice.getPayable()));
+        payable.setText(Utility.getDecimalString(invoice.getPayable()));
         if (invoice.getOutstandingBalance() != null) {
             outstanding.setVisibility(View.VISIBLE);
-            outstanding.setText("Outstanding balance = " + Utility.getDecimalString(invoice.getOutstandingBalance()));
+            outstanding.setText(Utility.getDecimalString(invoice.getOutstandingBalance()));
         }
         if (invoice.getServiceCharge() != null) {
             serviceCharge.setVisibility(View.VISIBLE);
-            serviceCharge.setText("Service charge =" + Utility.getDecimalString(invoice.getServiceCharge()));
+            serviceCharge.setText(Utility.getDecimalString(invoice.getServiceCharge()));
         }
         if (invoice.getPendingBalance() != null) {
             pending.setVisibility(View.VISIBLE);
-            pending.setText("Pending balance =" + Utility.getDecimalString(invoice.getPendingBalance()));
+            pending.setText(Utility.getDecimalString(invoice.getPendingBalance()));
         }
 
         if (invoice.getStatus() != null && BillConstants.INVOICE_STATUS_PAID.equals(invoice.getStatus())) {
@@ -161,6 +154,8 @@ public class GenericBillDisplayActivity extends AppCompatActivity {
         } else if (invoice.getStatus() != null && "Failed".equals(invoice.getStatus())) {
             paidIcon.setImageResource(R.drawable.ic_invoice_failed);
             Utility.showHelpfulToast(paidIcon, "Invoice Failed", this);
+        } else {
+            Utility.showHelpfulToast(paidIcon, "Invoice Pending", this);
         }
 
         if (invoice.getPaidDate() != null) {
@@ -191,6 +186,7 @@ public class GenericBillDisplayActivity extends AppCompatActivity {
             recyclerView.setAdapter(adapter);
         } else {
             billAmount.setVisibility(View.GONE);
+            noProductsAvailableTextView.setVisibility(View.VISIBLE);
         }
 
 
