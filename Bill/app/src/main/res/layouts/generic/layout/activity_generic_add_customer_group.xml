@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 android:id="@+id/relativeLayout2"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="fill_parent"
+                                                 android:background="@color/white"
+                                                 android:scrollbars="vertical"
+                                                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+        <EditText
+            android:id="@+id/et_group_name"
+            style="@style/gen_regedittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:hint="Enter delivery line/group name"
+            android:maxLength="40"
+            android:textSize="@dimen/list_text_main_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_group_customer_name"/>
+
+        <EditText
+            android:id="@+id/et_group_description"
+            style="@style/gen_regedittext"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:hint="Enter description"
+            android:inputType="textMultiLine"
+            android:maxLength="40"
+            android:singleLine="false"
+            android:textSize="@dimen/list_text_main_text"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_group_name"/>
+
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>

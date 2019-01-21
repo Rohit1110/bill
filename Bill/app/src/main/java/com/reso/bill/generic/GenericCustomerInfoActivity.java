@@ -74,9 +74,9 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
             Utility.setActionBar("Edit Customer Info", getSupportActionBar());
         }
 
-        name = (EditText) findViewById(R.id.et_product_name);
-        email = (EditText) findViewById(R.id.et_customer_email);
-        contact = (EditText) findViewById(R.id.et_product_description);
+        name = (EditText) findViewById(R.id.et_group_customer_name);
+        email = (EditText) findViewById(R.id.et_group_name);
+        contact = (EditText) findViewById(R.id.et_group_description);
         address = (EditText) findViewById(R.id.et_customer_address);
         areas = (Spinner) findViewById(R.id.sp_customer_area);
         serviceCharge = (EditText) findViewById(R.id.et_customer_service_charge);

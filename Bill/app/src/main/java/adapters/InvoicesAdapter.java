@@ -242,13 +242,13 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
 
         public RecViewHolder(View itemView) {
             super(itemView);
-            txtName = (TextView) itemView.findViewById(R.id.txt_invoice_summary_customer_name);
+            txtName = (TextView) itemView.findViewById(R.id.txt_group_name);
             amount = (TextView) itemView.findViewById(R.id.txt_invoice_summary_amount);
             //status = (ImageView) itemView.findViewById(R.id.img_status_invoice_summary);
             selected = (CheckBox) itemView.findViewById(R.id.chkbox_invoices_select_customer);
             txtAddress = (TextView) itemView.findViewById(R.id.txt_invoice_summary_cust_address);
-            reminderCount = (ImageView) itemView.findViewById(R.id.img_bill_display_reminder_count);
-            reminderCountVal = (TextView) itemView.findViewById(R.id.txt_bill_display_reminder_count);
+            reminderCount = (ImageView) itemView.findViewById(R.id.img_users_icon);
+            reminderCountVal = (TextView) itemView.findViewById(R.id.txt_customer_reminder_count);
         }
 
         private void bind(final BillUser customerUser) {

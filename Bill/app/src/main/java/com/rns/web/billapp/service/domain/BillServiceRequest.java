@@ -1,6 +1,7 @@
 package com.rns.web.billapp.service.domain;
 
 import com.rns.web.billapp.service.bo.domain.BillBusiness;
+import com.rns.web.billapp.service.bo.domain.BillCustomerGroup;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillSector;
@@ -21,6 +22,7 @@ public class BillServiceRequest {
     private List<BillItem> items;
     private BillFile file;
     private List<BillUser> users;
+    private BillCustomerGroup customerGroup;
 
     public BillUser getUser() {
         return user;
@@ -100,5 +102,13 @@ public class BillServiceRequest {
 
     public void setUsers(List<BillUser> users) {
         this.users = users;
+    }
+
+    public BillCustomerGroup getCustomerGroup() {
+        return customerGroup;
+    }
+
+    public void setCustomerGroup(BillCustomerGroup customerGroup) {
+        this.customerGroup = customerGroup;
     }
 }
