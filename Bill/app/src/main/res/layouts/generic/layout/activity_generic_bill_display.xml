@@ -36,7 +36,7 @@
             app:layout_constraintTop_toBottomOf="@+id/invoiceDetailsSubtitleTextView">
 
             <ImageView
-                android:id="@+id/img_bill_display_reminder_count"
+                android:id="@+id/img_users_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -61,19 +61,19 @@
                 android:src="@drawable/ic_action_invoice_unseen"
                 app:layout_constraintEnd_toStartOf="@+id/img_bill_display_invoice_status"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/img_bill_display_reminder_count"
-                app:layout_constraintTop_toTopOf="@+id/img_bill_display_reminder_count" />
+                app:layout_constraintStart_toEndOf="@+id/img_users_icon"
+                app:layout_constraintTop_toTopOf="@+id/img_users_icon" />
 
             <TextView
-                android:id="@+id/txt_bill_display_reminder_count"
+                android:id="@+id/txt_customer_reminder_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingTop="0dp"
                 android:text="0"
                 android:textColor="@android:color/secondary_text_dark"
-                app:layout_constraintBottom_toBottomOf="@+id/img_bill_display_reminder_count"
-                app:layout_constraintEnd_toStartOf="@+id/img_bill_display_reminder_count"
-                app:layout_constraintTop_toTopOf="@+id/img_bill_display_reminder_count" />
+                app:layout_constraintBottom_toBottomOf="@+id/img_users_icon"
+                app:layout_constraintEnd_toStartOf="@+id/img_users_icon"
+                app:layout_constraintTop_toTopOf="@+id/img_users_icon" />
 
             <ImageView
                 android:id="@+id/img_bill_display_invoice_status"

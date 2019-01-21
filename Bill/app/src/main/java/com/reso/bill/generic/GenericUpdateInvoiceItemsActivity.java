@@ -72,7 +72,7 @@ public class GenericUpdateInvoiceItemsActivity extends AppCompatActivity {
             }
         });*/
 
-        addProduct = (Button) findViewById(R.id.gn_btn_add_invoice_item);
+        addProduct = (Button) findViewById(R.id.gn_btn_add_customer_to_group);
 
 
         addProduct.setOnClickListener(new View.OnClickListener() {
@@ -123,7 +123,7 @@ public class GenericUpdateInvoiceItemsActivity extends AppCompatActivity {
             }
         });
 
-        productName = (AutoCompleteTextView) findViewById(R.id.et_product_name);
+        productName = (AutoCompleteTextView) findViewById(R.id.et_group_customer_name);
 
         /*productName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -132,7 +132,7 @@ public class GenericUpdateInvoiceItemsActivity extends AppCompatActivity {
             }
         });*/
 
-        totalBillAmount = (TextView) findViewById(R.id.txt_gn_bill_items_total);
+        totalBillAmount = (TextView) findViewById(R.id.txt_total_groups);
 
         user = (BillUser) Utility.readObject(GenericUpdateInvoiceItemsActivity.this, Utility.USER_KEY);
 
@@ -155,7 +155,7 @@ public class GenericUpdateInvoiceItemsActivity extends AppCompatActivity {
             }
         });
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_update_invoice_items);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_group_customers);
 
     }
 

@@ -54,7 +54,7 @@
                     android:layout_marginLeft="15dp"/>
 
                 <EditText
-                    android:id="@+id/et_product_name"
+                    android:id="@+id/et_group_customer_name"
                     style="@style/regedittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                     android:layout_marginLeft="10dp"/>
 
                 <EditText
-                    android:id="@+id/et_product_description"
+                    android:id="@+id/et_group_description"
                     style="@style/regedittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -89,7 +89,7 @@
                     android:layout_marginLeft="10dp"/>
 
                 <EditText
-                    android:id="@+id/et_customer_email"
+                    android:id="@+id/et_group_name"
                     style="@style/regedittext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

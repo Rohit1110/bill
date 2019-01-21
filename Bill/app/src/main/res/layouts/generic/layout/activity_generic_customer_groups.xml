@@ -28,34 +28,6 @@
         tools:showIn="@layout/generic_fragment_update_bill_details">
 
 
-        <AutoCompleteTextView
-            android:id="@+id/et_group_customer_name"
-            style="@style/gen_regedittext"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:hint="Product name"
-            android:textSize="@dimen/list_text_main_text"
-            app:layout_constraintBaseline_toBaselineOf="@+id/gn_btn_add_customer_to_group"
-            app:layout_constraintEnd_toStartOf="@+id/gn_btn_add_customer_to_group"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
-        <Button
-            android:id="@+id/gn_btn_add_customer_to_group"
-            style="@style/basic_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            android:text="ADD"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <include
             android:id="@+id/include_top"
             layout="@layout/layout_line"
@@ -65,30 +37,23 @@
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_group_customer_name" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_total_groups"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_group_customers"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:fadeScrollbars="true"
             android:isScrollContainer="false"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_top" />
-
-        <include
-            android:id="@+id/include2"
-            layout="@layout/layout_line"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recycler_group_customers" />
+            app:layout_constraintTop_toBottomOf="@+id/include_top"/>
 
 
         <!--<Button
@@ -122,30 +87,31 @@
 
 
         <TextView
-            android:id="@+id/textView6"
-            style="@style/basic_text_field"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginRight="4dp"
-            android:text="Total Amount = INR"
-            android:textSize="@dimen/list_text_main_text"
-            app:layout_constraintEnd_toStartOf="@+id/txt_total_groups"
-            app:layout_constraintTop_toBottomOf="@+id/include2"
-            app:layout_constraintWidth_percent="0.7" />
-
-        <TextView
             android:id="@+id/txt_total_groups"
             style="@style/basic_text_field"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text="0"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="Total no of groups - 0"
             android:textSize="@dimen/list_text_main_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btn_add_customer_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            app:backgroundTint="@color/buttonColor"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textView6" />
+            app:srcCompat="@drawable/ic_add_white_24dp"/>
 
 
     </android.support.constraint.ConstraintLayout>

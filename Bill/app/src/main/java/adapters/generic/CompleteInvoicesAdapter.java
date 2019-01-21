@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -136,7 +137,9 @@ public class CompleteInvoicesAdapter extends RecyclerView.Adapter<RecyclerView.V
             @Override
             public void onClick(View view) {
                 //Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(txn));
-                activity.startActivity(Utility.nextIntent(activity, GenericBillDisplayActivity.class, true, txn, Utility.CUSTOMER_KEY));
+                Intent intent = Utility.nextIntent(activity, GenericBillDisplayActivity.class, false, txn, Utility.CUSTOMER_KEY);
+                intent.putExtra(Utility.INTENT_QUICK_BILL, true);
+                activity.startActivity(intent);
             }
         });
 

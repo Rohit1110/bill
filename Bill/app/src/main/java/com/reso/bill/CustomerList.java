@@ -110,7 +110,7 @@ public class CustomerList extends Fragment {
         Utility.AppBarTitle("Customer List", getActivity());
         recyclerView = rootView.findViewById(R.id.recycler_view_cust_list);
 
-        FloatingActionButton addNewCustomerFab = rootView.findViewById(R.id.addNewCustomerFab);
+        FloatingActionButton addNewCustomerFab = rootView.findViewById(R.id.btn_add_customer_group);
         addNewCustomerFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

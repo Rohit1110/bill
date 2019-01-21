@@ -62,7 +62,7 @@ public class GenericTransactionsActivity extends AppCompatActivity {
 
         date = new Date();
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_update_invoice_items);
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_group_customers);
 
         /*requestTransactions = (Button) findViewById(R.id.btn_get_transactions);
 

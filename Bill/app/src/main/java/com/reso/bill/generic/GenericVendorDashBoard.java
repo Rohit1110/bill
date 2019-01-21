@@ -32,6 +32,7 @@ public class GenericVendorDashBoard extends Fragment {
     //Recurring layouts
     private ConstraintLayout layout_total_orders, layout_manage_newspapers, layout_bill_summary, layout_settings;
     private TextView totalOrdersDate;
+    private ConstraintLayout layoutCustomerGroups;
 
     @Nullable
     @Override
@@ -84,6 +85,8 @@ public class GenericVendorDashBoard extends Fragment {
         layout_settings = rootView.findViewById(R.id.layout_settings);
         totalOrdersDate = rootView.findViewById(R.id.txt_vendor_total_orderdate);
 
+        layoutCustomerGroups = rootView.findViewById(R.id.layout_customer_groups);
+
         totalOrdersDate.setText(CommonUtils.convertDate(new Date(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR));
 
         layout_manage_newspapers.setOnClickListener(new View.OnClickListener() {
@@ -117,6 +120,13 @@ public class GenericVendorDashBoard extends Fragment {
                 //Utility.nextFragment(getActivity(), BillsSummary.newInstance());
                 startActivity(Utility.nextIntent(getActivity(), BillSummaryActivity.class, true));
 
+            }
+        });
+
+        layoutCustomerGroups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(Utility.nextIntent(getActivity(), GenericCustomerGroupsActivity.class, true));
             }
         });
 

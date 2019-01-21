@@ -20,6 +20,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.reso.bill.EditInvoiceActivity;
 import com.reso.bill.R;
+import com.reso.bill.generic.GenericBillDisplayActivity;
 import com.reso.bill.generic.GenericCreateBillActivity;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -58,7 +59,7 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     class ViewHolder1 extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView txtMonths, txtamount;
-        ImageView statusImg;
+        private ImageView statusImg, editIcon;
         //private TextView time, name;
         //View appointmentindicator;
 
@@ -67,6 +68,7 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             txtMonths = (TextView) itemView.findViewById(R.id.txt_months);
             txtamount = (TextView) itemView.findViewById(R.id.txt_amount);
             statusImg = (ImageView) itemView.findViewById(R.id.status_img);
+            editIcon = (ImageView) itemView.findViewById(R.id.img_edit_invoice);
         }
 
         @Override
@@ -78,7 +80,7 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
+                    /*if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
                         customer.setCurrentInvoice(invoice);
                         //Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(customer));
                         activity.startActivity(Utility.nextIntent(activity, GenericCreateBillActivity.class, true, customer, Utility.CUSTOMER_KEY));
@@ -88,7 +90,10 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         Intent intent = Utility.nextIntent(activity, EditInvoiceActivity.class, true, invoice, Utility.INVOICE_KEY);
                         intent.putExtra(Utility.CUSTOMER_KEY, ServiceUtil.toJson(customer));
                         activity.startActivity(intent);
-                    }
+                    }*/
+
+                    customer.setCurrentInvoice(invoice);
+                    activity.startActivity(Utility.nextIntent(activity, GenericBillDisplayActivity.class, false, customer, Utility.CUSTOMER_KEY));
 
                 }
             });
@@ -114,6 +119,8 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
                 }
             });
+
+
         }
     }
 
@@ -166,7 +173,7 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        BillInvoice invoice = (BillInvoice) items.get(position);
+        final BillInvoice invoice = (BillInvoice) items.get(position);
         ViewHolder1 gholder = (ViewHolder1) holder;
         if (invoice.getMonth() != null && invoice.getYear() != null) {
             gholder.txtMonths.setText(BillConstants.MONTHS[invoice.getMonth() - 1] + " " + invoice.getYear());
@@ -181,6 +188,7 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         if (invoice.getStatus() != null && BillConstants.INVOICE_STATUS_PAID.equals(invoice.getStatus())) {
             gholder.statusImg.setImageResource(R.drawable.ic_invoice_paid);
             showHelpfulToast(gholder.statusImg, "Invoice Paid");
+            gholder.editIcon.setVisibility(View.GONE);
         } else if (invoice.getStatus() != null && "Failed".equals(invoice.getStatus())) {
             gholder.statusImg.setImageResource(R.drawable.ic_invoice_failed);
             showHelpfulToast(gholder.statusImg, "Invoice Failed");
@@ -188,6 +196,23 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             gholder.statusImg.setImageResource(R.drawable.ic_invoice_pending);
             showHelpfulToast(gholder.statusImg, "Invoice Pending");
         }
+
+
+        gholder.editIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
+                    customer.setCurrentInvoice(invoice);
+                    //Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(customer));
+                    activity.startActivity(Utility.nextIntent(activity, GenericCreateBillActivity.class, true, customer, Utility.CUSTOMER_KEY));
+                } else {
+                    //Utility.nextFragment((FragmentActivity) activity, FragmentEditInvoice.newInstance(customer, invoice));
+                    Intent intent = Utility.nextIntent(activity, EditInvoiceActivity.class, true, invoice, Utility.INVOICE_KEY);
+                    intent.putExtra(Utility.CUSTOMER_KEY, ServiceUtil.toJson(customer));
+                    activity.startActivity(intent);
+                }
+            }
+        });
 
         gholder.bind(invoice);
 
