@@ -30,7 +30,7 @@ public class GenericVendorDashBoard extends Fragment {
     private ConstraintLayout layoutTransactions;
     private ConstraintLayout layoutBankInformation;
     //Recurring layouts
-    private ConstraintLayout layout_total_orders, layout_manage_newspapers, layout_bill_summary, layout_settings;
+    private ConstraintLayout layout_total_orders, layout_manage_newspapers, layout_bill_summary, layout_settings, layout_quick_report;
     private TextView totalOrdersDate;
     private ConstraintLayout layoutCustomerGroups;
 
@@ -51,6 +51,7 @@ public class GenericVendorDashBoard extends Fragment {
         layoutMyProducts = rootView.findViewById(R.id.layout_my_products);
         layoutTransactions = rootView.findViewById(R.id.layout_transactions);
         layoutBankInformation = rootView.findViewById(R.id.layout_bank_info);
+
 
         layoutMyProducts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,6 +84,8 @@ public class GenericVendorDashBoard extends Fragment {
         layout_manage_newspapers = rootView.findViewById(R.id.layout_managenewspaper);
         layout_bill_summary = rootView.findViewById(R.id.layout_bill_summary);
         layout_settings = rootView.findViewById(R.id.layout_settings);
+        layout_quick_report = rootView.findViewById(R.id.layout_quick_report);
+
         totalOrdersDate = rootView.findViewById(R.id.txt_vendor_total_orderdate);
 
         layoutCustomerGroups = rootView.findViewById(R.id.layout_customer_groups);
@@ -119,6 +122,15 @@ public class GenericVendorDashBoard extends Fragment {
             public void onClick(View view) {
                 //Utility.nextFragment(getActivity(), BillsSummary.newInstance());
                 startActivity(Utility.nextIntent(getActivity(), BillSummaryActivity.class, true));
+
+            }
+        });
+
+        layout_quick_report.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Utility.nextFragment(getActivity(), BillsSummary.newInstance());
+                startActivity(Utility.nextIntent(getActivity(), GenericQuickReportActivity.class, true));
 
             }
         });
