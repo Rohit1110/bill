@@ -30,6 +30,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -38,9 +39,7 @@
             android:name=".VendorRegistration"
             android:label="@string/title_activity_vendor_registration"
             android:theme="@style/ActivityTheme"
-            android:windowSoftInputMode="adjustResize" />
-
-        <!-- android:windowSoftInputMode="stateAlwaysHidden|adjustResize" -->
+            android:windowSoftInputMode="adjustResize" /> <!-- android:windowSoftInputMode="stateAlwaysHidden|adjustResize" -->
         <activity
             android:name=".generic.GenericDashboard"
             android:label="@string/title_activity_dashboard"
@@ -52,7 +51,6 @@
              android:label="@string/title_activity_add_subcription"
              android:theme="@style/AppTheme"></activity>
         -->
-
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
@@ -65,9 +63,7 @@
         <activity
             android:name=".TermsNConditionsActivity"
             android:label="@string/title_activity_terms_nconditions"
-            android:theme="@style/AppTheme" />
-
-        <!-- Fragments to Activities -->
+            android:theme="@style/AppTheme" /> <!-- Fragments to Activities -->
         <activity
             android:name=".generic.GenericMyProductsActivity"
             android:label="My Products"
@@ -168,10 +164,13 @@
             android:label="@string/title_activity_bank_info_display"
             android:theme="@style/ActivityTheme"
             android:windowSoftInputMode="adjustResize" />
-        <activity android:name=".generic.GenericBillDisplayActivity"
-                  android:theme="@style/ActivityTheme">
-        </activity>
+        <activity
+            android:name=".generic.GenericBillDisplayActivity"
+            android:theme="@style/ActivityTheme" />
 
+        <activity
+            android:name=".generic.GenericQuickReportActivity"
+            android:theme="@style/ActivityTheme" />
     </application>
 
 </manifest>
