@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <AutoCompleteTextView
-            android:id="@+id/et_product_name"
+            android:id="@+id/et_group_customer_name"
             style="@style/gen_regedittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -58,10 +58,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_product_name"/>
+            app:layout_constraintTop_toBottomOf="@+id/et_group_customer_name"/>
 
         <EditText
-            android:id="@+id/et_customer_email"
+            android:id="@+id/et_group_name"
             style="@style/gen_regedittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -87,10 +87,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_customer_email"/>
+            app:layout_constraintTop_toBottomOf="@+id/et_group_name"/>
 
         <EditText
-            android:id="@+id/et_product_description"
+            android:id="@+id/et_group_description"
             style="@style/gen_regedittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_product_description"/>
+            app:layout_constraintTop_toBottomOf="@+id/et_group_description"/>
 
         <EditText
             android:id="@+id/et_customer_bill_amount"

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.reso.bill.EditInvoiceActivity;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -27,6 +29,8 @@ import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
 import com.rns.web.billapp.service.util.BillConstants;
 import com.rns.web.billapp.service.util.CommonUtils;
+
+import java.math.BigDecimal;
 
 import adapters.generic.GenericInvoiceItemsDisplayAdapter;
 import util.ServiceUtil;
@@ -44,6 +48,7 @@ public class GenericBillDisplayActivity extends AppCompatActivity {
     private ImageView paidIcon, invoiceSeenStatus, reminders;
     private GenericInvoiceItemsDisplayAdapter adapter;
     private RecyclerView recyclerView;
+    private ConstraintLayout serviceChargeLayout, pendingLayout, outstandingLayout;
 
 
     @Override
@@ -64,14 +69,17 @@ public class GenericBillDisplayActivity extends AppCompatActivity {
         paidIcon = findViewById(R.id.img_bill_display_invoice_status);
         paidTime = findViewById(R.id.txt_bill_display_invoice_paid_time);
         invoiceSeenStatus = findViewById(R.id.img_bill_display_bill_seen_status);
-        noOfReminders = findViewById(R.id.txt_bill_display_reminder_count);
+        noOfReminders = findViewById(R.id.txt_customer_reminder_count);
         recyclerView = findViewById(R.id.recycler_bill_display_invoice_items);
         serviceCharge = findViewById(R.id.txt_gn_bill_display_service_charge);
         pending = findViewById(R.id.txt_gn_bill_display_pending_balance);
         outstanding = findViewById(R.id.txt_gn_bill_display_outstanding);
         billAmount = findViewById(R.id.txt_gn_bill_display_total);
-        reminders = findViewById(R.id.img_bill_display_reminder_count);
+        reminders = findViewById(R.id.img_users_icon);
         noProductsAvailableTextView = findViewById(R.id.noProductsAvailableTextView);
+        serviceChargeLayout = findViewById(R.id.serviceChargeConstraintLayout);
+        pendingLayout = findViewById(R.id.pendingBalanceConstraintLayout);
+        outstandingLayout = findViewById(R.id.outstandingConstraintLayout);
 
     }
 
@@ -79,12 +87,10 @@ public class GenericBillDisplayActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.clear();
         getMenuInflater().inflate(R.menu.share, menu);
-        menu.add(Menu.NONE, MENU_ITEM_EDIT, Menu.NONE, "Save").setIcon(R.drawable.ic_edit_blue_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-        //Disable save button if invoice is paid
-        if (invoice != null && invoice.getId() != null && invoice.getStatus() != null && invoice.getStatus().equals(BillConstants.INVOICE_STATUS_PAID)) {
-            menu.getItem(1).setEnabled(false);
-            menu.getItem(1).setIcon(R.drawable.ic_action_check_disabled);
+        //Only if invoice is not paid
+        if (invoice == null || invoice.getId() == null || invoice.getStatus() == null || !invoice.getStatus().equals(BillConstants.INVOICE_STATUS_PAID)) {
+            menu.add(Menu.NONE, MENU_ITEM_EDIT, Menu.NONE, "Edit").setIcon(R.drawable.ic_edit_blue_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         }
 
         return true;
@@ -103,7 +109,20 @@ public class GenericBillDisplayActivity extends AppCompatActivity {
                 return true;
             case MENU_ITEM_EDIT:
 //                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show();;
-                startActivity(Utility.nextIntent(this, GenericCreateBillActivity.class, true, customer, Utility.CUSTOMER_KEY));
+                //startActivity(Utility.nextIntent(this, GenericCreateBillActivity.class, true, customer, Utility.CUSTOMER_KEY));
+                boolean isQuickBill = getIntent().getBooleanExtra(Utility.INTENT_QUICK_BILL, false);
+
+                if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user)) || (isQuickBill)) {
+                    customer.setCurrentInvoice(invoice);
+                    //Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(customer));
+                    startActivity(Utility.nextIntent(this, GenericCreateBillActivity.class, true, customer, Utility.CUSTOMER_KEY));
+                } else {
+                    //Utility.nextFragment((FragmentActivity) activity, FragmentEditInvoice.newInstance(customer, invoice));
+                    Intent intent = Utility.nextIntent(this, EditInvoiceActivity.class, true, invoice, Utility.INVOICE_KEY);
+                    intent.putExtra(Utility.CUSTOMER_KEY, ServiceUtil.toJson(customer));
+                    startActivity(intent);
+                }
+
                 return true;
         }
         return false;
@@ -132,14 +151,21 @@ public class GenericBillDisplayActivity extends AppCompatActivity {
         if (invoice.getOutstandingBalance() != null) {
             outstanding.setVisibility(View.VISIBLE);
             outstanding.setText(Utility.getDecimalString(invoice.getOutstandingBalance()));
+        } else {
+            outstandingLayout.setVisibility(View.GONE);
         }
-        if (invoice.getServiceCharge() != null) {
+
+        if (invoice.getServiceCharge() != null && invoice.getServiceCharge().compareTo(BigDecimal.ZERO) > 0) {
             serviceCharge.setVisibility(View.VISIBLE);
             serviceCharge.setText(Utility.getDecimalString(invoice.getServiceCharge()));
+        } else {
+            serviceChargeLayout.setVisibility(View.GONE);
         }
-        if (invoice.getPendingBalance() != null) {
+        if (invoice.getPendingBalance() != null && invoice.getPendingBalance().compareTo(BigDecimal.ZERO) > 0) {
             pending.setVisibility(View.VISIBLE);
             pending.setText(Utility.getDecimalString(invoice.getPendingBalance()));
+        } else {
+            pendingLayout.setVisibility(View.GONE);
         }
 
         if (invoice.getStatus() != null && BillConstants.INVOICE_STATUS_PAID.equals(invoice.getStatus())) {

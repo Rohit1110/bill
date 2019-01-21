@@ -30,7 +30,7 @@
 
 
         <AutoCompleteTextView
-            android:id="@+id/et_product_name"
+            android:id="@+id/et_group_customer_name"
             style="@style/gen_regedittext"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:hint="Product name"
-            app:layout_constraintEnd_toStartOf="@+id/gn_btn_add_invoice_item"
+            app:layout_constraintEnd_toStartOf="@+id/gn_btn_add_customer_to_group"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
@@ -56,14 +56,14 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <Button
-            android:id="@+id/gn_btn_add_invoice_item"
+            android:id="@+id/gn_btn_add_customer_to_group"
             style="@style/basic_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:text="ADD"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/et_product_name"/>
+            app:layout_constraintTop_toTopOf="@+id/et_group_customer_name"/>
 
 
         <include
@@ -76,11 +76,11 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/txt_gn_bill_items_total"
+            app:layout_constraintBottom_toTopOf="@+id/txt_total_groups"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recycler_update_invoice_items"/>
+            app:layout_constraintTop_toBottomOf="@+id/recycler_group_customers"/>
 
 
         <Button
@@ -98,7 +98,7 @@
             />
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_update_invoice_items"
+            android:id="@+id/recycler_group_customers"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
@@ -111,7 +111,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_product_name"/>
+            app:layout_constraintTop_toBottomOf="@+id/et_group_customer_name"/>
 
         <!--<android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_update_invoice_items"
@@ -143,7 +143,7 @@
             app:layout_constraintWidth_percent="0.7"/>
 
         <TextView
-            android:id="@+id/txt_gn_bill_items_total"
+            android:id="@+id/txt_total_groups"
             style="@style/basic_text_field"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

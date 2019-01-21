@@ -94,9 +94,9 @@ public class GenericCreateBillActivity extends AppCompatActivity {
 //            }
 //        });
 
-        customerName = findViewById(R.id.et_product_name);
-        customerEmail = findViewById(R.id.et_customer_email);
-        customerPhone = findViewById(R.id.et_product_description);
+        customerName = findViewById(R.id.et_group_customer_name);
+        customerEmail = findViewById(R.id.et_group_name);
+        customerPhone = findViewById(R.id.et_group_description);
 
         billAmount = findViewById(R.id.et_customer_bill_amount);
 

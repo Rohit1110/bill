@@ -73,6 +73,9 @@ public class Utility {
     public static final String INVOICE_KEY = "Invoice";
     public static final String CUSTOMER_KEY = "Customer";
     public static final String BUSINESS_KEY = "Business";
+    public static final String GROUP_KEY = "Group";
+
+    public static final String INTENT_QUICK_BILL = "quickBill";
 
 
     public static final String COLOR_BLUE = "#00A6FF";

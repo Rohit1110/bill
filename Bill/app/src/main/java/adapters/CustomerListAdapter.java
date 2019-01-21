@@ -19,49 +19,7 @@ import model.Listone;
 */
 /**
  * Created by Rohit on 5/10/2018.
- *//*
-
-
-public class DeliveriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
-List<BillCustomer> users = new ArrayList<BillCustomer>();
-
-    public DeliveriesAdapter(List<BillCustomer> users) {
-        this.users = users;
-    }
-    class ViewHolder1 extends RecyclerView.ViewHolder {
-        private TextView txtName;
-        //private TextView time, name;
-        View appointmentindicator;
-
-        public ViewHolder1(View itemView) {
-            super(itemView);
-            txtName=(TextView)itemView.findViewById(R.id.txt_name);
-
-        }
-    }
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View item = inflater.inflate(R.layout.row_customer_order, parent, false);
-        return new ViewHolder1(item);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        BillCustomer listone =(BillCustomer)users.get(position);
-        ViewHolder1 gholder = (ViewHolder1) holder;
-        gholder.txtName.setText(listone.getName());
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return users.size();
-    }
-}
-*/
-
+ */
 
 package adapters;
 
@@ -77,6 +35,7 @@ import com.reso.bill.R;
 import com.reso.bill.generic.GenericCustomerProfileActivity;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.BillCustomer;
@@ -159,4 +118,22 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
         }
 
     }
+
+    public void setUsers(List<BillUser> users) {
+        if (users == null || users.size() == 0) {
+            return;
+        }
+        list = new ArrayList<>();
+        for (BillUser user : users) {
+            BillCustomer customer = new BillCustomer();
+            customer.setUser(user);
+            list.add(customer);
+        }
+    }
+
+    public void updateList(List<BillUser> users) {
+        setUsers(users);
+        notifyDataSetChanged();
+    }
+
 }

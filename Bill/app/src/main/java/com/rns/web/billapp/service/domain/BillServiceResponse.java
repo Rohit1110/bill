@@ -1,5 +1,6 @@
 package com.rns.web.billapp.service.domain;
 
+import com.rns.web.billapp.service.bo.domain.BillCustomerGroup;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillLocation;
@@ -13,128 +14,140 @@ import java.util.List;
 
 public class BillServiceResponse {
 
-	private Integer status;
-	private String response;
-	private Integer warningCode;
-	private String warningText;
-	private BillUser user;
-	private List<BillLocation> locations;
-	private List<BillItem> items;
-	private List<BillUser> users;
-	private List<BillInvoice> invoices;
-	private BillInvoice invoice;
-	private List<BillUserLog> logs;
-	private List<BillOrder> orders;
-	private List<BillSector> sectors;
+    private Integer status;
+    private String response;
+    private Integer warningCode;
+    private String warningText;
+    private BillUser user;
+    private List<BillLocation> locations;
+    private List<BillItem> items;
+    private List<BillUser> users;
+    private List<BillInvoice> invoices;
+    private BillInvoice invoice;
+    private List<BillUserLog> logs;
+    private List<BillOrder> orders;
+    private List<BillSector> sectors;
+    private List<BillCustomerGroup> groups;
 
-	public BillServiceResponse() {
-		setStatus(BillConstants.STATUS_OK);
-		setResponse(BillConstants.RESPONSE_OK);
-	}
+    public BillServiceResponse() {
+        setStatus(BillConstants.STATUS_OK);
+        setResponse(BillConstants.RESPONSE_OK);
+    }
 
-	public void setResponse(Integer status, String response) {
-		setStatus(status);
-		setResponse(response);
-	}
+    public void setResponse(Integer status, String response) {
+        setStatus(status);
+        setResponse(response);
+    }
 
-	public Integer getStatus() {
-		return status;
-	}
-	public void setStatus(Integer status) {
-		this.status = status;
-	}
-	public String getResponse() {
-		return response;
-	}
-	public void setResponse(String response) {
-		this.response = response;
-	}
+    public Integer getStatus() {
+        return status;
+    }
 
-	public Integer getWarningCode() {
-		return warningCode;
-	}
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 
-	public void setWarningCode(Integer warningCode) {
-		this.warningCode = warningCode;
-	}
+    public String getResponse() {
+        return response;
+    }
 
-	public String getWarningText() {
-		return warningText;
-	}
+    public void setResponse(String response) {
+        this.response = response;
+    }
 
-	public void setWarningText(String warningText) {
-		this.warningText = warningText;
-	}
+    public Integer getWarningCode() {
+        return warningCode;
+    }
 
-	public BillUser getUser() {
-		return user;
-	}
+    public void setWarningCode(Integer warningCode) {
+        this.warningCode = warningCode;
+    }
 
-	public void setUser(BillUser user) {
-		this.user = user;
-	}
+    public String getWarningText() {
+        return warningText;
+    }
 
-	public List<BillLocation> getLocations() {
-		return locations;
-	}
+    public void setWarningText(String warningText) {
+        this.warningText = warningText;
+    }
 
-	public void setLocations(List<BillLocation> locations) {
-		this.locations = locations;
-	}
+    public BillUser getUser() {
+        return user;
+    }
 
-	public List<BillItem> getItems() {
-		return items;
-	}
+    public void setUser(BillUser user) {
+        this.user = user;
+    }
 
-	public void setItems(List<BillItem> items) {
-		this.items = items;
-	}
+    public List<BillLocation> getLocations() {
+        return locations;
+    }
 
-	public List<BillUser> getUsers() {
-		return users;
-	}
+    public void setLocations(List<BillLocation> locations) {
+        this.locations = locations;
+    }
 
-	public void setUsers(List<BillUser> users) {
-		this.users = users;
-	}
+    public List<BillItem> getItems() {
+        return items;
+    }
 
-	public List<BillInvoice> getInvoices() {
-		return invoices;
-	}
+    public void setItems(List<BillItem> items) {
+        this.items = items;
+    }
 
-	public void setInvoices(List<BillInvoice> invoices) {
-		this.invoices = invoices;
-	}
+    public List<BillUser> getUsers() {
+        return users;
+    }
 
-	public BillInvoice getInvoice() {
-		return invoice;
-	}
+    public void setUsers(List<BillUser> users) {
+        this.users = users;
+    }
 
-	public void setInvoice(BillInvoice invoice) {
-		this.invoice = invoice;
-	}
+    public List<BillInvoice> getInvoices() {
+        return invoices;
+    }
 
-	public List<BillUserLog> getLogs() {
-		return logs;
-	}
+    public void setInvoices(List<BillInvoice> invoices) {
+        this.invoices = invoices;
+    }
 
-	public void setLogs(List<BillUserLog> logs) {
-		this.logs = logs;
-	}
+    public BillInvoice getInvoice() {
+        return invoice;
+    }
 
-	public List<BillOrder> getOrders() {
-		return orders;
-	}
+    public void setInvoice(BillInvoice invoice) {
+        this.invoice = invoice;
+    }
 
-	public void setOrders(List<BillOrder> orders) {
-		this.orders = orders;
-	}
+    public List<BillUserLog> getLogs() {
+        return logs;
+    }
 
-	public List<BillSector> getSectors() {
-		return sectors;
-	}
+    public void setLogs(List<BillUserLog> logs) {
+        this.logs = logs;
+    }
 
-	public void setSectors(List<BillSector> sectors) {
-		this.sectors = sectors;
-	}
+    public List<BillOrder> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<BillOrder> orders) {
+        this.orders = orders;
+    }
+
+    public List<BillSector> getSectors() {
+        return sectors;
+    }
+
+    public void setSectors(List<BillSector> sectors) {
+        this.sectors = sectors;
+    }
+
+    public List<BillCustomerGroup> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<BillCustomerGroup> groups) {
+        this.groups = groups;
+    }
 }

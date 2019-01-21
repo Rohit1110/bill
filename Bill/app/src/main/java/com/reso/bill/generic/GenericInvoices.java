@@ -117,7 +117,7 @@ public class GenericInvoices extends Fragment {
         date = new Date();
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Invoice Summary</font>"));
         Utility.AppBarTitle("Payments", getActivity());
-        recyclerView =  rootView.findViewById(R.id.recycler_update_invoice_items);
+        recyclerView =  rootView.findViewById(R.id.recycler_group_customers);
 
         durations =  rootView.findViewById(R.id.spn_txn_duration_filter);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_basic_text_white, getResources().getStringArray(R.array.durations_arrays));

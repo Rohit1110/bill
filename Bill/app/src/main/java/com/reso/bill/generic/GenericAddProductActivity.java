@@ -96,8 +96,8 @@ public class GenericAddProductActivity extends AppCompatActivity {
             }
         });
 
-        productName = findViewById(R.id.et_product_name);
-        productDescription = findViewById(R.id.et_product_description);
+        productName = findViewById(R.id.et_group_customer_name);
+        productDescription = findViewById(R.id.et_group_description);
         productPrice = findViewById(R.id.et_product_price);
 
         if (this.item != null) {
