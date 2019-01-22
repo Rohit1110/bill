@@ -2,6 +2,7 @@ package com.reso.bill.generic;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.reso.bill.R;
 
@@ -16,8 +17,19 @@ public class GenericQuickReportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_quick_report);
 
         if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             Utility.setActionBar("Quick Report", getSupportActionBar());
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
