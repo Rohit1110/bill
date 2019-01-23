@@ -1,6 +1,7 @@
 package com.reso.bill.generic;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -35,6 +36,7 @@ import java.util.Date;
 import java.util.List;
 
 import adapters.TransactionsAdapter;
+import model.BillFilter;
 import util.ServiceUtil;
 import util.Utility;
 
@@ -53,6 +55,9 @@ public class GenericTransactionsActivity extends AppCompatActivity {
     private Spinner year;
     private List<String> yearsList;
     private boolean loading;
+    private Menu mainMenu;
+    private BillFilter filter;
+    private DialogInterface.OnDismissListener dismissListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +119,7 @@ public class GenericTransactionsActivity extends AppCompatActivity {
 
             }
         });
+
     }
 
 
@@ -151,6 +157,10 @@ public class GenericTransactionsActivity extends AppCompatActivity {
 
             }
         });
+
+        menu.add(Menu.NONE, Utility.MENU_ITEM_FILTER, Menu.NONE, "Filter").setIcon(R.drawable.ic_action_filter_list_disabled).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        mainMenu = menu;
+
         return true;
     }
 
@@ -170,6 +180,9 @@ public class GenericTransactionsActivity extends AppCompatActivity {
         currInvoice.setMonth(month.getSelectedItemPosition());
         currInvoice.setYear(Integer.parseInt(year.getSelectedItem().toString()));
         request.setInvoice(currInvoice);
+        if (filter != null) {
+            request.setCustomerGroup(filter.getGroup());
+        }
         pDialog = Utility.getProgressDialogue("Loading", this);
         StringRequest myReq = ServiceUtil.getStringRequest("getTransactions", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, this), request);
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -207,6 +220,35 @@ public class GenericTransactionsActivity extends AppCompatActivity {
         };
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case Utility.MENU_ITEM_FILTER:
+                System.out.println("FIlter called ...");
+                if (filter == null) {
+                    filter = new BillFilter(this, user);
+                }
+                filter.showFilterDialog();
+
+                if (dismissListener == null) {
+                    dismissListener = new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            mainMenu.getItem(1).setIcon(filter.getFilterIcon());
+                            loadTransactions();
+                        }
+                    };
+                    filter.getDialog().setOnDismissListener(dismissListener);
+                }
+
+                mainMenu.getItem(1).setIcon(filter.getFilterIcon());
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return true;
+    }
 
     public void filter(final String text) {
 

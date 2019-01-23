@@ -1,6 +1,7 @@
 package com.reso.bill;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -32,6 +33,7 @@ import java.util.List;
 
 import adapters.VendorItemPayablesAdapter;
 import adapters.VendorItemSummaryAdapter;
+import model.BillFilter;
 import model.ListTwo;
 import util.ServiceUtil;
 import util.Utility;
@@ -49,6 +51,9 @@ public class DailySummaryFragment extends Fragment {
     private TextView totalProfit, totalCost;
     private Button switchView;
     private boolean distributorView;
+    private Menu fragmentMenu;
+    private BillFilter filter;
+    private DialogInterface.OnDismissListener dismissListener;
 
 
     public static DailySummaryFragment newInstance() {
@@ -63,8 +68,7 @@ public class DailySummaryFragment extends Fragment {
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = new SearchView((Utility.castActivity(getActivity())).getSupportActionBar().getThemedContext());
         MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-        ((EditText)  searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text))
-                .setTextColor(getResources().getColor(R.color.md_black_1000));
+        ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.md_black_1000));
         MenuItemCompat.setActionView(item, searchView);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -72,6 +76,7 @@ public class DailySummaryFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
+
             @Override
             public boolean onQueryTextChange(String newText) {
                 //filter(newText);
@@ -79,15 +84,45 @@ public class DailySummaryFragment extends Fragment {
             }
         });
         searchView.setOnClickListener(new View.OnClickListener() {
-                                          @Override
-                                          public void onClick(View v) {
+            @Override
+            public void onClick(View v) {
 
-                                          }
-                                      }
-        );
+            }
+        });
 
+        menu.add(Menu.NONE, Utility.MENU_ITEM_FILTER, Menu.NONE, "Filter").setIcon(R.drawable.ic_action_filter_list_disabled).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        fragmentMenu = menu;
         //searchView.setMenuItem(item);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case Utility.MENU_ITEM_FILTER:
+                System.out.println("FIlter called ...");
+                if (filter == null) {
+                    filter = new BillFilter(getActivity(), user);
+                }
+                filter.showFilterDialog();
+
+                if (dismissListener == null) {
+                    dismissListener = new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            fragmentMenu.getItem(1).setIcon(filter.getFilterIcon());
+                            loadDailySummary(null);
+                        }
+                    };
+                    filter.getDialog().setOnDismissListener(dismissListener);
+                }
+
+                fragmentMenu.getItem(1).setIcon(filter.getFilterIcon());
+                return true;
+        }
+        return true;
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,7 +136,7 @@ public class DailySummaryFragment extends Fragment {
         date = new Date();
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view_order);
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Total Orders - " + CommonUtils.convertDate(date) + "</font>"));
-        Utility.AppBarTitle("Total Orders - "+CommonUtils.convertDate(date, Utility.DATE_FORMAT_DISPLAY),getActivity());
+        Utility.AppBarTitle("Total Orders - " + CommonUtils.convertDate(date, Utility.DATE_FORMAT_DISPLAY), getActivity());
         user = (BillUser) Utility.readObject(getActivity(), Utility.USER_KEY);
         totalProfit = rootView.findViewById(R.id.txt_daily_total_profit);
         totalCost = rootView.findViewById(R.id.txt_daily_total_cost);
@@ -109,7 +144,7 @@ public class DailySummaryFragment extends Fragment {
         switchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(distributorView) {
+                if (distributorView) {
                     distributorView = false;
                     loadDailySummary(null);
                 } else {
@@ -140,6 +175,9 @@ public class DailySummaryFragment extends Fragment {
         request.setBusiness(user.getCurrentBusiness());
         request.setRequestedDate(date);
         request.setRequestType(requestType);
+        if (filter != null) {
+            request.setCustomerGroup(filter.getGroup());
+        }
         pDialog = Utility.getProgressDialogue("Loading..", getActivity());
         StringRequest myReq = ServiceUtil.getStringRequest("getOrderSummary", createMyReqSuccessListener(requestType), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
@@ -155,7 +193,7 @@ public class DailySummaryFragment extends Fragment {
 
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
-                    if(requestType != null && "Distributor".equals(requestType)) {
+                    if (requestType != null && "Distributor".equals(requestType)) {
                         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                         recyclerView.setAdapter(new VendorItemPayablesAdapter(serviceResponse.getUsers()));
                     } else {
@@ -163,11 +201,11 @@ public class DailySummaryFragment extends Fragment {
                         recyclerView.setAdapter(new VendorItemSummaryAdapter(serviceResponse.getItems()));
                     }
 
-                    if(serviceResponse.getInvoice() != null) {
-                        if(serviceResponse.getInvoice().getAmount() != null) {
+                    if (serviceResponse.getInvoice() != null) {
+                        if (serviceResponse.getInvoice().getAmount() != null) {
                             totalProfit.setText("Total sold  " + serviceResponse.getInvoice().getAmount().toString() + " /-");
                         }
-                        if(serviceResponse.getInvoice().getPayable() != null) {
+                        if (serviceResponse.getInvoice().getPayable() != null) {
                             totalCost.setText("Total Paid  " + serviceResponse.getInvoice().getPayable().toString() + " /-");
                         }
                     }

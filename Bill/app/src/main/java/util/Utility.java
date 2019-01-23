@@ -84,6 +84,7 @@ public class Utility {
     public static final int MY_PERMISSIONS_REQUEST_CONTACTS = 2;
     public static final int MY_PERMISSIONS_READ_CONTACTS = 3;
     public static final String PREF_NAME = "PayPerBill";
+    public static final int MENU_ITEM_FILTER = 2;
     private static int selectedElement = 0;
     public static int LIST_OPT_DELETE = 0;
     public static String[] LIST_OPTIONS = {"Delete"};
@@ -620,6 +621,20 @@ public class Utility {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static String getText(Integer value) {
+        if (value == null) {
+            return null;
+        }
+        return value.toString();
+    }
+
+    public static String getText(Long value) {
+        if (value == null) {
+            return null;
+        }
+        return value.toString();
     }
 
     public static void changeDrawer(final FragmentActivity activity, final Fragment backFragment) {

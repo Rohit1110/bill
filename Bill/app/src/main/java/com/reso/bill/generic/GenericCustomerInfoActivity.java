@@ -26,12 +26,14 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.reso.bill.R;
+import com.rns.web.billapp.service.bo.domain.BillCustomerGroup;
 import com.rns.web.billapp.service.bo.domain.BillLocation;
 import com.rns.web.billapp.service.bo.domain.BillSubscription;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -61,6 +63,9 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
     private RadioButton showFullBill;
     private RadioButton hideFullBill;
     private Integer customerId;
+    private Spinner customerGroups;
+    private TextView selectCustomerGroupText;
+    private List<BillCustomerGroup> groupsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +118,10 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        customerGroups = findViewById(R.id.sp_customer_group);
+        selectCustomerGroupText = findViewById(R.id.txt_select_customer_group);
+
     }
 
     /**
@@ -250,10 +259,69 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
         return null;
     }
 
+    private BillCustomerGroup findGroup() {
+        if (groupsList != null && groupsList.size() > 0) {
+            for (BillCustomerGroup grp : groupsList) {
+                if (grp.getGroupName().equals(customerGroups.getSelectedItem().toString())) {
+                    return grp;
+                }
+            }
+        }
+        return new BillCustomerGroup();
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         loadLocations();
+        loadCustomerGroups();
+    }
+
+    private void loadCustomerGroups() {
+        BillServiceRequest request = new BillServiceRequest();
+        request.setBusiness(user.getCurrentBusiness());
+        //pDialog = Utility.getProgressDialogue("Loading ..", this);
+        StringRequest myReq = ServiceUtil.getStringRequest("getCustomerGroups", loadGroupsResponse(), ServiceUtil.createMyReqErrorListener(pDialog, this), request);
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(myReq);
+    }
+
+    private Response.Listener<String> loadGroupsResponse() {
+        return new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println("## response:" + response);
+                //pDialog.dismiss();
+
+                BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
+                if (serviceResponse != null && serviceResponse.getStatus() == 200) {
+                    groupsList = serviceResponse.getGroups();
+                    if (groupsList != null && groupsList.size() > 0) {
+                        List<String> customerGroupsList = new ArrayList<>();
+                        customerGroupsList.add("No group selected");
+                        for (BillCustomerGroup grp : serviceResponse.getGroups()) {
+                            customerGroupsList.add(grp.getGroupName());
+                        }
+                        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(GenericCustomerInfoActivity.this, android.R.layout.simple_spinner_item, customerGroupsList); //selected item will look like a spinner set from XML
+                        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        customerGroups.setAdapter(spinnerArrayAdapter);
+                        if (customer != null && customer.getCurrentSubscription() != null && customer.getCurrentSubscription().getGroup() != null && customer.getCurrentSubscription().getGroup().getGroupName() != null) {
+                            int position = customerGroupsList.indexOf(customer.getCurrentSubscription().getGroup().getGroupName());
+                            if (position > 0) {
+                                customerGroups.setSelection(position);
+                            }
+                        }
+                        selectCustomerGroupText.setVisibility(View.VISIBLE);
+                        customerGroups.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    System.out.println("Error .." + serviceResponse.getResponse());
+                    //Utility.createAlert(GenericCustomerInfoActivity.this, serviceResponse.getResponse(), "Error");
+                }
+
+            }
+
+        };
     }
 
     private void loadLocations() {
@@ -275,6 +343,7 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
         request.setUser(customer);
+        request.setCustomerGroup(findGroup());
         pDialog = Utility.getProgressDialogue("Saving customer..", GenericCustomerInfoActivity.this);
         StringRequest myReq = ServiceUtil.getStringRequest("updateCustomer", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, GenericCustomerInfoActivity.this), request);
         RequestQueue queue = Volley.newRequestQueue(GenericCustomerInfoActivity.this);
@@ -348,7 +417,6 @@ public class GenericCustomerInfoActivity extends AppCompatActivity {
         }
         Utility.createAlertWithActivityFinish(this, message, title, null, null, null, null);
     }
-
 
 
     private void addContact(BillUser customer) {

@@ -1,6 +1,7 @@
 package com.reso.bill.generic;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -39,11 +40,11 @@ import com.rns.web.billapp.service.util.BillConstants;
 import com.rns.web.billapp.service.util.CommonUtils;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import adapters.generic.CompleteInvoicesAdapter;
+import model.BillFilter;
 import util.ServiceUtil;
 import util.Utility;
 
@@ -65,6 +66,7 @@ public class GenericInvoices extends Fragment {
     private TextView txtNoPayments;
     private boolean screenLoaded = false;
     private CompleteInvoicesAdapter invoicesAdapter;
+    private BillFilter billFilter;
 
     public static GenericInvoices newInstance() {
         GenericInvoices fragment = new GenericInvoices();
@@ -77,6 +79,7 @@ public class GenericInvoices extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
     @Override
@@ -108,6 +111,7 @@ public class GenericInvoices extends Fragment {
             }
         });
 
+
         //searchView.setMenuItem(item);
     }
 
@@ -117,20 +121,32 @@ public class GenericInvoices extends Fragment {
         date = new Date();
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Invoice Summary</font>"));
         Utility.AppBarTitle("Payments", getActivity());
-        recyclerView =  rootView.findViewById(R.id.recycler_group_customers);
+        recyclerView = rootView.findViewById(R.id.recycler_group_customers);
 
-        durations =  rootView.findViewById(R.id.spn_txn_duration_filter);
+        durations = rootView.findViewById(R.id.spn_txn_duration_filter);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_basic_text_white, getResources().getStringArray(R.array.durations_arrays));
         durations.setAdapter(adapter);
         durations.setSelection(1);
 
-        txtNoPayments =  rootView.findViewById(R.id.txt_txn_no_payments);
+        txtNoPayments = rootView.findViewById(R.id.txt_txn_no_payments);
 
         user = (BillUser) Utility.readObject(getActivity(), Utility.USER_KEY);
 
         durations.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+                if ("Custom".equals(durations.getSelectedItem())) {
+                    //Show alert
+                    billFilter.showDateFilter();
+                    billFilter.getDateDialog().setOnDismissListener(new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            loadInvoices();
+                        }
+                    });
+                }
+
                 if (screenLoaded) {
                     loadInvoices();
                 }
@@ -163,6 +179,9 @@ public class GenericInvoices extends Fragment {
             }
         });
 
+        billFilter = new BillFilter(getActivity());
+
+
         return rootView;
 
     }
@@ -187,30 +206,12 @@ public class GenericInvoices extends Fragment {
         }*/
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
-        BillUserLog log = new BillUserLog();
-        if ("Today".equalsIgnoreCase(durations.getSelectedItem().toString())) {
-            log.setFromDate(CommonUtils.startDate(new Date()));
-            log.setToDate(CommonUtils.startDate(new Date()));
-        } else if ("This week".equalsIgnoreCase(durations.getSelectedItem().toString())) {
-            log.setFromDate(CommonUtils.getWeekFirstDate());
-            log.setToDate(CommonUtils.getWeekLastDate());
-        } else {
-            int currentMonth = CommonUtils.getCalendarValue(new Date(), Calendar.MONTH) + 1;
-            Integer currentYear = CommonUtils.getCalendarValue(new Date(), Calendar.YEAR);
-            if ("This month".equalsIgnoreCase(durations.getSelectedItem().toString())) {
-                log.setFromDate(CommonUtils.getMonthFirstDate(currentMonth, currentYear));
-                log.setToDate(CommonUtils.getMonthLastDate(currentMonth, currentYear));
-            } else if ("Last 6 months".equalsIgnoreCase(durations.getSelectedItem().toString())) {
-                Date oldDate = CommonUtils.add(-6, new Date(), Calendar.MONTH);
-                log.setFromDate(CommonUtils.getMonthFirstDate(CommonUtils.getCalendarValue(oldDate, Calendar.MONTH), CommonUtils.getCalendarValue(oldDate, Calendar.YEAR)));
-                log.setToDate(CommonUtils.getMonthLastDate(currentMonth, currentYear));
-            }
-        }
+        BillUserLog log = billFilter.getUserLogFromSpinner(durations);
 
-        if(log.getFromDate() != null && log.getToDate() != null) {
+        if (log.getFromDate() != null && log.getToDate() != null) {
             String title = "Payments " + CommonUtils.convertDate(log.getFromDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR);
-            if(!"Today".equalsIgnoreCase(durations.getSelectedItem().toString())) {
-                title = title + " - " +  CommonUtils.convertDate(log.getToDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR);
+            if (!"Today".equalsIgnoreCase(durations.getSelectedItem().toString())) {
+                title = title + " - " + CommonUtils.convertDate(log.getToDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR);
             }
             Utility.AppBarTitle(title, getActivity());
         }
@@ -228,6 +229,7 @@ public class GenericInvoices extends Fragment {
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(myReq);
     }
+
 
     private Response.Listener<String> createMyReqSuccessListener() {
         return new Response.Listener<String>() {
