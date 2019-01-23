@@ -72,7 +72,7 @@ public class GenericQuickReportActivity extends AppCompatActivity {
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_basic_text_white, getResources().getStringArray(R.array.durations_arrays));
         timeSpinner.setAdapter(adapter);
         timeSpinner.setSelection(1);
-        
+
         timeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {

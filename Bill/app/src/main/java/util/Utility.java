@@ -398,7 +398,8 @@ public class Utility {
                 }
             } else if (o instanceof BillUser) {
                 BillUser user = (BillUser) o;
-                if (user.getName() != null && selected.equals(user.getName())) {
+                System.out.println("Selected user .. " + selected + " compare with " + user.getName());
+                if (user.getName() != null && selected.equalsIgnoreCase(user.getName())) {
                     return user;
                 }
             }
