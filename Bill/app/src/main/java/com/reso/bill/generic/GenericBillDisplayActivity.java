@@ -274,7 +274,7 @@ public class GenericBillDisplayActivity extends AppCompatActivity {
         try {
 
             Intent intent = new Intent(Intent.ACTION_VIEW);
-            String whatsappNumber = customerPhone.getText().toString();
+            String whatsappNumber = customer.getPhone().toString();
             if (whatsappNumber != null && !whatsappNumber.contains("+91")) {
                 whatsappNumber = "+91" + whatsappNumber;
             }

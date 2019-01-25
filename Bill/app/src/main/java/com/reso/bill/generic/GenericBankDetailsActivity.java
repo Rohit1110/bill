@@ -69,17 +69,24 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
         if (!bankName.getText().toString().equals("") && !accountNumber.getText().toString().equals("") && !address.getText().toString().equals("") && !ifscCode.getText().toString().equals("") && !accountHolder.getText().toString().equals("")) {
             if (accountNumber.getText().toString().length() < 10) {
                 accountNumber.setError("Enter valid A/C number");
-            } else if (ifscCode.getText().toString().length() < 11 && ifscCode.getText().toString().length() > 11) {
-                ifscCode.setError("enter valid ifsc code");
-            } else {
-                user.getFinancialDetails().setBankName(bankName.getText().toString());
-                user.getFinancialDetails().setAccountNumber(accountNumber.getText().toString());
-                user.getFinancialDetails().setBankAddress(address.getText().toString());
-                user.getFinancialDetails().setIfscCode(ifscCode.getText().toString());
-                user.getFinancialDetails().setAccountHolderName(accountHolder.getText().toString());
-                saveBankDetails();
-
+                return;
             }
+            if (ifscCode.getText().toString().length() < 11 && ifscCode.getText().toString().length() > 11) {
+                ifscCode.setError("Enter a valid IFSC code");
+                return;
+            }
+            if (!isAlpha(bankName.getText().toString())) {
+                bankName.setError("Enter a valid bank name");
+                return;
+            }
+            user.getFinancialDetails().setBankName(bankName.getText().toString());
+            user.getFinancialDetails().setAccountNumber(accountNumber.getText().toString());
+            user.getFinancialDetails().setBankAddress(address.getText().toString());
+            user.getFinancialDetails().setIfscCode(ifscCode.getText().toString());
+            user.getFinancialDetails().setAccountHolderName(accountHolder.getText().toString());
+            saveBankDetails();
+
+
         } else {
             if (bankName.getText().toString().equals("")) {
                 bankName.setError("Enter bank name");
@@ -88,12 +95,16 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
             } else if (address.getText().toString().equals("")) {
                 address.setError("Enter bank address");
             } else if (ifscCode.getText().toString().equals("")) {
-                ifscCode.setError("Enter bank ifscCode");
+                ifscCode.setError("Enter bank IFSC code");
             } else if (accountHolder.getText().toString().equals("")) {
                 accountHolder.setFocusable(true);
                 accountHolder.setError("Enter accountHolder");
             }
         }
+    }
+
+    public boolean isAlpha(String name) {
+        return name.matches("[a-zA-Z ]+");
     }
 
     @Override

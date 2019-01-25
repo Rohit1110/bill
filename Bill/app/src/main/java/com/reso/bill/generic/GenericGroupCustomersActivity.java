@@ -210,7 +210,7 @@ public class GenericGroupCustomersActivity extends AppCompatActivity {
                     }
                     groupCustomers.add(customer);
                     groupCustomerAdapter.updateList(groupCustomers);
-                    allCustomers.remove(customer);
+                    removeFromAllCustomers(customer);
                     setAllCustomers(allCustomers);
                     customerName.setText("");
                 } else {
@@ -221,6 +221,21 @@ public class GenericGroupCustomersActivity extends AppCompatActivity {
 
             }
         };
+    }
+
+    private void removeFromAllCustomers(BillUser customer) {
+        try {
+            if (allCustomers != null && allCustomers.size() > 0) {
+                for (BillUser cust : allCustomers) {
+                    if (cust.getCurrentSubscription().getId().intValue() == customer.getCurrentSubscription().getId().intValue()) {
+                        allCustomers.remove(cust);
+                        return;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -267,6 +282,7 @@ public class GenericGroupCustomersActivity extends AppCompatActivity {
 
                         recyclerView.setLayoutManager(new LinearLayoutManager(GenericGroupCustomersActivity.this));
                         groupCustomerAdapter = new GroupCustomersAdapter(new ArrayList<BillCustomer>(), GenericGroupCustomersActivity.this, user);
+                        groupCustomerAdapter.setBusiness(user.getCurrentBusiness());
                         groupCustomerAdapter.setGroup(group);
                         groupCustomers = serviceResponse.getUsers();
                         groupCustomerAdapter.setUsers(groupCustomers);
@@ -303,7 +319,7 @@ public class GenericGroupCustomersActivity extends AppCompatActivity {
             for (BillUser customer : allCustomers) {
                 boolean added = false;
                 for (BillUser groupCustomer : groupCustomers) {
-                    if (customer.getId() == groupCustomer.getId()) {
+                    if (customer.getCurrentSubscription().getId().intValue() == groupCustomer.getCurrentSubscription().getId().intValue()) {
                         added = true;
                         break; //Already added
                     }

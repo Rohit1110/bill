@@ -371,7 +371,10 @@ public class Utility {
                 stringList.add(sector.getName());
             } else if (o instanceof BillUser) {
                 BillUser user = (BillUser) o;
-                stringList.add(user.getName());
+                if (user.getName() != null) {
+                    stringList.add(user.getName());
+                }
+
             }
         }
         return stringList;

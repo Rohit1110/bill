@@ -64,7 +64,7 @@ public class GenericInvoices extends Fragment {
     //private Spinner year;
 //    private List<String> yearsList;
     private TextView txtNoPayments;
-    private boolean screenLoaded = false;
+    private boolean loading = false;
     private CompleteInvoicesAdapter invoicesAdapter;
     private BillFilter billFilter;
 
@@ -145,11 +145,11 @@ public class GenericInvoices extends Fragment {
                             loadInvoices();
                         }
                     });
+                    return;
                 }
 
-                if (screenLoaded) {
-                    loadInvoices();
-                }
+                loadInvoices();
+
 
             }
 
@@ -190,7 +190,7 @@ public class GenericInvoices extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        screenLoaded = false;
+        loading = false;
         loadInvoices();
 
     }
@@ -224,6 +224,10 @@ public class GenericInvoices extends Fragment {
             request.setRequestType(BillConstants.FRAMEWORK_GENERIC);
         }
         request.setItem(item);
+        if (loading) {
+            return;
+        }
+        loading = true;
         pDialog = Utility.getProgressDialogue("Loading", getActivity());
         StringRequest myReq = ServiceUtil.getBusinessStringRequest("getAllInvoices", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
@@ -237,7 +241,7 @@ public class GenericInvoices extends Fragment {
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
                 pDialog.dismiss();
-                screenLoaded = true;
+                loading = true;
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     users = serviceResponse.getUsers();

@@ -45,7 +45,7 @@ public class GenericQuickReportActivity extends AppCompatActivity {
     private BillUser user;
     private Spinner timeSpinner;
     private ProgressDialog pDialog;
-    private boolean screenLoaded = false;
+    private boolean loading = false;
     private BillFilter billFilter;
 
     @Override
@@ -85,11 +85,11 @@ public class GenericQuickReportActivity extends AppCompatActivity {
                             loadSummary();
                         }
                     });
+                    return;
                 }
 
-                if (screenLoaded) {
-                    loadSummary();
-                }
+                loadSummary();
+
 
             }
 
@@ -176,6 +176,10 @@ public class GenericQuickReportActivity extends AppCompatActivity {
         if (filter != null) {
             request.setCustomerGroup(filter.getGroup());
         }
+        if (loading) {
+            return;
+        }
+        loading = true;
         pDialog = Utility.getProgressDialogue("Loading", this);
         StringRequest myReq = ServiceUtil.getStringRequest("getPaymentSummary", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, this), request);
         RequestQueue queue = Volley.newRequestQueue(this);
@@ -186,7 +190,7 @@ public class GenericQuickReportActivity extends AppCompatActivity {
         return new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                screenLoaded = true;
+                loading = false;
                 System.out.println("## response:" + response);
                 pDialog.dismiss();
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);

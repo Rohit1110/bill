@@ -3,6 +3,7 @@ package model;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -199,8 +200,15 @@ public class BillFilter {
                 log.setFromDate(CommonUtils.getMonthFirstDate(CommonUtils.getCalendarValue(oldDate, Calendar.MONTH), CommonUtils.getCalendarValue(oldDate, Calendar.YEAR)));
                 log.setToDate(CommonUtils.getMonthLastDate(currentMonth, currentYear));
             } else if ("Custom".equalsIgnoreCase(durations.getSelectedItem().toString())) {
-                log.setFromDate(fromDate);
-                log.setToDate(toDate);
+                if (fromDate != null && toDate != null) {
+                    log.setFromDate(fromDate);
+                    log.setToDate(toDate);
+                } else {
+                    durations.setSelection(1);
+                    log.setFromDate(CommonUtils.getWeekFirstDate());
+                    log.setToDate(CommonUtils.getWeekLastDate());
+                }
+
             }
         }
         return log;
@@ -212,11 +220,21 @@ public class BillFilter {
         dateDialog.setContentView(R.layout.generic_dialog_date_filter);
         dateDialog.setTitle("Custom date range");
 
+        final EditText txtfrom = dateDialog.findViewById(R.id.txt_from_date_filter);
+        final EditText txtto = dateDialog.findViewById(R.id.txt_to_date_filter);
+
+
         // set the custom dateDialog components - text, image and button
         Button save = (Button) dateDialog.findViewById(R.id.btn_dialog_save_date_filter);
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!TextUtils.isEmpty(txtfrom.getText())) {
+                    fromDate = CommonUtils.convertDate(txtfrom.getText().toString());
+                }
+                if (!TextUtils.isEmpty(txtfrom.getText())) {
+                    toDate = CommonUtils.convertDate(txtto.getText().toString());
+                }
                 dateDialog.dismiss();
             }
         });
@@ -225,16 +243,16 @@ public class BillFilter {
         clear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                fromDate = null;
+                toDate = null;
                 dateDialog.dismiss();
             }
         });
 
         final Calendar cal = Calendar.getInstance();
-        fromDate = cal.getTime();
-        toDate = cal.getTime();
+        //fromDate = cal.getTime();
+        //toDate = cal.getTime();
 
-        final EditText txtfrom = dateDialog.findViewById(R.id.txt_from_date_filter);
-        final EditText txtto = dateDialog.findViewById(R.id.txt_to_date_filter);
 
         txtfrom.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -249,18 +267,7 @@ public class BillFilter {
                 DatePickerDialog datePicker = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        String selectedDateString = Utility.createDate(dayOfMonth, monthOfYear, year);
-                        SimpleDateFormat sdf = new SimpleDateFormat(BillConstants.DATE_FORMAT);
-                        fromDate = null;
-                        try {
-                            fromDate = sdf.parse(selectedDateString);
-                            if (fromDate != null) {
-                                txtfrom.setText(new SimpleDateFormat(BillConstants.DATE_FORMAT).format(fromDate));
-
-                            }
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+                        setDate(year, monthOfYear, dayOfMonth, txtfrom);
                         //
 
                     }
@@ -285,18 +292,7 @@ public class BillFilter {
                 DatePickerDialog datePicker = new DatePickerDialog(activity, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        String selectedDateString = Utility.createDate(dayOfMonth, monthOfYear, year);
-                        SimpleDateFormat sdf = new SimpleDateFormat(BillConstants.DATE_FORMAT);
-                        toDate = null;
-                        try {
-                            toDate = sdf.parse(selectedDateString);
-                            if (toDate != null) {
-                                txtto.setText(new SimpleDateFormat(BillConstants.DATE_FORMAT).format(fromDate));
-
-                            }
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
+                        setDate(year, monthOfYear, dayOfMonth, txtto);
                         //
 
                     }
@@ -309,10 +305,24 @@ public class BillFilter {
             }
         });
 
-        txtfrom.setText(CommonUtils.convertDate(fromDate));
-        txtto.setText(CommonUtils.convertDate(toDate));
+        txtfrom.setText(CommonUtils.convertDate(cal.getTime()));
+        txtto.setText(CommonUtils.convertDate(cal.getTime()));
 
 
         dateDialog.show();
+    }
+
+    private void setDate(int year, int monthOfYear, int dayOfMonth, EditText txtto) {
+        String selectedDateString = Utility.createDate(dayOfMonth, monthOfYear, year);
+        SimpleDateFormat sdf = new SimpleDateFormat(BillConstants.DATE_FORMAT);
+        Date date = null;
+        try {
+            date = sdf.parse(selectedDateString);
+            if (date != null) {
+                txtto.setText(new SimpleDateFormat(BillConstants.DATE_FORMAT).format(date));
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
     }
 }
