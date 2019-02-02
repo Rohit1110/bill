@@ -98,7 +98,7 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
     }
 
     private void bankNameEditTextValidation() {
-        if (bankName.getText().toString().isEmpty()) {
+        if (bankName.getText().toString().trim().isEmpty()) {
             bankNameTextInputLayout.setErrorEnabled(true);
             bankNameTextInputLayout.setError("Please enter your bank name");
         } else if (!isAlpha(bankName.getText().toString().trim())) {
@@ -139,7 +139,7 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
     }
 
     private void accountNumberEditTextValidation() {
-        if (accountNumber.getText().toString().isEmpty()) {
+        if (accountNumber.getText().toString().trim().isEmpty()) {
             accountNumberTextInputLayout.setErrorEnabled(true);
             accountNumberTextInputLayout.setError("Please enter your account number");
         } else if (accountNumber.getText().toString().trim().length() < 10) {
@@ -183,7 +183,7 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
     }
 
     private void accountHolderEditTextValidation() {
-        if (accountHolder.getText().toString().isEmpty()) {
+        if (accountHolder.getText().toString().trim().isEmpty()) {
             accountHolderTextInputLayout.setErrorEnabled(true);
             accountHolderTextInputLayout.setError("Please enter account holder name");
         } else {
@@ -221,7 +221,7 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
     }
 
     private void ifscEditTextValidation() {
-        if (ifscCode.getText().toString().isEmpty()) {
+        if (ifscCode.getText().toString().trim().isEmpty()) {
             ifscTextInputLayout.setErrorEnabled(true);
             ifscTextInputLayout.setError("Please enter bank IFSC");
         } else if (ifscCode.getText().toString().trim().length() != 11 || !ifscCode.getText().toString().trim().matches("[a-zA-Z0-9]+")) {
@@ -262,7 +262,7 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
     }
 
     private void bankAddressEditTextValidation() {
-        if (address.getText().toString().isEmpty()) {
+        if (address.getText().toString().trim().isEmpty()) {
             bankAddressTextInputLayout.setErrorEnabled(true);
             bankAddressTextInputLayout.setError("Please enter your bank address");
         } else {
@@ -281,7 +281,14 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
         if (user.getFinancialDetails() == null) {
             user.setFinancialDetails(new BillFinancialDetails());
         }
-        if (!bankName.getText().toString().equals("") && !accountNumber.getText().toString().equals("") && !address.getText().toString().equals("") && !ifscCode.getText().toString().equals("") && !accountHolder.getText().toString().equals("")) {
+        if (!bankName.getText().toString().trim().isEmpty() &&
+                !accountNumber.getText().toString().trim().isEmpty() &&
+                !address.getText().toString().trim().isEmpty() &&
+                !ifscCode.getText().toString().trim().isEmpty() &&
+                !accountHolder.getText().toString().trim().isEmpty()) {
+            
+            
+            
             if (accountNumber.getText().toString().trim().length() < 10) {
 //                accountNumber.setError("Enter valid account number");
                 accountNumberTextInputLayout.setErrorEnabled(true);
@@ -309,21 +316,21 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
             saveBankDetails();
 
 
-        }
-//        else {
-//            if (bankName.getText().toString().equals("")) {
+        } else {
+            Toast.makeText(this, "Please fill every field before saving", Toast.LENGTH_SHORT).show();
+//            if (bankName.getText().toString().isEmpty()) {
 //                bankName.setError("Enter bank name");
-//            } else if (accountNumber.getText().toString().equals("")) {
+//            } else if (accountNumber.getText().toString().isEmpty()) {
 //                accountNumber.setError("Enter bank accountNumber");
-//            } else if (address.getText().toString().equals("")) {
+//            } else if (address.getText().toString().isEmpty()) {
 //                address.setError("Enter bank address");
-//            } else if (ifscCode.getText().toString().equals("")) {
+//            } else if (ifscCode.getText().toString().isEmpty()) {
 //                ifscCode.setError("Enter bank IFSC code");
-//            } else if (accountHolder.getText().toString().equals("")) {
+//            } else if (accountHolder.getText().toString().isEmpty()) {
 //                accountHolder.setFocusable(true);
 //                accountHolder.setError("Enter accountHolder");
 //            }
-//        }
+        }
     }
 
     public boolean isAlpha(String name) {
