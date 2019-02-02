@@ -63,6 +63,14 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
             accountHolder.setText(user.getFinancialDetails().getAccountHolderName());
         }
 
+        bankNameListenersPlusValidationSetUp();
+        accountNumberListenersPlusValidationSetUp();
+        accountHolderListenersPlusValidationSetUp();
+        ifscListenersPlusValidationSetUp();
+        bankAddressListenersPlusValidationSetUp();
+    }
+
+    private void bankNameListenersPlusValidationSetUp() {
         bankNameTextInputLayout.setCounterEnabled(true);
         bankNameTextInputLayout.setCounterMaxLength(40);
         bankName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -87,7 +95,11 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
+    }
 
+    private void accountNumberListenersPlusValidationSetUp() {
+        accountNumberTextInputLayout.setCounterEnabled(true);
+        accountNumberTextInputLayout.setCounterMaxLength(20);
         accountNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -122,7 +134,11 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void accountHolderListenersPlusValidationSetUp() {
+        accountHolderTextInputLayout.setCounterEnabled(true);
+        accountHolderTextInputLayout.setCounterMaxLength(40);
         accountHolder.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -157,7 +173,9 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void ifscListenersPlusValidationSetUp() {
         ifscTextInputLayout.setCounterEnabled(true);
         ifscTextInputLayout.setCounterMaxLength(11);
         ifscCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -200,7 +218,11 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void bankAddressListenersPlusValidationSetUp() {
+        bankAddressTextInputLayout.setCounterEnabled(true);
+        bankAddressTextInputLayout.setCounterMaxLength(40);
         address.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -235,7 +257,6 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
 
             }
         });
-
     }
 
     /**
