@@ -2,11 +2,15 @@ package com.reso.bill.generic;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
+import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -25,7 +29,9 @@ import util.Utility;
 public class GenericBankDetailsActivity extends AppCompatActivity {
     private static final String TAG = "GenericBankDetailsActiv";
 
-    private EditText bankName, accountNumber, ifscCode, address, accountHolder;
+    //    private EditText;
+    private TextInputLayout bankNameTextInputLayout, accountNumberTextInputLayout, accountHolderTextInputLayout, ifscTextInputLayout, bankAddressTextInputLayout;
+    private TextInputEditText bankName, accountNumber, ifscCode, address, accountHolder;
     private BillUser user;
     private ProgressDialog pDialog;
 
@@ -36,6 +42,11 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
 
         Utility.setActionBar("Edit Bank Info", getSupportActionBar());
 
+        bankNameTextInputLayout = findViewById(R.id.bankNameTextInputLayout);
+        accountNumberTextInputLayout = findViewById(R.id.accountNumberTextInputLayout);
+        accountHolderTextInputLayout = findViewById(R.id.accountHolderTextInputLayout);
+        ifscTextInputLayout = findViewById(R.id.ifscTextInputLayout);
+        bankAddressTextInputLayout = findViewById(R.id.bankAddressTextInputLayout);
 
         bankName = findViewById(R.id.et_bank_name);
         ifscCode = findViewById(R.id.et_ifsc_code);
@@ -52,7 +63,211 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
             accountHolder.setText(user.getFinancialDetails().getAccountHolderName());
         }
 
+        bankNameListenersPlusValidationSetUp();
+        accountNumberListenersPlusValidationSetUp();
+        accountHolderListenersPlusValidationSetUp();
+        ifscListenersPlusValidationSetUp();
+        bankAddressListenersPlusValidationSetUp();
+    }
 
+    private void bankNameListenersPlusValidationSetUp() {
+        bankNameTextInputLayout.setCounterEnabled(true);
+        bankNameTextInputLayout.setCounterMaxLength(40);
+        bankName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                bankNameEditTextValidation();
+            }
+        });
+
+        bankName.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                bankNameEditTextValidation();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
+    private void bankNameEditTextValidation() {
+        if (bankName.getText().toString().trim().isEmpty()) {
+            bankNameTextInputLayout.setErrorEnabled(true);
+            bankNameTextInputLayout.setError("Please enter your bank name");
+        } else if (!isAlpha(bankName.getText().toString().trim())) {
+            bankNameTextInputLayout.setErrorEnabled(true);
+            bankNameTextInputLayout.setError("Enter valid bank name. Enter letters only");
+        } else {
+            bankNameTextInputLayout.setErrorEnabled(false);
+        }
+    }
+
+    private void accountNumberListenersPlusValidationSetUp() {
+        accountNumberTextInputLayout.setCounterEnabled(true);
+        accountNumberTextInputLayout.setCounterMaxLength(20);
+        accountNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                accountNumberEditTextValidation();
+            }
+        });
+
+        accountNumber.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                accountNumberEditTextValidation();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    private void accountNumberEditTextValidation() {
+        if (accountNumber.getText().toString().trim().isEmpty()) {
+            accountNumberTextInputLayout.setErrorEnabled(true);
+            accountNumberTextInputLayout.setError("Please enter your account number");
+        } else if (accountNumber.getText().toString().trim().length() < 10) {
+            accountNumberTextInputLayout.setErrorEnabled(true);
+            accountNumberTextInputLayout.setError("Account number should be at least 10 characters long");
+        } else if (!accountNumber.getText().toString().trim().matches("[a-zA-Z0-9]+")) {
+            accountNumberTextInputLayout.setErrorEnabled(true);
+            accountNumberTextInputLayout.setError("Remove any spaces/special characters");
+        } else {
+            accountNumberTextInputLayout.setErrorEnabled(false);
+        }
+    }
+
+    private void accountHolderListenersPlusValidationSetUp() {
+        accountHolderTextInputLayout.setCounterEnabled(true);
+        accountHolderTextInputLayout.setCounterMaxLength(40);
+        accountHolder.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                accountHolderEditTextValidation();
+            }
+        });
+
+        accountHolder.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                accountHolderEditTextValidation();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    private void accountHolderEditTextValidation() {
+        if (accountHolder.getText().toString().trim().isEmpty()) {
+            accountHolderTextInputLayout.setErrorEnabled(true);
+            accountHolderTextInputLayout.setError("Please enter account holder name");
+        } else {
+            accountHolderTextInputLayout.setErrorEnabled(false);
+        }
+    }
+
+    private void ifscListenersPlusValidationSetUp() {
+        ifscTextInputLayout.setCounterEnabled(true);
+        ifscTextInputLayout.setCounterMaxLength(11);
+        ifscCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                ifscEditTextValidation();
+            }
+        });
+
+        ifscCode.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                ifscEditTextValidation();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    private void ifscEditTextValidation() {
+        if (ifscCode.getText().toString().trim().isEmpty()) {
+            ifscTextInputLayout.setErrorEnabled(true);
+            ifscTextInputLayout.setError("Please enter bank IFSC");
+        } else if (ifscCode.getText().toString().trim().length() != 11 || !ifscCode.getText().toString().trim().matches("[a-zA-Z0-9]+")) {
+            ifscTextInputLayout.setErrorEnabled(true);
+            ifscTextInputLayout.setError("IFSC should be 11 characters long");
+        } else {
+            ifscTextInputLayout.setErrorEnabled(false);
+        }
+    }
+
+    private void bankAddressListenersPlusValidationSetUp() {
+        bankAddressTextInputLayout.setCounterEnabled(true);
+        bankAddressTextInputLayout.setCounterMaxLength(40);
+        address.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                bankAddressEditTextValidation();
+            }
+        });
+
+        address.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                bankAddressEditTextValidation();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+    private void bankAddressEditTextValidation() {
+        if (address.getText().toString().trim().isEmpty()) {
+            bankAddressTextInputLayout.setErrorEnabled(true);
+            bankAddressTextInputLayout.setError("Please enter your bank address");
+        } else {
+            bankAddressTextInputLayout.setErrorEnabled(false);
+        }
     }
 
     /**
@@ -66,17 +281,31 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
         if (user.getFinancialDetails() == null) {
             user.setFinancialDetails(new BillFinancialDetails());
         }
-        if (!bankName.getText().toString().equals("") && !accountNumber.getText().toString().equals("") && !address.getText().toString().equals("") && !ifscCode.getText().toString().equals("") && !accountHolder.getText().toString().equals("")) {
-            if (accountNumber.getText().toString().length() < 10) {
-                accountNumber.setError("Enter valid A/C number");
+        if (!bankName.getText().toString().trim().isEmpty() &&
+                !accountNumber.getText().toString().trim().isEmpty() &&
+                !address.getText().toString().trim().isEmpty() &&
+                !ifscCode.getText().toString().trim().isEmpty() &&
+                !accountHolder.getText().toString().trim().isEmpty()) {
+            
+            
+            
+            if (accountNumber.getText().toString().trim().length() < 10) {
+//                accountNumber.setError("Enter valid account number");
+                accountNumberTextInputLayout.setErrorEnabled(true);
+                accountNumberTextInputLayout.setError("Enter valid account number");
                 return;
             }
-            if (ifscCode.getText().toString().length() < 11 && ifscCode.getText().toString().length() > 11) {
-                ifscCode.setError("Enter a valid IFSC code");
+            if (ifscCode.getText().toString().trim().length() != 11 || !ifscCode.getText().toString().trim().matches("[a-zA-Z0-9]+")) {
+//                ifscCode.setError("Enter a valid IFSC code");
+                ifscTextInputLayout.setErrorEnabled(true);
+                ifscTextInputLayout.setError("Enter a valid IFSC code");
                 return;
             }
-            if (!isAlpha(bankName.getText().toString())) {
-                bankName.setError("Enter a valid bank name");
+            if (!isAlpha(bankName.getText().toString().trim())) {
+//                bankName.setError("Enter a valid bank name. Only enter letters");
+                bankNameTextInputLayout.setErrorEnabled(true);
+                bankNameTextInputLayout.setError("Enter valid bank name. Enter letters only");
+                bankName.requestFocus();
                 return;
             }
             user.getFinancialDetails().setBankName(bankName.getText().toString());
@@ -88,18 +317,19 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
 
 
         } else {
-            if (bankName.getText().toString().equals("")) {
-                bankName.setError("Enter bank name");
-            } else if (accountNumber.getText().toString().equals("")) {
-                accountNumber.setError("Enter bank accountNumber");
-            } else if (address.getText().toString().equals("")) {
-                address.setError("Enter bank address");
-            } else if (ifscCode.getText().toString().equals("")) {
-                ifscCode.setError("Enter bank IFSC code");
-            } else if (accountHolder.getText().toString().equals("")) {
-                accountHolder.setFocusable(true);
-                accountHolder.setError("Enter accountHolder");
-            }
+            Toast.makeText(this, "Please fill every field before saving", Toast.LENGTH_SHORT).show();
+//            if (bankName.getText().toString().isEmpty()) {
+//                bankName.setError("Enter bank name");
+//            } else if (accountNumber.getText().toString().isEmpty()) {
+//                accountNumber.setError("Enter bank accountNumber");
+//            } else if (address.getText().toString().isEmpty()) {
+//                address.setError("Enter bank address");
+//            } else if (ifscCode.getText().toString().isEmpty()) {
+//                ifscCode.setError("Enter bank IFSC code");
+//            } else if (accountHolder.getText().toString().isEmpty()) {
+//                accountHolder.setFocusable(true);
+//                accountHolder.setError("Enter accountHolder");
+//            }
         }
     }
 

@@ -15,126 +15,92 @@
         android:paddingRight="16dp">
 
 
-        <TextView
-            android:id="@+id/textView24"
-            style="@style/textviewtitle"
-            android:layout_width="0dp"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/bankNameTextInputLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Bank Name"
-            android:textColor="@android:color/secondary_text_dark"
-            android:textSize="@dimen/list_text_sub_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/et_bank_name"
-            style="@style/regedittext"
-            android:layout_width="0dp"
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_bank_name"
+                style="@style/regedittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Bank Name"
+                android:maxLength="40" />
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/accountNumberTextInputLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Bank Name"
-            android:maxLength="40"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView24" />
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/bankNameTextInputLayout">
 
-        <TextView
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_account_number"
+                style="@style/regedittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Account Number"
+                android:maxLength="20" />
+        </android.support.design.widget.TextInputLayout>
 
-            android:id="@+id/textView25"
-            style="@style/textviewtitle"
-            android:layout_width="0dp"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/accountHolderTextInputLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Account Number"
-            android:textColor="@android:color/secondary_text_dark"
-            android:textSize="@dimen/list_text_sub_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_bank_name" />
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/accountNumberTextInputLayout">
 
-        <EditText
-            android:id="@+id/et_account_number"
-            style="@style/regedittext"
-            android:layout_width="0dp"
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_account_holder"
+                style="@style/regedittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Account Holder Name"
+                android:maxLength="40" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/ifscTextInputLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Enter Account number"
-            android:maxLength="20"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView25" />
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@id/accountHolderTextInputLayout">
 
-        <TextView
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_ifsc_code"
+                style="@style/regedittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Bank IFSC Code"
+                android:maxLength="11" />
+        </android.support.design.widget.TextInputLayout>
 
-            android:id="@+id/textView26"
-            style="@style/textviewtitle"
-            android:layout_width="0dp"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/bankAddressTextInputLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Account Holder Name"
-            android:textColor="@android:color/secondary_text_dark"
-            android:textSize="@dimen/list_text_sub_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_account_number" />
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ifscTextInputLayout"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="16dp">
 
-        <EditText
-            android:id="@+id/et_account_holder"
-            style="@style/regedittext"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Enter Account Holder Name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView26" />
-
-        <TextView
-            android:id="@+id/textView27"
-            style="@style/textviewtitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="IFSC Code"
-            android:textColor="@android:color/secondary_text_dark"
-            android:textSize="@dimen/list_text_sub_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_account_holder" />
-
-        <EditText
-            android:id="@+id/et_ifsc_code"
-            style="@style/regedittext"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Enter IFSC Code"
-            android:maxLength="11"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView27" />
-
-        <TextView
-            android:id="@+id/textView28"
-            style="@style/textviewtitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Bank Address"
-            android:textColor="@android:color/secondary_text_dark"
-            android:textSize="@dimen/list_text_sub_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_ifsc_code" />
-
-        <EditText
-            android:id="@+id/et_bank_address"
-            style="@style/regedittext"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:hint="Enter Branch address"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView28" />
-
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_bank_address"
+                style="@style/regedittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Bank Branch address"
+                android:maxLength="40" />
+        </android.support.design.widget.TextInputLayout>
 
     </android.support.constraint.ConstraintLayout>
 </ScrollView>
