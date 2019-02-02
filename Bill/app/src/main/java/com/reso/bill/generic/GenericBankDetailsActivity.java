@@ -142,6 +142,12 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
         if (accountNumber.getText().toString().isEmpty()) {
             accountNumberTextInputLayout.setErrorEnabled(true);
             accountNumberTextInputLayout.setError("Please enter your account number");
+        } else if (accountNumber.getText().toString().trim().length() < 10) {
+            accountNumberTextInputLayout.setErrorEnabled(true);
+            accountNumberTextInputLayout.setError("Account number should be at least 10 characters long");
+        } else if (!accountNumber.getText().toString().trim().matches("[a-zA-Z0-9]+")) {
+            accountNumberTextInputLayout.setErrorEnabled(true);
+            accountNumberTextInputLayout.setError("Remove any spaces/special characters");
         } else {
             accountNumberTextInputLayout.setErrorEnabled(false);
         }
