@@ -2,11 +2,12 @@ package com.reso.bill.generic;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -25,7 +26,9 @@ import util.Utility;
 public class GenericBankDetailsActivity extends AppCompatActivity {
     private static final String TAG = "GenericBankDetailsActiv";
 
-    private EditText bankName, accountNumber, ifscCode, address, accountHolder;
+    //    private EditText;
+    private TextInputLayout bankNameTextInputLayout;
+    private TextInputEditText bankName, accountNumber, ifscCode, address, accountHolder;
     private BillUser user;
     private ProgressDialog pDialog;
 
