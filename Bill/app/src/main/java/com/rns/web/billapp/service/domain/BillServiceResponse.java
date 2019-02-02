@@ -5,6 +5,7 @@ import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillLocation;
 import com.rns.web.billapp.service.bo.domain.BillOrder;
+import com.rns.web.billapp.service.bo.domain.BillPaymentSummary;
 import com.rns.web.billapp.service.bo.domain.BillSector;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.bo.domain.BillUserLog;
@@ -28,6 +29,7 @@ public class BillServiceResponse {
     private List<BillOrder> orders;
     private List<BillSector> sectors;
     private List<BillCustomerGroup> groups;
+    private BillPaymentSummary dashboard;
 
     public BillServiceResponse() {
         setStatus(BillConstants.STATUS_OK);
@@ -149,5 +151,13 @@ public class BillServiceResponse {
 
     public void setGroups(List<BillCustomerGroup> groups) {
         this.groups = groups;
+    }
+
+    public BillPaymentSummary getDashboard() {
+        return dashboard;
+    }
+
+    public void setDashboard(BillPaymentSummary dashboard) {
+        this.dashboard = dashboard;
     }
 }

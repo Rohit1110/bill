@@ -72,13 +72,15 @@ public class GenericGroupCustomersActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
+                    System.out.println("Adding customer ...");
                     if (selectedUser != null) {
+                        System.out.println("Adding customer 2 ...");
                         addCustomer();
                     } else {
                         Utility.createAlert(GenericGroupCustomersActivity.this, "This customer does not exist!", "Error");
                     }
                 } catch (Exception e) {
-
+                    e.printStackTrace();
                 } finally {
                     selectedUser = null;
                 }
@@ -96,7 +98,9 @@ public class GenericGroupCustomersActivity extends AppCompatActivity {
                 try {
                     if (allCustomers != null && allCustomers.size() > 0) {
                         String selected = adapterView.getItemAtPosition(i).toString();
+                        System.out.println("Selected String ====> " + selected);
                         selectedUser = (BillUser) Utility.findInStringList(allCustomers, selected);
+                        System.out.println("Selected ====> " + selectedUser);
                         //BillUser selectedCustomer = items.get(i);
 
                     }
@@ -152,6 +156,9 @@ public class GenericGroupCustomersActivity extends AppCompatActivity {
 
 
     private boolean isAlreadyAdded(BillUser selected) {
+        if (groupCustomers == null || groupCustomers.size() == 0) {
+            return false;
+        }
         for (BillUser customer : groupCustomers) {
             if (customer.getId() != null && selected.getId() != null && customer.getId() == selected.getId()) {
                 Utility.createAlert(this, "Customer is already added to this group", "Error");
@@ -167,9 +174,12 @@ public class GenericGroupCustomersActivity extends AppCompatActivity {
             Utility.createAlert(this, "Customer does not exist!", "Error");
             return;
         }
+        System.out.println("Adding customer 3 ...");
         if (isAlreadyAdded(selectedUser)) {
+            System.out.println("Adding customer 4 ...");
             return;
         }
+        System.out.println("Adding customer 5...");
         BillServiceRequest request = new BillServiceRequest();
         BillUser customer = new BillUser();
         BillSubscription subscription = new BillSubscription();
@@ -200,7 +210,7 @@ public class GenericGroupCustomersActivity extends AppCompatActivity {
                     }
                     groupCustomers.add(customer);
                     groupCustomerAdapter.updateList(groupCustomers);
-                    allCustomers.remove(customer);
+                    removeFromAllCustomers(customer);
                     setAllCustomers(allCustomers);
                     customerName.setText("");
                 } else {
@@ -211,6 +221,21 @@ public class GenericGroupCustomersActivity extends AppCompatActivity {
 
             }
         };
+    }
+
+    private void removeFromAllCustomers(BillUser customer) {
+        try {
+            if (allCustomers != null && allCustomers.size() > 0) {
+                for (BillUser cust : allCustomers) {
+                    if (cust.getCurrentSubscription().getId().intValue() == customer.getCurrentSubscription().getId().intValue()) {
+                        allCustomers.remove(cust);
+                        return;
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -257,6 +282,7 @@ public class GenericGroupCustomersActivity extends AppCompatActivity {
 
                         recyclerView.setLayoutManager(new LinearLayoutManager(GenericGroupCustomersActivity.this));
                         groupCustomerAdapter = new GroupCustomersAdapter(new ArrayList<BillCustomer>(), GenericGroupCustomersActivity.this, user);
+                        groupCustomerAdapter.setBusiness(user.getCurrentBusiness());
                         groupCustomerAdapter.setGroup(group);
                         groupCustomers = serviceResponse.getUsers();
                         groupCustomerAdapter.setUsers(groupCustomers);
@@ -293,7 +319,7 @@ public class GenericGroupCustomersActivity extends AppCompatActivity {
             for (BillUser customer : allCustomers) {
                 boolean added = false;
                 for (BillUser groupCustomer : groupCustomers) {
-                    if (customer.getId() == groupCustomer.getId()) {
+                    if (customer.getCurrentSubscription().getId().intValue() == groupCustomer.getCurrentSubscription().getId().intValue()) {
                         added = true;
                         break; //Already added
                     }

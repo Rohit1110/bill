@@ -50,6 +50,7 @@
         <item>This week</item>
         <item>This month</item>
         <item>Last 6 months</item>
+        <item>Custom</item>
     </string-array>
 
 

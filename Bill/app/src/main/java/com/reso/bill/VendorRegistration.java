@@ -231,7 +231,11 @@ public class VendorRegistration extends AppCompatActivity {
 
     private void register() {
         if (!name.getText().toString().equals("") && /*!panNumber.getText().toString().equals("") && !aadharNumber.getText().toString().equals("") &&*/ !businessName.getText().toString().equals("")) {
-            if (Utility.isValidEmail(email.getText().toString())) {
+            String emailText = this.email.getText().toString();
+            if (emailText != null) {
+                emailText = emailText.trim();
+            }
+            if (Utility.isValidEmail(emailText)) {
                 int selectedItemOfMySpinner = areas.getSelectedItemPosition();
                 String actualPositionOfMySpinner = (String) areas.getItemAtPosition(selectedItemOfMySpinner);
 
@@ -254,7 +258,7 @@ public class VendorRegistration extends AppCompatActivity {
                     requestUser.setId(user.getId());
                 }
                 requestUser.setName(name.getText().toString());
-                requestUser.setEmail(email.getText().toString());
+                requestUser.setEmail(emailText);
                 //requestUser.setPanDetails(panNumber.getText().toString());
                 requestUser.setPhone(FirebaseUtil.getPhone());
                 //requestUser.setAadharNumber(aadharNumber.getText().toString());
@@ -362,6 +366,11 @@ public class VendorRegistration extends AppCompatActivity {
         saveRequest = false;
         pDialog = Utility.getProgressDialogue("Loading locations", VendorRegistration.this);
         BillServiceRequest request = new BillServiceRequest();
+        if (user != null && user.getCurrentBusiness() != null) {
+            BillBusiness business = new BillBusiness();
+            business.setId(user.getCurrentBusiness().getId());
+            request.setBusiness(business);
+        }
         StringRequest myReq = ServiceUtil.getStringRequest("getAllAreas", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, VendorRegistration.this), request);
         RequestQueue queue = Volley.newRequestQueue(VendorRegistration.this);
         queue.add(myReq);

@@ -84,6 +84,7 @@ public class Utility {
     public static final int MY_PERMISSIONS_REQUEST_CONTACTS = 2;
     public static final int MY_PERMISSIONS_READ_CONTACTS = 3;
     public static final String PREF_NAME = "PayPerBill";
+    public static final int MENU_ITEM_FILTER = 2;
     private static int selectedElement = 0;
     public static int LIST_OPT_DELETE = 0;
     public static String[] LIST_OPTIONS = {"Delete"};
@@ -370,7 +371,10 @@ public class Utility {
                 stringList.add(sector.getName());
             } else if (o instanceof BillUser) {
                 BillUser user = (BillUser) o;
-                stringList.add(user.getName());
+                if (user.getName() != null) {
+                    stringList.add(user.getName());
+                }
+
             }
         }
         return stringList;
@@ -397,7 +401,8 @@ public class Utility {
                 }
             } else if (o instanceof BillUser) {
                 BillUser user = (BillUser) o;
-                if (user.getName() != null && selected.equals(user.getName())) {
+                System.out.println("Selected user .. " + selected + " compare with " + user.getName());
+                if (user.getName() != null && selected.equalsIgnoreCase(user.getName())) {
                     return user;
                 }
             }
@@ -620,6 +625,20 @@ public class Utility {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public static String getText(Integer value) {
+        if (value == null) {
+            return null;
+        }
+        return value.toString();
+    }
+
+    public static String getText(Long value) {
+        if (value == null) {
+            return null;
+        }
+        return value.toString();
     }
 
     public static void changeDrawer(final FragmentActivity activity, final Fragment backFragment) {

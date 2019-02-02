@@ -40,6 +40,7 @@ import com.android.volley.toolbox.Volley;
 import com.reso.bill.R;
 import com.reso.bill.components.ItemMoveCallBack;
 import com.reso.bill.generic.GenericCustomerProfileActivity;
+import com.rns.web.billapp.service.bo.domain.BillBusiness;
 import com.rns.web.billapp.service.bo.domain.BillCustomerGroup;
 import com.rns.web.billapp.service.bo.domain.BillSubscription;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -60,11 +61,16 @@ public class GroupCustomersAdapter extends RecyclerView.Adapter<GroupCustomersAd
     private Activity context;
     private BillUser currentUser;
     private BillCustomerGroup group;
+    private BillBusiness business;
 
     public GroupCustomersAdapter(List<BillCustomer> list, Activity context, BillUser user) {
         this.list = list;
         this.context = context;
         this.currentUser = user;
+    }
+
+    public void setBusiness(BillBusiness business) {
+        this.business = business;
     }
 
     public void setGroup(BillCustomerGroup group) {
@@ -196,7 +202,7 @@ public class GroupCustomersAdapter extends RecyclerView.Adapter<GroupCustomersAd
     }
 
     private void removeFromGroup(BillUser selectedUser) {
-        if (selectedUser == null || selectedUser.getId() == null) {
+        if (selectedUser == null || (selectedUser.getId() == null && selectedUser.getCurrentSubscription().getId() == null)) {
             Utility.createAlert(context, "Customer does not exist!", "Error");
             return;
         }
@@ -206,11 +212,27 @@ public class GroupCustomersAdapter extends RecyclerView.Adapter<GroupCustomersAd
         BillSubscription subscription = new BillSubscription();
         subscription.setId(selectedUser.getId());
         subscription.setItems(selectedUser.getCurrentSubscription().getItems());
+        customer.setName(selectedUser.getName());
+        customer.setPhone(selectedUser.getPhone());
         customer.setCurrentSubscription(subscription);
         request.setUser(customer);
+
+        /*BillServiceRequest request = new BillServiceRequest();
+        BillUser customer = new BillUser();
+        if (selectedUser.getCurrentSubscription().getId() != null) {
+            customer.setId(selectedUser.getCurrentSubscription().getId());
+        } else {
+            customer.setId(selectedUser.getId());
+        }
+        BillSubscription subscription = new BillSubscription();
+        subscription.setId(selectedUser.getCurrentSubscription().getId());
+        //subscription.setItems(selectedUser.getCurrentSubscription().getItems());
+        customer.setCurrentSubscription(subscription);
+        request.setUser(customer);*/
         BillCustomerGroup customerGroup = new BillCustomerGroup();
         customerGroup.setId(0);
         request.setCustomerGroup(customerGroup);
+        request.setBusiness(business);
         StringRequest myReq = ServiceUtil.getStringRequest("updateCustomer", customerSavedListener(customer), ServiceUtil.createMyReqErrorListener(null, context), request);
         RequestQueue queue = Volley.newRequestQueue(context);
         queue.add(myReq);

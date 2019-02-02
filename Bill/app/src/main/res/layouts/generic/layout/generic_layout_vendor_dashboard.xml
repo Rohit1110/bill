@@ -430,7 +430,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Bank informations"
+                android:text="Bank information"
                 android:textSize="@dimen/list_text_main_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -476,7 +476,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="8dp"
-                android:text="Quick Report"
+                android:text="Payments Report"
                 android:textSize="@dimen/list_text_main_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -488,7 +488,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
                 android:layout_marginBottom="8dp"
-                android:text="View Quick Transactions Reportk"
+                android:text="View Payments Report"
                 android:textColor="?android:attr/textColorSecondary"
                 android:textSize="@dimen/list_text_sub_text"
                 app:layout_constraintBottom_toBottomOf="parent"

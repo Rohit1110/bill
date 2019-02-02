@@ -201,7 +201,11 @@ public class SelectNewspaperActivity extends AppCompatActivity {
         } else {
             request.setSector(user.getCurrentBusiness().getBusinessSector());
         }
-
+        if (user != null && user.getCurrentBusiness() != null) {
+            BillBusiness business = new BillBusiness();
+            business.setId(user.getCurrentBusiness().getId());
+            request.setBusiness(business);
+        }
         pDialog = Utility.getProgressDialogue("Loading..", SelectNewspaperActivity.this);
         StringRequest myReq = ServiceUtil.getStringRequest("loadSectorItems", getItemsListener(), ServiceUtil.createMyReqErrorListener(pDialog, SelectNewspaperActivity.this), request);
         RequestQueue queue = Volley.newRequestQueue(SelectNewspaperActivity.this);

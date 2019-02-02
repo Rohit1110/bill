@@ -1,6 +1,7 @@
 package com.reso.bill;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
@@ -33,6 +34,7 @@ import java.util.List;
 
 import adapters.DeliveriesAdapter;
 import model.BillCustomer;
+import model.BillFilter;
 import util.ServiceUtil;
 import util.Utility;
 
@@ -53,6 +55,9 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
     private TextView noOrdersMessage;
     private RadioButton deliveries;
     private RadioButton noDeliveries;
+    private Menu fragmentMenu;
+    private BillFilter filter;
+    private DialogInterface.OnDismissListener dismissListener;
     //EditText search;
 
     public static HomeFragment newInstance(BillUser user) {
@@ -101,8 +106,39 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
 
             }
         });
+        menu.add(Menu.NONE, Utility.MENU_ITEM_FILTER, Menu.NONE, "Filter").setIcon(R.drawable.ic_action_filter_list_disabled).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        fragmentMenu = menu;
+
 
         //searchView.setMenuItem(item);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case Utility.MENU_ITEM_FILTER:
+                System.out.println("FIlter called ...");
+                if (filter == null) {
+                    filter = new BillFilter(getActivity(), user);
+                }
+                filter.showFilterDialog();
+
+                if (dismissListener == null) {
+                    dismissListener = new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            fragmentMenu.getItem(1).setIcon(filter.getFilterIcon());
+                            loadDeliveries();
+                        }
+                    };
+                    filter.getDialog().setOnDismissListener(dismissListener);
+                }
+
+                fragmentMenu.getItem(1).setIcon(filter.getFilterIcon());
+                return true;
+        }
+        return true;
     }
 
     @Override
@@ -175,6 +211,11 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
         request.setBusiness(user.getCurrentBusiness());
         request.setRequestedDate(date);
 
+        if (filter != null) {
+            request.setCustomerGroup(filter.getGroup());
+
+        }
+
         //Removed to unblock the UI
         //pDialog = Utility.getProgressDialogue("Loading..", getActivity());
 
@@ -193,7 +234,9 @@ public class HomeFragment extends Fragment implements SearchView.OnQueryTextList
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     users = serviceResponse.getUsers();
-                    BillCache.addDeliveries(users, getActivity()); //Add to cache
+                    if (filter == null) {
+                        BillCache.addDeliveries(users, getActivity()); //Add to cache
+                    }
                     addUsers(true);
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());

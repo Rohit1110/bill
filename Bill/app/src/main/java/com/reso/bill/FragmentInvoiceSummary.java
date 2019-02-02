@@ -36,6 +36,7 @@ import java.util.List;
 
 import adapters.InvoicesAdapter;
 import model.BillCustomer;
+import model.BillFilter;
 import util.ServiceUtil;
 import util.Utility;
 
@@ -60,6 +61,9 @@ public class FragmentInvoiceSummary extends Fragment {
     private Button sendReminder;
     private InvoicesAdapter adapter;
     private Button clear;
+    private Menu fragmentMenu;
+    private BillFilter filter;
+    private DialogInterface.OnDismissListener dismissListener;
 
     public static FragmentInvoiceSummary newInstance(BillUser user) {
         FragmentInvoiceSummary fragment = new FragmentInvoiceSummary();
@@ -102,7 +106,37 @@ public class FragmentInvoiceSummary extends Fragment {
             }
         });
 
+        menu.add(Menu.NONE, Utility.MENU_ITEM_FILTER, Menu.NONE, "Filter").setIcon(R.drawable.ic_action_filter_list_disabled).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        fragmentMenu = menu;
         //searchView.setMenuItem(item);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case Utility.MENU_ITEM_FILTER:
+                System.out.println("FIlter called ...");
+                if (filter == null) {
+                    filter = new BillFilter(getActivity(), user);
+                }
+                filter.showFilterDialog();
+
+                if (dismissListener == null) {
+                    dismissListener = new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            fragmentMenu.getItem(1).setIcon(filter.getFilterIcon());
+                            loadInvoiceSummary(null);
+                        }
+                    };
+                    filter.getDialog().setOnDismissListener(dismissListener);
+                }
+
+                fragmentMenu.getItem(1).setIcon(filter.getFilterIcon());
+                return true;
+        }
+        return true;
     }
 
     @Override
@@ -175,6 +209,9 @@ public class FragmentInvoiceSummary extends Fragment {
                 request.setUsers(adapter.getSelectedCustomers());
             }
             title = "Sending reminders ..";
+        }
+        if (filter != null) {
+            request.setCustomerGroup(filter.getGroup());
         }
         pDialog = Utility.getProgressDialogue(title, getActivity());
         StringRequest myReq = ServiceUtil.getStringRequest("getInvoiceSummary", createMyReqSuccessListener(type), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);

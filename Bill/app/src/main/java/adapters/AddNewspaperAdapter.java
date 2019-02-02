@@ -80,6 +80,8 @@ public class AddNewspaperAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         if (item.getPrice() != null && item.getPrice().compareTo(BigDecimal.ZERO) > 0) {
             gholder.price.setText(item.getPrice().toString());
             gholder.price.setVisibility(View.VISIBLE);
+        } else {
+            gholder.price.setVisibility(View.GONE);
         }
 
         if (item.getParentItem() == null) {

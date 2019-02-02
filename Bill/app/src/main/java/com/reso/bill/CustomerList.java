@@ -43,6 +43,7 @@ import java.util.List;
 
 import adapters.CustomerListAdapter;
 import model.BillCustomer;
+import model.BillFilter;
 import util.ServiceUtil;
 import util.Utility;
 
@@ -58,6 +59,10 @@ public class CustomerList extends Fragment {
     private BillUser user;
     private AlertDialog alertDialog;
     private CustomerListAdapter adapter;
+    private Menu fragmentMenu;
+    private BillFilter filter;
+    private DialogInterface.OnDismissListener dismissListener;
+
 
     public static CustomerList newInstance() {
         CustomerList fragment = new CustomerList();
@@ -99,8 +104,39 @@ public class CustomerList extends Fragment {
             }
         });
 
+        menu.add(Menu.NONE, Utility.MENU_ITEM_FILTER, Menu.NONE, "Filter").setIcon(R.drawable.ic_action_filter_list_disabled).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        fragmentMenu = menu;
         //searchView.setMenuItem(item);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case Utility.MENU_ITEM_FILTER:
+                System.out.println("FIlter called ...");
+                if (filter == null) {
+                    filter = new BillFilter(getActivity(), user);
+                }
+                filter.showFilterDialog();
+
+                if (dismissListener == null) {
+                    dismissListener = new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            fragmentMenu.getItem(1).setIcon(filter.getFilterIcon());
+                            loadCustomers();
+                        }
+                    };
+                    filter.getDialog().setOnDismissListener(dismissListener);
+                }
+
+                fragmentMenu.getItem(1).setIcon(filter.getFilterIcon());
+                return true;
+        }
+        return true;
+    }
+
 
     @Nullable
     @Override
@@ -205,6 +241,9 @@ public class CustomerList extends Fragment {
 
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
+        if (filter != null) {
+            request.setCustomerGroup(filter.getGroup());
+        }
         //pDialog = Utility.getProgressDialogue("Loading..", getActivity());
         StringRequest myReq = ServiceUtil.getStringRequest("getAllCustomers", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
@@ -222,7 +261,9 @@ public class CustomerList extends Fragment {
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     //Add customers to cache
-                    BillCache.addCustomers(serviceResponse.getUsers(), getActivity());
+                    if (filter == null || filter.getGroup() == null) {
+                        BillCache.addCustomers(serviceResponse.getUsers(), getActivity());
+                    }
                     setCustomerList(serviceResponse.getUsers());
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
