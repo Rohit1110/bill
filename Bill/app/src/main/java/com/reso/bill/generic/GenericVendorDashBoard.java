@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.reso.bill.BillSummaryActivity;
-import com.reso.bill.DailySummaryFragment;
+import com.reso.bill.DailySummaryActivity;
 import com.reso.bill.ManageNewspapersActivity;
 import com.reso.bill.R;
 import com.reso.bill.SettingsActivity;
@@ -104,7 +104,8 @@ public class GenericVendorDashBoard extends Fragment {
         layout_total_orders.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utility.nextFragment(getActivity(), DailySummaryFragment.newInstance());
+                //Utility.nextFragment(getActivity(), DailySummaryFragment.newInstance());
+                startActivity(Utility.nextIntent(getActivity(), DailySummaryActivity.class, true));
             }
         });
 
