@@ -65,7 +65,7 @@
                         android:layout_marginRight="10dp"
                         android:hint="Enter Email address"
                         android:inputType="textEmailAddress"
-                        android:maxLength="50" />
+                        android:maxLength="40" />
                 </android.support.design.widget.TextInputLayout>
 
                 <android.support.design.widget.TextInputLayout
@@ -80,7 +80,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
-                        android:hint="Enter Contact" />
+                        android:hint="Enter Contact"
+                        android:inputType="phone" />
                 </android.support.design.widget.TextInputLayout>
 
 
@@ -152,22 +153,22 @@
                     android:hint="Enter Business License number"
                     android:maxLength="20"
                     />-->
-                <android.support.design.widget.TextInputLayout
-                    android:id="@+id/businessAddressTextInputLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp">
+                <!--<android.support.design.widget.TextInputLayout-->
+                <!--android:id="@+id/businessAddressTextInputLayout"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginTop="8dp">-->
 
-                    <android.support.design.widget.TextInputEditText
-                        android:id="@+id/et_business_address"
-                        style="@style/regedittext"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:hint="Enter Business Address"
-                        android:maxLength="100"
-                        android:singleLine="false" />
-                </android.support.design.widget.TextInputLayout>
+                <!--<android.support.design.widget.TextInputEditText-->
+                <!--android:id="@+id/et_business_address"-->
+                <!--style="@style/regedittext"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginRight="10dp"-->
+                <!--android:hint="Enter Business Address"-->
+                <!--android:maxLength="100"-->
+                <!--android:singleLine="false" />-->
+                <!--</android.support.design.widget.TextInputLayout>-->
 
                 <TextView
                     style="@style/basic_sub_text_field"

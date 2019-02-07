@@ -46,9 +46,9 @@ public class VendorRegistration extends AppCompatActivity {
 
     private static final int PICK_PHOTO_FOR_AVATAR = 1;
     //private Button register;
-    private TextInputLayout nameTextInputLayout, emailTextInputLayout;
+    private TextInputLayout nameTextInputLayout, emailTextInputLayout, businessNameTextInputLayout;
     private TextInputEditText name, /*panNumber, aadharNumber,*/
-            email, phone, businessName, address;
+            email, phone, businessName;
     private MultiSelectionSpinner areas;
     private LocationAdapter adapter;
     private ProgressDialog pDialog;
@@ -74,6 +74,9 @@ public class VendorRegistration extends AppCompatActivity {
 
         nameTextInputLayout = findViewById(R.id.nameTextInputLayout);
         emailTextInputLayout = findViewById(R.id.emailTextInputLayout);
+        businessNameTextInputLayout = findViewById(R.id.businessNameTextInputLayout);
+//        businessAddressTextInputLayout = findViewById(R.id.businessAddressTextInputLayout);
+
         name = findViewById(R.id.et_name);
         email = findViewById(R.id.et_email);
 
@@ -86,10 +89,11 @@ public class VendorRegistration extends AppCompatActivity {
 
         sectors = findViewById(R.id.sp_select_sector);
         cities = findViewById(R.id.sp_select_city);
-        address = findViewById(R.id.et_business_address);
+//        address = findViewById(R.id.et_business_address);
 
         nameListenersPlusValidationSetUp();
         emailListenersPlusValidationSetUp();
+        businessNameListenersPlusValidationSetUp();
 
         cities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -132,7 +136,7 @@ public class VendorRegistration extends AppCompatActivity {
             if (user.getCurrentBusiness() != null) {
                 businessName.setText(user.getCurrentBusiness().getName());
                 //businessLicense.setText(user.getCurrentBusiness().getIdentificationNumber());
-                address.setText(user.getCurrentBusiness().getAddress());
+//                address.setText(user.getCurrentBusiness().getAddress());
 
                 if (user.getCurrentBusiness().getBusinessSector() != null) {
                     sectors.setEnabled(false);
@@ -209,7 +213,7 @@ public class VendorRegistration extends AppCompatActivity {
 
     private void emailListenersPlusValidationSetUp() {
         emailTextInputLayout.setCounterEnabled(true);
-        emailTextInputLayout.setCounterMaxLength(75);
+        emailTextInputLayout.setCounterMaxLength(40);
 
         email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -241,6 +245,43 @@ public class VendorRegistration extends AppCompatActivity {
             emailTextInputLayout.setError("Please enter your email");
         } else {
             emailTextInputLayout.setErrorEnabled(false);
+        }
+    }
+
+    private void businessNameListenersPlusValidationSetUp() {
+        businessNameTextInputLayout.setCounterEnabled(true);
+        businessNameTextInputLayout.setCounterMaxLength(40);
+
+        businessName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                businessNameEditTextValidation();
+            }
+        });
+
+        businessName.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                businessNameEditTextValidation();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
+    private void businessNameEditTextValidation() {
+        if (businessName.getText().toString().trim().isEmpty()) {
+            businessNameTextInputLayout.setErrorEnabled(true);
+            businessNameTextInputLayout.setError("Please enter your business name");
+        } else {
+            businessNameTextInputLayout.setErrorEnabled(false);
         }
     }
 
@@ -284,7 +325,7 @@ public class VendorRegistration extends AppCompatActivity {
                 business.setName(businessName.getText().toString());
                 //business.setIdentificationNumber(businessLicense.getText().toString());
                 business.setBusinessLocations(billLocations);
-                business.setAddress(address.getText().toString());
+//                business.setAddress(address.getText().toString());
                 if (sectors.isEnabled()) {
                     if (sectors.getSelectedItemPosition() == 0) {
                         Toast.makeText(VendorRegistration.this, "Select an area of business", Toast.LENGTH_LONG).show();
