@@ -5,13 +5,16 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -43,8 +46,9 @@ public class VendorRegistration extends AppCompatActivity {
 
     private static final int PICK_PHOTO_FOR_AVATAR = 1;
     //private Button register;
-    private EditText name, /*panNumber, aadharNumber,*/
-            email, phone, businessName;
+    private TextInputLayout nameTextInputLayout, emailTextInputLayout;
+    private TextInputEditText name, /*panNumber, aadharNumber,*/
+            email, phone, businessName, address;
     private MultiSelectionSpinner areas;
     private LocationAdapter adapter;
     private ProgressDialog pDialog;
@@ -59,103 +63,33 @@ public class VendorRegistration extends AppCompatActivity {
     private ProgressDialog pDialogSectors;
     private List<BillSector> sectorsList;
     private Spinner cities;
-    private EditText address;
     private List<BillLocation> locations;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vender_registration);
-        /*Toolbar toolbar = (Toolbar) findViewById(R.id.vtoolbar);
-        setSupportActionBar(toolbar);*/
-
-
-        /*toolbar.setNavigationIcon(R.mipmap.backarrow);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = Utility.getDashboardIntent(VendorRegistration.this, user);
-                startActivity(i);
-
-            }
-        });*/
 
         Utility.setActionBar("User Information", getSupportActionBar());
 
-        //register = (Button) findViewById(R.id.fab_vregister);
+        nameTextInputLayout = findViewById(R.id.nameTextInputLayout);
+        emailTextInputLayout = findViewById(R.id.emailTextInputLayout);
+        name = findViewById(R.id.et_name);
+        email = findViewById(R.id.et_email);
 
-        /*register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                *//*BillUser requestUser = new BillUser();
-                if(requestUser != null) {
-                    requestUser.setId(user.getId());
-                }*//*
-                register();
-                //saveUserInfo(requestUser);
-            }
-        });*/
-
-        name = (EditText) findViewById(R.id.et_name);
-        //panNumber = (EditText) findViewById(R.id.et_pan_number);
-        //aadharNumber = (EditText) findViewById(R.id.et_aadhar_number);
-        phone = (EditText) findViewById(R.id.et_phone);
-        email = (EditText) findViewById(R.id.et_email);
-        businessName = (EditText) findViewById(R.id.et_business_name);
-        //businessLicense = (EditText) findViewById(R.id.et_business_license);
+        phone = findViewById(R.id.et_phone);
+        businessName = findViewById(R.id.et_business_name);
         phone.setText(FirebaseUtil.getPhone());
         phone.setEnabled(false);
 
-        areas = (MultiSelectionSpinner) findViewById(R.id.sp_area);
+        areas = findViewById(R.id.sp_area);
 
-        sectors = (Spinner) findViewById(R.id.sp_select_sector);
-        cities = (Spinner) findViewById(R.id.sp_select_city);
-        address = (EditText) findViewById(R.id.et_business_address);
-        //adapter = new LocationAdapter(this, R.layout.spinner_multi_select, new ArrayList<BillLocation>(), VendorRegistration.this);
-        //areas.setAdapter(adapter);
-        /*aadharNumber.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_LEFT = 0;
-                final int DRAWABLE_TOP = 1;
-                final int DRAWABLE_RIGHT = 2;
-                final int DRAWABLE_BOTTOM = 3;
+        sectors = findViewById(R.id.sp_select_sector);
+        cities = findViewById(R.id.sp_select_city);
+        address = findViewById(R.id.et_business_address);
 
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    *//*if (event.getRawX() >= (aadharNumber.getRight() - aadharNumber.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        // your action here
-                        Utility.checkcontactPermission(VendorRegistration.this);
-                        pickImage();
-                        identy = "aadhar";
-                        // aadharNumber.setText(identy);
-                        return true;
-                    }*//*
-                }
-                return false;
-            }
-        });
-
-
-        panNumber.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_LEFT = 0;
-                final int DRAWABLE_TOP = 1;
-                final int DRAWABLE_RIGHT = 2;
-                final int DRAWABLE_BOTTOM = 3;
-
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    *//*if (event.getRawX() >= (panNumber.getRight() - panNumber.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        // your action here
-                        Utility.checkcontactPermission(VendorRegistration.this);
-                        pickImage();
-                        identy = "pan";
-                        return true;
-                    }*//*
-                }
-                return false;
-            }
-        });*/
+        nameListenersPlusValidationSetUp();
+        emailListenersPlusValidationSetUp();
 
         cities.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -218,7 +152,7 @@ public class VendorRegistration extends AppCompatActivity {
         }
 
 
-        tnc = (TextView) findViewById(R.id.txt_tnc);
+        tnc = findViewById(R.id.txt_tnc);
         tnc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -227,6 +161,87 @@ public class VendorRegistration extends AppCompatActivity {
             }
         });
 
+    }
+
+    public boolean isAlpha(String name) {
+        return name.matches("[a-zA-Z ]+");
+    }
+
+    private void nameListenersPlusValidationSetUp() {
+        nameTextInputLayout.setCounterEnabled(true);
+        nameTextInputLayout.setCounterMaxLength(75);
+
+        name.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                nameEditTextValidation();
+            }
+        });
+
+        name.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                nameEditTextValidation();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
+    private void nameEditTextValidation() {
+        if (name.getText().toString().trim().isEmpty()) {
+            nameTextInputLayout.setErrorEnabled(true);
+            nameTextInputLayout.setError("Please enter your name");
+        } else if (!isAlpha(name.getText().toString().trim())) {
+            nameTextInputLayout.setErrorEnabled(true);
+            nameTextInputLayout.setError("Enter valid name. Enter letters only");
+        } else {
+            nameTextInputLayout.setErrorEnabled(false);
+        }
+    }
+
+    private void emailListenersPlusValidationSetUp() {
+        emailTextInputLayout.setCounterEnabled(true);
+        emailTextInputLayout.setCounterMaxLength(75);
+
+        email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                emailEditTextValidation();
+            }
+        });
+
+        email.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                emailEditTextValidation();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
+    private void emailEditTextValidation() {
+        if (email.getText().toString().trim().isEmpty()) {
+            emailTextInputLayout.setErrorEnabled(true);
+            emailTextInputLayout.setError("Please enter your email");
+        } else {
+            emailTextInputLayout.setErrorEnabled(false);
+        }
     }
 
     private void register() {
