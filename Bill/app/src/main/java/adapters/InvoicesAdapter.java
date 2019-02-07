@@ -19,49 +19,7 @@ import model.Listone;
 */
 /**
  * Created by Rohit on 5/10/2018.
- *//*
-
-
-public class DeliveriesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>  {
-List<BillCustomer> users = new ArrayList<BillCustomer>();
-
-    public DeliveriesAdapter(List<BillCustomer> users) {
-        this.users = users;
-    }
-    class ViewHolder1 extends RecyclerView.ViewHolder {
-        private TextView txtName;
-        //private TextView time, name;
-        View appointmentindicator;
-
-        public ViewHolder1(View itemView) {
-            super(itemView);
-            txtName=(TextView)itemView.findViewById(R.id.txt_name);
-
-        }
-    }
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View item = inflater.inflate(R.layout.row_customer_order, parent, false);
-        return new ViewHolder1(item);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        BillCustomer listone =(BillCustomer)users.get(position);
-        ViewHolder1 gholder = (ViewHolder1) holder;
-        gholder.txtName.setText(listone.getName());
-
-    }
-
-    @Override
-    public int getItemCount() {
-        return users.size();
-    }
-}
-*/
-
+ */
 
 package adapters;
 
@@ -94,10 +52,19 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
     private boolean isMultiSelect;
     private List<BillUser> selectedCustomers = new ArrayList<>();
     private Button clear;
+    private BillUser currentUser;
 
     public InvoicesAdapter(List<BillUser> list, Activity activity) {
         this.activity = activity;
         this.list = list;
+    }
+
+    public BillUser getCurrentUser() {
+        return currentUser;
+    }
+
+    public void setCurrentUser(BillUser currentUser) {
+        this.currentUser = currentUser;
     }
 
     public void setMultiSelect(boolean multiSelect) {
@@ -125,6 +92,9 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
                 if (isMultiSelect) {
                     holder.selected.setChecked(!holder.selected.isChecked());
                 } else {
+
+                    currentUser = customer;
+                    System.out.println("Get current position=>" + position);
                     //Utility.nextFragment((FragmentActivity) activity, CustomerProfileFragment.newInstance(customer));
                     activity.startActivity(Utility.nextIntent(activity, GenericCustomerProfileActivity.class, true, customer, Utility.CUSTOMER_KEY));
                 }
@@ -173,6 +143,11 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
             System.out.println("Customer Not found .. " + customer.getName());
         }
 
+        if (currentUser != null && currentUser.getId().intValue() == customer.getId().intValue()) {
+            holder.txtName.setTextColor(activity.getResources().getColor(R.color.buttonColor));
+        } else {
+            holder.txtName.setTextColor(activity.getResources().getColor(R.color.rowTitleColor));
+        }
     }
 
     private int findCustomer(BillUser customer, List<BillUser> list) {
@@ -296,7 +271,7 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.RecVie
 
     private void remindCountHelp(BillUser customerUser) {
         if (customerUser != null && customerUser.getCurrentInvoice() != null && customerUser.getCurrentInvoice().getNoOfReminders() != null) {
-            Toast.makeText(activity,  "You have sent " + customerUser.getCurrentInvoice().getNoOfReminders() + " reminders to " + customerUser.getName() + " so far", Toast.LENGTH_LONG).show();
+            Toast.makeText(activity, "You have sent " + customerUser.getCurrentInvoice().getNoOfReminders() + " reminders to " + customerUser.getName() + " so far", Toast.LENGTH_LONG).show();
         }
     }
 

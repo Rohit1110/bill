@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="buttonColor">#00a6ff</color>
+    <color name="rowTitleColor">#343F4B</color>
 </resources>

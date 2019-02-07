@@ -161,6 +161,16 @@ public class GroupCustomersAdapter extends RecyclerView.Adapter<GroupCustomersAd
         notifyDataSetChanged();
     }
 
+    public void updateList(BillUser user) {
+        if (list == null) {
+            list = new ArrayList<>();
+        }
+        BillCustomer customer = new BillCustomer();
+        customer.setUser(user);
+        list.add(customer);
+        notifyDataSetChanged();
+    }
+
     @Override
     public void onRowMoved(int fromPosition, int toPosition) {
         if (fromPosition < toPosition) {
