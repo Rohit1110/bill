@@ -162,7 +162,7 @@
         <activity
             android:name=".generic.GenericProfileDisplayActivity"
             android:label="Profile"
-            android:theme="@style/ActivityTheme"
+            android:theme="@style/ProfileActivityTheme"
             android:windowSoftInputMode="adjustResize"/>
         <activity
             android:name=".generic.GenericBankInfoDisplayActivity"

@@ -46,6 +46,31 @@
         <!--<item name="listPreferredItemHeightSmall">32dp</item>-->
 
     </style>
+
+    <style name="ProfileActivityTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--<item name="actionBarStyle">@style/MyActionBar</item>-->
+        <!--<item name="windowActionBar">false</item>1
+        <item name="windowNoTitle">true</item>-->
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+        <item name="android:textColorHint">@color/colorAccent</item>
+        <item name="android:textColorSecondary">@color/colorAccent</item>
+        <item name="android:spinnerItemStyle">@style/MooSpinnerItem</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item>
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="android:spinnerDropDownItemStyle">@style/mySpinnerItemStyle</item>
+        <item name="android:elevation">0dp</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <!--<item name="android:textSize">24dp</item>
+        -->
+
+        <!--<item name="listPreferredItemHeightSmall">32dp</item>-->
+
+    </style>
 <!--
 
     <style name="Theme.YourTheme.Styled.ActionBar.TitleTextStyle" parent="@android:style/Widget.TextView">
