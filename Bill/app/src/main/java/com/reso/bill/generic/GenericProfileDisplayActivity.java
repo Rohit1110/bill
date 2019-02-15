@@ -2,6 +2,8 @@ package com.reso.bill.generic;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -17,23 +19,30 @@ import util.ServiceUtil;
 import util.Utility;
 
 public class GenericProfileDisplayActivity extends AppCompatActivity {
+    private static final String TAG = "GenericProfileDisplayAc";
     private static final int MENU_ITEM_EDIT = 33;
-
-    private TextView nameTextView, emailTextView, contactTextView, businessNameTextView, businessAddressTextView, locationsTextView, areaOfBusinessTextView;
+    Toolbar toolbar;
     private BillUser user;
     private ImageView businessLogo;
+    private TextView emailTextView, contactTextView, businessNameTextView, businessAddressTextView, locationsTextView, areaOfBusinessTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_display);
 
+        toolbar = findViewById(R.id.toolbar);
         if (getSupportActionBar() != null) {
-            Utility.setActionBar("Profile", getSupportActionBar());
+            Log.d(TAG, "onCreate: getSupportActionBar is not NULL");
+//            Utility.setActionBar("Profile", getSupportActionBar());
+        } else {
+            Log.d(TAG, "onCreate: getSupportActionBar is NULL");
+            setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         }
 
         businessLogo = (ImageView) findViewById(R.id.businessLogoImageView);
-        nameTextView = findViewById(R.id.nameTextView);
         emailTextView = findViewById(R.id.emailTextView);
         contactTextView = findViewById(R.id.contactTextView);
         businessNameTextView = findViewById(R.id.businessNameTextView);
@@ -47,7 +56,7 @@ public class GenericProfileDisplayActivity extends AppCompatActivity {
         }
 
         if (user != null) {
-            nameTextView.setText(user.getName());
+            getSupportActionBar().setTitle(user.getName());
             emailTextView.setText(user.getEmail());
             contactTextView.setText(user.getPhone());
             BillBusiness currentBusiness = user.getCurrentBusiness();

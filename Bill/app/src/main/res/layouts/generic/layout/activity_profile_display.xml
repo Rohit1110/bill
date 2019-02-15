@@ -1,282 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:background="@color/white"
+    android:fitsSystemWindows="true"
+    android:isScrollContainer="true"
     tools:context=".generic.GenericProfileDisplayActivity">
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ActivityTheme">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsingToolbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+            <ImageView
+                android:id="@+id/businessLogoImageView"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:fitsSystemWindows="true"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin" />
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <ImageView
-            android:id="@+id/businessLogoImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@android:drawable/ic_menu_report_image" />
-
-        <TextView
-            android:id="@+id/nameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text="Name"
-            android:textColor="@color/material_drawer_primary_text"
-            android:textSize="@dimen/list_text_amount_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.501"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/businessLogoImageView" />
-
-        <include
-            android:id="@+id/include20"
-            layout="@layout/layout_line"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
+            android:layout_height="match_parent"
+            android:background="@android:color/white">
 
-        <ImageView
-            android:id="@+id/emailImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include20"
-            app:srcCompat="@drawable/ic_email_grey_24dp" />
+            <ImageView
+                android:id="@+id/emailImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_email_grey_24dp" />
 
-        <TextView
-            android:id="@+id/emailTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text="Email ID"
-            android:textColor="@color/material_drawer_primary_text"
-            app:layout_constraintBottom_toBottomOf="@+id/emailImageView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/emailImageView"
-            app:layout_constraintTop_toTopOf="@+id/emailImageView" />
+            <TextView
+                android:id="@+id/emailTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Email ID"
+                android:textColor="@color/material_drawer_primary_text"
+                app:layout_constraintBottom_toBottomOf="@+id/emailImageView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/emailImageView"
+                app:layout_constraintTop_toTopOf="@+id/emailImageView" />
 
-        <include
-            android:id="@+id/include21"
-            layout="@layout/layout_line"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/emailImageView" />
+            <include
+                android:id="@+id/include21"
+                layout="@layout/layout_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/emailImageView" />
 
-        <ImageView
-            android:id="@+id/contactImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include21"
-            app:srcCompat="@drawable/ic_call_grey_24dp" />
+            <ImageView
+                android:id="@+id/contactImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include21"
+                app:srcCompat="@drawable/ic_call_grey_24dp" />
 
-        <TextView
-            android:id="@+id/contactTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:text="1234567890"
-            android:textColor="@color/material_drawer_primary_text"
-            app:layout_constraintBottom_toBottomOf="@+id/contactImageView"
-            app:layout_constraintStart_toEndOf="@+id/contactImageView"
-            app:layout_constraintTop_toTopOf="@+id/contactImageView" />
+            <TextView
+                android:id="@+id/contactTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:text="1234567890"
+                android:textColor="@color/material_drawer_primary_text"
+                app:layout_constraintBottom_toBottomOf="@+id/contactImageView"
+                app:layout_constraintStart_toEndOf="@+id/contactImageView"
+                app:layout_constraintTop_toTopOf="@+id/contactImageView" />
 
-        <include
-            android:id="@+id/include22"
-            layout="@layout/layout_line"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/contactImageView" />
+            <include
+                android:id="@+id/include22"
+                layout="@layout/layout_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/contactImageView" />
 
 
-        <TextView
-            android:id="@+id/businessNameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text="Business Name"
-            android:textColor="@color/material_drawer_primary_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/contactTextView"
-            app:layout_constraintTop_toBottomOf="@+id/include22" />
+            <TextView
+                android:id="@+id/businessNameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Business Name"
+                android:textColor="@color/material_drawer_primary_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/contactTextView"
+                app:layout_constraintTop_toBottomOf="@+id/include22" />
 
-        <TextView
-            android:id="@+id/businessNameSubtitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Business Name"
-            android:textColor="@android:color/secondary_text_dark"
-            android:textSize="@dimen/list_text_sub_text"
-            app:layout_constraintStart_toStartOf="@+id/businessNameTextView"
-            app:layout_constraintTop_toBottomOf="@+id/businessNameTextView" />
+            <TextView
+                android:id="@+id/businessNameSubtitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Business Name"
+                android:textColor="@android:color/secondary_text_dark"
+                android:textSize="@dimen/list_text_sub_text"
+                app:layout_constraintStart_toStartOf="@+id/businessNameTextView"
+                app:layout_constraintTop_toBottomOf="@+id/businessNameTextView" />
 
-        <include
-            android:id="@+id/include23"
-            layout="@layout/layout_line"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/businessNameSubtitleTextView" />
+            <include
+                android:id="@+id/include23"
+                layout="@layout/layout_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/businessNameSubtitleTextView" />
 
-        <ImageView
-            android:id="@+id/addressImageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include23"
-            app:srcCompat="@drawable/ic_location_on_grey_24dp" />
+            <ImageView
+                android:id="@+id/addressImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include23"
+                app:srcCompat="@drawable/ic_location_on_grey_24dp" />
 
-        <TextView
-            android:id="@+id/businessAddressTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text="Business Address"
-            android:textColor="@color/material_drawer_primary_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/contactTextView"
-            app:layout_constraintTop_toBottomOf="@+id/include23" />
+            <TextView
+                android:id="@+id/businessAddressTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Business Address"
+                android:textColor="@color/material_drawer_primary_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/contactTextView"
+                app:layout_constraintTop_toBottomOf="@+id/include23" />
 
-        <TextView
-            android:id="@+id/businessAddressSubtitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Business Address"
-            android:textColor="@android:color/secondary_text_dark"
-            android:textSize="@dimen/list_text_sub_text"
-            app:layout_constraintStart_toStartOf="@+id/businessAddressTextView"
-            app:layout_constraintTop_toBottomOf="@+id/businessAddressTextView" />
+            <TextView
+                android:id="@+id/businessAddressSubtitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Business Address"
+                android:textColor="@android:color/secondary_text_dark"
+                android:textSize="@dimen/list_text_sub_text"
+                app:layout_constraintStart_toStartOf="@+id/businessAddressTextView"
+                app:layout_constraintTop_toBottomOf="@+id/businessAddressTextView" />
 
-        <include
-            android:id="@+id/include24"
-            layout="@layout/layout_line"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/businessAddressSubtitleTextView" />
+            <include
+                android:id="@+id/include24"
+                layout="@layout/layout_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/businessAddressSubtitleTextView" />
 
-        <TextView
-            android:id="@+id/locationsTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text="Locations"
-            android:textColor="@color/material_drawer_primary_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/contactTextView"
-            app:layout_constraintTop_toBottomOf="@+id/include24" />
+            <TextView
+                android:id="@+id/locationsTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Locations"
+                android:textColor="@color/material_drawer_primary_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/contactTextView"
+                app:layout_constraintTop_toBottomOf="@+id/include24" />
 
-        <TextView
-            android:id="@+id/locationsSubtitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Locations"
-            android:textColor="@android:color/secondary_text_dark"
-            android:textSize="@dimen/list_text_sub_text"
-            app:layout_constraintStart_toStartOf="@+id/locationsTextView"
-            app:layout_constraintTop_toBottomOf="@+id/locationsTextView" />
+            <TextView
+                android:id="@+id/locationsSubtitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Locations"
+                android:textColor="@android:color/secondary_text_dark"
+                android:textSize="@dimen/list_text_sub_text"
+                app:layout_constraintStart_toStartOf="@+id/locationsTextView"
+                app:layout_constraintTop_toBottomOf="@+id/locationsTextView" />
 
-        <include
-            android:id="@+id/include25"
-            layout="@layout/layout_line"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/locationsSubtitleTextView" />
+            <include
+                android:id="@+id/include25"
+                layout="@layout/layout_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/locationsSubtitleTextView" />
 
 
-        <TextView
-            android:id="@+id/areaOfBusinessTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:text="Area of Business"
-            android:textColor="@color/material_drawer_primary_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/contactTextView"
-            app:layout_constraintTop_toBottomOf="@+id/include25" />
+            <TextView
+                android:id="@+id/areaOfBusinessTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Area of Business"
+                android:textColor="@color/material_drawer_primary_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/contactTextView"
+                app:layout_constraintTop_toBottomOf="@+id/include25" />
 
-        <TextView
-            android:id="@+id/areaOfBusinessSubtitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Area of Business"
-            android:textColor="@android:color/secondary_text_dark"
-            android:textSize="@dimen/list_text_sub_text"
-            app:layout_constraintStart_toStartOf="@+id/areaOfBusinessTextView"
-            app:layout_constraintTop_toBottomOf="@+id/areaOfBusinessTextView" />
+            <TextView
+                android:id="@+id/areaOfBusinessSubtitleTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Area of Business"
+                android:textColor="@android:color/secondary_text_dark"
+                android:textSize="@dimen/list_text_sub_text"
+                app:layout_constraintStart_toStartOf="@+id/areaOfBusinessTextView"
+                app:layout_constraintTop_toBottomOf="@+id/areaOfBusinessTextView" />
 
-        <include
-            android:id="@+id/include26"
-            layout="@layout/layout_line"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/areaOfBusinessSubtitleTextView"
-            app:layout_constraintVertical_bias="0.0" />
+            <include
+                android:id="@+id/include26"
+                layout="@layout/layout_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/areaOfBusinessSubtitleTextView"
+                app:layout_constraintVertical_bias="0.0" />
 
-    </android.support.constraint.ConstraintLayout>
-</ScrollView>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>
