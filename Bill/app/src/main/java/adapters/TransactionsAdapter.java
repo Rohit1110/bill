@@ -111,6 +111,9 @@ public class TransactionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             } else if (currentInvoice.getStatus() != null && "Deleted".equals(currentInvoice.getStatus())) {
                 view.imgStatus.setImageResource(R.drawable.ic_action_delete);
                 Utility.showHelpfulToast(view.imgStatus, "Invoice Deleted", activity);
+            } else if (currentInvoice.getStatus() != null && "Initiated".equals(currentInvoice.getStatus())) {
+                view.imgStatus.setImageResource(R.drawable.ic_invoice_paid);
+                Utility.showHelpfulToast(view.imgStatus, "Invoice Paid. Settlement is initiated.", activity);
             } else {
                 view.imgStatus.setImageResource(R.drawable.ic_invoice_pending);
                 Utility.showHelpfulToast(view.imgStatus, "Invoice Pending", activity);

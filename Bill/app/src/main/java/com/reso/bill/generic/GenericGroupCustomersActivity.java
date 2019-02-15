@@ -208,8 +208,9 @@ public class GenericGroupCustomersActivity extends AppCompatActivity {
                     if (groupCustomers == null) {
                         groupCustomers = new ArrayList<>();
                     }
+                    //groupCustomerAdapter.getList().add(customer);
                     groupCustomers.add(customer);
-                    groupCustomerAdapter.updateList(groupCustomers);
+                    groupCustomerAdapter.updateList(customer);
                     removeFromAllCustomers(customer);
                     setAllCustomers(allCustomers);
                     customerName.setText("");

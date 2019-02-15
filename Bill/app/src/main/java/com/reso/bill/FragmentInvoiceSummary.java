@@ -64,6 +64,7 @@ public class FragmentInvoiceSummary extends Fragment {
     private Menu fragmentMenu;
     private BillFilter filter;
     private DialogInterface.OnDismissListener dismissListener;
+    private BillUser currentUser;
 
     public static FragmentInvoiceSummary newInstance(BillUser user) {
         FragmentInvoiceSummary fragment = new FragmentInvoiceSummary();
@@ -191,7 +192,12 @@ public class FragmentInvoiceSummary extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if (adapter != null) {
+            currentUser = adapter.getCurrentUser();
+        }
+        //if (users == null || users.size() == 0) {
         loadInvoiceSummary(null);
+        //}
     }
 
     private void loadInvoiceSummary(String type) {
@@ -236,6 +242,12 @@ public class FragmentInvoiceSummary extends Fragment {
                             adapter.setClearButton(clear);
                             recyclerView.setAdapter(adapter);
                             totalPendingCount.setText("Total pending bills - " + users.size());
+                            Integer index = getCurrentUserPosition();
+                            if (index != null) {
+                                recyclerView.scrollToPosition(index);
+                                adapter.setCurrentUser(currentUser);
+                            }
+
                         }
                     } else {
                         Utility.createAlert(getActivity(), "Sent the reminders successfully!", "Done");
@@ -250,6 +262,21 @@ public class FragmentInvoiceSummary extends Fragment {
             }
 
         };
+    }
+
+    private Integer getCurrentUserPosition() {
+        if (currentUser == null || users == null | users.size() == 0) {
+            return null;
+        }
+        int index = 0;
+        for (BillUser user : users) {
+            if (user.getId().intValue() == currentUser.getId().intValue()) {
+                System.out.println("Current user found ... " + user.getName());
+                return index;
+            }
+            index++;
+        }
+        return null;
     }
 
 

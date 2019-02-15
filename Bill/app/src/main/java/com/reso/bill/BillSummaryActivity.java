@@ -2,6 +2,7 @@ package com.reso.bill;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -40,6 +41,7 @@ import java.util.List;
 
 import adapters.BillSummaryAdapter;
 import model.BillCustomer;
+import model.BillFilter;
 import util.ServiceUtil;
 import util.Utility;
 
@@ -59,6 +61,9 @@ public class BillSummaryActivity extends AppCompatActivity {
     private BillSummaryAdapter billAdapter;
     private ImageView editInvoice;
     private boolean loadInProgress;
+    private Menu mainMenu;
+    private BillFilter filter;
+    private DialogInterface.OnDismissListener dismissListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -245,12 +250,42 @@ public class BillSummaryActivity extends AppCompatActivity {
 
             }
         });
+
+        menu.add(Menu.NONE, Utility.MENU_ITEM_FILTER, Menu.NONE, "Filter").setIcon(R.drawable.ic_action_filter_list_disabled).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        mainMenu = menu;
+
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        return Utility.backDefault(item, this);
+
+        switch (item.getItemId()) {
+            case Utility.MENU_ITEM_FILTER:
+                System.out.println("FIlter called ...");
+                if (filter == null) {
+                    filter = new BillFilter(this, user);
+                }
+                filter.showFilterDialog();
+
+                if (dismissListener == null) {
+                    dismissListener = new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            mainMenu.getItem(1).setIcon(filter.getFilterIcon());
+                            loadBillSummary();
+                        }
+                    };
+                    filter.getDialog().setOnDismissListener(dismissListener);
+                }
+
+                mainMenu.getItem(1).setIcon(filter.getFilterIcon());
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return true;
     }
 
     public void filter(final String text) {
@@ -332,6 +367,9 @@ public class BillSummaryActivity extends AppCompatActivity {
                 requestedItem.setParentItemId(selectedItem.getParentItem().getId());
                 request.setItem(requestedItem);
             }
+        }
+        if (filter != null) {
+            request.setCustomerGroup(filter.getGroup());
         }
         loadInProgress = true;
         pDialog = Utility.getProgressDialogue("Loading..", BillSummaryActivity.this);
