@@ -188,6 +188,22 @@
             android:name=".DailySummaryActivity"
             android:theme="@style/ActivityTheme">
         </activity>
+        <activity
+            android:name=".DistributorsActivity"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".DistributorBillSummary"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".DistributorBillDetailsActivity"
+            android:theme="@style/ActivityTheme">
+        </activity>
+        <activity
+            android:name=".PaymentSuccessfulActivity"
+            android:theme="@style/ActivityTheme">
+        </activity>
     </application>
 
 </manifest>
