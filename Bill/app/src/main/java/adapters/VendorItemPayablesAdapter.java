@@ -1,5 +1,6 @@
 package adapters;
 
+import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.reso.bill.DistributorBillSummary;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillItem;
@@ -23,10 +25,16 @@ import util.Utility;
  */
 
 public class VendorItemPayablesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    List<BillUser> users = new ArrayList<BillUser>();
+
+    private List<BillUser> users = new ArrayList<BillUser>();
+    private Activity activity;
 
     public VendorItemPayablesAdapter(List<BillUser> items) {
         this.users = items;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 
     class ViewHolder1 extends RecyclerView.ViewHolder {
@@ -59,7 +67,7 @@ public class VendorItemPayablesAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        BillUser user = (BillUser) users.get(position);
+        final BillUser user = (BillUser) users.get(position);
         ViewHolder1 gholder = (ViewHolder1) holder;
 
         BillInvoice invoice = user.getCurrentInvoice();
@@ -80,6 +88,15 @@ public class VendorItemPayablesAdapter extends RecyclerView.Adapter<RecyclerView
             }
 
         }
+
+        gholder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (activity != null) {
+                    activity.startActivity(Utility.nextIntent(activity, DistributorBillSummary.class, true, user, Utility.DISTRIBUTOR_KEY));
+                }
+            }
+        });
 
     }
 
