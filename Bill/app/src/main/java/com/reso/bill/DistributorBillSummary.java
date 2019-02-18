@@ -71,7 +71,7 @@ public class DistributorBillSummary extends AppCompatActivity {
         if (selectedDistributor != null) {
             distributor = selectedDistributor.getName();
         }
-        Utility.setActionBar("Purchases for " + distributor, getSupportActionBar());
+        Utility.setActionBar(distributor + "'s purchases", getSupportActionBar());
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_group_distributor_invoices);
 
