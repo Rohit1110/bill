@@ -49,9 +49,11 @@
 
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:background="@drawable/rounded_corner"
+        android:padding="4dp"
         android:singleLine="true"
         android:text="5324/-"
-        android:textColor="?android:attr/textColorSecondary"
+        android:textColor="@color/white"
         android:textSize="@dimen/list_text_sub_text"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toStartOf="@+id/imageView2"
