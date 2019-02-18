@@ -59,97 +59,34 @@ public class PurchaseInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         this.user = user;
     }
 
-    class ViewHolder1 extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView txtMonths, txtAmount, btnPay;
-        private ImageView statusImg;
-        //private TextView time, name;
-        //View appointmentindicator;
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        final BillInvoice invoice = (BillInvoice) items.get(position);
+        ViewHolder1 gholder = (ViewHolder1) holder;
+        if (invoice.getMonth() != null && invoice.getYear() != null) {
+            gholder.txtMonths.setText(BillConstants.MONTHS[invoice.getMonth() - 1] + " " + invoice.getYear());
+        } else if (invoice.getInvoiceDate() != null) {
+            gholder.txtMonths.setText(CommonUtils.convertDate(invoice.getInvoiceDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR));
+        } else {
+            gholder.txtMonths.setText("");
+        }
+        if (invoice.getPayable() != null) {
+            gholder.txtAmount.setText(invoice.getPayable().toString() + "/-");
+        }
+        if (invoice.getStatus() != null && BillConstants.INVOICE_STATUS_PAID.equals(invoice.getStatus())) {
+            //gholder.statusImg.setImageResource(R.drawable.ic_invoice_paid);
+            showHelpfulToast(gholder.statusImg, "Invoice Paid");
+            gholder.statusImg.setVisibility(View.VISIBLE);
+            gholder.txt_paid_on.setVisibility(View.VISIBLE);
+            gholder.btnPay.setVisibility(View.GONE);
 
-        public ViewHolder1(View itemView) {
-            super(itemView);
-            txtMonths = (TextView) itemView.findViewById(R.id.txt_months);
-            txtAmount = (TextView) itemView.findViewById(R.id.txt_amount);
-            statusImg = (ImageView) itemView.findViewById(R.id.status_img);
-            btnPay = (TextView) itemView.findViewById(R.id.btn_pay_purchase_invoice);
+        } else {
+            gholder.statusImg.setVisibility(View.GONE);
+            gholder.txt_paid_on.setVisibility(View.GONE);
         }
 
-        @Override
-        public void onClick(View view) {
+        gholder.bind(invoice);
 
-        }
-
-        public void bind(final BillInvoice invoice) {
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    /*if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
-                        customer.setCurrentInvoice(invoice);
-                        //Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(customer));
-                        activity.startActivity(Utility.nextIntent(activity, GenericCreateBillActivity.class, true, customer, Utility.CUSTOMER_KEY));
-                    } else {
-                        //TODO Change to activity
-                        //Utility.nextFragment((FragmentActivity) activity, FragmentEditInvoice.newInstance(customer, invoice));
-                        Intent intent = Utility.nextIntent(activity, EditInvoiceActivity.class, true, invoice, Utility.INVOICE_KEY);
-                        intent.putExtra(Utility.CUSTOMER_KEY, ServiceUtil.toJson(customer));
-                        activity.startActivity(intent);
-                    }*/
-
-                    //customer.setCurrentInvoice(invoice);
-                    activity.startActivity(Utility.nextIntent(activity, DistributorBillDetailsActivity.class, false, invoice, Utility.INVOICE_KEY));
-
-                }
-            });
-
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View view) {
-                    final CharSequence[] items = {"Delete"};
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-
-                    builder.setTitle("Action for invoice #" + invoice.getId());
-                    builder.setItems(items, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int item) {
-                            System.out.println("Selected option => " + item);
-                            deleteInvoice(invoice);
-
-                        }
-                    });
-                    builder.show();
-                    return true;
-
-                }
-            });
-
-            btnPay.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    final CharSequence[] items = {"Pay with Cash", "Pay with UPI"};
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-
-                    builder.setTitle("Pay invoice #" + invoice.getId());
-                    builder.setItems(items, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int item) {
-                            System.out.println("Selected option => " + item);
-                            if (item == 0) {
-                                //Cash payment
-                                payInvoice(invoice);
-                            } else {
-                                //Toast.makeText(activity, "UPI mode not available yet", Toast.LENGTH_LONG).show();
-                                startUpi(invoice);
-                            }
-
-                        }
-                    });
-                    builder.show();
-
-                }
-            });
-
-        }
     }
 
     private void payInvoice(BillInvoice invoice) {
@@ -240,32 +177,98 @@ public class PurchaseInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         return new ViewHolder1(item);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        final BillInvoice invoice = (BillInvoice) items.get(position);
-        ViewHolder1 gholder = (ViewHolder1) holder;
-        if (invoice.getMonth() != null && invoice.getYear() != null) {
-            gholder.txtMonths.setText(BillConstants.MONTHS[invoice.getMonth() - 1] + " " + invoice.getYear());
-        } else if (invoice.getInvoiceDate() != null) {
-            gholder.txtMonths.setText(CommonUtils.convertDate(invoice.getInvoiceDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR));
-        } else {
-            gholder.txtMonths.setText("");
-        }
-        if (invoice.getPayable() != null) {
-            gholder.txtAmount.setText(invoice.getPayable().toString() + "/-");
-        }
-        if (invoice.getStatus() != null && BillConstants.INVOICE_STATUS_PAID.equals(invoice.getStatus())) {
-            //gholder.statusImg.setImageResource(R.drawable.ic_invoice_paid);
-            showHelpfulToast(gholder.statusImg, "Invoice Paid");
-            gholder.statusImg.setVisibility(View.VISIBLE);
-            gholder.btnPay.setVisibility(View.GONE);
+    class ViewHolder1 extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private TextView txtMonths, txtAmount, btnPay, txt_paid_on;
+        private ImageView statusImg;
+        //private TextView time, name;
+        //View appointmentindicator;
 
-        } else {
-            gholder.statusImg.setVisibility(View.GONE);
+        public ViewHolder1(View itemView) {
+            super(itemView);
+            txtMonths = itemView.findViewById(R.id.txt_months);
+            txtAmount = itemView.findViewById(R.id.txt_amount);
+            txt_paid_on = itemView.findViewById(R.id.txt_paid_on);
+            statusImg = itemView.findViewById(R.id.status_img);
+            btnPay = itemView.findViewById(R.id.btn_pay_purchase_invoice);
         }
 
-        gholder.bind(invoice);
+        @Override
+        public void onClick(View view) {
 
+        }
+
+        public void bind(final BillInvoice invoice) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    /*if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
+                        customer.setCurrentInvoice(invoice);
+                        //Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(customer));
+                        activity.startActivity(Utility.nextIntent(activity, GenericCreateBillActivity.class, true, customer, Utility.CUSTOMER_KEY));
+                    } else {
+                        //TODO Change to activity
+                        //Utility.nextFragment((FragmentActivity) activity, FragmentEditInvoice.newInstance(customer, invoice));
+                        Intent intent = Utility.nextIntent(activity, EditInvoiceActivity.class, true, invoice, Utility.INVOICE_KEY);
+                        intent.putExtra(Utility.CUSTOMER_KEY, ServiceUtil.toJson(customer));
+                        activity.startActivity(intent);
+                    }*/
+
+                    //customer.setCurrentInvoice(invoice);
+                    activity.startActivity(Utility.nextIntent(activity, DistributorBillDetailsActivity.class, false, invoice, Utility.INVOICE_KEY));
+
+                }
+            });
+
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    final CharSequence[] items = {"Delete"};
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+                    builder.setTitle("Action for invoice #" + invoice.getId());
+                    builder.setItems(items, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int item) {
+                            System.out.println("Selected option => " + item);
+                            deleteInvoice(invoice);
+
+                        }
+                    });
+                    builder.show();
+                    return true;
+
+                }
+            });
+
+            btnPay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    final CharSequence[] items = {"Pay with Cash", "Pay with UPI"};
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+
+                    builder.setTitle("Pay invoice #" + invoice.getId());
+                    builder.setItems(items, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int item) {
+                            System.out.println("Selected option => " + item);
+                            if (item == 0) {
+                                //Cash payment
+                                payInvoice(invoice);
+                            } else {
+                                //Toast.makeText(activity, "UPI mode not available yet", Toast.LENGTH_LONG).show();
+                                startUpi(invoice);
+                            }
+
+                        }
+                    });
+                    builder.show();
+
+                }
+            });
+
+        }
     }
 
     private void showHelpfulToast(ImageView imageView, final String message) {

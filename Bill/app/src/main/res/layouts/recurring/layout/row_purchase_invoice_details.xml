@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:id="@+id/linearLayout5"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="wrap_content"
-                                             android:background="@color/white"
-                                             android:padding="0dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/linearLayout5"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="0dp">
 
 
     <TextView
@@ -14,12 +13,14 @@
         style="@style/basic_text_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:text="November 2018"
-        android:textSize="@dimen/list_text_main_text"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txt_amount"
@@ -28,26 +29,42 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txt_months"
         android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="8dp"
         android:text="30/-"
-        android:textSize="@dimen/list_text_amount_text"
+        android:textSize="@dimen/list_text_main_text"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/btn_pay_purchase_invoice"
-        app:layout_constraintStart_toEndOf="@+id/txt_months"
-        app:layout_constraintTop_toTopOf="@+id/txt_months"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_months" />
 
+
+    <TextView
+        android:id="@+id/txt_paid_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="Paid on \n Feb 12"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="10sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/status_img"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_centerVertical="true"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="4dp"
-        android:padding="12dp"
+        android:layout_marginRight="8dp"
         android:src="@drawable/ic_invoice_paid"
         android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/btn_pay_purchase_invoice"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txt_paid_on"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
     <!--<ImageView
@@ -66,22 +83,28 @@
     <TextView
         android:id="@+id/btn_pay_purchase_invoice"
         style="@style/basic_text_field"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PAY"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:padding="8dp"
+        android:text="Pay"
+        android:textAllCaps="true"
         android:textColor="@color/buttonColor"
+        android:textSize="@dimen/list_text_main_text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.3"
-        />
+        app:layout_constraintWidth_percent="0.3" />
 
     <include
         android:id="@+id/include8"
         layout="@layout/layout_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>

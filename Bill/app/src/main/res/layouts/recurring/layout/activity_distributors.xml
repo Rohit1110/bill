@@ -61,12 +61,12 @@
         style="@style/basic_text_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:gravity="center"
-        android:text="Total pending "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        android:text="Total pending: \u20B9 "
+        android:textSize="@dimen/list_text_main_text"
+        app:layout_constraintBottom_toBottomOf="@+id/txt_total_pending_amount"
+        app:layout_constraintEnd_toStartOf="@+id/txt_total_pending_amount"
+        app:layout_constraintTop_toTopOf="@+id/txt_total_pending_amount" />
 
     <!-- </LinearLayout>-->
 
@@ -98,32 +98,43 @@
             android:layout_below="@+id/radio_order_type"
             layout="@layout/layout_line" />-->
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_order"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_below="@id/layout_daily_summary_header"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+    <TextView
+        android:id="@+id/txt_total_pending_amount"
+        style="@style/basic_text_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center"
+        android:text="5324/-"
+        android:textSize="@dimen/list_text_amount_text"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include27">
-
-    </android.support.v7.widget.RecyclerView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <include
         android:id="@+id/include27"
         layout="@layout/layout_line"
         android:layout_width="368dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_below="@id/layout_add_cust"
+        android:layout_alignParentBottom="true"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/txt_total_pending"
-        tools:layout_editor_absoluteX="8dp"/>
+        tools:layout_editor_absoluteX="8dp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_order"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_below="@id/layout_daily_summary_header"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include27">
+
+    </android.support.v7.widget.RecyclerView>
 
     <!--</LinearLayout>-->
 
