@@ -37,34 +37,6 @@ public class VendorItemPayablesAdapter extends RecyclerView.Adapter<RecyclerView
         this.activity = activity;
     }
 
-    class ViewHolder1 extends RecyclerView.ViewHolder {
-        private TextView txtpcs;
-        //private ImageView newspaperimg;
-        private TextView txtName;
-        private TextView txtCp;
-        private TextView txtSp;
-        private TextView items;
-        //View appointmentindicator;
-
-        public ViewHolder1(View itemView) {
-            super(itemView);
-            //txtName=(TextView)itemView.findViewById(R.id.txt_name);
-            txtpcs = (TextView) itemView.findViewById(R.id.txt_daily_pcs);
-            txtName = (TextView) itemView.findViewById(R.id.txt_daily_payable_business_name);
-            txtCp = (TextView) itemView.findViewById(R.id.txt_daily_business_payable);
-            txtSp = (TextView) itemView.findViewById(R.id.txt_daily_business_profit);
-            items = (TextView) itemView.findViewById(R.id.txt_payable_items);
-        }
-    }
-
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View item = inflater.inflate(R.layout.row_daily_payable, parent, false);
-        return new ViewHolder1(item);
-    }
-
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         final BillUser user = (BillUser) users.get(position);
@@ -72,8 +44,8 @@ public class VendorItemPayablesAdapter extends RecyclerView.Adapter<RecyclerView
 
         BillInvoice invoice = user.getCurrentInvoice();
         if (invoice != null) {
-            gholder.txtSp.setText("Get  " + CommonUtils.getStringValue(invoice.getAmount()) + " /- ");
-            gholder.txtCp.setText("Pay  " + CommonUtils.getStringValue(invoice.getPayable()) + " /-");
+//            gholder.txtSp.setText("Get  " + CommonUtils.getStringValue(invoice.getAmount()) + " /- ");
+            gholder.txtCp.setText(CommonUtils.getStringValue(invoice.getPayable()) + " /-");
         }
         if (user.getCurrentBusiness() != null) {
             gholder.txtName.setText(user.getCurrentBusiness().getName());
@@ -98,6 +70,34 @@ public class VendorItemPayablesAdapter extends RecyclerView.Adapter<RecyclerView
             }
         });
 
+    }
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View item = inflater.inflate(R.layout.row_daily_payable, parent, false);
+        return new ViewHolder1(item);
+    }
+
+    class ViewHolder1 extends RecyclerView.ViewHolder {
+        private TextView txtpcs;
+        //private ImageView newspaperimg;
+        private TextView txtName;
+        private TextView txtCp;
+        //        private TextView txtSp;
+        private TextView items;
+        //View appointmentindicator;
+
+        public ViewHolder1(View itemView) {
+            super(itemView);
+            //txtName=(TextView)itemView.findViewById(R.id.txt_name);
+            txtpcs = (TextView) itemView.findViewById(R.id.txt_daily_pcs);
+            txtName = (TextView) itemView.findViewById(R.id.txt_daily_payable_business_name);
+            txtCp = (TextView) itemView.findViewById(R.id.txt_daily_business_payable);
+//            txtSp = (TextView) itemView.findViewById(R.id.txt_daily_business_profit);
+            items = (TextView) itemView.findViewById(R.id.txt_payable_items);
+        }
     }
 
     @Override
