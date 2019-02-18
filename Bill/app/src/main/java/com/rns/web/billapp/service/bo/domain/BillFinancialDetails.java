@@ -18,6 +18,7 @@ public class BillFinancialDetails implements Serializable {
 	private String accountNumber;
 	private String status;
 	private String accountHolderName;
+	private String vpa;
 
 	public Integer getId() {
 		return id;
@@ -68,4 +69,11 @@ public class BillFinancialDetails implements Serializable {
 		this.accountHolderName = accountHolderName;
 	}
 
+	public String getVpa() {
+		return vpa;
+	}
+
+	public void setVpa(String vpa) {
+		this.vpa = vpa;
+	}
 }

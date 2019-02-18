@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.reso.bill.AddBusinessLogo;
 import com.reso.bill.CustomerList;
+import com.reso.bill.DistributorsActivity;
 import com.reso.bill.FragmentInvoiceSummary;
 import com.reso.bill.HelpActivity;
 import com.reso.bill.LoginActivity;
@@ -107,6 +108,7 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             Menu nav_Menu = navigationView.getMenu();
             nav_Menu.findItem(R.id.nav_quick_bill).setVisible(false);
+            nav_Menu.findItem(R.id.nav_purchases).setVisible(false);
         }
 
         //initFragments();
@@ -222,6 +224,9 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
     @Override
     protected void onResume() {
         System.out.println("........ On resume called .... " + fragment);
+
+        user = (BillUser) Utility.readObject(GenericDashboard.this, Utility.USER_KEY);
+
         if (fragment == null) {
             //bottomNavigationView.setSelectedItemId(R.id.action_item1);
             fragment = Utility.getHomeFragment(user);
@@ -294,10 +299,11 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
             case R.id.nav_quick_bill:
                 fragment = GenericInvoices.newInstance();
                 break;
+            case R.id.nav_purchases:
+                startActivity(Utility.nextIntent(this, DistributorsActivity.class, true));
+                break;
             case R.id.nav_logout:
-                new AlertDialog.Builder(GenericDashboard.this)
-                        .setTitle("Logout?")
-                        .setMessage("Do you really want to logout?")
+                new AlertDialog.Builder(GenericDashboard.this).setTitle("Logout?").setMessage("Do you really want to logout?")
 //                        .setIcon(android.R.drawable.ic_dialog_alert)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
@@ -307,8 +313,7 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
                                 startActivity(Utility.nextIntent(GenericDashboard.this, LoginActivity.class, false));
                                 GenericDashboard.this.finish();
                             }
-                        })
-                        .setNegativeButton(android.R.string.no, null).show();
+                        }).setNegativeButton(android.R.string.no, null).show();
 
                 break;
             /*case R.id.nav_settings:

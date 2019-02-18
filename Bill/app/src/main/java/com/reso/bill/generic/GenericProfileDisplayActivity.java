@@ -55,6 +55,10 @@ public class GenericProfileDisplayActivity extends AppCompatActivity {
             user = (BillUser) o;
         }
 
+        setUserDetails();
+    }
+
+    private void setUserDetails() {
         if (user != null) {
             getSupportActionBar().setTitle(user.getName());
             emailTextView.setText(user.getEmail());
@@ -95,4 +99,17 @@ public class GenericProfileDisplayActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Object o = Utility.readObject(GenericProfileDisplayActivity.this, Utility.USER_KEY);
+        if (o != null) {
+            user = (BillUser) o;
+        }
+
+        setUserDetails();
+    }
+
 }

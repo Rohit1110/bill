@@ -313,6 +313,10 @@ public class VendorRegistration extends AppCompatActivity {
                 if (user != null) {
                     requestUser.setId(user.getId());
                 }
+                if (!Utility.isAlpha(name.getText().toString())) {
+                    name.setError("Please enter a valid name. No special characters.");
+                    return;
+                }
                 requestUser.setName(name.getText().toString());
                 requestUser.setEmail(emailText);
                 //requestUser.setPanDetails(panNumber.getText().toString());
@@ -321,6 +325,10 @@ public class VendorRegistration extends AppCompatActivity {
                 BillBusiness business = new BillBusiness();
                 if (user != null && user.getCurrentBusiness() != null) {
                     business.setId(user.getCurrentBusiness().getId());
+                }
+                if (!Utility.isAlpha(businessName.getText().toString())) {
+                    businessName.setError("Please enter a valid business name. No special characters.");
+                    return;
                 }
                 business.setName(businessName.getText().toString());
                 //business.setIdentificationNumber(businessLicense.getText().toString());
@@ -384,10 +392,15 @@ public class VendorRegistration extends AppCompatActivity {
         }
     }
 
-    private void saveUserInfo(BillUser user) {
+    private void saveUserInfo(BillUser requestUser) {
         saveRequest = true;
         BillServiceRequest request = new BillServiceRequest();
-        request.setUser(user);
+        //request.setUser(user);
+        request.setUser(requestUser);
+        if (user != null && user.getId() != null && requestUser.getId() != null) {
+            requestUser.getCurrentBusiness().setBusinessSector(user.getCurrentBusiness().getBusinessSector());
+            user = requestUser;
+        }
         pDialog = Utility.getProgressDialogue("Saving..", this);
         StringRequest myReq = ServiceUtil.getStringRequest("updateUserProfile", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, VendorRegistration.this), request);
         RequestQueue queue = Volley.newRequestQueue(VendorRegistration.this);
@@ -557,5 +570,6 @@ public class VendorRegistration extends AppCompatActivity {
         }
         return serviceResponse.getLocations();
     }
+
 
 }

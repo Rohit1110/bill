@@ -59,6 +59,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -74,6 +75,7 @@ public class Utility {
     public static final String CUSTOMER_KEY = "Customer";
     public static final String BUSINESS_KEY = "Business";
     public static final String GROUP_KEY = "Group";
+    public static final String DISTRIBUTOR_KEY = "Distributor";
 
     public static final String INTENT_QUICK_BILL = "quickBill";
 
@@ -679,14 +681,18 @@ public class Utility {
 
     public static Intent nextIntent(Activity parent, Class<?> cls, boolean addToBackStack, Object obj, String key) {
         Intent intent = new Intent(parent, cls);
-        if (obj != null) {
-            intent.putExtra(key, ServiceUtil.toJson(obj));
-        }
+        putIntenObject(obj, key, intent);
         if (!addToBackStack) {
             intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         }
         return intent;
 
+    }
+
+    public static void putIntenObject(Object obj, String key, Intent intent) {
+        if (obj != null) {
+            intent.putExtra(key, ServiceUtil.toJson(obj));
+        }
     }
 
 
@@ -746,6 +752,29 @@ public class Utility {
                 Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public static boolean isAlpha(String name) {
+        return name.matches("[a-zA-Z ]+");
+    }
+
+    public static String getUPIString(BillUser user, BillInvoice invoice) {
+        if (user == null | user.getFinancialDetails() == null || TextUtils.isEmpty(user.getFinancialDetails().getVpa())) {
+            return null;
+        }
+        if (invoice == null || invoice.getPayable() == null) {
+            return null;
+        }
+        String userId = String.format("%04d", user.getId());
+        if (userId.length() > 4) {
+            userId = userId.substring(userId.length() - 4, userId.length());
+        }
+        userId = "0000";
+        String txnNote = "Purchase for " + CommonUtils.convertDate(invoice.getInvoiceDate(), DATE_FORMAT_DISPLAY);
+        String UPI = "upi://pay?pa=" + user.getFinancialDetails().getVpa() + "&pn=" + user.getName() + "&mc=" + userId + "&tid=" + new Date().getTime() + "&tr=" + invoice.getId() + "&tn=" + txnNote + "&am=" + invoice.getPayable() + "&cu=INR";
+                /*+ "&refUrl=" + refUrl*/
+        ;
+        return UPI.replace(" ", "+");
     }
 
 }

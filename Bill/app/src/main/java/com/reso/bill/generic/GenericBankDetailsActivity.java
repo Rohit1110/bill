@@ -101,7 +101,7 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
         if (bankName.getText().toString().trim().isEmpty()) {
             bankNameTextInputLayout.setErrorEnabled(true);
             bankNameTextInputLayout.setError("Please enter your bank name");
-        } else if (!isAlpha(bankName.getText().toString().trim())) {
+        } else if (!Utility.isAlpha(bankName.getText().toString().trim())) {
             bankNameTextInputLayout.setErrorEnabled(true);
             bankNameTextInputLayout.setError("Enter valid bank name. Enter letters only");
         } else {
@@ -281,14 +281,9 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
         if (user.getFinancialDetails() == null) {
             user.setFinancialDetails(new BillFinancialDetails());
         }
-        if (!bankName.getText().toString().trim().isEmpty() &&
-                !accountNumber.getText().toString().trim().isEmpty() &&
-                !address.getText().toString().trim().isEmpty() &&
-                !ifscCode.getText().toString().trim().isEmpty() &&
-                !accountHolder.getText().toString().trim().isEmpty()) {
-            
-            
-            
+        if (!bankName.getText().toString().trim().isEmpty() && !accountNumber.getText().toString().trim().isEmpty() && !address.getText().toString().trim().isEmpty() && !ifscCode.getText().toString().trim().isEmpty() && !accountHolder.getText().toString().trim().isEmpty()) {
+
+
             if (accountNumber.getText().toString().trim().length() < 10) {
 //                accountNumber.setError("Enter valid account number");
                 accountNumberTextInputLayout.setErrorEnabled(true);
@@ -301,7 +296,7 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
                 ifscTextInputLayout.setError("Enter a valid IFSC code");
                 return;
             }
-            if (!isAlpha(bankName.getText().toString().trim())) {
+            if (!Utility.isAlpha(bankName.getText().toString().trim())) {
 //                bankName.setError("Enter a valid bank name. Only enter letters");
                 bankNameTextInputLayout.setErrorEnabled(true);
                 bankNameTextInputLayout.setError("Enter valid bank name. Enter letters only");
@@ -333,9 +328,6 @@ public class GenericBankDetailsActivity extends AppCompatActivity {
         }
     }
 
-    public boolean isAlpha(String name) {
-        return name.matches("[a-zA-Z ]+");
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
