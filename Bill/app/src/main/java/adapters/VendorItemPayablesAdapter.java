@@ -15,6 +15,7 @@ import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.util.CommonUtils;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +29,21 @@ public class VendorItemPayablesAdapter extends RecyclerView.Adapter<RecyclerView
 
     private List<BillUser> users = new ArrayList<BillUser>();
     private Activity activity;
+    private TextView totalPending;
 
     public VendorItemPayablesAdapter(List<BillUser> items) {
         this.users = items;
+        calculateTotal();
+    }
+
+    public VendorItemPayablesAdapter(List<BillUser> users, TextView totalPending) {
+        this.users = users;
+        setTotalPending(totalPending);
+        calculateTotal();
+    }
+
+    public void setTotalPending(TextView totalPending) {
+        this.totalPending = totalPending;
     }
 
     public void setActivity(Activity activity) {
@@ -44,6 +57,9 @@ public class VendorItemPayablesAdapter extends RecyclerView.Adapter<RecyclerView
 
         BillInvoice invoice = user.getCurrentInvoice();
         if (invoice != null) {
+            if (invoice.getPayable() == null) {
+                invoice.setPayable(BigDecimal.ZERO);
+            }
 //            gholder.txtSp.setText("Get  " + CommonUtils.getStringValue(invoice.getAmount()) + " /- ");
             gholder.txtCp.setText(CommonUtils.getStringValue(invoice.getPayable()) + " /-");
         }
@@ -98,6 +114,19 @@ public class VendorItemPayablesAdapter extends RecyclerView.Adapter<RecyclerView
 //            txtSp = (TextView) itemView.findViewById(R.id.txt_daily_business_profit);
             items = (TextView) itemView.findViewById(R.id.txt_payable_items);
         }
+    }
+
+    public void calculateTotal() {
+        if (totalPending == null) {
+            return;
+        }
+        BigDecimal total = BigDecimal.ZERO;
+        for (BillUser user : users) {
+            if (user.getCurrentInvoice() != null && user.getCurrentInvoice().getPayable() != null) {
+                total = total.add(user.getCurrentInvoice().getPayable());
+            }
+        }
+        totalPending.setText(Utility.getDecimalString(total));
     }
 
     @Override

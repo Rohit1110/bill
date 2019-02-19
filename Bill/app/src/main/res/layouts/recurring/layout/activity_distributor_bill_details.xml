@@ -88,6 +88,7 @@
             layout="@layout/layout_line"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -100,11 +101,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="24dp"
             android:text="Total Amount = INR"
             android:textSize="@dimen/list_text_main_text"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include2"
+            app:layout_constraintTop_toBottomOf="@+id/txt_purchase_paid"
             app:layout_constraintWidth_percent="0.7"/>
 
         <TextView
@@ -117,6 +118,52 @@
             android:textSize="@dimen/list_text_main_text"
             app:layout_constraintStart_toEndOf="@+id/textView6"
             app:layout_constraintTop_toTopOf="@+id/textView6"/>
+
+        <TextView
+            android:id="@+id/btn_add_purchase_comment"
+            style="@style/basic_text_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="ADD COMMENTS"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include2"/>
+
+        <ImageView
+            android:id="@+id/img_purchase_already_paid"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:src="@drawable/ic_invoice_paid"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/txt_purchase_paid"/>
+
+        <TextView
+            android:id="@+id/txt_purchase_paid"
+            style="@style/textviewtitle_grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="This invoice is paid on"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/img_purchase_already_paid"
+            app:layout_constraintTop_toBottomOf="@+id/txt_purchase_comments"/>
+
+        <TextView
+            android:id="@+id/txt_purchase_comments"
+            style="@style/textviewtitle_grey"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_add_purchase_comment"/>
 
 
     </android.support.constraint.ConstraintLayout>

@@ -78,6 +78,7 @@ public class PurchaseInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             showHelpfulToast(gholder.statusImg, "Invoice Paid");
             gholder.statusImg.setVisibility(View.VISIBLE);
             gholder.txt_paid_on.setVisibility(View.VISIBLE);
+            gholder.txt_paid_on.setText("Paid on \n" + CommonUtils.convertDate(invoice.getPaidDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR_TIME));
             gholder.btnPay.setVisibility(View.GONE);
 
         } else {

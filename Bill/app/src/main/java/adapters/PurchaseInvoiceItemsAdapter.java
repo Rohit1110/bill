@@ -55,7 +55,7 @@ public class PurchaseInvoiceItemsAdapter extends RecyclerView.Adapter<RecyclerVi
         this.items = items;
         this.activity = activity;
         this.billAmount = billAmount;
-        calculateBillTotal();
+        //calculateBillTotal();
         //this.customer = customer;
     }
 

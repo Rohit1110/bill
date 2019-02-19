@@ -1,6 +1,7 @@
 package com.reso.bill;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -55,6 +57,10 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
     private List<BillItem> invoiceItems = new ArrayList<>();
     private BillUser distributor;
     private Date fromDate;
+    private TextView btnAddComments;
+    private TextView comments;
+    private TextView invoicePaidMessage;
+    private ImageView invoicePaid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,6 +129,114 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
         totalBillAmount = findViewById(R.id.txt_total_purchase_amount);
         recyclerView = findViewById(R.id.recycler_purchase_items);
 
+        btnAddComments = findViewById(R.id.btn_add_purchase_comment);
+        comments = findViewById(R.id.txt_purchase_comments);
+        invoicePaid = findViewById(R.id.img_purchase_already_paid);
+        invoicePaidMessage = findViewById(R.id.txt_purchase_paid);
+
+        totalBillAmount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAmountChangeDialog();
+            }
+        });
+
+        comments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCommentDialog();
+            }
+        });
+
+        btnAddComments.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showCommentDialog();
+            }
+        });
+
+    }
+
+    private void showAmountChangeDialog() {
+
+        final Dialog dialog = new Dialog(DistributorBillDetailsActivity.this);
+        dialog.setContentView(R.layout.dialog_edit_purchase_amount);
+        dialog.setTitle("Edit Amount");
+
+
+        final EditText amount = (EditText) dialog.findViewById(R.id.et_dialog_purchase_total);
+        //amount.setText("0");
+        if (!TextUtils.isEmpty(totalBillAmount.getText())) {
+            amount.setText(totalBillAmount.getText());
+        }
+
+
+        Button saveAmount = (Button) dialog.findViewById(R.id.btn_dialog_save_purchase_amount);
+        // if button is clicked, close the custom dialog
+        saveAmount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+                if (!Utility.validateDecimal(amount)) {
+                    amount.setError("Invalid amount!");
+                    return;
+                }
+                totalBillAmount.setText(amount.getText());
+                dialog.dismiss();
+            }
+        });
+
+        Button cancel = (Button) dialog.findViewById(R.id.btn_dialog_cancel_purchase_amount);
+        // if button is clicked, close the custom dialog
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
+    }
+
+    private void showCommentDialog() {
+
+        final Dialog dialog = new Dialog(DistributorBillDetailsActivity.this);
+        dialog.setContentView(R.layout.dialog_edit_purchase_comment);
+        dialog.setTitle("Add comment");
+
+
+        final EditText comment = (EditText) dialog.findViewById(R.id.et_dialog_purchase_comment);
+        //comment.setText("0");
+        if (!TextUtils.isEmpty(comments.getText())) {
+            comment.setText(comments.getText());
+        }
+
+
+        Button saveComment = (Button) dialog.findViewById(R.id.btn_dialog_save_purchase_comment);
+        // if button is clicked, close the custom dialog
+        saveComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                comments.setText(comment.getText());
+                comments.setVisibility(View.VISIBLE);
+                btnAddComments.setVisibility(View.GONE);
+                dialog.dismiss();
+            }
+        });
+
+        Button cancel = (Button) dialog.findViewById(R.id.btn_dialog_cancel_purchase_comment);
+        // if button is clicked, close the custom dialog
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+
     }
 
     @Override
@@ -163,6 +277,11 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
 
     private void prepareInvoice() {
         if (invoice != null && invoice.getId() != null) {
+            if (!TextUtils.isEmpty(invoice.getComments())) {
+                btnAddComments.setVisibility(View.GONE);
+                comments.setVisibility(View.VISIBLE);
+                comments.setText(invoice.getComments());
+            }
             totalBillAmount.setText(CommonUtils.getStringValue(invoice.getAmount()));
             //For old invoice, invoice items to be picked from invoice data
             if (invoice.getInvoiceItems() != null && invoice.getInvoiceItems().size() > 0) {
@@ -179,10 +298,15 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
 
     }
 
+
     private void setItemsAdapter() {
         adapter = new PurchaseInvoiceItemsAdapter(invoiceItems, this, totalBillAmount);
         if (invoicePaid()) {
             adapter.setDisableEdit(true);
+            invoicePaid.setVisibility(View.VISIBLE);
+            invoicePaidMessage.setText("This invoice was paid at " + CommonUtils.convertDate(invoice.getPaidDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR_TIME));
+            invoicePaidMessage.setVisibility(View.VISIBLE);
+            btnAddComments.setVisibility(View.GONE);
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -260,6 +384,7 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
             }
             invoice.setInvoiceItems(purchaseItems);
             invoice.setAmount(Utility.getDecimal(totalBillAmount));
+            invoice.setComments(comments.getText().toString());
             BillServiceRequest request = new BillServiceRequest();
             request.setUser(user);
             if (distributor != null) {

@@ -77,14 +77,12 @@ public class PaymentSuccessfulActivity extends AppCompatActivity {
             return;
         }
         if (BillConstants.INVOICE_STATUS_PAID.equalsIgnoreCase(invoice.getStatus())) {
-
             paymentResult.setText("Payment Successful");
             paymentResultMessage.setText("Payment of purchase invoice for " + CommonUtils.convertDate(invoice.getInvoiceDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR) + " to " + payee.getName() + " is successful");
         } else {
             paymentStatusIcon.setImageResource(R.drawable.ic_invoice_failed);
             paymentResult.setText("Payment Failed");
             paymentResultMessage.setText("Payment of purchase invoice for " + CommonUtils.convertDate(invoice.getInvoiceDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR) + " to " + payee.getName() + " is failed.");
-
         }
         paidAmount.setText(Utility.getDecimalString(invoice.getPayable()));
         payInvoice();
@@ -96,9 +94,10 @@ public class PaymentSuccessfulActivity extends AppCompatActivity {
             return;
         }
         loading = true;
-        invoice.setStatus(BillConstants.INVOICE_STATUS_PAID);
-        invoice.setPaymentMode(BillConstants.PAYMENT_ONLINE);
-        invoice.setPaidAmount(invoice.getPayable());
+        if (BillConstants.INVOICE_STATUS_PAID.equals(invoice.getStatus())) {
+            invoice.setPaymentMode(BillConstants.PAYMENT_ONLINE);
+            invoice.setPaidAmount(invoice.getPayable());
+        }
         invoice.setPaymentMedium("UPI");
         //invoice.setPaidDate(new Date());
         //}

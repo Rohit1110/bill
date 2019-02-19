@@ -42,6 +42,7 @@ public class DistributorsActivity extends AppCompatActivity {
     private Menu fragmentMenu;
     private BillFilter filter;
     private DialogInterface.OnDismissListener dismissListener;
+    private TextView totalPending;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,7 @@ public class DistributorsActivity extends AppCompatActivity {
 
         user = (BillUser) Utility.readObject(this, Utility.USER_KEY);
 
+        totalPending = (TextView) findViewById(R.id.txt_total_pending_amount);
         /*totalProfit = findViewById(R.id.txt_daily_total_profit);
         totalCost = findViewById(R.id.txt_daily_total_cost);
         switchView = findViewById(R.id.btn_daily_summary_switch_view);
@@ -100,7 +102,7 @@ public class DistributorsActivity extends AppCompatActivity {
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     //if (requestType != null && "Distributor".equals(requestType)) {
                     recyclerView.setLayoutManager(new LinearLayoutManager(DistributorsActivity.this));
-                    VendorItemPayablesAdapter adapter = new VendorItemPayablesAdapter(serviceResponse.getUsers());
+                    VendorItemPayablesAdapter adapter = new VendorItemPayablesAdapter(serviceResponse.getUsers(), totalPending);
                     adapter.setActivity(DistributorsActivity.this);
                     recyclerView.setAdapter(adapter);
                     if (serviceResponse.getInvoice() != null) {
