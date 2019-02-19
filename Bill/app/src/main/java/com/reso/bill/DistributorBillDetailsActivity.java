@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -47,18 +48,15 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
     private PurchaseInvoiceItemsAdapter adapter;
     //private Button saveBill;
     private Button addProduct;
-    private EditText selectedDate;
+    private TextInputEditText selectedDate, comments, totalBillAmount;
     private BillInvoice invoice;
     private BillUser user;
     private BillUser customer;
-    private EditText totalBillAmount;
     private List<BillItem> items;
     private BillItem selectedItem;
     private List<BillItem> invoiceItems = new ArrayList<>();
     private BillUser distributor;
     private Date fromDate;
-    //private TextView btnAddComments;
-    private EditText comments;
     private TextView invoicePaidMessage;
     private ImageView invoicePaid;
 

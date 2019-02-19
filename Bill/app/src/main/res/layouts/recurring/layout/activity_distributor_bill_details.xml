@@ -17,7 +17,34 @@
         tools:context="com.reso.bill.VendorRegistration"
         tools:showIn="@layout/generic_fragment_update_bill_details">
 
+        <ImageView
+            android:id="@+id/img_purchase_already_paid"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_invoice_paid"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_purchase_paid"
+            app:layout_constraintEnd_toStartOf="@+id/txt_purchase_paid"
+            app:layout_constraintTop_toTopOf="@+id/txt_purchase_paid" />
 
+        <TextView
+            android:id="@+id/txt_purchase_paid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="24dp"
+            android:paddingBottom="24dp"
+            android:text="This invoice is paid on"
+            android:textAllCaps="false"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="@dimen/list_text_sub_text"
+            android:textStyle="bold|italic"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
         <!--<AutoCompleteTextView
             android:id="@+id/et_group_customer_name"
             style="@style/gen_regedittext"
@@ -33,19 +60,28 @@
             app:layout_constraintEnd_toStartOf="@+id/gn_btn_add_customer_to_group"
             app:layout_constraintStart_toStartOf="parent"/>-->
 
-        <EditText
-            android:id="@+id/et_purchase_date"
-            style="@style/basic_text_field"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/purchaseDateInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="8dp"
-            android:editable="false"
-            android:text="Select Date"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.5"/>
+            app:layout_constraintTop_toBottomOf="@+id/txt_purchase_paid">
 
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_purchase_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:hint="Select Date"
+                android:textSize="@dimen/list_text_main_text" />
+        </android.support.design.widget.TextInputLayout>
 
         <!--<Button
             android:id="@+id/gn_btn_add_customer_to_group"
@@ -59,103 +95,87 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>-->
 
-        <include
-            android:id="@+id/include_top"
-            layout="@layout/layout_line"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/txt_purchase_subtitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:text="Purchase Details"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/et_purchase_date"/>
+            app:layout_constraintTop_toBottomOf="@+id/purchaseDateInputLayout" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_purchase_items"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
             android:fadeScrollbars="true"
             android:isScrollContainer="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include_top"/>
+            app:layout_constraintTop_toBottomOf="@+id/txt_purchase_subtitle" />
 
-        <include
-            android:id="@+id/include2"
-            layout="@layout/layout_line"
-            android:layout_width="wrap_content"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/purchaseCommentsInputLayout"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/recycler_purchase_items"/>
+            app:layout_constraintTop_toBottomOf="@+id/recycler_purchase_items">
 
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txt_purchase_comments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Note (optional)"
+                android:textSize="14sp" />
+        </android.support.design.widget.TextInputLayout>
 
         <TextView
             android:id="@+id/textView6"
-            style="@style/basic_text_field"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="24dp"
-            android:text="Total Amount = INR"
-            android:textSize="@dimen/list_text_main_text"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_purchase_paid"
-            app:layout_constraintWidth_percent="0.7"/>
-
-        <EditText
-            android:id="@+id/txt_total_purchase_amount"
-            style="@style/basic_text_field"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:hint="Total amount"
-            android:inputType="numberDecimal"
-            android:textSize="@dimen/list_text_main_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
-            app:layout_constraintTop_toTopOf="@+id/textView6"/>
-
-        <ImageView
-            android:id="@+id/img_purchase_already_paid"
-            android:layout_width="wrap_content"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="8dp"
-            android:src="@drawable/ic_invoice_paid"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/txt_purchase_paid"/>
-
-        <TextView
-            android:id="@+id/txt_purchase_paid"
-            style="@style/textviewtitle_grey"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:text="This invoice is paid on"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/img_purchase_already_paid"
-            app:layout_constraintTop_toBottomOf="@+id/txt_purchase_comments"/>
-
-        <EditText
-            android:id="@+id/txt_purchase_comments"
-            style="@style/textviewtitle_grey"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:hint="Add comment"
+            android:layout_marginLeft="16dp"
+            android:layout_marginBottom="8dp"
+            android:text="\u20B9 "
+            android:textColor="@android:color/black"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/purchaseAmountInputLayout"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/include2"/>
+            app:layout_constraintWidth_percent="0.7" />
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/purchaseAmountInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintTop_toBottomOf="@+id/purchaseCommentsInputLayout">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/txt_total_purchase_amount"
+                android:layout_width="152dp"
+                android:layout_height="wrap_content"
+                android:hint="Total amount"
+                android:inputType="numberDecimal"
+                android:textSize="@dimen/list_text_amount_text"
+                android:textStyle="bold" />
+        </android.support.design.widget.TextInputLayout>
 
 
     </android.support.constraint.ConstraintLayout>
