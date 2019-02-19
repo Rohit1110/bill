@@ -51,14 +51,14 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
     private BillInvoice invoice;
     private BillUser user;
     private BillUser customer;
-    private TextView totalBillAmount;
+    private EditText totalBillAmount;
     private List<BillItem> items;
     private BillItem selectedItem;
     private List<BillItem> invoiceItems = new ArrayList<>();
     private BillUser distributor;
     private Date fromDate;
-    private TextView btnAddComments;
-    private TextView comments;
+    //private TextView btnAddComments;
+    private EditText comments;
     private TextView invoicePaidMessage;
     private ImageView invoicePaid;
 
@@ -129,12 +129,12 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
         totalBillAmount = findViewById(R.id.txt_total_purchase_amount);
         recyclerView = findViewById(R.id.recycler_purchase_items);
 
-        btnAddComments = findViewById(R.id.btn_add_purchase_comment);
+        //btnAddComments = findViewById(R.id.btn_add_purchase_comment);
         comments = findViewById(R.id.txt_purchase_comments);
         invoicePaid = findViewById(R.id.img_purchase_already_paid);
         invoicePaidMessage = findViewById(R.id.txt_purchase_paid);
 
-        totalBillAmount.setOnClickListener(new View.OnClickListener() {
+        /*totalBillAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showAmountChangeDialog();
@@ -153,7 +153,7 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 showCommentDialog();
             }
-        });
+        });*/
 
     }
 
@@ -221,7 +221,7 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 comments.setText(comment.getText());
                 comments.setVisibility(View.VISIBLE);
-                btnAddComments.setVisibility(View.GONE);
+                //btnAddComments.setVisibility(View.GONE);
                 dialog.dismiss();
             }
         });
@@ -278,11 +278,11 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
     private void prepareInvoice() {
         if (invoice != null && invoice.getId() != null) {
             if (!TextUtils.isEmpty(invoice.getComments())) {
-                btnAddComments.setVisibility(View.GONE);
-                comments.setVisibility(View.VISIBLE);
+                /*btnAddComments.setVisibility(View.GONE);
+                comments.setVisibility(View.VISIBLE);*/
                 comments.setText(invoice.getComments());
             }
-            totalBillAmount.setText(CommonUtils.getStringValue(invoice.getAmount()));
+            totalBillAmount.setText(Utility.getDecimalString(invoice.getAmount()));
             //For old invoice, invoice items to be picked from invoice data
             if (invoice.getInvoiceItems() != null && invoice.getInvoiceItems().size() > 0) {
                 invoiceItems = invoice.getInvoiceItems();
@@ -306,7 +306,9 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
             invoicePaid.setVisibility(View.VISIBLE);
             invoicePaidMessage.setText("This invoice was paid at " + CommonUtils.convertDate(invoice.getPaidDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR_TIME));
             invoicePaidMessage.setVisibility(View.VISIBLE);
-            btnAddComments.setVisibility(View.GONE);
+            comments.setEnabled(false);
+            totalBillAmount.setEnabled(false);
+            //btnAddComments.setVisibility(View.GONE);
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);

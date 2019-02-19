@@ -1,7 +1,6 @@
 package adapters;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
@@ -13,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.TextView;
@@ -23,7 +21,6 @@ import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
-import com.rns.web.billapp.service.util.CommonUtils;
 
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -72,7 +69,8 @@ public class PurchaseInvoiceItemsAdapter extends RecyclerView.Adapter<RecyclerVi
     }
 
     class ViewHolder1 extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView txtName, txtAmount, txtQuantity, txtCostPrice;
+        private TextView txtName, txtAmount; //
+        private EditText txtQuantity, txtCostPrice;
         //private ImageView imgDelete;
         //private TextView time, name;
         //View appointmentindicator;
@@ -82,8 +80,8 @@ public class PurchaseInvoiceItemsAdapter extends RecyclerView.Adapter<RecyclerVi
             txtName = (TextView) itemView.findViewById(R.id.txt_update_inv_item_name);
             txtAmount = (TextView) itemView.findViewById(R.id.txt_update_inv_item_amount);
             //imgDelete = (ImageView) itemView.findViewById(R.id.img_gn_delete_inv_item);
-            txtQuantity = (TextView) itemView.findViewById(R.id.txt_update_inv_item_quantity);
-            txtCostPrice = (TextView) itemView.findViewById(R.id.txt_purchase_item_cost_price);
+            txtQuantity = (EditText) itemView.findViewById(R.id.txt_update_inv_item_quantity);
+            txtCostPrice = (EditText) itemView.findViewById(R.id.txt_purchase_item_cost_price);
         }
 
         @Override
@@ -116,7 +114,7 @@ public class PurchaseInvoiceItemsAdapter extends RecyclerView.Adapter<RecyclerVi
 
         parentView.txtName.setText(Utility.getItemName(item));
 
-        parentView.txtQuantity.setText(CommonUtils.getStringValue(item.getQuantity()));
+        parentView.txtQuantity.setText(Utility.getDecimalString(item.getQuantity()));
         /*parentView.imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -142,12 +140,63 @@ public class PurchaseInvoiceItemsAdapter extends RecyclerView.Adapter<RecyclerVi
             System.out.println("The item price set as =>" + item.getCostPrice());
         }
 
+        parentView.txtQuantity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                try {
+                    item.setQuantity(new BigDecimal(charSequence.toString()));
+                    calculatePurchaseItemCost(charSequence, parentView.txtCostPrice, item, parentView.txtAmount);
+                    calculateBillTotal();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        parentView.txtCostPrice.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                try {
+                    item.setPrice(new BigDecimal(charSequence.toString()));
+                    calculatePurchaseItemCost(charSequence, parentView.txtQuantity, item, parentView.txtAmount);
+                    calculateBillTotal();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
         if (disableEdit) {
             //parentView.imgDelete.setVisibility(View.GONE);
+            parentView.txtCostPrice.setEnabled(false);
+            parentView.txtQuantity.setEnabled(false);
         }
 
         if (!disableEdit) {
-            parentView.itemView.setOnClickListener(new View.OnClickListener() {
+            /*parentView.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     final Dialog dialog = new Dialog(activity);
@@ -157,8 +206,8 @@ public class PurchaseInvoiceItemsAdapter extends RecyclerView.Adapter<RecyclerVi
                     // set the custom dialog components - text, image and button
                     TextView text = (TextView) dialog.findViewById(R.id.txt_dialog_invoice_item_name);
                     text.setText(Utility.getItemName(item));
-                /*ImageView image = (ImageView) dialog.findViewById(R.id.image);
-                image.setImageResource(R.drawable.ic_launcher);*/
+                *//*ImageView image = (ImageView) dialog.findViewById(R.id.image);
+                image.setImageResource(R.drawable.ic_launcher);*//*
                     final TextView itemPayable = (TextView) dialog.findViewById(R.id.txt_purchase_item_total_cost);
 
                     final EditText amount = (EditText) dialog.findViewById(R.id.et_dialog_invoice_item_amount_multiple);
@@ -230,11 +279,29 @@ public class PurchaseInvoiceItemsAdapter extends RecyclerView.Adapter<RecyclerVi
 
                     dialog.show();
                 }
-            });
+            });*/
 
         }
 
         System.out.println("..... Binding " + parentView.txtName.getText() + " ... " + parentView.txtAmount.getText());
+    }
+
+    private void calculatePurchaseItemCost(CharSequence charSequence, EditText amount, BillItem item, TextView txtTotal) {
+        try {
+            if (TextUtils.isEmpty(charSequence)) {
+                return;
+            }
+            BigDecimal price = Utility.getDecimal(amount);
+            BigDecimal quantityVal = new BigDecimal(charSequence.toString());
+            if (price != null && price.compareTo(BigDecimal.ZERO) > 0 && quantityVal != null) {
+                BigDecimal total = price.multiply(quantityVal);
+                //item.setPrice(total);
+                txtTotal.setText(Utility.getDecimalString(total));
+            }
+            calculateBillTotal();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void calculatePurchaseItemCost(CharSequence charSequence, EditText amount, TextView itemPayable, BillItem item) {
