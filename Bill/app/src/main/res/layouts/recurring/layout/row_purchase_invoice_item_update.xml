@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:id="@+id/linearLayout"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="wrap_content"
-                                             android:background="@color/white">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
 
 
     <TextView
@@ -13,9 +13,10 @@
         style="@style/basic_text_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
         android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:ellipsize="none"
         android:singleLine="false"
         android:text="Product name"
@@ -23,7 +24,52 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.45"/>
+        app:layout_constraintWidth_percent="0.45" />
+
+    <EditText
+        android:id="@+id/txt_purchase_item_cost_price"
+        style="@style/basic_text_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:hint="Cost"
+        android:inputType="numberDecimal"
+        android:maxLength="5"
+        android:singleLine="true"
+        android:textSize="@dimen/list_text_main_text"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txt_update_inv_item_cross"
+        app:layout_constraintEnd_toStartOf="@+id/txt_update_inv_item_cross"
+        app:layout_constraintWidth_percent="0.15" />
+
+    <TextView
+        android:id="@+id/txt_cost_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Cost"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/txt_purchase_item_cost_price"
+        app:layout_constraintStart_toStartOf="@+id/txt_purchase_item_cost_price"
+        app:layout_constraintTop_toBottomOf="@+id/txt_purchase_item_cost_price" />
+
+    <TextView
+        android:id="@+id/txt_update_inv_item_cross"
+        style="@style/basic_text_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="x"
+        android:textAllCaps="true"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="@dimen/list_text_main_text"
+        app:layout_constraintEnd_toStartOf="@+id/txt_update_inv_item_quantity"
+        app:layout_constraintTop_toTopOf="@+id/txt_update_inv_item_name" />
 
     <EditText
         android:id="@+id/txt_update_inv_item_quantity"
@@ -36,38 +82,23 @@
         android:inputType="numberDecimal"
         android:singleLine="true"
         android:textSize="@dimen/list_text_main_text"
+        app:layout_constraintBaseline_toBaselineOf="@id/txt_update_inv_item_cross"
         app:layout_constraintEnd_toStartOf="@+id/txt_update_inv_item_equals"
-        app:layout_constraintTop_toTopOf="@+id/txt_update_inv_item_name"
-        app:layout_constraintWidth_percent="0.15"/>
-
-    <EditText
-        android:id="@+id/txt_purchase_item_cost_price"
-        style="@style/basic_text_field"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:hint="Cost"
-        android:inputType="numberDecimal"
-        android:maxLength="5"
-        android:singleLine="true"
-        android:textSize="@dimen/list_text_main_text"
-        app:layout_constraintEnd_toStartOf="@+id/txt_update_inv_item_cross"
-        app:layout_constraintTop_toTopOf="@+id/txt_update_inv_item_cross"
-        app:layout_constraintWidth_percent="0.15"/>
+        app:layout_constraintWidth_percent="0.15"
+        tools:layout_editor_absoluteY="21dp" />
 
     <TextView
-        android:id="@+id/txt_update_inv_item_cross"
-        style="@style/basic_text_field"
+        android:id="@+id/txt_quantity_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:text="x"
-        android:textSize="@dimen/list_text_main_text"
-        app:layout_constraintEnd_toStartOf="@+id/txt_update_inv_item_quantity"
-        app:layout_constraintTop_toTopOf="@+id/txt_update_inv_item_name"/>
+        android:layout_marginBottom="8dp"
+        android:text="Quantity"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/txt_update_inv_item_quantity"
+        app:layout_constraintStart_toStartOf="@+id/txt_update_inv_item_quantity"
+        app:layout_constraintTop_toBottomOf="@+id/txt_update_inv_item_quantity" />
 
     <TextView
         android:id="@+id/txt_update_inv_item_equals"
@@ -80,8 +111,8 @@
         android:singleLine="true"
         android:text="="
         android:textSize="@dimen/list_text_main_text"
-        app:layout_constraintEnd_toStartOf="@+id/txt_update_inv_item_amount"
-        app:layout_constraintTop_toTopOf="@+id/txt_update_inv_item_quantity"/>
+        app:layout_constraintBaseline_toBaselineOf="@+id/txt_update_inv_item_cross"
+        app:layout_constraintEnd_toStartOf="@+id/txt_update_inv_item_amount" />
 
     <TextView
         android:id="@+id/txt_update_inv_item_amount"
@@ -89,13 +120,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:ellipsize="end"
         android:singleLine="false"
         android:text="0"
         android:textSize="@dimen/list_text_main_text"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txt_update_inv_item_cross"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/txt_update_inv_item_equals"
-        app:layout_constraintWidth_percent="0.15"/>
+        app:layout_constraintWidth_percent="0.15" />
 
     <!--<ImageView
         android:id="@+id/img_gn_delete_inv_item"
@@ -117,12 +149,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/txn_invoice_info"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </android.support.constraint.ConstraintLayout>
