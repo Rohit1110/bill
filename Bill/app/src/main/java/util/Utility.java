@@ -777,4 +777,20 @@ public class Utility {
         return UPI.replace(" ", "+");
     }
 
+    public static Integer getCurrentUserPosition(BillUser currentUser, List<BillUser> users) {
+        if (currentUser == null || users == null | users.size() == 0) {
+            return null;
+        }
+        int index = 0;
+        for (BillUser user : users) {
+            if (user.getId().intValue() == currentUser.getId().intValue()) {
+                System.out.println("Current user found ... " + user.getName());
+                return index;
+            }
+            index++;
+        }
+        return null;
+    }
+
+
 }
