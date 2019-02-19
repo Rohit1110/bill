@@ -62,11 +62,16 @@ public class GroupCustomersAdapter extends RecyclerView.Adapter<GroupCustomersAd
     private BillUser currentUser;
     private BillCustomerGroup group;
     private BillBusiness business;
+    private BillUser selectedCustomer;
 
     public GroupCustomersAdapter(List<BillCustomer> list, Activity context, BillUser user) {
         this.list = list;
         this.context = context;
         this.currentUser = user;
+    }
+
+    public BillUser getSelectedCustomer() {
+        return selectedCustomer;
     }
 
     public void setBusiness(BillBusiness business) {
@@ -97,7 +102,7 @@ public class GroupCustomersAdapter extends RecyclerView.Adapter<GroupCustomersAd
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                selectedCustomer = movie.getUser();
                 movie.getUser().setCurrentBusiness(currentUser.getCurrentBusiness());
                 context.startActivity(Utility.nextIntent(context, GenericCustomerProfileActivity.class, true, movie.getUser(), Utility.CUSTOMER_KEY));
             }
@@ -138,6 +143,12 @@ public class GroupCustomersAdapter extends RecyclerView.Adapter<GroupCustomersAd
                 txtItemName.setText(Utility.getCustomerItemString(customerUser.getCurrentSubscription().getItems()));
             } else {
                 txtItemName.setText("No subscriptions");
+            }
+
+            if (selectedCustomer != null && customerUser.getId().intValue() == selectedCustomer.getId().intValue()) {
+                txtName.setTextColor(context.getResources().getColor(R.color.buttonColor));
+            } else {
+                txtName.setTextColor(context.getResources().getColor(R.color.rowTitleColor));
             }
 
         }
@@ -182,6 +193,7 @@ public class GroupCustomersAdapter extends RecyclerView.Adapter<GroupCustomersAd
                 Collections.swap(list, i, i - 1);
             }
         }
+        System.out.println("Item moved from =>" + fromPosition + " to " + toPosition);
         notifyItemMoved(fromPosition, toPosition);
     }
 

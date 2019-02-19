@@ -45,6 +45,7 @@ public class ItemMoveCallBack extends ItemTouchHelper.Callback {
 
     @Override
     public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+        System.out.println("Row moved ...");
         mAdapter.onRowMoved(viewHolder.getAdapterPosition(), target.getAdapterPosition());
         return true;
     }

@@ -242,7 +242,7 @@ public class FragmentInvoiceSummary extends Fragment {
                             adapter.setClearButton(clear);
                             recyclerView.setAdapter(adapter);
                             totalPendingCount.setText("Total pending bills - " + users.size());
-                            Integer index = getCurrentUserPosition();
+                            Integer index = Utility.getCurrentUserPosition(currentUser, users);
                             if (index != null) {
                                 recyclerView.scrollToPosition(index);
                                 adapter.setCurrentUser(currentUser);
@@ -262,21 +262,6 @@ public class FragmentInvoiceSummary extends Fragment {
             }
 
         };
-    }
-
-    private Integer getCurrentUserPosition() {
-        if (currentUser == null || users == null | users.size() == 0) {
-            return null;
-        }
-        int index = 0;
-        for (BillUser user : users) {
-            if (user.getId().intValue() == currentUser.getId().intValue()) {
-                System.out.println("Current user found ... " + user.getName());
-                return index;
-            }
-            index++;
-        }
-        return null;
     }
 
 
