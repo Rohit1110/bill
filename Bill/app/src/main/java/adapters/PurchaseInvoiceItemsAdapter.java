@@ -326,6 +326,8 @@ public class PurchaseInvoiceItemsAdapter extends RecyclerView.Adapter<RecyclerVi
         for (BillItem item : items) {
             if (item.getPrice() != null && item.getQuantity() != null) {
                 total = total.add(item.getPrice().multiply(item.getQuantity()));
+            } else if (item.getCostPrice() != null && item.getQuantity() != null) {
+                total = total.add(item.getCostPrice().multiply(item.getQuantity()));
             }
         }
         billAmount.setText(Utility.getDecimalString(total));

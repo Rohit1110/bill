@@ -243,10 +243,12 @@ public class GenericGroupCustomersActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
-
-        loadAllCustomers();
-        loadGroupCustomers(); //For Suggestions}
-
+        if (allCustomers == null || allCustomers.size() == 0) {
+            loadAllCustomers();
+        }
+        //if (allCustomers == null || allCustomers.size() == 0) {
+        loadGroupCustomers(); //For Suggestions
+        //}
     }
 
     private void loadAllCustomers() {
@@ -279,22 +281,28 @@ public class GenericGroupCustomersActivity extends AppCompatActivity {
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     if ("group".equals(type)) {
-
-
-                        recyclerView.setLayoutManager(new LinearLayoutManager(GenericGroupCustomersActivity.this));
-                        groupCustomerAdapter = new GroupCustomersAdapter(new ArrayList<BillCustomer>(), GenericGroupCustomersActivity.this, user);
-                        groupCustomerAdapter.setBusiness(user.getCurrentBusiness());
-                        groupCustomerAdapter.setGroup(group);
                         groupCustomers = serviceResponse.getUsers();
-                        groupCustomerAdapter.setUsers(groupCustomers);
+                        if (recyclerView == null || groupCustomerAdapter == null) {
+                            recyclerView.setLayoutManager(new LinearLayoutManager(GenericGroupCustomersActivity.this));
+                            groupCustomerAdapter = new GroupCustomersAdapter(new ArrayList<BillCustomer>(), GenericGroupCustomersActivity.this, user);
+                            groupCustomerAdapter.setBusiness(user.getCurrentBusiness());
+                            groupCustomerAdapter.setGroup(group);
+                            groupCustomerAdapter.setUsers(groupCustomers);
+                            //To add drag n drop functionality
+                            ItemTouchHelper.Callback callback = new ItemMoveCallBack(groupCustomerAdapter);
+                            ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+                            touchHelper.attachToRecyclerView(recyclerView);
 
-                        //To add drag n drop functionality
-                        ItemTouchHelper.Callback callback = new ItemMoveCallBack(groupCustomerAdapter);
-                        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-                        touchHelper.attachToRecyclerView(recyclerView);
+                            recyclerView.setHasFixedSize(true);
+                            recyclerView.setAdapter(groupCustomerAdapter);
+                        } else {
+                            groupCustomerAdapter.updateList(groupCustomers);
+                            Integer index = Utility.getCurrentUserPosition(groupCustomerAdapter.getSelectedCustomer(), groupCustomers);
+                            if (index != null) {
+                                recyclerView.scrollToPosition(index);
+                            }
+                        }
 
-                        recyclerView.setHasFixedSize(true);
-                        recyclerView.setAdapter(groupCustomerAdapter);
                     } else {
                         setAllCustomers(serviceResponse.getUsers());
                     }
