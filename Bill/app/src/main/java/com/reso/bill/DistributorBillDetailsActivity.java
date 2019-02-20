@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -407,7 +408,9 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
 
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
-                    Utility.createAlert(DistributorBillDetailsActivity.this, "Done", "Invoice saved successfully!");
+//                    Utility.createAlert(DistributorBillDetailsActivity.this, "Done", "Invoice saved successfully!");
+                    finish();
+                    Toast.makeText(DistributorBillDetailsActivity.this, "Purchase details saved successfully!", Toast.LENGTH_SHORT).show();
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
                     Utility.createAlert(DistributorBillDetailsActivity.this, serviceResponse.getResponse(), "Error");
