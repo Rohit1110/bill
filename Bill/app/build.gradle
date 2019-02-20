@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'payperbill'
             keyPassword 'pay2018!'
-//            storeFile file('F:/Resoneuronance/BillDue/Documents/payperbill.jks')
+            storeFile file('F:/Resoneuronance/BillDue/Documents/payperbill.jks')
             storePassword 'pay2018!'
         }
     }
@@ -14,8 +14,8 @@ android {
         applicationId "com.reso.bill"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 10
-        versionName "10.0"
+        versionCode 13
+        versionName "13.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
@@ -67,26 +67,56 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.google.firebase:firebase-auth:11.0.4'
     /*implementation 'com.android.support:design:27.1.1'*/
-    implementation 'com.android.support:design:27.1.1'
+    compile 'com.android.support:design:27.1.1'
     implementation 'com.android.support:support-vector-drawable:27.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    implementation 'com.ncapdevi:frag-nav:1.0.3'
-    implementation 'com.roughike:bottom-bar:1.3.9'
+    compile 'com.ncapdevi:frag-nav:1.0.3'
+    compile 'com.roughike:bottom-bar:1.3.9'
     compile('com.mikepenz:materialdrawer:5.3.1@aar') {
         transitive = true
     }
-    implementation 'com.mcxiaoke.volley:library:1.0.19'
-    implementation 'com.google.code.gson:gson:2.7'
+    compile 'com.mcxiaoke.volley:library:1.0.19'
+    compile 'com.google.code.gson:gson:2.7'
     //compile files('libs/bill.jar')
     implementation 'com.squareup.picasso:picasso:2.71828'
-    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.1'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.1'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.1'
-    implementation 'org.codehaus.jackson:jackson-core-asl:1.7.1'
-    implementation 'org.codehaus.jackson:jackson-mapper-asl:1.7.1'
+    compile 'com.fasterxml.jackson.core:jackson-core:2.9.1'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.1'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.1'
+    compile 'org.codehaus.jackson:jackson-core-asl:1.7.1'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.7.1'
+    compile 'com.flurry.android:analytics:11.5.0@aar'
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 apply plugin: 'com.google.gms.google-services'

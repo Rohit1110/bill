@@ -37,6 +37,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
+import com.flurry.android.FlurryAgent;
 import com.reso.bill.HomeFragment;
 import com.reso.bill.R;
 import com.reso.bill.generic.GenericDashboard;
@@ -60,7 +61,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Rohit on 11/27/2017.
@@ -792,5 +795,19 @@ public class Utility {
         return null;
     }
 
+    public static void logFlurry(String event, BillUser user) {
+        try {
+            if (user == null) {
+                return;
+            }
+            Map<String, String> articleParams = new HashMap<String, String>();
+            articleParams.put("Phone", user.getPhone());
+            FlurryAgent.logEvent(event, articleParams);
+            FlurryAgent.endTimedEvent(event);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
