@@ -3,6 +3,7 @@ package com.reso.bill;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -135,6 +136,17 @@ public class DistributorBillSummary extends AppCompatActivity {
             }
         });
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            recyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
+                @Override
+                public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                    if (scrollY > oldScrollY)
+                        addNewPurchase.hide();
+                    else if (scrollY < oldScrollY)
+                        addNewPurchase.show();
+                }
+            });
+        }
 
     }
 
