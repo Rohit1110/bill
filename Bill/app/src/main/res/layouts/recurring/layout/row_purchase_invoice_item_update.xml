@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -26,32 +25,38 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.45" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/purchaseCostPriceInputLayout"
-        android:layout_width="72dp"
+    <EditText
+        android:id="@+id/txt_purchase_item_cost_price"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/txt_update_inv_item_cross"
-        app:layout_constraintTop_toTopOf="parent">
+        android:hint="Cost"
+        android:inputType="numberDecimal"
+        android:maxLength="5"
+        android:singleLine="true"
+        android:textSize="@dimen/list_text_main_text"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txt_update_inv_item_cross"
+        app:layout_constraintEnd_toStartOf="@+id/txt_update_inv_item_cross" />
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/txt_purchase_item_cost_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Cost"
-            android:inputType="numberDecimal"
-            android:maxLength="5"
-            android:singleLine="true"
-            android:textSize="@dimen/list_text_main_text" />
-    </android.support.design.widget.TextInputLayout>
+    <TextView
+        android:id="@+id/textView24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Cost"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/txt_purchase_item_cost_price"
+        app:layout_constraintStart_toStartOf="@+id/txt_purchase_item_cost_price"
+        app:layout_constraintTop_toBottomOf="@+id/txt_purchase_item_cost_price"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/txt_update_inv_item_cross"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:ellipsize="end"
@@ -61,35 +66,36 @@
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="@dimen/list_text_main_text"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/purchaseQuantityInputLayout"
+        app:layout_constraintEnd_toStartOf="@+id/txt_update_inv_item_quantity"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/purchaseQuantityInputLayout"
-        android:layout_width="72dp"
+    <EditText
+        android:id="@+id/txt_update_inv_item_quantity"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:hint="Quantity"
+        android:inputType="numberDecimal"
+        android:maxLength="5"
+        android:singleLine="true"
+        android:textSize="@dimen/list_text_main_text"
+        app:layout_constraintBaseline_toBaselineOf="@id/txt_update_inv_item_cross"
         app:layout_constraintEnd_toStartOf="@+id/txt_update_inv_item_equals"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintWidth_percent="0.15" />
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/txt_update_inv_item_quantity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:hint="Quantity"
-            android:inputType="numberDecimal"
-            android:singleLine="true"
-            android:textSize="@dimen/list_text_main_text"
-            app:layout_constraintBaseline_toBaselineOf="@id/txt_update_inv_item_cross"
-            app:layout_constraintEnd_toStartOf="@+id/txt_update_inv_item_equals"
-            app:layout_constraintWidth_percent="0.15"
-            tools:layout_editor_absoluteY="21dp" />
-    </android.support.design.widget.TextInputLayout>
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Quantity"
+        android:textColor="?android:attr/textColorSecondary"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@id/include3"
+        app:layout_constraintEnd_toEndOf="@+id/txt_update_inv_item_quantity"
+        app:layout_constraintStart_toStartOf="@+id/txt_update_inv_item_quantity"
+        app:layout_constraintTop_toBottomOf="@+id/txt_update_inv_item_quantity" />
 
     <TextView
         android:id="@+id/txt_update_inv_item_equals"
