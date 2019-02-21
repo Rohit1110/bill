@@ -16,13 +16,11 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         android:ellipsize="none"
         android:singleLine="false"
         android:text="Product name"
         android:textColor="@color/md_grey_900"
         android:textSize="@dimen/list_text_main_text"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/txt_purchase_item_cost_price"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,15 +31,15 @@
         android:id="@+id/txt_purchase_item_cost_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:hint="Cost"
         android:inputType="numberDecimal"
         android:maxLength="5"
         android:singleLine="true"
         android:textSize="@dimen/list_text_main_text"
         app:layout_constraintBaseline_toBaselineOf="@+id/txt_update_inv_item_cross"
-        app:layout_constraintEnd_toStartOf="@+id/txt_update_inv_item_cross" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView24"
@@ -61,31 +59,31 @@
         android:id="@+id/txt_update_inv_item_cross"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:text="x"
         android:textAllCaps="true"
         android:textColor="?android:attr/textColorSecondary"
         android:textSize="@dimen/list_text_main_text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/txt_update_inv_item_quantity"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/txt_purchase_item_cost_price"
+        app:layout_constraintTop_toBottomOf="@+id/txt_update_inv_item_name" />
 
     <EditText
         android:id="@+id/txt_update_inv_item_quantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:hint="Qty"
         android:inputType="numberDecimal"
         android:maxLength="5"
         android:singleLine="true"
         android:textSize="@dimen/list_text_main_text"
         app:layout_constraintBaseline_toBaselineOf="@id/txt_update_inv_item_cross"
-        app:layout_constraintEnd_toStartOf="@+id/txt_update_inv_item_equals"
+        app:layout_constraintStart_toEndOf="@+id/txt_update_inv_item_cross"
         app:layout_constraintWidth_percent="0.15" />
 
     <TextView
@@ -126,6 +124,7 @@
         android:text="0"
         android:textColor="@android:color/black"
         android:textSize="@dimen/list_text_main_text"
+        android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@+id/txt_update_inv_item_cross"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintWidth_percent="0.15" />

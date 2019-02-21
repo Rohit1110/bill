@@ -108,6 +108,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/purchaseDateInputLayout" />
 
+        <include
+            android:id="@+id/include31"
+            layout="@layout/layout_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txn_invoice_info"
+            android:layout_marginTop="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_purchase_subtitle" />
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_purchase_items"
             android:layout_width="0dp"
@@ -117,7 +129,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_purchase_subtitle" />
+            app:layout_constraintTop_toBottomOf="@+id/include31" />
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/purchaseCommentsInputLayout"
