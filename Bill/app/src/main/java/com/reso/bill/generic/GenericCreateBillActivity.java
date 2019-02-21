@@ -225,6 +225,8 @@ public class GenericCreateBillActivity extends AppCompatActivity {
             }
         }
 
+        Utility.logFlurry("QuickBillCreate", user);
+
     }
 
     @Override

@@ -185,6 +185,8 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
 
         System.out.println("........ On Create called .... " + fragment);
         setDrawer();
+
+        Utility.logFlurry("Dashboard", user);
     }
 
     public void setDrawer() {

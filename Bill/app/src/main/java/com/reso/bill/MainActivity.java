@@ -1,8 +1,6 @@
 package com.reso.bill;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,6 +13,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.flurry.android.FlurryAgent;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
@@ -82,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }, SPLASH_TIME_OUT);
 
+        new FlurryAgent.Builder().withLogEnabled(true).build(this, "SJJ8HP22QBYZMR8FJK5J");
+
 
     }
 
@@ -107,7 +108,14 @@ public class MainActivity extends AppCompatActivity {
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     System.out.println("Profile loaded successfully!");
+
                     user = serviceResponse.getUser();
+
+                    if (user != null) {
+                        FlurryAgent.setUserId(user.getPhone());
+                        Utility.logFlurry("LogIn", user);
+                    }
+
                     Utility.writeObject(MainActivity.this, Utility.USER_KEY, user);
                     if (serviceResponse.getWarningCode() != null) {
 //                        //Utility.createAlert(MainActivity.this, serviceResponse.getWarningText(), "Warning");

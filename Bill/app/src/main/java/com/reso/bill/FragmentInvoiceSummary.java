@@ -111,6 +111,7 @@ public class FragmentInvoiceSummary extends Fragment {
 
         fragmentMenu = menu;
         //searchView.setMenuItem(item);
+        Utility.logFlurry("PendingInvoices", user);
     }
 
     @Override
