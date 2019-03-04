@@ -68,7 +68,9 @@ public class VendorItemPayablesAdapter extends RecyclerView.Adapter<RecyclerView
             if (user.getCurrentBusiness().getItems() != null) {
                 StringBuilder itemList = new StringBuilder();
                 for (BillItem item : user.getCurrentBusiness().getItems()) {
-                    itemList.append(CommonUtils.getStringValue(item.getQuantity())).append(" ").append(Utility.getItemName(item)).append(" | ");
+                    String itemName = Utility.getItemName(item);
+                    System.out.println(" ..... Item name " + itemName + " for ID " + item.getId() + " status " + item.getStatus());
+                    itemList.append(CommonUtils.getStringValue(item.getQuantity())).append(" ").append(itemName).append(" | ");
                 }
                 gholder.items.setText(itemList);
             } else {

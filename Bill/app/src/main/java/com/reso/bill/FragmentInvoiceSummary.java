@@ -167,8 +167,10 @@ public class FragmentInvoiceSummary extends Fragment {
 
                             public void onClick(DialogInterface dialog, int whichButton) {
                                 sendReminders();
+                                Utility.logFlurry("Reminders", user);
                             }
                         }).setNegativeButton(android.R.string.no, null).show();
+
             }
         });
 

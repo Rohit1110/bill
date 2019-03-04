@@ -810,4 +810,19 @@ public class Utility {
 
     }
 
+    public static BigDecimal getCostPrice(BillItem item) {
+        BigDecimal price = BigDecimal.ZERO;
+        if (item.getPrice() != null) {
+            price = item.getPrice();
+            System.out.println("The item price set as =>" + item.getPrice());
+        } else if (item.getCostPrice() != null) {
+            price = item.getCostPrice();
+            System.out.println("The item price set as =>" + item.getCostPrice());
+        } else if (item.getParentItem() != null && item.getParentItem().getCostPrice() != null) {
+            price = item.getParentItem().getCostPrice();
+            System.out.println("The item price set as =>" + item.getCostPrice());
+        }
+        return price;
+    }
+
 }
