@@ -100,49 +100,62 @@ public class Utility {
     public static final int MENU_ITEM_SAVE = 1;
 
     public static void createAlert(Context context, String message, String title) {
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-        if (title != null) {
-            alertDialogBuilder.setTitle(title);
-        }
-        alertDialogBuilder.setMessage(message);
-        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
 
+        try {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+            if (title != null) {
+                alertDialogBuilder.setTitle(title);
             }
-        });
+            alertDialogBuilder.setMessage(message);
+            alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
 
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        alertDialog.show();
+                }
+            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void createAlertWithActivityFinish(final Activity activity, String message, String title, final String key, final Object object, final Class<?> cls, final String finishIntent) {
-        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
-        if (title != null) {
-            alertDialogBuilder.setTitle(title);
-        }
-        alertDialogBuilder.setMessage(message);
-        alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface arg0, int arg1) {
-                if (object == null) {
-                    activity.finish();
-                } else {
-                    if (finishIntent != null) {
-                        Intent intent = new Intent(finishIntent);
-                        activity.sendBroadcast(intent);
-                    }
-                    activity.startActivity(nextIntent(activity, cls, false, object, key));
-                }
+        try {
 
+
+            final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+            if (title != null) {
+                alertDialogBuilder.setTitle(title);
             }
-        });
+            alertDialogBuilder.setMessage(message);
+            alertDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    if (object == null) {
+                        activity.finish();
+                    } else {
+                        if (finishIntent != null) {
+                            Intent intent = new Intent(finishIntent);
+                            activity.sendBroadcast(intent);
+                        }
+                        activity.startActivity(nextIntent(activity, cls, false, object, key));
+                    }
 
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        if (finishIntent != null) {
-            alertDialog.setCancelable(false);
+                }
+            });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            if (finishIntent != null) {
+                alertDialog.setCancelable(false);
+            }
+            alertDialog.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        alertDialog.show();
     }
 
 //Email validation
@@ -298,15 +311,28 @@ public class Utility {
     }
 
     public static Object readFromSharedPref(Activity activity, String key, Class<?> cls) {
-        SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
-        return ServiceUtil.fromJson(sharedPreferences.getString(key, null), cls);
+        try {
+            if (activity == null || key == null) {
+                return null;
+            }
+            SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+            return ServiceUtil.fromJson(sharedPreferences.getString(key, null), cls);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static void nextFragment(FragmentActivity activity, Fragment fragment) {
-        FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.frame_layout, fragment);
-        ft.addToBackStack(fragment.getClass().getName());
-        ft.commit();
+        try {
+            FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.frame_layout, fragment);
+            ft.addToBackStack(fragment.getClass().getName());
+            ft.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void nextFragmentPopBackstack(FragmentActivity activity, Fragment fragment, boolean addToBackStack) {
@@ -781,16 +807,20 @@ public class Utility {
     }
 
     public static Integer getCurrentUserPosition(BillUser currentUser, List<BillUser> users) {
-        if (currentUser == null || users == null | users.size() == 0) {
-            return null;
-        }
-        int index = 0;
-        for (BillUser user : users) {
-            if (user.getId().intValue() == currentUser.getId().intValue()) {
-                System.out.println("Current user found ... " + user.getName());
-                return index;
+        try {
+            if (currentUser == null || users == null | users.size() == 0 || currentUser.getId() == null) {
+                return null;
             }
-            index++;
+            int index = 0;
+            for (BillUser user : users) {
+                if (user.getId().intValue() == currentUser.getId().intValue()) {
+                    System.out.println("Current user found ... " + user.getName());
+                    return index;
+                }
+                index++;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return null;
     }

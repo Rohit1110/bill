@@ -30,6 +30,7 @@ import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -155,8 +156,13 @@ public class FragmentInvoiceSummary extends Fragment {
         sendReminder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (adapter == null) {
+                    Utility.createAlert(getActivity(), "No pending invoices selected!", "Error");
+                    return;
+                }
                 String noOfCustomers = "all";
-                if (adapter.getSelectedCustomers() != null && adapter.getSelectedCustomers().size() > 0) {
+                if (adapter != null && adapter.getSelectedCustomers() != null && adapter.getSelectedCustomers().size() > 0) {
                     noOfCustomers = "" + adapter.getSelectedCustomers().size();
                 }
                 new AlertDialog.Builder(getActivity()).
@@ -244,7 +250,8 @@ public class FragmentInvoiceSummary extends Fragment {
                             adapter = new InvoicesAdapter(users, getActivity());
                             adapter.setClearButton(clear);
                             recyclerView.setAdapter(adapter);
-                            totalPendingCount.setText("Total pending bills - " + users.size());
+                            BigDecimal total = calculateTotalPending();
+                            totalPendingCount.setText("Total pending bills - " + users.size() + " (" + Utility.getDecimalString(total) + "/-)");
                             Integer index = Utility.getCurrentUserPosition(currentUser, users);
                             if (index != null) {
                                 recyclerView.scrollToPosition(index);
@@ -265,6 +272,18 @@ public class FragmentInvoiceSummary extends Fragment {
             }
 
         };
+    }
+
+    private BigDecimal calculateTotalPending() {
+        BigDecimal total = BigDecimal.ZERO;
+        if (users != null && users.size() > 0) {
+            for (BillUser user : users) {
+                if (user.getCurrentInvoice() != null && user.getCurrentInvoice().getAmount() != null) {
+                    total = total.add(user.getCurrentInvoice().getAmount());
+                }
+            }
+        }
+        return total;
     }
 
 
@@ -322,7 +341,10 @@ public class FragmentInvoiceSummary extends Fragment {
                             /*recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                             recyclerView.setAdapter(new InvoicesAdapter(filterList, getActivity()));*/
 
-                            adapter.updateSearchList(filterList);
+                            if (adapter != null && filterList != null) {
+                                adapter.updateSearchList(filterList);
+                            }
+
 
                             //recyclerView.setAdapter(adapter);
 
