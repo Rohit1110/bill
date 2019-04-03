@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -54,10 +53,10 @@ public class CustomerSubscriptionsActivity extends AppCompatActivity {
         customer = (BillUser) Utility.getIntentObject(BillUser.class, getIntent(), Utility.CUSTOMER_KEY);
         Utility.setActionBar("Subscribed Newspapers", getSupportActionBar());
 
-        recyclerView =  findViewById(R.id.recycler_view_newspaper_subcription);
+        recyclerView = findViewById(R.id.recycler_view_newspaper_subcription);
 
-        sp =  findViewById(R.id.spinner_newspaper);
-        fabAddCustomerItem =  findViewById(R.id.fab_add_customer_item);
+        sp = findViewById(R.id.spinner_newspaper);
+        fabAddCustomerItem = findViewById(R.id.fab_add_customer_item);
         fabAddCustomerItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -84,6 +83,11 @@ public class CustomerSubscriptionsActivity extends AppCompatActivity {
     }
 
     private void addCustomerItem() {
+
+        if (sp.getSelectedItem() == null) {
+            Utility.createAlert(CustomerSubscriptionsActivity.this, "Please select a product to add first!", "Error");
+            return;
+        }
 
         BillItem selectedItem = new BillItem();
         selectedItem.setQuantity(new BigDecimal(1));

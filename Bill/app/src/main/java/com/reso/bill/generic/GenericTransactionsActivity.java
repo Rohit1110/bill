@@ -252,14 +252,16 @@ public class GenericTransactionsActivity extends AppCompatActivity {
 
     public void filter(final String text) {
 
-        //Toast.makeText(this,text,Toast.LENGTH_LONG).show();
+        try {
 
-        // Searching could be complex..so we will dispatch it to a different thread...
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
+            //Toast.makeText(this,text,Toast.LENGTH_LONG).show();
 
-                try {
+            // Searching could be complex..so we will dispatch it to a different thread...
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+
                     // Clear the filter list
                     filterList.clear();
 
@@ -291,14 +293,16 @@ public class GenericTransactionsActivity extends AppCompatActivity {
                             adapter.updateSearchList(filterList);
                         }
                     });
-                } catch (Exception e) {
-                    System.out.println("Error in filter contacts");
-                    e.printStackTrace();
+
+
                 }
+            }).start();
 
+        } catch (Exception e) {
+            System.out.println("Error in filter contacts");
+            e.printStackTrace();
+        }
 
-            }
-        }).start();
 
     }
 }

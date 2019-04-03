@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white">
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:layout_width="match_parent"
+                                             android:layout_height="wrap_content"
+                                             android:background="@color/white">
 
     <TextView
         android:id="@+id/txt_daily_payable_business_name"
@@ -13,24 +13,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="left"
-        android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Name"
         android:textSize="@dimen/list_text_main_text"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/txt_payable_items"
         style="@style/basic_sub_text_field"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="16dp"
         android:text="Items |"
         android:textColor="#969FAA"
         android:textSize="@dimen/list_text_sub_text"
@@ -38,7 +38,7 @@
         app:layout_constraintEnd_toStartOf="@+id/txt_daily_business_payable"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_daily_payable_business_name" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_daily_payable_business_name"/>
 
 
     <TextView
@@ -52,12 +52,12 @@
         android:background="@drawable/rounded_corner"
         android:padding="4dp"
         android:singleLine="true"
-        android:text="5324/-"
+        android:text="0/-"
         android:textColor="@color/white"
         android:textSize="@dimen/list_text_sub_text"
         app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        app:layout_constraintTop_toTopOf="@+id/imageView2"/>
 
     <!--<TextView-->
     <!--android:id="@+id/txt_daily_business_profit"-->
@@ -77,14 +77,14 @@
         android:id="@+id/imageView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toTopOf="@+id/include20"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_keyboard_arrow_right_grey_24dp" />
+        app:srcCompat="@drawable/ic_keyboard_arrow_right_grey_24dp"/>
 
     <include
         android:id="@+id/include20"
@@ -95,7 +95,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="56dp" />
+        tools:layout_editor_absoluteY="56dp"/>
 
 
 </android.support.constraint.ConstraintLayout>

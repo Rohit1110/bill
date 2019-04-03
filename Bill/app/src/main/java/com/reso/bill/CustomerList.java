@@ -24,6 +24,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -62,7 +63,7 @@ public class CustomerList extends Fragment {
     private Menu fragmentMenu;
     private BillFilter filter;
     private DialogInterface.OnDismissListener dismissListener;
-
+    private TextView totalCustomersCount;
 
     public static CustomerList newInstance() {
         CustomerList fragment = new CustomerList();
@@ -184,6 +185,8 @@ public class CustomerList extends Fragment {
             }
         }));
 
+        totalCustomersCount = rootView.findViewById(R.id.txt_total_customers_count);
+
         return rootView;
     }
 
@@ -290,12 +293,12 @@ public class CustomerList extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new CustomerListAdapter(list, getActivity(), user);
-        recyclerView.setHasFixedSize(true);
+        //recyclerView.setHasFixedSize(true);
         /*recyclerView.setItemViewCacheSize(50);
         recyclerView.setDrawingCacheEnabled(true);
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);*/
         recyclerView.setAdapter(adapter);
-
+        totalCustomersCount.setText("Total customers - " + list.size());
     }
 
     public void filter(final String text) {
@@ -321,10 +324,14 @@ public class CustomerList extends Fragment {
                     } else {
                         // Iterate in the original List and add it to filter list...
                         for (BillCustomer item : list) {
-                            if (item.getUser().getName().toLowerCase().contains(text.toLowerCase()) /*|| comparePhone(item, text)*/) {
+                            if (item.getUser() == null) {
+                                continue;
+                            }
+                            System.out.println("Comparing " + item.getUser().getName() + " with " + text);
+                            if (item.getUser().getName() != null && item.getUser().getName().toLowerCase().contains(text.toLowerCase()) /*|| comparePhone(item, text)*/) {
                                 // Adding Matched items
                                 filterList.add(item);
-                            } else if (item.getUser().getPhone().toLowerCase().contains(text.toLowerCase())) {
+                            } else if (item.getUser().getPhone() != null && item.getUser().getPhone().toLowerCase().contains(text.toLowerCase())) {
                                 filterList.add(item);
                             }
 
@@ -340,10 +347,12 @@ public class CustomerList extends Fragment {
                             RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(SearchAppointmentActivity.this, 1);
                             recyclerView_contact.setLayoutManager(mLayoutManager);
                             recyclerView_contact.setAdapter(adapter);*/
-                            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                            adapter = new CustomerListAdapter(filterList, getActivity(), user);
-                            recyclerView.setAdapter(adapter);
-
+                            //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                            //adapter = new CustomerListAdapter(filterList, getActivity(), user);
+                            System.out.println("Filtered list => " + filterList.size());
+                            adapter.updateCustomerList(filterList);
+                            //recyclerView.setAdapter(adapter);
+                            totalCustomersCount.setText("Total customers - " + filterList.size());
 
                         }
                     });

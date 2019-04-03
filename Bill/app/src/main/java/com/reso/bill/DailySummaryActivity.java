@@ -11,7 +11,6 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -43,7 +42,7 @@ public class DailySummaryActivity extends AppCompatActivity {
     private ProgressDialog pDialog;
     private Date date;
     private TextView totalProfit, totalCost;
-    private Button switchView;
+    //private Button switchView;
     private boolean distributorView;
     private Menu fragmentMenu;
     private BillFilter filter;
@@ -63,7 +62,7 @@ public class DailySummaryActivity extends AppCompatActivity {
         user = (BillUser) Utility.readObject(this, Utility.USER_KEY);
         totalProfit = findViewById(R.id.txt_daily_total_profit);
         totalCost = findViewById(R.id.txt_daily_total_cost);
-        switchView = findViewById(R.id.btn_daily_summary_switch_view);
+        /*switchView = findViewById(R.id.btn_daily_summary_switch_view);
         switchView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,7 +74,7 @@ public class DailySummaryActivity extends AppCompatActivity {
                     loadDailySummary("Distributor");
                 }
             }
-        });
+        });*/
 
         //Utility.AppBarTitle(, this);
 

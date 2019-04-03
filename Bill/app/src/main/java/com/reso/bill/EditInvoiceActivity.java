@@ -455,6 +455,11 @@ public class EditInvoiceActivity extends AppCompatActivity {
 
 
     private List<BillItem> getInvoiceItems() {
+
+        if (customer == null || customer.getCurrentSubscription() == null || customer.getCurrentSubscription().getItems() == null || customer.getCurrentSubscription().getItems().size() == 0) {
+            return null;
+        }
+
         List<BillItem> invoiceItems = new ArrayList<>();
         int index = 0;
         for (BillItem item : customer.getCurrentSubscription().getItems()) {

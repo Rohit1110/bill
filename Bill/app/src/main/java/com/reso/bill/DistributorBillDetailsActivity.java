@@ -109,8 +109,8 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
                             fromDate = sdf.parse(selectedDateString);
                             if (fromDate != null) {
                                 selectedDate.setText(new SimpleDateFormat(BillConstants.DATE_FORMAT).format(fromDate));
-
                             }
+                            setupItems();
                         } catch (ParseException e) {
                             e.printStackTrace();
                         }
@@ -118,7 +118,7 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
 
                     }
                 }, yy, mm, dd);
-                datePicker.getDatePicker().setMinDate(calendar.getTimeInMillis() + (1000 * 24 * 60 * 60));
+                //TODO not sure datePicker.getDatePicker().setMinDate(calendar.getTimeInMillis() + (1000 * 24 * 60 * 60));
 
                 datePicker.show();
 
@@ -315,6 +315,7 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
 
     private void setupItems() {
         BillServiceRequest request = new BillServiceRequest();
+        request.setRequestedDate(fromDate);
         request.setUser(distributor);
         request.setBusiness(user.getCurrentBusiness());
         pDialog = Utility.getProgressDialogue("Loading..", DistributorBillDetailsActivity.this);
@@ -375,7 +376,7 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
                 for (BillItem item : invoiceItems) {
                     BillItem pItem = new BillItem();
                     pItem.setQuantity(item.getQuantity());
-                    pItem.setPrice(item.getPrice());
+                    pItem.setPrice(Utility.getCostPrice(item));
                     pItem.setParentItem(item);
                     pItem.setParentItemId(item.getParentItemId());
                     purchaseItems.add(pItem);

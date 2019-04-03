@@ -145,7 +145,7 @@ public class GroupCustomersAdapter extends RecyclerView.Adapter<GroupCustomersAd
                 txtItemName.setText("No subscriptions");
             }
 
-            if (selectedCustomer != null && customerUser.getId().intValue() == selectedCustomer.getId().intValue()) {
+            if (selectedCustomer != null && selectedCustomer.getId() != null && customerUser.getId() != null && customerUser.getId().intValue() == selectedCustomer.getId().intValue()) {
                 txtName.setTextColor(context.getResources().getColor(R.color.buttonColor));
             } else {
                 txtName.setTextColor(context.getResources().getColor(R.color.rowTitleColor));

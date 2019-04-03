@@ -126,7 +126,7 @@ public class PurchaseInvoiceItemsAdapter extends RecyclerView.Adapter<RecyclerVi
             item.setQuantity(new BigDecimal(0));
         }
 
-        BigDecimal price = getCostPrice(item);
+        BigDecimal price = Utility.getCostPrice(item);
 
         parentView.txtCostPrice.setText(Utility.getDecimalString(price));
         parentView.txtAmount.setText(Utility.getDecimalString(price.multiply(item.getQuantity())));
@@ -141,7 +141,11 @@ public class PurchaseInvoiceItemsAdapter extends RecyclerView.Adapter<RecyclerVi
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 try {
-                    item.setQuantity(new BigDecimal(charSequence.toString()));
+                    if (TextUtils.isEmpty(charSequence)) {
+                        item.setQuantity(BigDecimal.ZERO);
+                    } else {
+                        item.setQuantity(new BigDecimal(charSequence.toString()));
+                    }
                     calculatePurchaseItemCost(charSequence, parentView.txtCostPrice, item, parentView.txtAmount);
                     calculateBillTotal();
                 } catch (Exception e) {
@@ -153,6 +157,21 @@ public class PurchaseInvoiceItemsAdapter extends RecyclerView.Adapter<RecyclerVi
             @Override
             public void afterTextChanged(Editable editable) {
 
+            }
+        });
+
+        parentView.txtQuantity.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                onFocusChanged(hasFocus, parentView.txtQuantity);
+
+            }
+        });
+
+        parentView.txtCostPrice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean hasFocus) {
+                onFocusChanged(hasFocus, parentView.txtCostPrice);
             }
         });
 
@@ -278,24 +297,29 @@ public class PurchaseInvoiceItemsAdapter extends RecyclerView.Adapter<RecyclerVi
         System.out.println("..... Binding " + parentView.txtName.getText() + " ... " + parentView.txtAmount.getText());
     }
 
-    private BigDecimal getCostPrice(BillItem item) {
-        BigDecimal price = BigDecimal.ZERO;
-        if (item.getPrice() != null) {
-            price = item.getPrice();
-            System.out.println("The item price set as =>" + item.getPrice());
-        } else if (item.getCostPrice() != null) {
-            price = item.getCostPrice();
-            System.out.println("The item price set as =>" + item.getCostPrice());
-        } else if (item.getParentItem() != null && item.getParentItem().getCostPrice() != null) {
-            price = item.getParentItem().getCostPrice();
-            System.out.println("The item price set as =>" + item.getCostPrice());
+    private void onFocusChanged(boolean hasFocus, EditText editText) {
+        try {
+            if (hasFocus) {
+                if (!TextUtils.isEmpty(editText.getText())) {
+                    BigDecimal val = new BigDecimal(editText.getText().toString());
+                    if (BigDecimal.ZERO.compareTo(val) == 0) {
+                        editText.setText("");
+                    }
+                }
+            } else {
+                if (TextUtils.isEmpty(editText.getText())) {
+                    editText.setText("0");
+                }
+            }
+        } catch (Exception e) {
+
         }
-        return price;
     }
 
     private void calculatePurchaseItemCost(CharSequence charSequence, EditText amount, BillItem item, TextView txtTotal) {
         try {
             if (TextUtils.isEmpty(charSequence)) {
+                txtTotal.setText("0");
                 return;
             }
             BigDecimal price = Utility.getDecimal(amount);
@@ -331,7 +355,7 @@ public class PurchaseInvoiceItemsAdapter extends RecyclerView.Adapter<RecyclerVi
     private void calculateBillTotal() {
         BigDecimal total = BigDecimal.ZERO;
         for (BillItem item : items) {
-            total = total.add(getCostPrice(item).multiply(item.getQuantity()));
+            total = total.add(Utility.getCostPrice(item).multiply(item.getQuantity()));
         }
         billAmount.setText(Utility.getDecimalString(total));
     }

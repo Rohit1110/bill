@@ -208,6 +208,8 @@ public class MultiSelectionSpinner extends android.support.v7.widget.AppCompatSp
                 foundOne = true;
                 locations.get(i).setStatus("Selected");
                 sb.append(_items[i]);
+            } else {
+                locations.get(i).setStatus("NotSelected");
             }
         }
         return sb.toString();

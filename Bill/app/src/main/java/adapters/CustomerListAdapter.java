@@ -136,4 +136,10 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
         notifyDataSetChanged();
     }
 
+    public void updateCustomerList(List<BillCustomer> customers) {
+        //setUsers(customers);
+        this.list = customers;
+        notifyDataSetChanged();
+    }
+
 }

@@ -503,6 +503,7 @@ public class VendorRegistration extends AppCompatActivity {
                     if (saveRequest) {
                         System.out.println("User saved successfully!");
                         if (user != null && user.getId() != null) {
+                            Utility.writeObject(VendorRegistration.this, Utility.USER_KEY, user);
                             Utility.createAlertWithActivityFinish(VendorRegistration.this, "Saved successfully!", "Done", null, null, null, null);
                         } else {
                             startActivity(new Intent(VendorRegistration.this, MainActivity.class));
