@@ -33,7 +33,7 @@ import java.util.Date;
 public class ServiceUtil {
 
     public static String HOST = "http://payperbill.in:8080/billapp/"; //PROD IMP
-//    public static String HOST = "http://192.168.0.103:8080/billapp-service/";
+    //public static String HOST = "http://192.168.0.103:8080/billapp-service/";
     public static String ROOT_URL = HOST + "user/";
     public static String ADMIN_URL = HOST + "admin/";
     public static String BUSINESS_URL = HOST + "business/";
@@ -79,8 +79,13 @@ public class ServiceUtil {
     }
 
     public static String toJson(Object object) {
-        System.out.println("Convering to JSON");
-        return gsonBuilder().toJson(object);
+        try {
+            System.out.println("Convering to JSON");
+            return gsonBuilder().toJson(object);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static Response.ErrorListener createMyReqErrorListener(final ProgressDialog pDialog, final Activity context) {
@@ -102,7 +107,7 @@ public class ServiceUtil {
 
     public static Object fromJson(String response, Class<?> billServiceResponseClass) {
         try {
-            if(response == null) {
+            if (response == null) {
                 return null;
             }
             return gsonBuilder().fromJson(response, billServiceResponseClass);

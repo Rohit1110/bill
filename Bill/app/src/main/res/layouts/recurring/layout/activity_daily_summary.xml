@@ -62,13 +62,13 @@
 
                 </LinearLayout>
 
-                <Button
+                <!--<Button
                     android:id="@+id/btn_daily_summary_switch_view"
                     style="@style/basic_button"
                     android:layout_width="wrap_content"
                     android:layout_gravity="top|right"
                     android:layout_margin="10dp"
-                    android:text="SWITCH"/>
+                    android:text="SWITCH"/>-->
 
             </LinearLayout>
 

@@ -2,16 +2,16 @@ package com.reso.bill;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -83,10 +83,14 @@ public class DailySummaryActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.clear();
-        getMenuInflater().inflate(R.menu.search, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
+
+        /*menu.add(Menu.NONE, Utility.MENU_ITEM_SEARCH, 0, "Search").setIcon(R.drawable.ic_search_black_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        MenuItem item = menu.getItem(0);
+
+        //getMenuInflater().inflate(R.menu.search, menu);
+        //MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = new SearchView(getSupportActionBar().getThemedContext());
-        MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+        //MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
         ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.md_black_1000));
         MenuItemCompat.setActionView(item, searchView);
 
@@ -107,9 +111,11 @@ public class DailySummaryActivity extends AppCompatActivity {
             public void onClick(View v) {
 
             }
-        });
+        });*/
 
-        menu.add(Menu.NONE, Utility.MENU_ITEM_FILTER, Menu.NONE, "Filter").setIcon(R.drawable.ic_action_filter_list_disabled).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(Menu.NONE, Utility.MENU_ITEM_FILTER, 1, "Filter").setIcon(R.drawable.ic_action_filter_list_disabled).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        menu.add(Menu.NONE, Utility.MENU_ITEM_EXPORT, 2, "Export").setIcon(R.drawable.ic_action_picture_as_pdf).setShowAsAction(MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
 
         fragmentMenu = menu;
         return true;
@@ -129,18 +135,31 @@ public class DailySummaryActivity extends AppCompatActivity {
                     dismissListener = new DialogInterface.OnDismissListener() {
                         @Override
                         public void onDismiss(DialogInterface dialogInterface) {
-                            fragmentMenu.getItem(1).setIcon(filter.getFilterIcon());
+                            fragmentMenu.getItem(0).setIcon(filter.getFilterIcon());
                             loadDailySummary(null);
                         }
                     };
                     filter.getDialog().setOnDismissListener(dismissListener);
                 }
 
-                fragmentMenu.getItem(1).setIcon(filter.getFilterIcon());
+                fragmentMenu.getItem(0).setIcon(filter.getFilterIcon());
                 return true;
             case android.R.id.home:
                 //Back button click
                 finish();
+                return true;
+            case Utility.MENU_ITEM_EXPORT:
+                try {
+                    System.out.println("PDF clicked ...");
+                    if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.READ_EXTERNAL_STORAGE}, Utility.MY_PERMISSIONS_REQUEST_CONTACTS);
+                        return true;
+                    }
+                    String dateString = CommonUtils.convertDate(date);
+                    Utility.exportPendingInvoices(filter, user, this, "date=" + dateString, "Daily orders-" + dateString);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 return true;
         }
         return true;
@@ -179,8 +198,8 @@ public class DailySummaryActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
-                pDialog.dismiss();
-
+                //pDialog.dismiss();
+                Utility.dismiss(pDialog);
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     if (requestType != null && "Distributor".equals(requestType)) {
@@ -206,5 +225,25 @@ public class DailySummaryActivity extends AppCompatActivity {
             }
 
         };
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case Utility.MY_PERMISSIONS_WRITE_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    String dateString = CommonUtils.convertDate(date);
+                    Utility.exportPendingInvoices(filter, user, this, "date=" + dateString, "Daily orders-" + dateString);
+                } else {
+                    //Utility.nextFragment(GenericCustomerInfoActivity.this, getNextFragment());
+                    System.out.println("No permission!");
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
     }
 }

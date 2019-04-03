@@ -122,7 +122,8 @@ public class AddBusinessLogo extends Fragment {
         StringRequest stringRequest = new StringRequest(Request.Method.POST, ServiceUtil.ROOT_URL + "updateBusinessLogo", new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                progressDialog.dismiss();
+                Utility.dismiss(progressDialog);
+                //progressDialog.dismiss();
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     Utility.createAlert(getActivity(), "Business logo uploaded successfully!", "Done");
@@ -140,7 +141,8 @@ public class AddBusinessLogo extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
+                Utility.dismiss(progressDialog);
                 Utility.createAlert(getActivity(), "Error while uploading the image!", "Error");
             }
         }) {
@@ -278,7 +280,8 @@ public class AddBusinessLogo extends Fragment {
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, ServiceUtil.ROOT_URL + "updateBusinessLogo", new Response.Listener<NetworkResponse>() {
             @Override
             public void onResponse(NetworkResponse response) {
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
+                Utility.dismiss(progressDialog);
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(new String(response.data), BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     Utility.createAlert(getActivity(), "Business logo uploaded successfully!", "Done");
@@ -294,7 +297,8 @@ public class AddBusinessLogo extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
+                Utility.dismiss(progressDialog);
                 Utility.createAlert(getActivity(), "Error in uploading logo ..", "Error");
             }
         }) {

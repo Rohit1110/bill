@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -13,13 +14,16 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
@@ -32,14 +36,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 import com.flurry.android.FlurryAgent;
 import com.reso.bill.HomeFragment;
 import com.reso.bill.R;
+import com.reso.bill.components.InputStreamVolleyRequest;
 import com.reso.bill.generic.GenericDashboard;
 import com.reso.bill.generic.GenericInvoices;
 import com.rns.web.billapp.service.bo.domain.BillBusiness;
@@ -51,6 +58,7 @@ import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.util.BillConstants;
 import com.rns.web.billapp.service.util.CommonUtils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -64,6 +72,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import model.BillFilter;
 
 /**
  * Created by Rohit on 11/27/2017.
@@ -88,8 +98,8 @@ public class Utility {
     public static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 1;
     public static final int MY_PERMISSIONS_REQUEST_CONTACTS = 2;
     public static final int MY_PERMISSIONS_READ_CONTACTS = 3;
+    public static final int MY_PERMISSIONS_WRITE_STORAGE = 4;
     public static final String PREF_NAME = "PayPerBill";
-    public static final int MENU_ITEM_FILTER = 2;
     private static int selectedElement = 0;
     public static int LIST_OPT_DELETE = 0;
     public static String[] LIST_OPTIONS = {"Delete"};
@@ -97,7 +107,10 @@ public class Utility {
     public static final String DATE_FORMAT_DISPLAY = "MMM dd";
     public static final int RESULT_PICK_CONTACT = 1;
 
+    public static final int MENU_ITEM_SEARCH = 4;
     public static final int MENU_ITEM_SAVE = 1;
+    public static final int MENU_ITEM_FILTER = 2;
+    public static final int MENU_ITEM_EXPORT = 3;
 
     public static void createAlert(Context context, String message, String title) {
 
@@ -259,7 +272,7 @@ public class Utility {
         }
         ProgressDialog pDialog = new ProgressDialog(activity);
         pDialog.setMessage(message);
-        pDialog.setCancelable(false);
+        //pDialog.setCancelable(false);
         pDialog.show();
         return pDialog;
     }
@@ -855,4 +868,92 @@ public class Utility {
         return price;
     }
 
+    public static void dismiss(ProgressDialog progressDialog) {
+        try {
+            if (progressDialog != null) {
+                progressDialog.dismiss();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void exportPendingInvoices(BillFilter filter, BillUser user, Activity activity, String params, String name) {
+        try {
+            Integer groupId = 0;
+            if (filter != null && filter.getGroup() != null) {
+                groupId = filter.getGroup().getId();
+            }
+            exportPdf("PENDING", user.getCurrentBusiness().getId(), groupId, params, activity, name);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void exportPdf(String type, Integer businessId, Integer groupId, String params, final Activity activity, final String fileName) {
+        if (TextUtils.isEmpty(params)) {
+            params = "NA";
+        }
+        final ProgressDialog pd = Utility.getProgressDialogue("Downloading ..", activity);
+        String mUrl = ServiceUtil.ROOT_URL + "export/" + type + "/" + businessId + "/" + groupId + "/" + params;
+        System.out.println("Calling URL =>" + mUrl);
+        InputStreamVolleyRequest request = new InputStreamVolleyRequest(Request.Method.GET, mUrl, new Response.Listener<byte[]>() {
+            @Override
+            public void onResponse(byte[] response) {
+                // TODO handle the response
+                try {
+                    pd.dismiss();
+                    if (response != null) {
+
+                        FileOutputStream outputStream;
+                        //File file = new File();
+                        String name = Environment.getExternalStorageDirectory() + "/" + fileName + ".pdf";
+
+                        outputStream = new FileOutputStream(name);
+                        outputStream.write(response);
+                        outputStream.close();
+                        Toast.makeText(activity, "Download complete ... " + name, Toast.LENGTH_LONG).show();
+
+                        Intent target = new Intent(Intent.ACTION_VIEW);
+                        //FileInputStream io = getActivity().openFileInput(name);
+
+                        File storedFile = new File(name);
+                        //target.setDataAndType(Uri.fromFile(storedFile), "application/pdf");
+                        //target.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+                        Uri apkURI = FileProvider.getUriForFile(activity, activity.getApplicationContext().getPackageName() + ".provider", storedFile);
+                        target.setDataAndType(apkURI, "application/pdf");
+                        target.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                        Intent intent = Intent.createChooser(target, "Open File");
+                        try {
+                            activity.startActivity(intent);
+                        } catch (ActivityNotFoundException e) {
+                            // Instruct the user to install a PDF reader here, or something
+                            e.printStackTrace();
+                            Toast.makeText(activity, "Cannot open file!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    Log.d("KEY_ERROR", "UNABLE TO DOWNLOAD FILE");
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // TODO handle the error
+                pd.dismiss();
+                error.printStackTrace();
+            }
+        }, null);
+        RequestQueue mRequestQueue = Volley.newRequestQueue(activity, new HurlStack());
+        mRequestQueue.add(request);
+        pd.show();
+
+    }
 }

@@ -318,7 +318,8 @@ public class GenericCreateBillActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
-                pDialog.dismiss();
+                //pDialog.dismiss();
+                Utility.dismiss(pDialog);
                 final BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     //Utility.createAlert(getContext(), "Invoice sent to customer successfully!", "Done");
@@ -462,7 +463,8 @@ public class GenericCreateBillActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
-                pDialog.dismiss();
+                //pDialog.dismiss();
+                Utility.dismiss(pDialog);
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     String message = "";

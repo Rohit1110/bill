@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         //pDialog = Utility.getProgressDialogue("Loading Profile", MainActivity.this);
         BillServiceRequest request = new BillServiceRequest();
         BillUser user = new BillUser();
+        user.setDeviceId(FirebaseUtil.getToken());
         user.setPhone(phone);
         request.setUser(user);
         StringRequest myReq = ServiceUtil.getStringRequest("loadProfile", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(pDialog, MainActivity.this), request);
@@ -115,6 +116,25 @@ public class MainActivity extends AppCompatActivity {
                         FlurryAgent.setUserId(user.getPhone());
                         Utility.logFlurry("LogIn", user);
                     }
+
+
+                            /*.addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                                    if (!task.isSuccessful()) {
+                                        Log.w(TAG, "getInstanceId failed", task.getException());
+                                        return;
+                                    }
+
+                                    // Get new Instance ID token
+                                    String token = task.getResult().getToken();
+
+                                    // Log and toast
+                                    String msg = getString(R.string.msg_token_fmt, token);
+                                    Log.d(TAG, msg);
+                                    Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                                }
+                            });*/
 
                     Utility.writeObject(MainActivity.this, Utility.USER_KEY, user);
                     if (serviceResponse.getWarningCode() != null) {

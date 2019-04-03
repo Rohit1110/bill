@@ -197,7 +197,8 @@ public class GenericAddProductActivity extends AppCompatActivity {
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.POST, ServiceUtil.ROOT_URL + "updateBusinessItemImage", new Response.Listener<NetworkResponse>() {
             @Override
             public void onResponse(NetworkResponse response) {
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
+                Utility.dismiss(progressDialog);
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(new String(response.data), BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
 
@@ -210,7 +211,8 @@ public class GenericAddProductActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressDialog.dismiss();
+                //progressDialog.dismiss();
+                Utility.dismiss(progressDialog);
                 Toast.makeText(GenericAddProductActivity.this, "There was some error while saving", Toast.LENGTH_SHORT).show();
             }
         }) {

@@ -193,8 +193,8 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 firstLoad = true;
                 System.out.println("## response:" + response);
-                pDialog.dismiss();
-
+                //pDialog.dismiss();
+                Utility.dismiss(pDialog);
                 list = new ArrayList<>();
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
@@ -292,8 +292,8 @@ public class CustomerOrderHistoryActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 firstLoad = true;
                 System.out.println("## response:" + response);
-                pDialog.dismiss();
-
+                //pDialog.dismiss();
+                Utility.dismiss(pDialog);
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     Utility.createAlert(CustomerOrderHistoryActivity.this, "Holiday deleted successfully", "Success");

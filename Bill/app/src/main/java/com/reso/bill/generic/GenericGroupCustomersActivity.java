@@ -202,7 +202,8 @@ public class GenericGroupCustomersActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
-                pDialog.dismiss();
+                //pDialog.dismiss();
+                Utility.dismiss(pDialog);
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     if (groupCustomers == null) {
@@ -275,7 +276,7 @@ public class GenericGroupCustomersActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 if (pDialog != null && "group".equals(type)) {
-                    pDialog.dismiss();
+                    Utility.dismiss(pDialog);
                 }
                 System.out.println("## response:" + response);
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);

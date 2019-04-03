@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -61,6 +62,8 @@ public class DistributorBillSummary extends AppCompatActivity {
     private List<BillInvoice> invoices;
     private PurchaseInvoiceAdapter adapter;
     private FloatingActionButton addNewPurchase;
+    private TextView totalPending;
+    private TextView totalProfit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,13 +143,14 @@ public class DistributorBillSummary extends AppCompatActivity {
             recyclerView.setOnScrollChangeListener(new View.OnScrollChangeListener() {
                 @Override
                 public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
-                    if (scrollY > oldScrollY)
-                        addNewPurchase.hide();
-                    else if (scrollY < oldScrollY)
-                        addNewPurchase.show();
+                    if (scrollY > oldScrollY) addNewPurchase.hide();
+                    else if (scrollY < oldScrollY) addNewPurchase.show();
                 }
             });
         }
+
+        totalPending = findViewById(R.id.txt_total_distributor_pending);
+        totalProfit = findViewById(R.id.txt_total_distributor_profit);
 
     }
 
@@ -181,7 +185,8 @@ public class DistributorBillSummary extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
-                pDialog.dismiss();
+                //pDialog.dismiss();
+                Utility.dismiss(pDialog);
                 loading = false;
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
@@ -192,6 +197,10 @@ public class DistributorBillSummary extends AppCompatActivity {
                         recyclerView.setAdapter(adapter);
                     } else {
                         recyclerView.setAdapter(new PurchaseInvoiceAdapter(new ArrayList<BillInvoice>(), DistributorBillSummary.this, selectedDistributor));
+                    }
+                    if (serviceResponse.getInvoice() != null) {
+                        totalPending.setText("Pending: " + Utility.getDecimalString(serviceResponse.getInvoice().getPayable()) + "/-");
+                        totalProfit.setText("Profit: " + Utility.getDecimalString(serviceResponse.getInvoice().getSoldAmount()) + "/-");
                     }
                     //TODO causing double line so removed temporarily
                     /*DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL);
