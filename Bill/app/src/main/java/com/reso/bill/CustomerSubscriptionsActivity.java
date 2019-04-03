@@ -107,8 +107,8 @@ public class CustomerSubscriptionsActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
-                profileLoader.dismiss();
-
+                //profileLoader.dismiss();
+                Utility.dismiss(profileLoader);
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     Utility.createAlert(CustomerSubscriptionsActivity.this, "Saved successfully!", "Done");
@@ -167,8 +167,8 @@ public class CustomerSubscriptionsActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
-                profileLoader.dismiss();
-
+                //profileLoader.dismiss();
+                Utility.dismiss(profileLoader);
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     recyclerView.setLayoutManager(new LinearLayoutManager(CustomerSubscriptionsActivity.this));
@@ -192,8 +192,8 @@ public class CustomerSubscriptionsActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
-                itemLoader.dismiss();
-
+                //itemLoader.dismiss();
+                Utility.dismiss(itemLoader);
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     businessItems = serviceResponse.getItems();

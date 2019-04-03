@@ -60,6 +60,9 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
     private Date fromDate;
     private TextView invoicePaidMessage;
     private ImageView invoicePaid;
+    private TextView btnShowOptions;
+    private TextView purchaseTotal;
+    private TextView returnTotal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +135,25 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
         comments = findViewById(R.id.txt_purchase_comments);
         invoicePaid = findViewById(R.id.img_purchase_already_paid);
         invoicePaidMessage = findViewById(R.id.txt_purchase_paid);
+        btnShowOptions = findViewById(R.id.txt_purchase_show_options);
+
+        btnShowOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (adapter != null) {
+                    if (adapter.isShowOptions()) {
+                        adapter.setShowOptions(false);
+                        btnShowOptions.setText("More options");
+                    } else {
+                        adapter.setShowOptions(true);
+                        btnShowOptions.setText("Hide options");
+                    }
+                }
+            }
+        });
+
+        purchaseTotal = findViewById(R.id.txt_purchase_total);
+        returnTotal = findViewById(R.id.txt_return_total);
 
         /*totalBillAmount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -285,7 +307,7 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
             //For old invoice, invoice items to be picked from invoice data
             if (invoice.getInvoiceItems() != null && invoice.getInvoiceItems().size() > 0) {
                 invoiceItems = invoice.getInvoiceItems();
-                setItemsAdapter();
+                setItemsAdapter(invoice); //Send return Invoice
             }
 
         } else {
@@ -298,12 +320,21 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
     }
 
 
-    private void setItemsAdapter() {
+    private void setItemsAdapter(BillInvoice invoice) {
         adapter = new PurchaseInvoiceItemsAdapter(invoiceItems, this, totalBillAmount);
+        adapter.setPurchaseTotal(purchaseTotal);
+        adapter.setReturnTotal(returnTotal);
+        if (invoice != null && invoice.getExtraParams() != null) {
+            adapter.setReturnInvoice((BillInvoice) ServiceUtil.fromJson(invoice.getExtraParams(), BillInvoice.class));
+            adapter.setShowOptions(true);
+            btnShowOptions.setText("Hide options");
+        } else {
+            adapter.setReturnInvoice(invoice);
+        }
         if (invoicePaid()) {
             adapter.setDisableEdit(true);
             invoicePaid.setVisibility(View.VISIBLE);
-            invoicePaidMessage.setText("This invoice was paid at " + CommonUtils.convertDate(invoice.getPaidDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR_TIME));
+            invoicePaidMessage.setText("This invoice was paid at " + CommonUtils.convertDate(this.invoice.getPaidDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR_TIME));
             invoicePaidMessage.setVisibility(View.VISIBLE);
             comments.setEnabled(false);
             totalBillAmount.setEnabled(false);
@@ -329,13 +360,13 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
-                pDialog.dismiss();
-
+                //pDialog.dismiss();
+                Utility.dismiss(pDialog);
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     if (serviceResponse.getItems() != null) {
                         invoiceItems = serviceResponse.getItems();
-                        setItemsAdapter();
+                        setItemsAdapter(serviceResponse.getInvoice());
                     }
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());
@@ -377,6 +408,7 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
                     BillItem pItem = new BillItem();
                     pItem.setQuantity(item.getQuantity());
                     pItem.setPrice(Utility.getCostPrice(item));
+                    pItem.setUnitSellingPrice(item.getUnitSellingPrice());
                     pItem.setParentItem(item);
                     pItem.setParentItemId(item.getParentItemId());
                     purchaseItems.add(pItem);
@@ -387,6 +419,14 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
             invoice.setInvoiceItems(purchaseItems);
             invoice.setAmount(Utility.getDecimal(totalBillAmount));
             invoice.setComments(comments.getText().toString());
+            if (adapter != null) {
+                if (adapter.getReturnInvoice() != null) {
+                    invoice.setExtraParams(ServiceUtil.toJson(adapter.getReturnInvoice()));
+                }
+                if (adapter.getSoldAmount() != null) {
+                    invoice.setSoldAmount(adapter.getSoldAmount());
+                }
+            }
             BillServiceRequest request = new BillServiceRequest();
             request.setUser(user);
             if (distributor != null) {
@@ -405,8 +445,8 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
-                pDialog.dismiss();
-
+                //pDialog.dismiss();
+                Utility.dismiss(pDialog);
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
 //                    Utility.createAlert(DistributorBillDetailsActivity.this, "Done", "Invoice saved successfully!");

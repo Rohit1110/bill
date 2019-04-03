@@ -39,6 +39,7 @@ public class GenericQuickReportActivity extends AppCompatActivity {
     private TextView onlineAmount;
     private TextView offlineAmount;
     private TextView amountSettled;
+    private TextView totalProfit;
     private Menu mainMenu;
     private BillFilter filter;
     private DialogInterface.OnDismissListener dismissListener;
@@ -65,6 +66,7 @@ public class GenericQuickReportActivity extends AppCompatActivity {
         offlinePayments = findViewById(R.id.invoicesPaidOfflineTextView);
         offlineAmount = findViewById(R.id.amountInvoicesPaidOfflineTextView);
         amountSettled = findViewById(R.id.amountSettledTextView);
+        totalProfit = findViewById(R.id.amountTotalProfit);
         timeSpinner = findViewById(R.id.filterSpinner);
 
         user = (BillUser) Utility.readObject(this, Utility.USER_KEY);
@@ -192,7 +194,8 @@ public class GenericQuickReportActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 loading = false;
                 System.out.println("## response:" + response);
-                pDialog.dismiss();
+                //pDialog.dismiss();
+                Utility.dismiss(pDialog);
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     BillPaymentSummary summary = serviceResponse.getDashboard();
@@ -204,6 +207,7 @@ public class GenericQuickReportActivity extends AppCompatActivity {
                         onlinePayments.setText(Utility.getText(summary.getOnlineInvoices()));
                         onlineAmount.setText(Utility.getDecimalString(summary.getOnlinePaid()));
                         amountSettled.setText(Utility.getDecimalString(summary.getCompletedSettlements()));
+                        totalProfit.setText(Utility.getDecimalString(summary.getTotalProfit()));
                     }
                 } else {
                     System.out.println("Error .." + serviceResponse.getResponse());

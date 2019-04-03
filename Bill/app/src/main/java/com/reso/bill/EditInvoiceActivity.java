@@ -36,6 +36,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import adapters.BillDetailsEditAdapter;
+import util.FirebaseUtil;
 import util.ServiceUtil;
 import util.Utility;
 
@@ -421,6 +422,9 @@ public class EditInvoiceActivity extends AppCompatActivity {
         BillServiceRequest request = new BillServiceRequest();
         invoice.setInvoiceItems(getInvoiceItems());
         request.setInvoice(invoice);
+        if (customer != null) {
+            customer.setDeviceId(FirebaseUtil.getToken());
+        }
         request.setUser(customer);
         pDialog = Utility.getProgressDialogue("Saving..", EditInvoiceActivity.this);
         StringRequest myReq = ServiceUtil.getStringRequest("updateCustomerInvoice", invoiceUpdateResponse(), ServiceUtil.createMyReqErrorListener(pDialog, EditInvoiceActivity.this), request);
@@ -480,8 +484,8 @@ public class EditInvoiceActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
-                pDialog.dismiss();
-
+                //pDialog.dismiss();
+                Utility.dismiss(pDialog);
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     if (serviceResponse.getInvoice() != null) {
@@ -519,7 +523,8 @@ public class EditInvoiceActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
-                pDialog.dismiss();
+                //pDialog.dismiss();
+                Utility.dismiss(pDialog);
                 final BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     //Utility.createAlert(EditInvoiceActivity.this, "Invoice sent to customer successfully!", "Done");

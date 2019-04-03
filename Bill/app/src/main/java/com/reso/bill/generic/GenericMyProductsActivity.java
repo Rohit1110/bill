@@ -119,8 +119,8 @@ public class GenericMyProductsActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
-                pDialog.dismiss();
-
+                //pDialog.dismiss();
+                Utility.dismiss(pDialog);
                 serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     businessItems = serviceResponse.getItems();

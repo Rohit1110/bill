@@ -34,6 +34,7 @@ public class BillUser implements Serializable {
 	private BillInvoice currentInvoice;
 	private Boolean visible;
 	private String showBillDetails;
+	private String deviceId;
 
 	public Integer getId() {
 		return id;
@@ -161,6 +162,14 @@ public class BillUser implements Serializable {
     public void setShowBillDetails(String showBillDetails) {
         this.showBillDetails = showBillDetails;
     }
+
+	public String getDeviceId() {
+		return deviceId;
+	}
+
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
 
 	/*@Override
 	public String toString() {

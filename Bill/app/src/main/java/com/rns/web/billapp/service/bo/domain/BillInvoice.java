@@ -36,6 +36,8 @@ public class BillInvoice {
     private Integer noOfReminders;
     private BigDecimal outstandingBalance;
     private Integer paymentAttempt;
+    private String extraParams;
+    private BigDecimal soldAmount;
 
     public Integer getId() {
         return id;
@@ -275,5 +277,21 @@ public class BillInvoice {
 
     public Integer getPaymentAttempt() {
         return paymentAttempt;
+    }
+
+    public String getExtraParams() {
+        return extraParams;
+    }
+
+    public void setExtraParams(String extraParams) {
+        this.extraParams = extraParams;
+    }
+
+    public BigDecimal getSoldAmount() {
+        return soldAmount;
+    }
+
+    public void setSoldAmount(BigDecimal soldAmount) {
+        this.soldAmount = soldAmount;
     }
 }

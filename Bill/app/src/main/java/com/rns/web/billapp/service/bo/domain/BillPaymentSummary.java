@@ -20,6 +20,7 @@ public class BillPaymentSummary {
     private BigDecimal onlinePaid;
     private Long offlineInvoices;
     private BigDecimal offlinePaid;
+    private BigDecimal totalProfit;
 
     public BigDecimal getTotalPaid() {
         return totalPaid;
@@ -115,5 +116,13 @@ public class BillPaymentSummary {
 
     public void setOfflinePaid(BigDecimal offlinePaid) {
         this.offlinePaid = offlinePaid;
+    }
+
+    public BigDecimal getTotalProfit() {
+        return totalProfit;
+    }
+
+    public void setTotalProfit(BigDecimal totalProfit) {
+        this.totalProfit = totalProfit;
     }
 }

@@ -15,10 +15,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
 
     <Spinner
@@ -57,14 +57,17 @@
         layout="@layout/layout_line"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spn_txn_month" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_total_distributor_profit"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_group_distributor_invoices"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="8dp"
         android:fadeScrollbars="true"
         android:scrollbars="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -78,15 +81,42 @@
         android:id="@+id/btn_add_new_distributor_invoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
         android:clickable="true"
         app:backgroundTint="@color/buttonColor"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_add_white_24dp" />
+        app:srcCompat="@drawable/ic_add_white_24dp"/>
+
+    <TextView
+        android:id="@+id/txt_total_distributor_profit"
+        style="@style/basic_text_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Profit: \u20B9 0"
+        android:textSize="@dimen/list_text_main_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spn_txn_month"
+        />
+
+    <TextView
+        android:id="@+id/txt_total_distributor_pending"
+        style="@style/basic_text_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="0dp"
+        android:gravity="center"
+        android:text="Pending: \u20B9 0"
+        android:textSize="@dimen/list_text_main_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txt_total_distributor_profit"/>
 
 
 </android.support.constraint.ConstraintLayout>

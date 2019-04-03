@@ -1,11 +1,16 @@
 package com.reso.bill;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -82,13 +87,16 @@ public class FragmentInvoiceSummary extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
-        inflater.inflate(R.menu.search, menu);
-        MenuItem item = menu.findItem(R.id.action_search);
+
+        menu.add(Menu.NONE, Utility.MENU_ITEM_SEARCH, 0, "Search").setIcon(R.drawable.ic_search_black_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        MenuItem item = menu.getItem(0);
+        //inflater.inflate(R.menu.search, menu);
+
+        //MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = new SearchView((Utility.castActivity(getActivity())).getSupportActionBar().getThemedContext());
-        MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+        //MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_ALWAYS );
         ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.md_black_1000));
         MenuItemCompat.setActionView(item, searchView);
-
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -102,13 +110,14 @@ public class FragmentInvoiceSummary extends Fragment {
             }
         });
         searchView.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
 
             }
         });
 
-        menu.add(Menu.NONE, Utility.MENU_ITEM_FILTER, Menu.NONE, "Filter").setIcon(R.drawable.ic_action_filter_list_disabled).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        menu.add(Menu.NONE, Utility.MENU_ITEM_FILTER, 1, "Filter").setIcon(R.drawable.ic_action_filter_list_disabled).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+        menu.add(Menu.NONE, Utility.MENU_ITEM_EXPORT, 2, "Export").setIcon(R.drawable.ic_action_picture_as_pdf).setShowAsAction(MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
 
         fragmentMenu = menu;
         //searchView.setMenuItem(item);
@@ -138,9 +147,22 @@ public class FragmentInvoiceSummary extends Fragment {
 
                 fragmentMenu.getItem(1).setIcon(filter.getFilterIcon());
                 return true;
+            case Utility.MENU_ITEM_EXPORT:
+                try {
+                    System.out.println("PDF clicked ...");
+                    if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                        ActivityCompat.requestPermissions(getActivity(), new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, Utility.MY_PERMISSIONS_REQUEST_CONTACTS);
+                        return true;
+                    }
+                    Utility.exportPendingInvoices(filter, user, getActivity(), "NA", "Pending Invoices");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return true;
         }
         return true;
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -210,23 +232,14 @@ public class FragmentInvoiceSummary extends Fragment {
     }
 
     private void loadInvoiceSummary(String type) {
-        if (user == null || user.getCurrentBusiness() == null) {
-            getActivity().startActivity(new Intent(getActivity(), MainActivity.class));
-            return;
-        }
-        BillServiceRequest request = new BillServiceRequest();
-        request.setBusiness(user.getCurrentBusiness());
-        request.setRequestedDate(date);
-        String title = "Loading..";
-        if (type != null) {
-            request.setRequestType(type);
-            if (adapter.getSelectedCustomers() != null && adapter.getSelectedCustomers().size() > 0) {
-                request.setUsers(adapter.getSelectedCustomers());
-            }
-            title = "Sending reminders ..";
-        }
+        BillServiceRequest request = prepareRequest(type);
+        if (request == null) return;
         if (filter != null) {
             request.setCustomerGroup(filter.getGroup());
+        }
+        String title = "Loading..";
+        if (type != null) {
+            title = "Sending reminders ..";
         }
         pDialog = Utility.getProgressDialogue(title, getActivity());
         StringRequest myReq = ServiceUtil.getStringRequest("getInvoiceSummary", createMyReqSuccessListener(type), ServiceUtil.createMyReqErrorListener(pDialog, getActivity()), request);
@@ -234,13 +247,32 @@ public class FragmentInvoiceSummary extends Fragment {
         queue.add(myReq);
     }
 
+    @Nullable
+    private BillServiceRequest prepareRequest(String type) {
+        if (user == null || user.getCurrentBusiness() == null) {
+            getActivity().startActivity(new Intent(getActivity(), MainActivity.class));
+            return null;
+        }
+        BillServiceRequest request = new BillServiceRequest();
+        request.setBusiness(user.getCurrentBusiness());
+        request.setRequestedDate(date);
+        if (type != null) {
+            request.setRequestType(type);
+            if (adapter.getSelectedCustomers() != null && adapter.getSelectedCustomers().size() > 0) {
+                request.setUsers(adapter.getSelectedCustomers());
+            }
+
+        }
+        return request;
+    }
+
     private Response.Listener<String> createMyReqSuccessListener(final String requestType) {
         return new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 System.out.println("## response:" + response);
-                pDialog.dismiss();
-
+                //pDialog.dismiss();
+                Utility.dismiss(pDialog);
                 BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
                 if (serviceResponse != null && serviceResponse.getStatus() == 200) {
                     if (requestType == null) {
@@ -360,6 +392,25 @@ public class FragmentInvoiceSummary extends Fragment {
             }
         }).start();
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case Utility.MY_PERMISSIONS_WRITE_STORAGE: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Utility.exportPendingInvoices(filter, user, getActivity(), "NA", "Pending Invoices");
+                } else {
+                    //Utility.nextFragment(GenericCustomerInfoActivity.this, getNextFragment());
+                    System.out.println("No permission!");
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
     }
 
 
