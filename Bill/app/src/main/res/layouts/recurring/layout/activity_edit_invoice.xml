@@ -1,332 +1,374 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context="com.reso.bill.EditInvoiceActivity">
 
-    <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent">
-
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                        xmlns:app="http://schemas.android.com/apk/res-auto"
-                        xmlns:tools="http://schemas.android.com/tools"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-
-                        tools:showIn=""
-            >
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/relativeLayout8"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-            <LinearLayout
-                android:id="@+id/layout_amounts"
-                android:layout_width="match_parent"
+        <Spinner
+            android:id="@+id/spn_months"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="0.3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Spinner
+            android:id="@+id/spn_year"
+            style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_weight="0.3"
+            app:layout_constraintStart_toEndOf="@+id/spn_months"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <include
+            android:id="@+id/include30"
+            layout="@layout/layout_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:layout_constraintTop_toBottomOf="@+id/spn_months" />
+
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/layout_netpay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/include30">
+
+            <!-- <TextView
+                                                 android:id="@+id/txt_invoice_number"
+                                                 style="@style/basic_sub_text_field"
+                                                 android:layout_width="220dp"
+                                                 android:layout_height="wrap_content"
+                                                 android:text="Invoice #"/>-->
+
+
+            <TextView
+                android:id="@+id/textView28"
+                style="@style/basic_sub_text_field"
+                android:layout_width="153dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:text="Bill Amount"
+                app:layout_constraintEnd_toStartOf="@+id/textView29"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView29" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:gravity="right"
-                    android:orientation="horizontal">
-
-                    <Spinner
-                        android:id="@+id/spn_months"
-                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="0.3"
-                        />
-
-
-                    <Spinner
-                        android:id="@+id/spn_year"
-                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="0.3"
-
-                        />
-
-                    <!--<Button
-                        android:id="@+id/btn_send_invoice"
-                        style="@style/basic_button"
-                        android:layout_width="0dp"
-                        android:layout_gravity="top|right"
-                        android:layout_margin="10dp"
-                        android:layout_weight="0.3"
-                        android:text="SEND"/>-->
-
-
-                </LinearLayout>
-
-                <include
-                    layout="@layout/layout_line"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layout_netpay"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/layout_amounts"
-                android:background="@color/bgGray"
-                android:orientation="vertical">
-
-                <!-- <TextView
-                     android:id="@+id/txt_invoice_number"
-                     style="@style/basic_sub_text_field"
-                     android:layout_width="220dp"
-                     android:layout_height="wrap_content"
-                     android:text="Invoice #"/>-->
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-
-
-                    <TextView
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="Bill Amount"/>
-
-                    <TextView
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.1"
-                        android:text="INR"/>
-
-                    <EditText
-                        android:id="@+id/et_bill_details_amount"
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="0.5"
-                        android:text="0"
-
-                        />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-
-                    <TextView
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Service charge"
-                        android:layout_weight="0.5"/>
-
-                    <TextView
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.1"
-                        android:text="INR"/>
-
-                    <EditText
-                        android:id="@+id/et_bill_details_service_charge"
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="0.5"
-                        android:text="0"
-                        />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-
-                    <TextView
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:text="Pending Amount"/>
-
-                    <TextView
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.1"
-                        android:text="INR"/>
-
-                    <EditText
-                        android:id="@+id/et_bill_details_pending_amount"
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="0.5"
-                        android:text="0"
-                        />
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-
-                    <TextView
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:text="Credit Amount"
-                        android:layout_weight="0.5"/>
-
-                    <TextView
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.1"
-                        android:text="INR"/>
-
-                    <EditText
-                        android:id="@+id/et_bill_details_credit_amount"
-                        style="@style/basic_sub_text_field"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="0.5"
-                        android:text="0"
-                        />
-
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:layout_margin="10dp"
-                    android:background="@color/colorAccent"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    >
-
-
-                    <TextView
-                        style="@style/basic_text_field"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="INR"/>
-
-                    <TextView
-                        android:id="@+id/txt_invoice_payable"
-                        style="@style/basic_text_field"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.35"
-                        android:text="0"/>
-
-
-                    <Spinner
-                        android:id="@+id/spn_invoice_status"
-                        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginTop="7dp"
-                        android:layout_weight="0.6"
-                        />
-
-
-                </LinearLayout>
-
-
-                <!--<Button
-                    android:id="@+id/fab_save_invoice"
-                    style="@style/basic_button"
-                    android:layout_width="match_parent"
-                    android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    android:text="SAVE CHANGES"/>-->
-
-            </LinearLayout>
-
-            <!--<LinearLayout
-                android:id="@+id/layout_buttons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/layout_netpay"
-                android:background="@color/bgGray"
-                android:orientation="horizontal"
-                android:paddingBottom="10dp">
-
-
-
-
-            </LinearLayout>-->
-
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/textView29"
+                style="@style/basic_sub_text_field"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/layout_netpay">
+                android:layout_marginTop="10dp"
+                android:text="\u20B9"
+                app:layout_constraintEnd_toStartOf="@+id/et_bill_details_amount"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textView28"
+                app:layout_constraintTop_toTopOf="@+id/et_bill_details_amount" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recycler_view_bill_two"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:fadeScrollbars="true"
-                    android:scrollbars="vertical">
+            <EditText
+                android:id="@+id/et_bill_details_amount"
+                style="@style/basic_sub_text_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
 
-                </android.support.v7.widget.RecyclerView>
+                android:layout_marginEnd="9dp"
+                android:layout_marginRight="8dp"
+                android:text="0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textView29"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
-            </LinearLayout>
+            <TextView
+                android:id="@+id/textView30"
+                style="@style/basic_sub_text_field"
+                android:layout_width="153dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:text="Service charge"
+                app:layout_constraintEnd_toStartOf="@+id/textView31"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView31" />
 
-            <!--<android.support.v7.widget.LinearLayoutCompat
+            <TextView
+                android:id="@+id/textView31"
+                style="@style/basic_sub_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="\u20B9"
+                app:layout_constraintEnd_toStartOf="@+id/et_bill_details_service_charge"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textView30"
+                app:layout_constraintTop_toTopOf="@+id/et_bill_details_service_charge" />
+
+            <EditText
+                android:id="@+id/et_bill_details_service_charge"
+                style="@style/basic_sub_text_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="9dp"
+                android:layout_marginRight="8dp"
+                android:text="0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textView31"
+                app:layout_constraintTop_toBottomOf="@+id/et_bill_details_amount" />
+
+
+            <TextView
+                android:id="@+id/textView32"
+                style="@style/basic_sub_text_field"
+                android:layout_width="153dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:text="Pending Amount"
+                app:layout_constraintEnd_toStartOf="@+id/textView33"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView33" />
+
+            <TextView
+                android:id="@+id/textView33"
+                style="@style/basic_sub_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="\u20B9"
+                app:layout_constraintEnd_toStartOf="@+id/et_bill_details_pending_amount"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textView32"
+                app:layout_constraintTop_toTopOf="@+id/et_bill_details_pending_amount" />
+
+            <EditText
+                android:id="@+id/et_bill_details_pending_amount"
+                style="@style/basic_sub_text_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="9dp"
+                android:layout_marginRight="8dp"
+                android:text="0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textView33"
+                app:layout_constraintTop_toBottomOf="@+id/et_bill_details_service_charge" />
+
+
+            <TextView
+                android:id="@+id/textView34"
+                style="@style/basic_sub_text_field"
+                android:layout_width="153dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:text="Credit Amount"
+                app:layout_constraintEnd_toStartOf="@+id/textView35"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView35" />
+
+            <TextView
+                android:id="@+id/textView35"
+                style="@style/basic_sub_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="\u20B9"
+                app:layout_constraintEnd_toStartOf="@+id/et_bill_details_credit_amount"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textView34"
+                app:layout_constraintTop_toTopOf="@+id/et_bill_details_credit_amount" />
+
+            <EditText
+                android:id="@+id/et_bill_details_credit_amount"
+                style="@style/basic_sub_text_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/textView35"
+                app:layout_constraintTop_toBottomOf="@+id/et_bill_details_pending_amount" />
+
+
+            <TextView
+                android:id="@+id/textView36"
+                style="@style/basic_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="Total: \u20B9"
+                android:textSize="@dimen/list_text_amount_text"
+                app:layout_constraintEnd_toStartOf="@+id/txt_invoice_payable"
+                app:layout_constraintTop_toTopOf="@+id/txt_invoice_payable" />
+
+            <TextView
+                android:id="@+id/txt_invoice_payable"
+                style="@style/basic_text_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                android:text="0"
+                android:textSize="@dimen/list_text_amount_text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_bill_details_credit_amount" />
+
+
+            <include
+                android:id="@+id/include31"
+                layout="@layout/layout_line"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView36" />
 
-                <android.support.design.widget.FloatingActionButton
-                    android:id="@+id/"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom|right"
-                    android:layout_margin="@dimen/fab_margin"
-                    app:srcCompat="@mipmap/mark"/>
-            </android.support.v7.widget.LinearLayoutCompat>-->
+            <TextView
+                android:id="@+id/invoiceStatusTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:text="Invoice Status:"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/spn_invoice_status"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/spn_invoice_status" />
+
+            <Spinner
+                android:id="@+id/spn_invoice_status"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/include31" />
+
+            <include
+                android:id="@+id/include32"
+                layout="@layout/layout_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                app:layout_constraintBottom_toBottomOf="parent" />
 
 
-        </RelativeLayout>
-    </ScrollView>
+            <!--<Button
+                                                android:id="@+id/fab_save_invoice"
+                                                style="@style/basic_button"
+                                                android:layout_width="match_parent"
+                                                android:layout_gravity="center"
+                                                android:layout_margin="10dp"
+                                                android:paddingLeft="10dp"
+                                                android:paddingRight="10dp"
+                                                android:text="SAVE CHANGES"/>-->
 
-</android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
+
+        <!--<LinearLayout
+                                            android:id="@+id/layout_buttons"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/layout_netpay"
+                                            android:background="@color/bgGray"
+                                            android:orientation="horizontal"
+                                            android:paddingBottom="10dp">
+
+
+
+
+                                        </LinearLayout>-->
+
+        <TextView
+            android:id="@+id/productsTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="32dp"
+            android:text="Items:"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_netpay" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view_bill_two"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="16dp"
+            android:fadeScrollbars="true"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/productsTextView">
+
+        </android.support.v7.widget.RecyclerView>
+
+
+        <!--<android.support.v7.widget.LinearLayoutCompat
+                                            android:layout_width="match_parent"
+                                            android:layout_height="match_parent">
+
+                                            <android.support.design.widget.FloatingActionButton
+                                                android:id="@+id/"
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:layout_gravity="bottom|right"
+                                                android:layout_margin="@dimen/fab_margin"
+                                                app:srcCompat="@mipmap/mark"/>
+                                        </android.support.v7.widget.LinearLayoutCompat>-->
+
+
+    </android.support.constraint.ConstraintLayout>
+</ScrollView>
