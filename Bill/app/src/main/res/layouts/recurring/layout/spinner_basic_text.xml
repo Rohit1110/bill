@@ -29,13 +29,11 @@
                  android:ellipsize="marquee"/>
 -->
 
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/basic_sub_text_field"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="left"
-    android:padding="10dp"
     android:layout_margin="10dp"
-    android:background="@color/bgGray"
-    />
+    android:background="@android:color/white"
+    android:gravity="left"
+    android:padding="10dp" />
