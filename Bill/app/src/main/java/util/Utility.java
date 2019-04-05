@@ -99,6 +99,7 @@ public class Utility {
     public static final int MY_PERMISSIONS_REQUEST_CONTACTS = 2;
     public static final int MY_PERMISSIONS_READ_CONTACTS = 3;
     public static final int MY_PERMISSIONS_WRITE_STORAGE = 4;
+    public static final int MY_PERMISSIONS_BLUETOOTH = 5;
     public static final String PREF_NAME = "PayPerBill";
     private static int selectedElement = 0;
     public static int LIST_OPT_DELETE = 0;
@@ -111,6 +112,7 @@ public class Utility {
     public static final int MENU_ITEM_SAVE = 1;
     public static final int MENU_ITEM_FILTER = 2;
     public static final int MENU_ITEM_EXPORT = 3;
+    public static final int MENU_ITEM_PRINT = 5;
 
     public static void createAlert(Context context, String message, String title) {
 
