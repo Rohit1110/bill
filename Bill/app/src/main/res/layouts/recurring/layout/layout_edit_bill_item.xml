@@ -61,7 +61,7 @@
 
     <EditText
         android:id="@+id/et_dialog_invoice_item_amount_multiple"
-        style="@style/payamount"
+        style="@style/basic_sub_text_field"
         android:layout_width="64dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"

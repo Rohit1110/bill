@@ -93,7 +93,7 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
             public void onClick(View view) {
                 final Dialog dialog = new Dialog(ctx);
                 dialog.setContentView(R.layout.layout_edit_bill_item);
-//                dialog.setTitle("Title...");
+                dialog.setTitle(null);
 
                 // set the custom dialog components - text, image and button
                 TextView text = (TextView) dialog.findViewById(R.id.txt_dialog_invoice_item_name);
