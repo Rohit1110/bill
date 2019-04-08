@@ -1,10 +1,17 @@
 package com.reso.bill;
 
+import android.Manifest;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,6 +30,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.reso.bill.components.Bluetooth;
+import com.reso.bill.components.DeviceListActivity;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -30,7 +39,9 @@ import com.rns.web.billapp.service.domain.BillServiceRequest;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
 import com.rns.web.billapp.service.util.BillConstants;
 import com.rns.web.billapp.service.util.CommonUtils;
+import com.zj.btsdk.BluetoothService;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -56,13 +67,15 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
     private List<BillItem> items;
     private BillItem selectedItem;
     private List<BillItem> invoiceItems = new ArrayList<>();
-    private BillUser distributor;
+    private BillUser selectedUser;//Could be vendor or distributor
     private Date fromDate;
     private TextView invoicePaidMessage;
     private ImageView invoicePaid;
     private TextView btnShowOptions;
     private TextView purchaseTotal;
     private TextView returnTotal;
+
+    int REQUEST_ENABLE_BT = 4, REQUEST_CONNECT_DEVICE = 6;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +86,7 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
 
         user = (BillUser) Utility.readObject(this, Utility.USER_KEY);
         invoice = (BillInvoice) Utility.getIntentObject(BillInvoice.class, getIntent(), Utility.INVOICE_KEY);
-        distributor = (BillUser) Utility.getIntentObject(BillUser.class, getIntent(), Utility.DISTRIBUTOR_KEY);
+        selectedUser = (BillUser) Utility.getIntentObject(BillUser.class, getIntent(), Utility.DISTRIBUTOR_KEY);
 
         selectedDate = findViewById(R.id.et_purchase_date);
 
@@ -268,6 +281,8 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
             menu.getItem(0).setEnabled(false);
             menu.getItem(0).setIcon(R.drawable.ic_action_check_disabled);
         }
+        menu.add(Menu.NONE, Utility.MENU_ITEM_PRINT, Menu.NONE, "Save").setIcon(R.drawable.ic_action_local_printshop).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
         return true;
     }
 
@@ -285,6 +300,13 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
             case Utility.MENU_ITEM_SAVE:
 //                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show();;
                 saveBill();
+                return true;
+            case Utility.MENU_ITEM_PRINT:
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this, Manifest.permission.BLUETOOTH_ADMIN) != PackageManager.PERMISSION_GRANTED) {
+                    ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.BLUETOOTH, Manifest.permission.BLUETOOTH_ADMIN}, Utility.MY_PERMISSIONS_BLUETOOTH);
+                    return true;
+                }
+                print();
                 return true;
         }
         return true;
@@ -347,7 +369,7 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
     private void setupItems() {
         BillServiceRequest request = new BillServiceRequest();
         request.setRequestedDate(fromDate);
-        request.setUser(distributor);
+        request.setUser(selectedUser);
         request.setBusiness(user.getCurrentBusiness());
         pDialog = Utility.getProgressDialogue("Loading..", DistributorBillDetailsActivity.this);
         StringRequest myReq = ServiceUtil.getStringRequest("getBusinessItemsByDate", businessItemsResponse(), ServiceUtil.createMyReqErrorListener(pDialog, DistributorBillDetailsActivity.this), request);
@@ -429,8 +451,8 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
             }
             BillServiceRequest request = new BillServiceRequest();
             request.setUser(user);
-            if (distributor != null) {
-                request.setBusiness(distributor.getCurrentBusiness());
+            if (selectedUser != null) {
+                request.setBusiness(selectedUser.getCurrentBusiness());
             }
             request.setInvoice(invoice);
             pDialog = Utility.getProgressDialogue("Saving..", DistributorBillDetailsActivity.this);
@@ -460,6 +482,186 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
             }
 
         };
+    }
+
+    //Bluetooth printing code
+
+    private void print() {
+
+        try {
+            if (Bluetooth.isPrinterConnected(getApplicationContext(), this)) {
+
+                byte[] normalText = {27, 33, 0};
+                byte[] boldText = {27, 33, 0};
+//        byte[] normalLeftText = {27, 97, 0};
+                // byte[] normalCenterText = {27, 97, 1};
+//        byte[] normalRightText = {27, 97, 2};
+
+                DateFormat dateFormat = new SimpleDateFormat("MMM dd yy HH:mm:ss");
+                Date date = new Date();
+                //System.out.println(dateFormat.format(date)); //2016/11/16 12:08:43
+
+                boldText[2] = ((byte) (0x8 | normalText[2]));
+
+                byte[] doubleHeightText = {27, 33, 0};
+                doubleHeightText[2] = ((byte) (0x10 | normalText[2]));
+
+                byte[] doubleHeightBoldText = {27, 33, 0};
+                doubleHeightBoldText[2] = ((byte) (0x8 | 0x10 | normalText[2]));
+
+                byte[] doubleWidthText = {27, 33, 0};
+                doubleWidthText[2] = ((byte) (0x20 | normalText[2]));
+
+                byte[] boldDoubleWidthText = {27, 33, 0};
+                boldDoubleWidthText[2] = ((byte) (0x20 | normalText[2]));
+
+                byte[] doubleWidthHeightText = {27, 33, 0};
+                doubleWidthHeightText[2] = ((byte) (0x10 | 0x20 | normalText[2]));
+
+                byte[] boldDoubleWidthHeightText = {27, 33, 0};
+                boldDoubleWidthHeightText[2] = ((byte) (0x10 | 0x20 | normalText[2]));
+
+                BluetoothService mService = null;
+                mService = Bluetooth.getServiceInstance();
+
+                //examples for printing data
+                String str3 = user.getCurrentBusiness().getName() + "\n" + "PURCHASE";
+                String str2 = dateFormat.format(date) + "\n" + "8087550062";
+                String str4 = "----------------";
+                StringBuilder builder = new StringBuilder();
+                for (BillItem item : invoiceItems) {
+                    builder.append(Utility.getItemName(item))
+                            .append(" ")
+                            .append(Utility.getDecimalString(Utility.getCostPrice(item)))
+                            .append(" * ")
+                            .append(Utility.getDecimalString(item.getQuantity()))
+                            .append(" = ")
+                            .append("\n");
+                }
+
+                String str1 = builder.toString();
+                String str5 = "----------------" + "\n" + purchaseTotal.getText();
+                builder = new StringBuilder();
+                if (adapter.getReturnInvoice() != null && adapter.getReturnInvoice().getInvoiceItems() != null) {
+                    for (BillItem item : adapter.getReturnInvoice().getInvoiceItems()) {
+                        builder.append(Utility.getItemName(item))
+                                .append(" ")
+                                .append(Utility.getDecimalString(Utility.getCostPrice(item)))
+                                .append(" * ")
+                                .append(Utility.getDecimalString(item.getQuantity()))
+                                .append(" = ")
+                                .append("\n");
+                    }
+                }
+                String str8 = "\n"+"Return (-less)" + "\n" + builder.toString();
+                String str9 = "----------------" + "\n" + returnTotal.getText() + "\n" + "----------------";
+                String str6 = "Total = " + totalBillAmount.getText();
+                String str7 = "\n" + "Note:- " + comments.getText();
+
+                mService.write(doubleWidthText);
+                mService.sendMessage(str3, "GBK");
+
+                mService.write(boldText);
+                mService.sendMessage(str2, "GBK");
+
+
+                mService.write(doubleHeightText);
+                mService.sendMessage(str4, "GBK");
+
+
+                mService.write(normalText);
+                mService.sendMessage(str1, "GBK");
+
+                mService.write(normalText);
+                mService.sendMessage(str5, "GBK");
+                mService.write(normalText);
+                mService.sendMessage(str8, "GBK");
+
+                mService.write(normalText);
+                mService.sendMessage(str9, "GBK");
+
+                mService.write(normalText);
+                mService.sendMessage(str6, "GBK");
+
+                mService.write(normalText);
+                mService.sendMessage(str7, "GBK");
+
+
+            } else {
+                //Printer not connected and send request for connecting printer
+                Bluetooth.connectPrinter(getApplicationContext(), this);
+            }
+
+        } catch (Exception e) {
+
+        }
+//        BluetoothService mService = null;
+//        mService = Bluetooth.getServiceInstance();
+        //PrintMultilingualText pml = new PrintMultilingualText(TextPrintActivity.this, TextPrintActivity.this, mService, dirpath, effectivePrintWidth);
+        //  String text = printMessage.getText().toString();
+        //pml.startPrinting(text);
+        //mService.write(text.getBytes());
+//        String htmlContent = "यह एक सैंपल पैराग्राफ है जो हिंदी लैंग्वेज में दिया गया है ! आप किसी भी लैंग्वेज में डाटा प्रिंट कर सकते हो !<br /><center><b>मते टेक्नोलॉजीज</b></center>";
+//
+//      mService.sendMessage(htmlContent, "GBK");
+
+
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        String msg = data.getStringExtra(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+//        Toast toast = Toast.makeText(TextPrintActivity.this, msg, Toast.LENGTH_LONG);
+//        toast.show();
+//        Bluetooth.pairedPrinterAddress(getApplicationContext(), TextPrintActivity.this, msg);
+//        print();
+        if (requestCode == REQUEST_ENABLE_BT && resultCode == RESULT_OK) {
+            //bluetooth enabled and request for showing available bluetooth devices
+
+            SharedPreferences prefs = getSharedPreferences("PrinterApp", Context.MODE_PRIVATE);
+            String bluetootMacAddress = prefs.getString("PairedDevice", null);
+            if (bluetootMacAddress != null) {
+                Bluetooth.pairedPrinterAddress(getApplicationContext(), this, bluetootMacAddress);
+
+            } else {
+                Bluetooth.pairPrinter(getApplicationContext(), this);
+            }
+
+
+        } else if (requestCode == REQUEST_CONNECT_DEVICE && resultCode == RESULT_OK) {
+            //bluetooth device selected and request pairing with device
+
+            String address = data.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+            Bluetooth.pairedPrinterAddress(getApplicationContext(), this, address);
+            SharedPreferences settings = getApplicationContext().getSharedPreferences("PrinterApp", 0);
+            settings = getApplicationContext().getSharedPreferences("PrinterApp", 0);
+            SharedPreferences.Editor editor = settings.edit();
+            editor.putString("PairedDevice", address);
+            editor.commit();
+        }
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case Utility.MY_PERMISSIONS_BLUETOOTH: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    print();
+                } else {
+                    //Utility.nextFragment(GenericCustomerInfoActivity.this, getNextFragment());
+                    System.out.println("No permission!");
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request.
+        }
     }
 
 }
