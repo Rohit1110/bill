@@ -42,6 +42,7 @@
         android:layout_marginRight="100dp"
         android:inputType="number"
         android:text="0"
+        android:textSize="16sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/et_dialog_invoice_item_amount_multiple"
         app:layout_constraintEnd_toStartOf="@+id/textView40"
         app:layout_constraintHorizontal_bias="0.0"
@@ -70,7 +71,7 @@
         android:gravity="center_vertical"
         android:inputType="numberDecimal"
         android:text="0.00"
-        android:textSize="15sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt_dialog_invoice_item_name" />
     <!--<ImageView
