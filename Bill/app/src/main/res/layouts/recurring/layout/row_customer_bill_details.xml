@@ -54,7 +54,7 @@
         android:padding="12dp"
         android:src="@drawable/ic_invoice_pending"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/img_edit_invoice"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
@@ -69,7 +69,7 @@
         android:layout_marginBottom="8dp"
         android:padding="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/txt_amount"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_edit_blue_24dp" />
 
