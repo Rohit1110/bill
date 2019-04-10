@@ -317,12 +317,15 @@ public class Utility {
     }
 
     public static void saveToSharedPref(Activity activity, String keyString, Object object) {
-        SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        try {
+            SharedPreferences sharedPreferences = activity.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString(keyString, ServiceUtil.toJson(object));
+            editor.commit();
 
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(keyString, ServiceUtil.toJson(object));
-        editor.commit();
-
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static Object readFromSharedPref(Activity activity, String key, Class<?> cls) {
@@ -958,4 +961,10 @@ public class Utility {
         pd.show();
 
     }
+
+
+    public static boolean isDistributor(BillUser user) {
+        return user != null && user.getCurrentBusiness() != null && user.getCurrentBusiness().getType() != null && "Distributor".equals(user.getCurrentBusiness().getType());
+    }
+
 }
