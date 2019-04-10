@@ -32,12 +32,15 @@
     <include
         android:id="@+id/include19"
         layout="@layout/layout_line"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_total_customers_count"/>
+        app:layout_constraintTop_toBottomOf="@+id/txt_total_customers_count" />
 
 
     <android.support.design.widget.FloatingActionButton
