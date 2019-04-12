@@ -274,6 +274,10 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
 
         switch (item.getItemId()) {
 
+            case R.id.nav_dashboard:
+                //Toast.makeText(Dashboard.this, "Click", Toast.LENGTH_LONG).show();
+                fragment = new GenericNewDashboard();
+                break;
             case R.id.nav_myorder:
                 //Toast.makeText(Dashboard.this, "Click", Toast.LENGTH_LONG).show();
                 fragment = new CustomerList();
