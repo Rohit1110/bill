@@ -9,15 +9,125 @@
     tools:context=".generic.GenericNewDashboard">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/textView41"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:text="@string/hello_blank_fragment"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/md_light_blue_50"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <TextView
+            android:id="@+id/textView41"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:gravity="center_horizontal"
+            android:scrollHorizontally="false"
+            android:text="Money Saved"
+            android:textColor="@color/md_blue_grey_500"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/textView43"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView43"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="Time Saved "
+            android:textColor="@color/md_blue_grey_500"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView41"
+            app:layout_constraintEnd_toStartOf="@+id/textView42"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView41" />
+
+        <TextView
+            android:id="@+id/textView42"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:scrollHorizontally="false"
+            android:text="Revenue this month"
+            android:textColor="@color/md_blue_grey_500"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView43"
+            app:layout_constraintEnd_toStartOf="@+id/textView44"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView43" />
+
+        <TextView
+            android:id="@+id/textView44"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:gravity="center_horizontal"
+            android:scrollHorizontally="false"
+            android:text="Total Revenue"
+            android:textColor="@color/md_blue_grey_500"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView42"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/textView42" />
+
+        <TextView
+            android:id="@+id/textView45"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\u20B9 0"
+            android:textColor="@color/md_blue_grey_700"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView46"
+            app:layout_constraintEnd_toStartOf="@+id/textView43"
+            app:layout_constraintStart_toStartOf="@+id/textView41" />
+
+        <TextView
+            android:id="@+id/textView48"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:text="0 Hrs, 0 Min"
+            android:textColor="@color/md_blue_grey_700"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView46"
+            app:layout_constraintEnd_toEndOf="@+id/textView43"
+            app:layout_constraintStart_toStartOf="@+id/textView43" />
+
+        <TextView
+            android:id="@+id/textView46"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="\u20B9 0"
+            android:textColor="@color/md_blue_grey_700"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/textView42"
+            app:layout_constraintStart_toStartOf="@+id/textView42"
+            app:layout_constraintTop_toBottomOf="@+id/textView42" />
+
+        <TextView
+            android:id="@+id/textView47"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\u20B9 0"
+            android:textColor="@color/md_blue_grey_700"
+            android:textStyle="bold"
+            app:layout_constraintBaseline_toBaselineOf="@+id/textView46"
+            app:layout_constraintEnd_toEndOf="@+id/textView44"
+            app:layout_constraintStart_toStartOf="@+id/textView44" />
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
