@@ -154,7 +154,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/pendingBillsTextView"
+                android:id="@+id/pendingBillsAmtTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -163,7 +163,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
                 android:gravity="center"
-                android:text="10000"
+                android:text="\u20B9 10000"
                 android:textColor="@color/md_red_500"
                 android:textSize="30sp"
                 android:textStyle="bold"
@@ -177,21 +177,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="Pending Invoices"
+                android:text="Pending"
                 android:textColor="@color/md_grey_700"
                 android:textSize="@dimen/list_text_main_text"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/pendingBillsTextView" />
+                app:layout_constraintTop_toBottomOf="@+id/pendingBillsAmtTextView" />
 
             <TextView
-                android:id="@+id/pendingBillsAmtTextView"
+                android:id="@+id/pendingBillsTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="\u20B9 2534 pending"
+                android:text="15 pending invoices"
                 android:textColor="@color/md_red_300"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
