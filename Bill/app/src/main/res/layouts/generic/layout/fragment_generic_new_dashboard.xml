@@ -5,12 +5,13 @@
     android:id="@+id/dashboardConstraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
+    android:background="@color/md_grey_100"
     tools:context=".generic.GenericNewDashboard">
 
     <!-- TODO: Update blank fragment layout -->
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/md_light_blue_50"
@@ -29,7 +30,7 @@
             android:gravity="center_horizontal"
             android:scrollHorizontally="false"
             android:text="Money Saved"
-            android:textColor="@color/md_blue_grey_500"
+            android:textColor="@color/md_grey_500"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/textView43"
@@ -43,7 +44,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:text="Time Saved "
-            android:textColor="@color/md_blue_grey_500"
+            android:textColor="@color/md_grey_500"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView41"
@@ -58,7 +59,7 @@
             android:gravity="center_horizontal"
             android:scrollHorizontally="false"
             android:text="Revenue this month"
-            android:textColor="@color/md_blue_grey_500"
+            android:textColor="@color/md_grey_500"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView43"
@@ -75,7 +76,7 @@
             android:gravity="center_horizontal"
             android:scrollHorizontally="false"
             android:text="Total Revenue"
-            android:textColor="@color/md_blue_grey_500"
+            android:textColor="@color/md_grey_500"
             android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView42"
@@ -88,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="\u20B9 0"
-            android:textColor="@color/md_blue_grey_700"
+            android:textColor="@color/md_grey_700"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView46"
             app:layout_constraintEnd_toStartOf="@+id/textView43"
@@ -101,7 +102,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:text="0 Hrs, 0 Min"
-            android:textColor="@color/md_blue_grey_700"
+            android:textColor="@color/md_grey_700"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView46"
             app:layout_constraintEnd_toEndOf="@+id/textView43"
@@ -113,7 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="\u20B9 0"
-            android:textColor="@color/md_blue_grey_700"
+            android:textColor="@color/md_grey_700"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/textView42"
             app:layout_constraintStart_toStartOf="@+id/textView42"
@@ -124,11 +125,75 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="\u20B9 0"
-            android:textColor="@color/md_blue_grey_700"
+            android:textColor="@color/md_grey_700"
             android:textStyle="bold"
             app:layout_constraintBaseline_toBaselineOf="@+id/textView46"
             app:layout_constraintEnd_toEndOf="@+id/textView44"
             app:layout_constraintStart_toStartOf="@+id/textView44" />
     </android.support.constraint.ConstraintLayout>
+
+    <android.support.v7.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:theme="@style/ActivityTheme"
+        app:contentPadding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
+
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView52"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="10000"
+                android:textColor="@color/md_red_500"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView49"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Pending Invoices"
+                android:textColor="@color/md_grey_700"
+                android:textSize="@dimen/list_text_main_text"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView52" />
+
+            <TextView
+                android:id="@+id/textView51"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="\u20B9 2534 pending"
+                android:textColor="@color/md_red_300"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView49"
+                app:layout_constraintTop_toBottomOf="@+id/textView49" />
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.v7.widget.CardView>
 
 </android.support.constraint.ConstraintLayout>
