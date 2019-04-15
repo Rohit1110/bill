@@ -27,6 +27,7 @@ import com.reso.bill.CustomerList;
 import com.reso.bill.DistributorsActivity;
 import com.reso.bill.FragmentInvoiceSummary;
 import com.reso.bill.HelpActivity;
+import com.reso.bill.HomeFragment;
 import com.reso.bill.LoginActivity;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -276,7 +277,8 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
 
             case R.id.nav_dashboard:
                 //Toast.makeText(Dashboard.this, "Click", Toast.LENGTH_LONG).show();
-                fragment = new GenericNewDashboard();
+//                fragment = new GenericNewDashboard();
+                fragment = Utility.getHomeFragment(user);
                 break;
             case R.id.nav_myorder:
                 //Toast.makeText(Dashboard.this, "Click", Toast.LENGTH_LONG).show();
@@ -293,7 +295,8 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
                 startActivity(i);
                 break;
             case R.id.nav_home:
-                fragment = Utility.getHomeFragment(user);
+//                fragment = Utility.getHomeFragment(user);
+                fragment = HomeFragment.newInstance(user);
                 break;
             case R.id.nav_help:
                 Intent helpI = new Intent(GenericDashboard.this, HelpActivity.class);
