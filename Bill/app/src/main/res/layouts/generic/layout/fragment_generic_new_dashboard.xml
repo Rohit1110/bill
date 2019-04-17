@@ -166,8 +166,8 @@
                     android:id="@+id/imageView4"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:scaleType="centerInside"
-                    android:src="@mipmap/cart"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/ic_playlist_add_black_24dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -420,6 +420,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/paymentReportLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/white"

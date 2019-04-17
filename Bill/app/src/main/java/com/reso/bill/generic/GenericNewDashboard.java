@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -24,6 +26,7 @@ import util.Utility;
 public class GenericNewDashboard extends Fragment {
 
     private BillUser user;
+    private LinearLayout paymentReportLayout;
 
     public GenericNewDashboard() {
         // Required empty public constructor
@@ -50,8 +53,20 @@ public class GenericNewDashboard extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Utility.AppBarTitle("Dashboard", getActivity());
+
+        View rootView = inflater.inflate(R.layout.fragment_generic_new_dashboard, container, false);
+
+        //Invoice Payment Report view interaction
+        paymentReportLayout = rootView.findViewById(R.id.paymentReportLayout);
+        paymentReportLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(Utility.nextIntent(getActivity(), GenericQuickReportActivity.class, true));
+            }
+        });
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_generic_new_dashboard, container, false);
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
