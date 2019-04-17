@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.reso.bill.DailySummaryActivity;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 
@@ -26,7 +27,7 @@ import util.Utility;
 public class GenericNewDashboard extends Fragment {
 
     private BillUser user;
-    private LinearLayout paymentReportLayout;
+    private LinearLayout paymentReportLayout,totalNewspaperOrdersLinearLayout;
 
     public GenericNewDashboard() {
         // Required empty public constructor
@@ -55,6 +56,15 @@ public class GenericNewDashboard extends Fragment {
         Utility.AppBarTitle("Dashboard", getActivity());
 
         View rootView = inflater.inflate(R.layout.fragment_generic_new_dashboard, container, false);
+
+        //Today's Newspaper Total Orders view interaction
+        totalNewspaperOrdersLinearLayout = rootView.findViewById(R.id.totalNewspaperOrdersLinearLayout);
+        totalNewspaperOrdersLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(Utility.nextIntent(getActivity(), DailySummaryActivity.class, true));
+            }
+        });
 
         //Invoice Payment Report view interaction
         paymentReportLayout = rootView.findViewById(R.id.paymentReportLayout);
