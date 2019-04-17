@@ -68,15 +68,15 @@ public class VendorItemSummaryAdapter extends RecyclerView.Adapter<RecyclerView.
         if (item.getQuantity() != null) {
             String qty = item.getQuantity().toBigInteger().toString();
             //gholder.txtpcs.setText(item.getQuantity().toString());
-            gholder.txtpcs.setText("Qty  " + qty);
+            gholder.txtpcs.setText("Qty: " + qty);
         }
 
         if(item.getCostPrice() != null && item.getUnitCostPrice() != null) {
-            gholder.txtCp.setText("Pay  " + item.getCostPrice() + " @ " + item.getUnitCostPrice() + " /unit");
+            gholder.txtCp.setText("Pay: " + item.getCostPrice() + " @ " + item.getUnitCostPrice() + "/unit");
         }
 
         if(item.getPrice() != null && item.getUnitSellingPrice() != null) {
-            gholder.txtSp.setText("Get  " + item.getPrice() + " @ " + item.getUnitSellingPrice() + " /unit");
+            gholder.txtSp.setText("Get: " + item.getPrice() + " @ " + item.getUnitSellingPrice() + "/unit");
         }
 
         String name = item.getName();
