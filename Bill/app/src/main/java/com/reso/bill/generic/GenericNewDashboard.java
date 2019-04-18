@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.reso.bill.BillSummaryActivity;
 import com.reso.bill.CustomerList;
 import com.reso.bill.DailySummaryActivity;
+import com.reso.bill.HomeFragment;
 import com.reso.bill.R;
 import com.reso.bill.SettingsActivity;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -26,7 +27,7 @@ public class GenericNewDashboard extends Fragment {
 
     private BillUser user;
     private static Fragment fragment = null;
-    private LinearLayout manageCustomersLinearLayout, summaryOfInvoicesLinearLayout, allTransactionsLinearLayout, paymentReportLayout, totalNewspaperOrdersLinearLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout;
+    private LinearLayout todaysDeliveriesLinearLayout, manageCustomersLinearLayout, summaryOfInvoicesLinearLayout, allTransactionsLinearLayout, paymentReportLayout, totalNewspaperOrdersLinearLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout;
 
     public GenericNewDashboard() {
         // Required empty public constructor
@@ -55,6 +56,16 @@ public class GenericNewDashboard extends Fragment {
         Utility.AppBarTitle("Dashboard", getActivity());
 
         View rootView = inflater.inflate(R.layout.fragment_generic_new_dashboard, container, false);
+
+        //Today's Deliveries view interaction
+        todaysDeliveriesLinearLayout = rootView.findViewById(R.id.todaysDeliveriesLinearLayout);
+        todaysDeliveriesLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment = HomeFragment.newInstance(user);
+                Utility.nextFragment(getActivity(), fragment);
+            }
+        });
 
         //Today's Newspaper Total Orders view interaction
         totalNewspaperOrdersLinearLayout = rootView.findViewById(R.id.totalNewspaperOrdersLinearLayout);
