@@ -48,7 +48,7 @@ public class GenericCustomerGroupsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generic_customer_groups);
 
-        Utility.setActionBar("Customer Groups", getSupportActionBar());
+        Utility.setActionBar("Manage Customer Groups", getSupportActionBar());
 
         user = (BillUser) Utility.readObject(this, Utility.USER_KEY);
 

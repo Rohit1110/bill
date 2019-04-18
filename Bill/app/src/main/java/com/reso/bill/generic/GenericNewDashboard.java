@@ -18,16 +18,13 @@ import util.Utility;
 
 /**
  * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link GenericNewDashboard.OnFragmentInteractionListener} interface
- * to handle interaction events.
  * Use the {@link GenericNewDashboard#newInstance} factory method to
  * create an instance of this fragment.
  */
 public class GenericNewDashboard extends Fragment {
 
     private BillUser user;
-    private LinearLayout paymentReportLayout,totalNewspaperOrdersLinearLayout;
+    private LinearLayout paymentReportLayout,totalNewspaperOrdersLinearLayout, manageCustomerGroupsLinearLayout;
 
     public GenericNewDashboard() {
         // Required empty public constructor
@@ -72,6 +69,15 @@ public class GenericNewDashboard extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(Utility.nextIntent(getActivity(), GenericQuickReportActivity.class, true));
+            }
+        });
+
+        //Manage Groups of Customers view interaction
+        manageCustomerGroupsLinearLayout = rootView.findViewById(R.id.manageCustomerGroupsLinearLayout);
+        manageCustomerGroupsLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(Utility.nextIntent(getActivity(), GenericCustomerGroupsActivity.class, true));
             }
         });
 
