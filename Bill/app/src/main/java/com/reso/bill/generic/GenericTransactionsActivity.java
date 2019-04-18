@@ -63,7 +63,7 @@ public class GenericTransactionsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generic_transactions);
-        Utility.setActionBar("Transactions", getSupportActionBar());
+        Utility.setActionBar("All Transactions", getSupportActionBar());
 
         date = new Date();
 

@@ -25,7 +25,7 @@ import util.Utility;
 public class GenericNewDashboard extends Fragment {
 
     private BillUser user;
-    private LinearLayout paymentReportLayout,totalNewspaperOrdersLinearLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout;
+    private LinearLayout allTransactionsLinearLayout, paymentReportLayout,totalNewspaperOrdersLinearLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout;
 
     public GenericNewDashboard() {
         // Required empty public constructor
@@ -61,6 +61,15 @@ public class GenericNewDashboard extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(Utility.nextIntent(getActivity(), DailySummaryActivity.class, true));
+            }
+        });
+
+        //All Transactions view interaction
+        allTransactionsLinearLayout = rootView.findViewById(R.id.allTransactionsLinearLayout);
+        allTransactionsLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(Utility.nextIntent(getActivity(), GenericTransactionsActivity.class, true));
             }
         });
 
