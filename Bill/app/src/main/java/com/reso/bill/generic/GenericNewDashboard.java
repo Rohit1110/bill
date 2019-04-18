@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.reso.bill.DailySummaryActivity;
 import com.reso.bill.R;
+import com.reso.bill.SettingsActivity;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 
 import util.Utility;
@@ -24,7 +25,7 @@ import util.Utility;
 public class GenericNewDashboard extends Fragment {
 
     private BillUser user;
-    private LinearLayout paymentReportLayout,totalNewspaperOrdersLinearLayout, manageCustomerGroupsLinearLayout;
+    private LinearLayout paymentReportLayout,totalNewspaperOrdersLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout;
 
     public GenericNewDashboard() {
         // Required empty public constructor
@@ -78,6 +79,15 @@ public class GenericNewDashboard extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(Utility.nextIntent(getActivity(), GenericCustomerGroupsActivity.class, true));
+            }
+        });
+
+        //Settings of Customers view interaction
+        settingsLinearLayout = rootView.findViewById(R.id.settingsLinearLayout);
+        settingsLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
             }
         });
 
