@@ -77,26 +77,28 @@ dependencies {
     implementation 'com.crashlytics.sdk.android:crashlytics:2.9.9'
 
     /*implementation 'com.android.support:design:27.1.1'*/
-    compile 'com.android.support:design:27.1.1'
+    implementation 'com.android.support:design:27.1.1'
     implementation 'com.android.support:support-vector-drawable:27.1.1'
+    implementation 'com.android.support:support-v4:27.1.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
-    compile 'com.ncapdevi:frag-nav:1.0.3'
-    compile 'com.roughike:bottom-bar:1.3.9'
+    implementation 'com.ncapdevi:frag-nav:1.0.3'
+    implementation 'com.roughike:bottom-bar:1.3.9'
     compile('com.mikepenz:materialdrawer:5.3.1@aar') {
         transitive = true
     }
-    compile 'com.mcxiaoke.volley:library:1.0.19'
-    compile 'com.google.code.gson:gson:2.7'
+    implementation 'com.mcxiaoke.volley:library:1.0.19'
+    implementation 'com.google.code.gson:gson:2.7'
     //compile files('libs/bill.jar')
     implementation 'com.squareup.picasso:picasso:2.71828'
-    compile 'com.fasterxml.jackson.core:jackson-core:2.9.1'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.1'
-    compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.1'
-    compile 'org.codehaus.jackson:jackson-core-asl:1.7.1'
-    compile 'org.codehaus.jackson:jackson-mapper-asl:1.7.1'
-    compile 'com.flurry.android:analytics:11.5.0@aar'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.9.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.1'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.9.1'
+    implementation 'org.codehaus.jackson:jackson-core-asl:1.7.1'
+    implementation 'org.codehaus.jackson:jackson-mapper-asl:1.7.1'
+    implementation 'com.flurry.android:analytics:11.5.0@aar'
+    implementation 'com.android.support:cardview-v7:27.1.1'
 }
 
 
