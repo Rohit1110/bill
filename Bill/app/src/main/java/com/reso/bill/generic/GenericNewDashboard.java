@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.reso.bill.BillSummaryActivity;
 import com.reso.bill.DailySummaryActivity;
 import com.reso.bill.R;
 import com.reso.bill.SettingsActivity;
@@ -25,7 +26,7 @@ import util.Utility;
 public class GenericNewDashboard extends Fragment {
 
     private BillUser user;
-    private LinearLayout allTransactionsLinearLayout, paymentReportLayout,totalNewspaperOrdersLinearLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout;
+    private LinearLayout summaryOfInvoicesLinearLayout, allTransactionsLinearLayout, paymentReportLayout,totalNewspaperOrdersLinearLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout;
 
     public GenericNewDashboard() {
         // Required empty public constructor
@@ -61,6 +62,15 @@ public class GenericNewDashboard extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(Utility.nextIntent(getActivity(), DailySummaryActivity.class, true));
+            }
+        });
+
+        //Summary of Your Invoices view interaction
+        summaryOfInvoicesLinearLayout = rootView.findViewById(R.id.summaryOfInvoicesLinearLayout);
+        summaryOfInvoicesLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(Utility.nextIntent(getActivity(), BillSummaryActivity.class, true));
             }
         });
 
