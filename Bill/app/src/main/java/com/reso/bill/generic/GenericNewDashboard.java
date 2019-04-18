@@ -3,6 +3,7 @@ package com.reso.bill.generic;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.reso.bill.BillSummaryActivity;
 import com.reso.bill.CustomerList;
 import com.reso.bill.DailySummaryActivity;
 import com.reso.bill.DistributorsActivity;
+import com.reso.bill.FragmentInvoiceSummary;
 import com.reso.bill.HomeFragment;
 import com.reso.bill.R;
 import com.reso.bill.SettingsActivity;
@@ -58,7 +60,37 @@ public class GenericNewDashboard extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_generic_new_dashboard, container, false);
 
-        LinearLayout todaysDeliveriesLinearLayout, totalNewspaperOrdersLinearLayout, purchasesWithDistributorsLinearLayout, manageCustomersLinearLayout, summaryOfInvoicesLinearLayout, allTransactionsLinearLayout, paymentReportLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout;
+        CardView createNewInvoiceCardView,pendingInvoicesCardView;
+        LinearLayout viewAllInvoicesLinearLayout, todaysDeliveriesLinearLayout, totalNewspaperOrdersLinearLayout, purchasesWithDistributorsLinearLayout, manageCustomersLinearLayout, summaryOfInvoicesLinearLayout, allTransactionsLinearLayout, paymentReportLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout;
+
+        //Create New Invoice Card View interaction
+        createNewInvoiceCardView = rootView.findViewById(R.id.createNewInvoiceCardView);
+        createNewInvoiceCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(Utility.nextIntent(getActivity(), GenericCreateBillActivity.class, true));
+            }
+        });
+
+        //Pending Invoices Card View interaction
+        pendingInvoicesCardView = rootView.findViewById(R.id.pendingInvoicesCardView);
+        pendingInvoicesCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment = FragmentInvoiceSummary.newInstance(user);
+                Utility.nextFragment(getActivity(), fragment);
+            }
+        });
+
+        //View All Invoices view interaction
+        viewAllInvoicesLinearLayout = rootView.findViewById(R.id.viewAllInvoicesLinearLayout);
+        viewAllInvoicesLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment = GenericInvoices.newInstance();
+                Utility.nextFragment(getActivity(), fragment);
+            }
+        });
 
         //Today's Deliveries view interaction
         todaysDeliveriesLinearLayout = rootView.findViewById(R.id.todaysDeliveriesLinearLayout);

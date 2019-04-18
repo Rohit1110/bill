@@ -120,7 +120,7 @@ public class GenericInvoices extends Fragment {
         View rootView = inflater.inflate(R.layout.generic_fragment_invoices, container, false);
         date = new Date();
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Invoice Summary</font>"));
-        Utility.AppBarTitle("Payments", getActivity());
+        Utility.AppBarTitle("All Invoices", getActivity());
         recyclerView = rootView.findViewById(R.id.recycler_group_customers);
 
         durations = rootView.findViewById(R.id.spn_txn_duration_filter);
@@ -209,10 +209,13 @@ public class GenericInvoices extends Fragment {
         BillUserLog log = billFilter.getUserLogFromSpinner(durations);
 
         if (log.getFromDate() != null && log.getToDate() != null) {
-            String title = "Payments " + CommonUtils.convertDate(log.getFromDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR);
+            String title = "All Invoices: (" + CommonUtils.convertDate(log.getFromDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR);
             if (!"Today".equalsIgnoreCase(durations.getSelectedItem().toString())) {
                 title = title + " - " + CommonUtils.convertDate(log.getToDate(), BillConstants.DATE_FORMAT_DISPLAY_NO_YEAR);
             }
+
+            title = title + ")";
+
             Utility.AppBarTitle(title, getActivity());
         }
 
