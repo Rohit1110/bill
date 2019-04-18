@@ -1,16 +1,15 @@
 package com.reso.bill.generic;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.reso.bill.BillSummaryActivity;
+import com.reso.bill.CustomerList;
 import com.reso.bill.DailySummaryActivity;
 import com.reso.bill.R;
 import com.reso.bill.SettingsActivity;
@@ -26,7 +25,8 @@ import util.Utility;
 public class GenericNewDashboard extends Fragment {
 
     private BillUser user;
-    private LinearLayout summaryOfInvoicesLinearLayout, allTransactionsLinearLayout, paymentReportLayout,totalNewspaperOrdersLinearLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout;
+    private static Fragment fragment = null;
+    private LinearLayout manageCustomersLinearLayout, summaryOfInvoicesLinearLayout, allTransactionsLinearLayout, paymentReportLayout, totalNewspaperOrdersLinearLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout;
 
     public GenericNewDashboard() {
         // Required empty public constructor
@@ -62,6 +62,16 @@ public class GenericNewDashboard extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(Utility.nextIntent(getActivity(), DailySummaryActivity.class, true));
+            }
+        });
+
+        //Manage Customers view interaction
+        manageCustomersLinearLayout = rootView.findViewById(R.id.manageCustomersLinearLayout);
+        manageCustomersLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment = new CustomerList();
+                Utility.nextFragment(getActivity(), fragment);
             }
         });
 
