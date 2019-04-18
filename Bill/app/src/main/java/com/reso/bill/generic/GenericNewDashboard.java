@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import com.reso.bill.BillSummaryActivity;
 import com.reso.bill.CustomerList;
 import com.reso.bill.DailySummaryActivity;
+import com.reso.bill.DistributorsActivity;
 import com.reso.bill.HomeFragment;
 import com.reso.bill.R;
 import com.reso.bill.SettingsActivity;
@@ -27,7 +28,7 @@ public class GenericNewDashboard extends Fragment {
 
     private BillUser user;
     private static Fragment fragment = null;
-    private LinearLayout todaysDeliveriesLinearLayout, manageCustomersLinearLayout, summaryOfInvoicesLinearLayout, allTransactionsLinearLayout, paymentReportLayout, totalNewspaperOrdersLinearLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout;
+
 
     public GenericNewDashboard() {
         // Required empty public constructor
@@ -57,6 +58,8 @@ public class GenericNewDashboard extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_generic_new_dashboard, container, false);
 
+        LinearLayout todaysDeliveriesLinearLayout, totalNewspaperOrdersLinearLayout, purchasesWithDistributorsLinearLayout, manageCustomersLinearLayout, summaryOfInvoicesLinearLayout, allTransactionsLinearLayout, paymentReportLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout;
+
         //Today's Deliveries view interaction
         todaysDeliveriesLinearLayout = rootView.findViewById(R.id.todaysDeliveriesLinearLayout);
         todaysDeliveriesLinearLayout.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +76,15 @@ public class GenericNewDashboard extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(Utility.nextIntent(getActivity(), DailySummaryActivity.class, true));
+            }
+        });
+
+        //Your Purchases with Distributors view interaction
+        purchasesWithDistributorsLinearLayout = rootView.findViewById(R.id.purchasesWithDistributorsLinearLayout);
+        purchasesWithDistributorsLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(Utility.nextIntent(getActivity(), DistributorsActivity.class, true));
             }
         });
 

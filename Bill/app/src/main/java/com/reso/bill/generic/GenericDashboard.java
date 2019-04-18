@@ -109,7 +109,6 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             Menu nav_Menu = navigationView.getMenu();
             nav_Menu.findItem(R.id.nav_quick_bill).setVisible(false);
-            nav_Menu.findItem(R.id.nav_purchases).setVisible(false);
         }
 
         //initFragments();
@@ -307,9 +306,6 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.nav_quick_bill:
                 fragment = GenericInvoices.newInstance();
-                break;
-            case R.id.nav_purchases:
-                startActivity(Utility.nextIntent(this, DistributorsActivity.class, true));
                 break;
             case R.id.nav_logout:
                 new AlertDialog.Builder(GenericDashboard.this).setTitle("Logout?").setMessage("Do you really want to logout?")
