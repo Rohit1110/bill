@@ -144,7 +144,7 @@ public class CustomerList extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.customer_list_main, container, false);
         //getActivity().setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Customer List</font>"));
-        Utility.AppBarTitle("Customer List", getActivity());
+        Utility.AppBarTitle("Manage Customers", getActivity());
         recyclerView = rootView.findViewById(R.id.recycler_view_cust_list);
 
         FloatingActionButton addNewCustomerFab = rootView.findViewById(R.id.btn_add_customer_group);

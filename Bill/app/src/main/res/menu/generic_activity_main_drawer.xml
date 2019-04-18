@@ -9,14 +9,19 @@
         android:checkableBehavior="single">
 
         <item
+            android:id="@+id/nav_dashboard"
+            android:title="Dashboard"
+            />
+
+        <item
             android:id="@+id/nav_home"
-            android:title="Home"
+            android:title="Today's Deliveries"
             />
 
 
         <item
             android:id="@+id/nav_myorder"
-            android:title="Customers"
+            android:title="Manage Customers"
 
             />
         <item
@@ -32,12 +37,7 @@
         <item
             android:id="@+id/nav_quick_bill"
 
-            android:title="Quick Billing"/>
-
-        <item
-            android:id="@+id/nav_purchases"
-
-            android:title="My Purchases"/>
+            android:title="View All Invoices"/>
         <!--android:icon="@mipmap/inbox"-->
         <!--<item
             android:id="@+id/nav_activity"

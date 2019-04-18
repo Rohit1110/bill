@@ -49,6 +49,7 @@ import com.reso.bill.R;
 import com.reso.bill.components.InputStreamVolleyRequest;
 import com.reso.bill.generic.GenericDashboard;
 import com.reso.bill.generic.GenericInvoices;
+import com.reso.bill.generic.GenericNewDashboard;
 import com.rns.web.billapp.service.bo.domain.BillBusiness;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillItem;
@@ -652,7 +653,8 @@ public class Utility {
         if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
             return GenericInvoices.newInstance();
         }
-        return HomeFragment.newInstance(user);
+//        return HomeFragment.newInstance(user);
+        return GenericNewDashboard.newInstance(user);
     }
 
     public static String getDecimalText(BigDecimal decimal) {

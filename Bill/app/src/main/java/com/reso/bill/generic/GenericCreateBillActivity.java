@@ -80,7 +80,7 @@ public class GenericCreateBillActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generic_create_bill);
-        Utility.setActionBar("Add/Update bill", getSupportActionBar());
+        Utility.setActionBar("Create New Invoice", getSupportActionBar());
 
         //Hide keyboard on load
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);

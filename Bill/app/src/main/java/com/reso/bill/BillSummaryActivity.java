@@ -70,7 +70,7 @@ public class BillSummaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bill_summary);
 
-        Utility.setActionBar("Bills summary", getSupportActionBar());
+        Utility.setActionBar("Summary of your Invoices", getSupportActionBar());
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_bills_summary);
         recyclerView.setLayoutManager(new LinearLayoutManager(BillSummaryActivity.this));

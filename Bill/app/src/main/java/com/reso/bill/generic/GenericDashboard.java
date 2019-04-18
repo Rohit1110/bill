@@ -27,6 +27,7 @@ import com.reso.bill.CustomerList;
 import com.reso.bill.DistributorsActivity;
 import com.reso.bill.FragmentInvoiceSummary;
 import com.reso.bill.HelpActivity;
+import com.reso.bill.HomeFragment;
 import com.reso.bill.LoginActivity;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -108,7 +109,6 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             Menu nav_Menu = navigationView.getMenu();
             nav_Menu.findItem(R.id.nav_quick_bill).setVisible(false);
-            nav_Menu.findItem(R.id.nav_purchases).setVisible(false);
         }
 
         //initFragments();
@@ -274,6 +274,11 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
 
         switch (item.getItemId()) {
 
+            case R.id.nav_dashboard:
+                //Toast.makeText(Dashboard.this, "Click", Toast.LENGTH_LONG).show();
+//                fragment = new GenericNewDashboard();
+                fragment = Utility.getHomeFragment(user);
+                break;
             case R.id.nav_myorder:
                 //Toast.makeText(Dashboard.this, "Click", Toast.LENGTH_LONG).show();
                 fragment = new CustomerList();
@@ -289,7 +294,8 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
                 startActivity(i);
                 break;
             case R.id.nav_home:
-                fragment = Utility.getHomeFragment(user);
+//                fragment = Utility.getHomeFragment(user);
+                fragment = HomeFragment.newInstance(user);
                 break;
             case R.id.nav_help:
                 Intent helpI = new Intent(GenericDashboard.this, HelpActivity.class);
@@ -300,9 +306,6 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.nav_quick_bill:
                 fragment = GenericInvoices.newInstance();
-                break;
-            case R.id.nav_purchases:
-                startActivity(Utility.nextIntent(this, DistributorsActivity.class, true));
                 break;
             case R.id.nav_logout:
                 new AlertDialog.Builder(GenericDashboard.this).setTitle("Logout?").setMessage("Do you really want to logout?")

@@ -49,7 +49,7 @@ public class DistributorsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_distributors);
 
-        Utility.setActionBar("My Distributors", getSupportActionBar());
+        Utility.setActionBar("Your Purchases With Distributors", getSupportActionBar());
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view_order);
         //DailySummaryActivity.this.setTitle(Html.fromHtml("<font color='#343F4B' size = 24 >Total Orders - " + CommonUtils.convertDate(date) + "</font>"));
