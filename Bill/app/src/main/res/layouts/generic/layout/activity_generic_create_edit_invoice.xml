@@ -202,7 +202,7 @@
 
         <Spinner
             android:id="@+id/monthSpinner"
-            style="@android:style/Widget.Material.Spinner.Underlined"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -216,7 +216,7 @@
 
         <Spinner
             android:id="@+id/yearSpinner"
-            style="@android:style/Widget.Material.Light.Spinner.Underlined"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
