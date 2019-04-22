@@ -68,7 +68,7 @@ public class GenericNewDashboard extends Fragment {
         createNewInvoiceCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(Utility.nextIntent(getActivity(), GenericCreateBillActivity.class, true));
+                startActivity(Utility.nextIntent(getActivity(), GenericCreateEditInvoiceActivity.class, true));
             }
         });
 
