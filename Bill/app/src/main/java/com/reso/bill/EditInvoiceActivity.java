@@ -88,7 +88,7 @@ public class EditInvoiceActivity extends AppCompatActivity {
         monthspinner.setAdapter(adapter);
 
         yearsSpinner = (Spinner) findViewById(R.id.spn_year);
-        monthspinner.setPrompt("year");
+        yearsSpinner.setPrompt("year");
         yearsList = Utility.createYearsArray();
         if (invoice == null || invoice.getId() == null) {
             yearsList.add("Select Year");
