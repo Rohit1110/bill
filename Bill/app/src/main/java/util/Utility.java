@@ -44,7 +44,6 @@ import com.android.volley.toolbox.HurlStack;
 import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.Volley;
 import com.flurry.android.FlurryAgent;
-import com.reso.bill.HomeFragment;
 import com.reso.bill.R;
 import com.reso.bill.components.InputStreamVolleyRequest;
 import com.reso.bill.generic.GenericDashboard;
@@ -633,6 +632,14 @@ public class Utility {
         }
         return user.getCurrentBusiness().getBusinessSector().getFramework();
     }
+
+    public static boolean isNewspaper(BillUser user) {
+        if (user == null || user.getCurrentBusiness() == null || user.getCurrentBusiness().getBusinessSector() == null || user.getCurrentBusiness().getBusinessSector().getName() == null) {
+            return false;
+        }
+        return user.getCurrentBusiness().getBusinessSector().getName().equalsIgnoreCase("Newspaper");
+    }
+
 
     public static Intent getDashboardIntent(Activity currentActivity, BillUser user) {
         if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {

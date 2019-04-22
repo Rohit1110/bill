@@ -105,9 +105,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
-
     <TextView
-        android:id="@+id/textView16"
+        android:id="@+id/txt_product_frequency_title"
         style="@style/textviewtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -116,12 +115,62 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:text="Upload photo"
+        android:text="Frequency"
+        android:visibility="gone"
         android:textColor="@android:color/secondary_text_dark"
         android:textSize="@dimen/list_text_sub_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_product_price" />
+
+    <Spinner
+        android:id="@+id/et_product_frequency"
+        style="@style/regedittext"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:hint="Select frequency"
+        android:visibility="gone"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_product_frequency_title" />
+
+    <TextView
+        android:id="@+id/txt_product_frequency_hint"
+        style="@style/textviewtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="Daily frequency will calculate the bill total every day"
+        android:textColor="@android:color/holo_blue_light"
+        android:textSize="@dimen/list_text_sub_text"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_product_frequency" />
+
+    <TextView
+        android:id="@+id/textView17"
+        style="@style/textviewtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="Upload photo"
+        android:textColor="@android:color/secondary_text_dark"
+        android:textSize="@dimen/list_text_sub_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_product_frequency_hint"/>
 
 
     <EditText
@@ -137,10 +186,10 @@
         android:hint="Choose file"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView16" />
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/textView18"
         style="@style/textviewtitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -169,7 +218,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+        app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
 
 </android.support.constraint.ConstraintLayout>

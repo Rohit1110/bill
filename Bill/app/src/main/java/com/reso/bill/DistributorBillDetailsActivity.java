@@ -41,6 +41,7 @@ import com.rns.web.billapp.service.util.BillConstants;
 import com.rns.web.billapp.service.util.CommonUtils;
 import com.zj.btsdk.BluetoothService;
 
+import java.math.BigDecimal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -369,8 +370,14 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
     private void setupItems() {
         BillServiceRequest request = new BillServiceRequest();
         request.setRequestedDate(fromDate);
-        request.setUser(selectedUser);
-        request.setBusiness(user.getCurrentBusiness());
+        if (Utility.isDistributor(user)) {
+            request.setUser(user);//Send distributor details
+            request.setBusiness(selectedUser.getCurrentBusiness());
+        } else {
+            request.setUser(selectedUser);//Send distributor details
+            request.setBusiness(user.getCurrentBusiness());
+        }
+
         pDialog = Utility.getProgressDialogue("Loading..", DistributorBillDetailsActivity.this);
         StringRequest myReq = ServiceUtil.getStringRequest("getBusinessItemsByDate", businessItemsResponse(), ServiceUtil.createMyReqErrorListener(pDialog, DistributorBillDetailsActivity.this), request);
         RequestQueue queue = Volley.newRequestQueue(DistributorBillDetailsActivity.this);
@@ -450,10 +457,18 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
                 }
             }
             BillServiceRequest request = new BillServiceRequest();
-            request.setUser(user);
-            if (selectedUser != null) {
-                request.setBusiness(selectedUser.getCurrentBusiness());
+            if (Utility.isDistributor(user)) {
+                request.setUser(selectedUser);
+                if (selectedUser != null) {
+                    request.setBusiness(user.getCurrentBusiness());
+                }
+            } else {
+                request.setUser(user);
+                if (selectedUser != null) {
+                    request.setBusiness(selectedUser.getCurrentBusiness());
+                }
             }
+
             request.setInvoice(invoice);
             pDialog = Utility.getProgressDialogue("Saving..", DistributorBillDetailsActivity.this);
             StringRequest myReq = ServiceUtil.getStringRequest("updateBusinessInvoice", invoiceSaved(), ServiceUtil.createMyReqErrorListener(pDialog, DistributorBillDetailsActivity.this), request);
@@ -526,35 +541,31 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
 
                 //examples for printing data
                 String str3 = user.getCurrentBusiness().getName() + "\n" + "PURCHASE";
-                String str2 = dateFormat.format(date) + "\n" + "8087550062";
+                String str2 = dateFormat.format(date) + "\n" + user.getPhone();
                 String str4 = "----------------";
                 StringBuilder builder = new StringBuilder();
+                int index = 0;
                 for (BillItem item : invoiceItems) {
-                    builder.append(Utility.getItemName(item))
-                            .append(" ")
-                            .append(Utility.getDecimalString(Utility.getCostPrice(item)))
-                            .append(" * ")
-                            .append(Utility.getDecimalString(item.getQuantity()))
-                            .append(" = ")
-                            .append("\n");
+                    appendItem(builder, item, index == (invoiceItems.size() - 1));
+                    index++;
                 }
 
                 String str1 = builder.toString();
                 String str5 = "----------------" + "\n" + purchaseTotal.getText();
                 builder = new StringBuilder();
+                String str8 = "", str9 = "";
                 if (adapter.getReturnInvoice() != null && adapter.getReturnInvoice().getInvoiceItems() != null) {
+                    index = 0;
                     for (BillItem item : adapter.getReturnInvoice().getInvoiceItems()) {
-                        builder.append(Utility.getItemName(item))
-                                .append(" ")
-                                .append(Utility.getDecimalString(Utility.getCostPrice(item)))
-                                .append(" * ")
-                                .append(Utility.getDecimalString(item.getQuantity()))
-                                .append(" = ")
-                                .append("\n");
+                        appendItem(builder, item, index == (adapter.getReturnInvoice().getInvoiceItems().size() - 1));
+                        index++;
+                    }
+                    if (builder.toString().contains("*")) {
+                        str8 = "\n" + "Return (-less)" + "\n" + builder.toString();
+                        str9 = "----------------" + "\n" + returnTotal.getText() + "\n" + "----------------";
                     }
                 }
-                String str8 = "\n"+"Return (-less)" + "\n" + builder.toString();
-                String str9 = "----------------" + "\n" + returnTotal.getText() + "\n" + "----------------";
+
                 String str6 = "Total = " + totalBillAmount.getText();
                 String str7 = "\n" + "Note:- " + comments.getText();
 
@@ -593,7 +604,7 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
             }
 
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
 //        BluetoothService mService = null;
 //        mService = Bluetooth.getServiceInstance();
@@ -605,6 +616,22 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
 //
 //      mService.sendMessage(htmlContent, "GBK");
 
+
+    }
+
+    private void appendItem(StringBuilder builder, BillItem item, boolean lastItem) {
+        if (item.getQuantity() == null || item.getQuantity().equals(BigDecimal.ZERO)) {
+            return;
+        }
+        BigDecimal costPrice = Utility.getCostPrice(item);
+        if (costPrice == null || costPrice.equals(BigDecimal.ZERO)) {
+            return;
+        }
+        String totalCp = Utility.getDecimalString(costPrice.multiply(item.getQuantity()));
+        builder.append(Utility.getItemName(item)).append(" ").append(Utility.getDecimalString(costPrice)).append(" * ").append(Utility.getDecimalString(item.getQuantity())).append(" = ").append(totalCp);
+        if (!lastItem) {
+            builder.append("\n");
+        }
 
     }
 

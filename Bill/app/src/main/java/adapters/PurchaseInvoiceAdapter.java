@@ -215,7 +215,7 @@ public class PurchaseInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                     }*/
 
                     //customer.setCurrentInvoice(invoice);
-                    activity.startActivity(Utility.nextIntent(activity, DistributorBillDetailsActivity.class, false, invoice, Utility.INVOICE_KEY));
+                    activity.startActivity(Utility.nextIntent(activity, DistributorBillDetailsActivity.class, true, invoice, Utility.INVOICE_KEY));
 
                 }
             });

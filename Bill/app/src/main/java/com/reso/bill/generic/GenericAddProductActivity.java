@@ -15,8 +15,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,9 +33,11 @@ import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceResponse;
+import com.rns.web.billapp.service.util.BillConstants;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,6 +60,10 @@ public class GenericAddProductActivity extends AppCompatActivity {
     private Bitmap bitmap;
     private String filename;
     private BillUser user;
+    private TextView productFrequencyTitle;
+    private Spinner productFrequency;
+    private TextView productFrequencyHint;
+    private String[] frequencyTypes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,11 +109,33 @@ public class GenericAddProductActivity extends AppCompatActivity {
         productDescription = findViewById(R.id.et_group_description);
         productPrice = findViewById(R.id.et_product_price);
 
+        productFrequency = findViewById(R.id.et_product_frequency);
+        productFrequencyTitle = findViewById(R.id.txt_product_frequency_title);
+        productFrequencyHint = findViewById(R.id.txt_product_frequency_hint);
+
+
+        frequencyTypes = getResources().getStringArray(R.array.frequency_types);
+
+        productFrequency.setPrompt("Select frequency");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.spinner_basic_text_white, frequencyTypes);
+        productFrequency.setAdapter(adapter);
+
+        if (Utility.getFramework(user).equals(BillConstants.FRAMEWORK_RECURRING)) {
+            productFrequencyTitle.setVisibility(View.VISIBLE);
+            productFrequency.setVisibility(View.VISIBLE);
+
+        }
+
         if (this.item != null) {
             productName.setText(this.item.getName());
             productDescription.setText(this.item.getDescription());
             if (this.item.getPrice() != null) {
                 productPrice.setText(this.item.getPrice().toString());
+            }
+            if (this.item.getFrequency() != null) {
+                int position = Arrays.asList(frequencyTypes).indexOf(item.getFrequency());
+                System.out.println("Setting selection as => " + position);
+                productFrequency.setSelection(position);
             }
         }
 
@@ -112,6 +143,32 @@ public class GenericAddProductActivity extends AppCompatActivity {
         if (this.item != null && this.item.getId() != null) {
             Picasso.get().load(Utility.getBusinessItemImageURL(this.item.getId())).into(img);
         }
+
+
+        productFrequency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                if (productFrequency.getSelectedItemPosition() == 0) {
+                    productFrequencyHint.setVisibility(View.GONE);
+                } else {
+                    productFrequencyHint.setVisibility(View.VISIBLE);
+                    String price = "Price";
+                    if (!TextUtils.isEmpty(productPrice.getText())) {
+                        price = "Rs." +  productPrice.getText();
+                    }
+                    if (productFrequency.getSelectedItemPosition() == 1) {
+                        productFrequencyHint.setText(price + " will be added to monthly bill every day");
+                    } else {
+                        productFrequencyHint.setText(price + " will be added to monthly bill on first day of each month");
+                    }
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
     }
 
     @Override
@@ -236,8 +293,12 @@ public class GenericAddProductActivity extends AppCompatActivity {
                     item.setDescription(productName.getText().toString());
                 }
                 item.setPrice(Utility.getDecimal(productPrice));
+                if (productFrequency.getSelectedItemPosition() > 0) {
+                    item.setFrequency(productFrequency.getSelectedItem().toString());
+                }
                 params.put("item", ServiceUtil.toJson(item));
                 params.put("businessId", user.getCurrentBusiness().getId().toString());
+
                 return params;
             }
 
