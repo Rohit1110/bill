@@ -150,7 +150,12 @@ public class GenericVendorDashBoard extends Fragment {
             layout_settings.setVisibility(View.GONE);
 
         } else {
-            layoutMyProducts.setVisibility(View.GONE);
+            if (!Utility.isNewspaper(user)) {
+                layout_manage_newspapers.setVisibility(View.GONE);
+            } else {
+                layoutMyProducts.setVisibility(View.GONE);
+            }
+
 
         }
 

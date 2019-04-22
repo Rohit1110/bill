@@ -58,7 +58,7 @@ public class DistributorBillSummary extends AppCompatActivity {
     private Menu mainMenu;
     private BillFilter filter;
     private DialogInterface.OnDismissListener dismissListener;
-    private BillUser selectedDistributor;
+    private BillUser selectedUser;
     private List<BillInvoice> invoices;
     private PurchaseInvoiceAdapter adapter;
     private FloatingActionButton addNewPurchase;
@@ -70,10 +70,10 @@ public class DistributorBillSummary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_distributor_bill_summary);
 
-        selectedDistributor = (BillUser) Utility.getIntentObject(BillUser.class, getIntent(), Utility.DISTRIBUTOR_KEY);
+        selectedUser = (BillUser) Utility.getIntentObject(BillUser.class, getIntent(), Utility.DISTRIBUTOR_KEY);
         String distributor = "";
-        if (selectedDistributor != null) {
-            distributor = selectedDistributor.getName();
+        if (selectedUser != null) {
+            distributor = selectedUser.getName();
         }
         Utility.setActionBar(distributor + "'s purchases", getSupportActionBar());
 
@@ -134,7 +134,7 @@ public class DistributorBillSummary extends AppCompatActivity {
         addNewPurchase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(Utility.nextIntent(DistributorBillSummary.this, DistributorBillDetailsActivity.class, true, selectedDistributor, Utility.DISTRIBUTOR_KEY));
+                startActivity(Utility.nextIntent(DistributorBillSummary.this, DistributorBillDetailsActivity.class, true, selectedUser, Utility.DISTRIBUTOR_KEY));
 
             }
         });
@@ -165,8 +165,14 @@ public class DistributorBillSummary extends AppCompatActivity {
         }
         loading = true;
         BillServiceRequest request = new BillServiceRequest();
-        request.setBusiness(user.getCurrentBusiness());
-        request.setUser(selectedDistributor);
+        if (Utility.isDistributor(user)) {
+            request.setBusiness(selectedUser.getCurrentBusiness());
+            request.setUser(user);// Send distributor
+        } else {
+            request.setBusiness(user.getCurrentBusiness());
+            request.setUser(selectedUser);// Send distributor
+        }
+
         BillInvoice currInvoice = new BillInvoice();
         currInvoice.setMonth(month.getSelectedItemPosition());
         currInvoice.setYear(Integer.parseInt(year.getSelectedItem().toString()));
@@ -193,10 +199,10 @@ public class DistributorBillSummary extends AppCompatActivity {
                     invoices = serviceResponse.getInvoices();
                     if (invoices != null && invoices.size() > 0) {
                         recyclerView.setLayoutManager(new LinearLayoutManager(DistributorBillSummary.this));
-                        adapter = new PurchaseInvoiceAdapter(invoices, DistributorBillSummary.this, selectedDistributor);
+                        adapter = new PurchaseInvoiceAdapter(invoices, DistributorBillSummary.this, selectedUser);
                         recyclerView.setAdapter(adapter);
                     } else {
-                        recyclerView.setAdapter(new PurchaseInvoiceAdapter(new ArrayList<BillInvoice>(), DistributorBillSummary.this, selectedDistributor));
+                        recyclerView.setAdapter(new PurchaseInvoiceAdapter(new ArrayList<BillInvoice>(), DistributorBillSummary.this, selectedUser));
                     }
                     if (serviceResponse.getInvoice() != null) {
                         totalPending.setText("Pending: " + Utility.getDecimalString(serviceResponse.getInvoice().getPayable()) + "/-");
@@ -271,7 +277,7 @@ public class DistributorBillSummary extends AppCompatActivity {
                 adapter.getCurrentInvoice().setStatus("Failed");
             }
             Intent intent = Utility.nextIntent(this, PaymentSuccessfulActivity.class, true, adapter.getCurrentInvoice(), Utility.INVOICE_KEY);
-            Utility.putIntenObject(selectedDistributor, Utility.DISTRIBUTOR_KEY, intent);
+            Utility.putIntenObject(selectedUser, Utility.DISTRIBUTOR_KEY, intent);
             startActivity(intent);
         }
     }

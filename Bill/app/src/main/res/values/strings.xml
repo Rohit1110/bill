@@ -45,6 +45,12 @@
         <item>Dec</item>
     </string-array>
 
+    <string-array name="frequency_types">
+        <item>Select frequency</item>
+        <item>DAILY</item>
+        <item>MONTHLY</item>
+    </string-array>
+
     <string-array name="durations_arrays">
         <item>Today</item>
         <item>This week</item>

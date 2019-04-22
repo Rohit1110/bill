@@ -25,6 +25,7 @@ public class BillBusiness implements Serializable {
 	private String identificationNumber;
 	private String showBillDetails;
 	private BillFile logo;
+	private String type;
 
 	public Integer getId() {
 		return id;
@@ -101,5 +102,13 @@ public class BillBusiness implements Serializable {
 
 	public void setLogo(BillFile logo) {
 		this.logo = logo;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }
