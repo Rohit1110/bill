@@ -2,8 +2,11 @@ package com.reso.bill.generic;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.reso.bill.EditInvoiceActivity;
 import com.reso.bill.R;
@@ -40,5 +43,22 @@ public class GenericCreateEditInvoiceActivity extends AppCompatActivity {
         yearsList = Utility.createYearsArray();
 
         yearSpinner.setAdapter(new ArrayAdapter<String>(GenericCreateEditInvoiceActivity.this, R.layout.spinner_basic_text_white, yearsList));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.edit_bank_info_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.save_menu_item:
+                Toast.makeText(this, "Save", Toast.LENGTH_SHORT).show();
+                return true;
+        }
+        return false;
     }
 }
