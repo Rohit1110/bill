@@ -151,6 +151,7 @@
                 android:layout_height="0dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginRight="8dp"
+                android:layout_marginBottom="8dp"
                 android:theme="@style/ActivityTheme"
                 app:cardUseCompatPadding="true"
                 app:contentPadding="8dp"
@@ -173,7 +174,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_playlist_add_black_24dp" />
+                        app:srcCompat="@drawable/ic_playlist_add_black_24dp"/>
 
                     <TextView
                         android:id="@+id/textView53"
@@ -187,7 +188,7 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+                        app:layout_constraintTop_toBottomOf="@+id/imageView4"/>
 
                 </android.support.constraint.ConstraintLayout>
 
@@ -310,7 +311,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="24dp"
-                    android:text="Your Today's Deliveries"
+                    android:text="Today's Deliveries"
                     android:textColor="@color/md_grey_700"
                     android:textStyle="bold" />
 
@@ -361,7 +362,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="24dp"
-                    android:text="Your Purchases With Distributors"
+                    android:text="Purchases With Distributors"
                     android:textColor="@color/md_grey_700"
                     android:textStyle="bold" />
 
@@ -438,7 +439,7 @@
                     android:layout_marginTop="24dp"
                     android:layout_marginRight="16dp"
                     android:layout_marginBottom="24dp"
-                    android:text="Invoice Payments Report"
+                    android:text="Payments Report"
                     android:textColor="@color/md_grey_700"
                     android:textStyle="bold" />
 

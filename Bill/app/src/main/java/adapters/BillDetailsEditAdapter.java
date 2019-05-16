@@ -31,11 +31,20 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     private List<BillItem> items = new ArrayList<>();
     private Context ctx;
     private RecyclerView listView;
+    private boolean invoicePaid;
 
     public BillDetailsEditAdapter(List<BillItem> items, Context ctx, EditText amount) {
         this.items = items;
         this.ctx = ctx;
         this.billAmount = amount;
+    }
+
+    public void setItems(List<BillItem> items) {
+        this.items = items;
+    }
+
+    public void setInvoicePaid(boolean invoicePaid) {
+        this.invoicePaid = invoicePaid;
     }
 
     public void setRecyclerView(RecyclerView recyclerView) {
@@ -91,6 +100,11 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (invoicePaid) {
+                    return;
+                }
+
                 final Dialog dialog = new Dialog(ctx);
                 dialog.setContentView(R.layout.layout_edit_bill_item);
                 dialog.setTitle(null);
@@ -138,7 +152,7 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                         //Calculate total billAmount
                         BigDecimal total = BigDecimal.ZERO;
                         for (BillItem item : items) {
-                            if(item.getPrice() != null) {
+                            if (item.getPrice() != null) {
                                 total = total.add(item.getPrice());
                             }
                         }

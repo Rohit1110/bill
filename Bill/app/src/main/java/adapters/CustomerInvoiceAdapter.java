@@ -18,10 +18,9 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.reso.bill.EditInvoiceActivity;
 import com.reso.bill.R;
 import com.reso.bill.generic.GenericBillDisplayActivity;
-import com.reso.bill.generic.GenericCreateBillActivity;
+import com.reso.bill.generic.GenericCreateEditInvoiceActivity;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.domain.BillServiceRequest;
@@ -201,16 +200,18 @@ public class CustomerInvoiceAdapter extends RecyclerView.Adapter<RecyclerView.Vi
         gholder.editIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
+                /*if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
                     customer.setCurrentInvoice(invoice);
                     //Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(customer));
                     activity.startActivity(Utility.nextIntent(activity, GenericCreateBillActivity.class, true, customer, Utility.CUSTOMER_KEY));
-                } else {
-                    //Utility.nextFragment((FragmentActivity) activity, FragmentEditInvoice.newInstance(customer, invoice));
-                    Intent intent = Utility.nextIntent(activity, EditInvoiceActivity.class, true, invoice, Utility.INVOICE_KEY);
-                    intent.putExtra(Utility.CUSTOMER_KEY, ServiceUtil.toJson(customer));
-                    activity.startActivity(intent);
-                }
+                } else {*/
+                //Utility.nextFragment((FragmentActivity) activity, FragmentEditInvoice.newInstance(customer, invoice));
+                //TODO new
+                Intent intent = Utility.nextIntent(activity, GenericCreateEditInvoiceActivity.class, true, invoice, Utility.INVOICE_KEY);
+                customer.setCurrentInvoice(invoice);
+                intent.putExtra(Utility.CUSTOMER_KEY, ServiceUtil.toJson(customer));
+                activity.startActivity(intent);
+                //}
             }
         });
 

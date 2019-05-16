@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,6 +46,9 @@ public class PauseCustomerSubscriptionActivity extends AppCompatActivity {
     //private Button pause;
     private TextView pausedDays;
     private Date fromDate, toDate;
+    private EditText quantityChange;
+    private TextView quantityChangeLabel;
+    private BillUser user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -169,7 +173,23 @@ public class PauseCustomerSubscriptionActivity extends AppCompatActivity {
 
         pausedDays.setText("Pause delivery for - 0 day(s)");
 
+        quantityChange = (EditText) findViewById(R.id.txt_temp_quantity_change);
+        quantityChangeLabel = (TextView) findViewById(R.id.lbl_temp_quantity_change);
+
+        if (Utility.isNewspaper(user)) {
+            quantityChange.setVisibility(View.GONE);
+            quantityChangeLabel.setVisibility(View.GONE);
+            quantityChange.setText("");
+        } else {
+            quantityChangeLabel.setVisibility(View.VISIBLE);
+            quantityChange.setVisibility(View.VISIBLE);
+        }
+
+
+        user = (BillUser) Utility.readObject(this, Utility.USER_KEY);
+
         calculateNoOfDays();
+
     }
 
     @Override
@@ -202,7 +222,11 @@ public class PauseCustomerSubscriptionActivity extends AppCompatActivity {
             }
             Calendar cal = Calendar.getInstance();
             cal.setTimeInMillis(toDate.getTime() - fromDate.getTime());
-            pausedDays.setText("Pause delivery for - " + String.valueOf(TimeUnit.DAYS.convert(toDate.getTime() - fromDate.getTime(), TimeUnit.MILLISECONDS) + 1) + " day(s)");
+            String action = "Pause delivery ";
+            if (!TextUtils.isEmpty(quantityChange.getText())) {
+                action = "Change quantity ";
+            }
+            pausedDays.setText(action + "for - " + String.valueOf(TimeUnit.DAYS.convert(toDate.getTime() - fromDate.getTime(), TimeUnit.MILLISECONDS) + 1) + " day(s)");
         }
     }
 
@@ -225,6 +249,9 @@ public class PauseCustomerSubscriptionActivity extends AppCompatActivity {
         BillItem subItem = new BillItem();
         subItem.setId(subscribedItem.getId());
         subItem.setQuantity(BigDecimal.ZERO);
+        if (!TextUtils.isEmpty(quantityChange.getText())) {
+            subItem.setQuantity(Utility.getDecimal(quantityChange));
+        }
         BillUserLog log = new BillUserLog();
         log.setFromDate(fromDate);
         log.setToDate(toDate);

@@ -32,8 +32,8 @@ import java.util.Date;
 
 public class ServiceUtil {
 
-    public static String HOST = "http://payperbill.in:8080/billapp/"; //PROD IMP
-    //public static String HOST = "http://192.168.0.103:8080/billapp-service/";
+    //public static String HOST = "http://payperbill.in:8080/billapp/"; //PROD IMP
+    public static String HOST = "http://192.168.0.103:8080/billapp-service/";
     public static String ROOT_URL = HOST + "user/";
     public static String ADMIN_URL = HOST + "admin/";
     public static String BUSINESS_URL = HOST + "business/";

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                             xmlns:app="http://schemas.android.com/apk/res-auto"
+                                             xmlns:tools="http://schemas.android.com/tools"
+                                             android:id="@+id/relativeLayout3"
+                                             android:layout_width="fill_parent"
+                                             android:layout_height="wrap_content"
+                                             android:background="@color/white">
+
+
+    <!--<TextView
+        android:id="@+id/textView6"
+        style="@style/basic_sub_text_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Quantity"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="134dp"/>-->
+
+
+    <TextView
+        android:id="@+id/txt_select_product_hint"
+        style="@style/basic_sub_text_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Enter the product name to start searching. If product does not exist in the store it will be added as a new product."
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_dialog_select_product"/>
+
+    <AutoCompleteTextView
+        android:id="@+id/et_dialog_select_product"
+        style="@style/basic_sub_text_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center_vertical"
+        android:hint="Search by Product name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <Button
+        android:id="@+id/btn_select_product"
+        style="@style/basic_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+
+        android:layout_marginBottom="8dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="ADD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt_select_product_hint"
+        app:layout_constraintWidth_percent="0.4"/>
+
+    <Button
+        android:id="@+id/btn_cancel_select_product"
+        style="@style/basic_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="16dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="CANCEL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_select_product"
+        app:layout_constraintTop_toTopOf="@+id/btn_select_product"
+        app:layout_constraintWidth_percent="0.4"/>
+
+
+</android.support.constraint.ConstraintLayout>

@@ -51,7 +51,7 @@ public class CustomerSubscriptionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_customer_subscriptions);
 
         customer = (BillUser) Utility.getIntentObject(BillUser.class, getIntent(), Utility.CUSTOMER_KEY);
-        Utility.setActionBar("Subscribed Newspapers", getSupportActionBar());
+        Utility.setActionBar("Subscribed Products", getSupportActionBar());
 
         recyclerView = findViewById(R.id.recycler_view_newspaper_subcription);
 
