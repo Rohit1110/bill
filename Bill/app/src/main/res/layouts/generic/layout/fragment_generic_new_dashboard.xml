@@ -373,17 +373,33 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView66"
+                <LinearLayout
+                    android:id="@+id/viewAllInvoicesLinearLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="View All Invoices"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/allInvoicesImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_receipt_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView66"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="View All Invoices"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -398,17 +414,33 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView62"
+                <LinearLayout
+                    android:id="@+id/todaysDeliveriesLinearLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="Your Today's Deliveries"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/todaysDeliveriesImagesView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_call_split_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView62"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Your Today's Deliveries"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -423,17 +455,33 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView65"
+                <LinearLayout
+                    android:id="@+id/totalNewspaperOrdersLinearLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="Today's Newspaper Total Orders"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/totalNewspaperOrdersImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_today_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView65"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Today's Newspaper Total Orders"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -449,17 +497,33 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView63"
+                <LinearLayout
+                    android:id="@+id/purchasesWithDistributorsLinearLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="Your Purchases With Distributors"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/purchasesWithDistributorsImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_recent_actors_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView63"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Your Purchases With Distributors"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -475,17 +539,33 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView59"
+                <LinearLayout
+                    android:id="@+id/paymentReportLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="Invoice Payments Report"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/paymentReportImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_show_chart_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView59"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Invoice Payments Report"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -501,17 +581,33 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView60"
+                <LinearLayout
+                    android:id="@+id/bankInformationLinearLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="Your Bank Information"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/bankInfoImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_account_balance_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView60"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Your Bank Information"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -527,17 +623,33 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView55"
+                <LinearLayout
+                    android:id="@+id/summaryOfInvoicesLinearLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="Summary Of Your Invoices"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/summaryOfInvoicesImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_assessment_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView55"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Summary Of Your Invoices"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -552,17 +664,33 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView61"
+                <LinearLayout
+                    android:id="@+id/manageCustomerGroupsLinearLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="Manage Groups Of Customers"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/manageCustomerGroupsImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_group_work_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView61"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Manage Groups Of Customers"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -577,17 +705,33 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView64"
+                <LinearLayout
+                    android:id="@+id/settingsLinearLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="Settings"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/settingsImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_settings_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView64"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Settings"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
