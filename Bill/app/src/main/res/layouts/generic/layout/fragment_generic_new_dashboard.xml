@@ -288,7 +288,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_playlist_add_black_24dp" />
+                        app:srcCompat="@drawable/ic_people_blue_96dp" />
 
                     <TextView
                         android:id="@+id/textView54"
@@ -336,7 +336,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_playlist_add_black_24dp" />
+                        app:srcCompat="@drawable/ic_swap_vert_blue_96dp" />
 
                     <TextView
                         android:id="@+id/textView58"
