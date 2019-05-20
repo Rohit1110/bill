@@ -60,8 +60,8 @@ public class GenericNewDashboard extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_generic_new_dashboard, container, false);
 
-        CardView createNewInvoiceCardView,pendingInvoicesCardView;
-        LinearLayout viewAllInvoicesLinearLayout, todaysDeliveriesLinearLayout, totalNewspaperOrdersLinearLayout, purchasesWithDistributorsLinearLayout, manageCustomersLinearLayout, summaryOfInvoicesLinearLayout, allTransactionsLinearLayout, paymentReportLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout;
+        CardView createNewInvoiceCardView,pendingInvoicesCardView, manageCustomersCardView, allTransactionsCardView;
+        LinearLayout viewAllInvoicesLinearLayout, todaysDeliveriesLinearLayout, totalNewspaperOrdersLinearLayout, purchasesWithDistributorsLinearLayout, summaryOfInvoicesLinearLayout, paymentReportLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout;
 
         //Create New Invoice Card View interaction
         createNewInvoiceCardView = rootView.findViewById(R.id.createNewInvoiceCardView);
@@ -79,6 +79,25 @@ public class GenericNewDashboard extends Fragment {
             public void onClick(View v) {
                 fragment = FragmentInvoiceSummary.newInstance(user);
                 Utility.nextFragment(getActivity(), fragment);
+            }
+        });
+
+        //Manage Customers Card View interaction
+        manageCustomersCardView = rootView.findViewById(R.id.manageCustomersCardView);
+        manageCustomersCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragment = new CustomerList();
+                Utility.nextFragment(getActivity(), fragment);
+            }
+        });
+
+        //All Transactions Card View interaction
+        allTransactionsCardView = rootView.findViewById(R.id.allTransactionsCardView);
+        allTransactionsCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(Utility.nextIntent(getActivity(), GenericTransactionsActivity.class, true));
             }
         });
 
@@ -120,31 +139,12 @@ public class GenericNewDashboard extends Fragment {
             }
         });
 
-        //Manage Customers view interaction
-        manageCustomersLinearLayout = rootView.findViewById(R.id.manageCustomersLinearLayout);
-        manageCustomersLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fragment = new CustomerList();
-                Utility.nextFragment(getActivity(), fragment);
-            }
-        });
-
         //Summary of Your Invoices view interaction
         summaryOfInvoicesLinearLayout = rootView.findViewById(R.id.summaryOfInvoicesLinearLayout);
         summaryOfInvoicesLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(Utility.nextIntent(getActivity(), BillSummaryActivity.class, true));
-            }
-        });
-
-        //All Transactions view interaction
-        allTransactionsLinearLayout = rootView.findViewById(R.id.allTransactionsLinearLayout);
-        allTransactionsLinearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(Utility.nextIntent(getActivity(), GenericTransactionsActivity.class, true));
             }
         });
 
