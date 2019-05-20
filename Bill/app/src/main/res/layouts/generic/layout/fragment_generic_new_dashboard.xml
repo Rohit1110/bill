@@ -155,7 +155,7 @@
                 android:theme="@style/ActivityTheme"
                 app:cardUseCompatPadding="true"
                 app:contentPadding="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/pendingInvoicesCardView"
                 app:layout_constraintEnd_toStartOf="@+id/pendingInvoicesCardView"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -203,7 +203,6 @@
                 android:theme="@style/ActivityTheme"
                 app:cardUseCompatPadding="true"
                 app:contentPadding="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/createNewInvoiceCardView"
@@ -261,6 +260,103 @@
 
             </android.support.v7.widget.CardView>
 
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/manageCustomersCardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:theme="@style/ActivityTheme"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="8dp"
+                app:layout_constraintEnd_toStartOf="@+id/allTransactionsCardView"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/createNewInvoiceCardView">
+
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_people_blue_96dp" />
+
+                    <TextView
+                        android:id="@+id/textView54"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="Manage Customers"
+                        android:textColor="@color/md_grey_700"
+                        android:textSize="@dimen/list_text_main_text"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.v7.widget.CardView>
+
+
+            <android.support.v7.widget.CardView
+                android:id="@+id/allTransactionsCardView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:theme="@style/ActivityTheme"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/manageCustomersCardView"
+                app:layout_constraintTop_toTopOf="@+id/manageCustomersCardView">
+
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:scaleType="fitCenter"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_swap_vert_blue_96dp" />
+
+                    <TextView
+                        android:id="@+id/textView58"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center"
+                        android:text="All Transactions"
+                        android:textColor="@color/md_grey_700"
+                        android:textSize="@dimen/list_text_main_text"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+                </android.support.constraint.ConstraintLayout>
+
+            </android.support.v7.widget.CardView>
+
         </android.support.constraint.ConstraintLayout>
 
 
@@ -278,17 +374,33 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView66"
+                <LinearLayout
+                    android:id="@+id/viewAllInvoicesLinearLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="View All Invoices"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/allInvoicesImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_receipt_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView66"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="View All Invoices"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -303,17 +415,33 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView62"
+                <LinearLayout
+                    android:id="@+id/todaysDeliveriesLinearLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="Today's Deliveries"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/todaysDeliveriesImagesView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_call_split_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView62"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Today's Deliveries"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -328,17 +456,33 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView65"
+                <LinearLayout
+                    android:id="@+id/totalNewspaperOrdersLinearLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="Today's Newspaper Total Orders"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/totalNewspaperOrdersImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_today_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView65"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Today's Newspaper Total Orders"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -354,74 +498,39 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView63"
+                <LinearLayout
+                    android:id="@+id/purchasesWithDistributorsLinearLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="Purchases With Distributors"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/purchasesWithDistributorsImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_recent_actors_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView63"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Purchases With Distributors"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/md_grey_100" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/manageCustomersLinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView52"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="Manage Customers"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/md_grey_100" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/allTransactionsLinearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@android:color/white"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/textView57"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="All Transactions"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/md_grey_100" />
             </LinearLayout>
 
             <LinearLayout
@@ -431,17 +540,33 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView59"
+                <LinearLayout
+                    android:id="@+id/paymentReportLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="Payments Report"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/paymentReportImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_show_chart_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView59"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Payments Report"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -457,17 +582,33 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView60"
+                <LinearLayout
+                    android:id="@+id/bankInformationLinearLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="Your Bank Information"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/bankInfoImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_account_balance_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView60"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Your Bank Information"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -483,17 +624,33 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView55"
+                <LinearLayout
+                    android:id="@+id/summaryOfInvoicesLinearLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="Summary Of Your Invoices"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/summaryOfInvoicesImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_assessment_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView55"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Summary Of Your Invoices"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -508,17 +665,33 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView61"
+                <LinearLayout
+                    android:id="@+id/manageCustomerGroupsLinearLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="Manage Groups Of Customers"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/manageCustomerGroupsImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_group_work_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView61"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Manage Groups Of Customers"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -533,17 +706,33 @@
                 android:background="@android:color/white"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView64"
+                <LinearLayout
+                    android:id="@+id/settingsLinearLayoutHorz"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="24dp"
-                    android:text="Settings"
-                    android:textColor="@color/md_grey_700"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/settingsImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_settings_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView64"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Settings"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <View
                     android:layout_width="match_parent"
