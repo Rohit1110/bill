@@ -64,7 +64,7 @@ public class GenericNewDashboard extends Fragment {
 
         CardView createNewInvoiceCardView,pendingInvoicesCardView, manageCustomersCardView, allTransactionsCardView;
 
-        LinearLayout viewAllInvoicesLinearLayout, todaysDeliveriesLinearLayout, totalNewspaperOrdersLinearLayout, purchasesWithDistributorsLinearLayout, summaryOfInvoicesLinearLayout, paymentReportLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout, termsLinearLayout;
+        LinearLayout viewAllInvoicesLinearLayout, todaysDeliveriesLinearLayout, totalNewspaperOrdersLinearLayout, purchasesWithDistributorsLinearLayout, summaryOfInvoicesLinearLayout, paymentReportLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout, termsLinearLayout, privacyPolicyLinearLayout;
 
         //Create New Invoice Card View interaction
         createNewInvoiceCardView = rootView.findViewById(R.id.createNewInvoiceCardView);
@@ -196,6 +196,19 @@ public class GenericNewDashboard extends Fragment {
                 Intent termsWebViewIntent = new Intent(getActivity(), HelpActivity.class);
                 // Adding URL string in the intent and starting it
                 termsWebViewIntent.putExtra("URL", "https://payperbill.in/terms.html");
+                startActivity(termsWebViewIntent);
+            }
+        });
+
+        //Terms view interaction
+        privacyPolicyLinearLayout = rootView.findViewById(R.id.privacyPolicyLinearLayout);
+        privacyPolicyLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
+                Intent termsWebViewIntent = new Intent(getActivity(), HelpActivity.class);
+                // Adding URL string in the intent and starting it
+                termsWebViewIntent.putExtra("URL", "https://payperbill.in/privacy.html");
                 startActivity(termsWebViewIntent);
             }
         });

@@ -780,6 +780,47 @@
                     android:layout_height="1dp"
                     android:background="@color/md_grey_100" />
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/privacyPolicyLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/privacyPolicyLinearLayoutHorz"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/privacyPolicyImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_security_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView68"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Privacy Policy"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/md_grey_100" />
+            </LinearLayout>
         </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 
