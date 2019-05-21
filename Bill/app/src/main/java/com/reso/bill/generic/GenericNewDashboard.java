@@ -62,9 +62,9 @@ public class GenericNewDashboard extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_generic_new_dashboard, container, false);
 
-        CardView createNewInvoiceCardView,pendingInvoicesCardView, manageCustomersCardView, allTransactionsCardView;
+        CardView createNewInvoiceCardView, pendingInvoicesCardView, manageCustomersCardView, allTransactionsCardView;
 
-        LinearLayout viewAllInvoicesLinearLayout, todaysDeliveriesLinearLayout, totalNewspaperOrdersLinearLayout, purchasesWithDistributorsLinearLayout, summaryOfInvoicesLinearLayout, paymentReportLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout, termsLinearLayout, privacyPolicyLinearLayout;
+        LinearLayout viewAllInvoicesLinearLayout, todaysDeliveriesLinearLayout, totalNewspaperOrdersLinearLayout, purchasesWithDistributorsLinearLayout, summaryOfInvoicesLinearLayout, paymentReportLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout, termsLinearLayout, privacyPolicyLinearLayout, aboutUsLinearLayout;
 
         //Create New Invoice Card View interaction
         createNewInvoiceCardView = rootView.findViewById(R.id.createNewInvoiceCardView);
@@ -200,7 +200,7 @@ public class GenericNewDashboard extends Fragment {
             }
         });
 
-        //Terms view interaction
+        //Privacy Policy view interaction
         privacyPolicyLinearLayout = rootView.findViewById(R.id.privacyPolicyLinearLayout);
         privacyPolicyLinearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,6 +213,18 @@ public class GenericNewDashboard extends Fragment {
             }
         });
 
+        //About Us view interaction
+        aboutUsLinearLayout = rootView.findViewById(R.id.aboutUsLinearLayout);
+        aboutUsLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
+                Intent termsWebViewIntent = new Intent(getActivity(), HelpActivity.class);
+                // Adding URL string in the intent and starting it
+                termsWebViewIntent.putExtra("URL", "https://payperbill.in/");
+                startActivity(termsWebViewIntent);
+            }
+        });
         // Inflate the layout for this fragment
         return rootView;
     }
