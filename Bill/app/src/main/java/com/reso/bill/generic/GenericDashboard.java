@@ -299,6 +299,7 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.nav_help:
                 Intent helpI = new Intent(GenericDashboard.this, HelpActivity.class);
+                helpI.putExtra("URL", "https://payperbill.in/help/");
                 startActivity(helpI);
                 break;
             case R.id.nav_pending_invoices:
