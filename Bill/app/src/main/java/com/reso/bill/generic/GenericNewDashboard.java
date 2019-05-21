@@ -1,6 +1,7 @@
 package com.reso.bill.generic;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -14,6 +15,7 @@ import com.reso.bill.CustomerList;
 import com.reso.bill.DailySummaryActivity;
 import com.reso.bill.DistributorsActivity;
 import com.reso.bill.FragmentInvoiceSummary;
+import com.reso.bill.HelpActivity;
 import com.reso.bill.HomeFragment;
 import com.reso.bill.R;
 import com.reso.bill.SettingsActivity;
@@ -61,7 +63,8 @@ public class GenericNewDashboard extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_generic_new_dashboard, container, false);
 
         CardView createNewInvoiceCardView,pendingInvoicesCardView, manageCustomersCardView, allTransactionsCardView;
-        LinearLayout viewAllInvoicesLinearLayout, todaysDeliveriesLinearLayout, totalNewspaperOrdersLinearLayout, purchasesWithDistributorsLinearLayout, summaryOfInvoicesLinearLayout, paymentReportLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout;
+
+        LinearLayout viewAllInvoicesLinearLayout, todaysDeliveriesLinearLayout, totalNewspaperOrdersLinearLayout, purchasesWithDistributorsLinearLayout, summaryOfInvoicesLinearLayout, paymentReportLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout, termsLinearLayout;
 
         //Create New Invoice Card View interaction
         createNewInvoiceCardView = rootView.findViewById(R.id.createNewInvoiceCardView);
@@ -181,6 +184,19 @@ public class GenericNewDashboard extends Fragment {
             @Override
             public void onClick(View v) {
                 startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
+            }
+        });
+
+        //Terms view interaction
+        termsLinearLayout = rootView.findViewById(R.id.termsLinearLayout);
+        termsLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
+                Intent termsWebViewIntent = new Intent(getActivity(), HelpActivity.class);
+                // Adding URL string in the intent and starting it
+                termsWebViewIntent.putExtra("URL", "https://payperbill.in/terms.html");
+                startActivity(termsWebViewIntent);
             }
         });
 
