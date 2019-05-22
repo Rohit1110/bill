@@ -174,7 +174,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:srcCompat="@drawable/ic_playlist_add_black_24dp"/>
+                        app:srcCompat="@drawable/ic_playlist_add_black_24dp" />
 
                     <TextView
                         android:id="@+id/textView53"
@@ -188,7 +188,7 @@
                         android:textStyle="bold"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView4"/>
+                        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
                 </android.support.constraint.ConstraintLayout>
 
@@ -394,7 +394,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="@dimen/new_dashboard_list_textView_marginTop"
                         android:layout_marginRight="16dp"
                         android:layout_marginBottom="24dp"
                         android:text="View All Invoices"
@@ -435,7 +435,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="@dimen/new_dashboard_list_textView_marginTop"
                         android:layout_marginRight="16dp"
                         android:layout_marginBottom="24dp"
                         android:text="Today's Deliveries"
@@ -476,7 +476,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="@dimen/new_dashboard_list_textView_marginTop"
                         android:layout_marginRight="16dp"
                         android:layout_marginBottom="24dp"
                         android:text="Today's Newspaper Total Orders"
@@ -518,7 +518,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="@dimen/new_dashboard_list_textView_marginTop"
                         android:layout_marginRight="16dp"
                         android:layout_marginBottom="24dp"
                         android:text="Purchases With Distributors"
@@ -560,7 +560,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="@dimen/new_dashboard_list_textView_marginTop"
                         android:layout_marginRight="16dp"
                         android:layout_marginBottom="24dp"
                         android:text="Payments Report"
@@ -602,7 +602,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="@dimen/new_dashboard_list_textView_marginTop"
                         android:layout_marginRight="16dp"
                         android:layout_marginBottom="24dp"
                         android:text="Your Bank Information"
@@ -644,7 +644,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="@dimen/new_dashboard_list_textView_marginTop"
                         android:layout_marginRight="16dp"
                         android:layout_marginBottom="24dp"
                         android:text="Summary Of Your Invoices"
@@ -685,7 +685,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="@dimen/new_dashboard_list_textView_marginTop"
                         android:layout_marginRight="16dp"
                         android:layout_marginBottom="24dp"
                         android:text="Manage Groups Of Customers"
@@ -726,7 +726,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="@dimen/new_dashboard_list_textView_marginTop"
                         android:layout_marginRight="16dp"
                         android:layout_marginBottom="24dp"
                         android:text="Settings"
@@ -767,7 +767,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="@dimen/new_dashboard_list_textView_marginTop"
                         android:layout_marginRight="16dp"
                         android:layout_marginBottom="24dp"
                         android:text="Terms"
@@ -808,7 +808,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="@dimen/new_dashboard_list_textView_marginTop"
                         android:layout_marginRight="16dp"
                         android:layout_marginBottom="24dp"
                         android:text="Privacy Policy"
@@ -849,10 +849,51 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="@dimen/new_dashboard_list_textView_marginTop"
                         android:layout_marginRight="16dp"
                         android:layout_marginBottom="24dp"
                         android:text="About Us"
+                        android:textColor="@color/md_grey_700"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/md_grey_100" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/helpLinearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/helpLinearLayoutHorz"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/helpImageView"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:srcCompat="@drawable/ic_help_light_grey_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView70"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="@dimen/new_dashboard_list_textView_marginTop"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="24dp"
+                        android:text="Help"
                         android:textColor="@color/md_grey_700"
                         android:textStyle="bold" />
                 </LinearLayout>

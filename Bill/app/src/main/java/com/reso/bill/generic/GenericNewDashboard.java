@@ -64,7 +64,7 @@ public class GenericNewDashboard extends Fragment {
 
         CardView createNewInvoiceCardView, pendingInvoicesCardView, manageCustomersCardView, allTransactionsCardView;
 
-        LinearLayout viewAllInvoicesLinearLayout, todaysDeliveriesLinearLayout, totalNewspaperOrdersLinearLayout, purchasesWithDistributorsLinearLayout, summaryOfInvoicesLinearLayout, paymentReportLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout, termsLinearLayout, privacyPolicyLinearLayout, aboutUsLinearLayout;
+        LinearLayout viewAllInvoicesLinearLayout, todaysDeliveriesLinearLayout, totalNewspaperOrdersLinearLayout, purchasesWithDistributorsLinearLayout, summaryOfInvoicesLinearLayout, paymentReportLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout, termsLinearLayout, privacyPolicyLinearLayout, aboutUsLinearLayout, helpLinearLayout;
 
         //Create New Invoice Card View interaction
         createNewInvoiceCardView = rootView.findViewById(R.id.createNewInvoiceCardView);
@@ -207,11 +207,11 @@ public class GenericNewDashboard extends Fragment {
             @Override
             public void onClick(View v) {
 //                startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
-                Intent termsWebViewIntent = new Intent(getActivity(), HelpActivity.class);
+                Intent privacyPolicyWebViewIntent = new Intent(getActivity(), HelpActivity.class);
                 // Adding URL, title string in the intent and starting it
-                termsWebViewIntent.putExtra("URL", "https://payperbill.in/privacy.html");
-                termsWebViewIntent.putExtra("ACTIVITY_TITLE", "Privacy Policy");
-                startActivity(termsWebViewIntent);
+                privacyPolicyWebViewIntent.putExtra("URL", "https://payperbill.in/privacy.html");
+                privacyPolicyWebViewIntent.putExtra("ACTIVITY_TITLE", "Privacy Policy");
+                startActivity(privacyPolicyWebViewIntent);
             }
         });
 
@@ -221,13 +221,29 @@ public class GenericNewDashboard extends Fragment {
             @Override
             public void onClick(View v) {
 //                startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
-                Intent termsWebViewIntent = new Intent(getActivity(), HelpActivity.class);
+                Intent aboutUsWebViewIntent = new Intent(getActivity(), HelpActivity.class);
                 // Adding URL, title string in the intent and starting it
-                termsWebViewIntent.putExtra("URL", "https://payperbill.in/");
-                termsWebViewIntent.putExtra("ACTIVITY_TITLE", "About Us");
-                startActivity(termsWebViewIntent);
+                aboutUsWebViewIntent.putExtra("URL", "https://payperbill.in/");
+                aboutUsWebViewIntent.putExtra("ACTIVITY_TITLE", "About Us");
+                startActivity(aboutUsWebViewIntent);
             }
         });
+
+        //Help view interaction
+        helpLinearLayout = rootView.findViewById(R.id.helpLinearLayout);
+        helpLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
+                Intent helpWebViewIntent = new Intent(getActivity(), HelpActivity.class);
+                // Adding URL, title string in the intent and starting it
+                helpWebViewIntent.putExtra("URL", "https://payperbill.in/help/");
+                helpWebViewIntent.putExtra("ACTIVITY_TITLE", "Help");
+                startActivity(helpWebViewIntent);
+            }
+        });
+
+
         // Inflate the layout for this fragment
         return rootView;
     }
