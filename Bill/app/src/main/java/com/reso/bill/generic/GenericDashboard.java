@@ -297,10 +297,6 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
 //                fragment = Utility.getHomeFragment(user);
                 fragment = HomeFragment.newInstance(user);
                 break;
-            case R.id.nav_help:
-                Intent helpI = new Intent(GenericDashboard.this, HelpActivity.class);
-                startActivity(helpI);
-                break;
             case R.id.nav_pending_invoices:
                 fragment = FragmentInvoiceSummary.newInstance(user);
                 break;

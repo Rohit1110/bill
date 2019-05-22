@@ -1,6 +1,7 @@
 package com.reso.bill.generic;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
@@ -14,6 +15,7 @@ import com.reso.bill.CustomerList;
 import com.reso.bill.DailySummaryActivity;
 import com.reso.bill.DistributorsActivity;
 import com.reso.bill.FragmentInvoiceSummary;
+import com.reso.bill.HelpActivity;
 import com.reso.bill.HomeFragment;
 import com.reso.bill.R;
 import com.reso.bill.SettingsActivity;
@@ -60,8 +62,9 @@ public class GenericNewDashboard extends Fragment {
 
         View rootView = inflater.inflate(R.layout.fragment_generic_new_dashboard, container, false);
 
-        CardView createNewInvoiceCardView,pendingInvoicesCardView, manageCustomersCardView, allTransactionsCardView;
-        LinearLayout viewAllInvoicesLinearLayout, todaysDeliveriesLinearLayout, totalNewspaperOrdersLinearLayout, purchasesWithDistributorsLinearLayout, summaryOfInvoicesLinearLayout, paymentReportLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout;
+        CardView createNewInvoiceCardView, pendingInvoicesCardView, manageCustomersCardView, allTransactionsCardView;
+
+        LinearLayout viewAllInvoicesLinearLayout, todaysDeliveriesLinearLayout, totalNewspaperOrdersLinearLayout, purchasesWithDistributorsLinearLayout, summaryOfInvoicesLinearLayout, paymentReportLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout, termsLinearLayout, privacyPolicyLinearLayout, aboutUsLinearLayout, helpLinearLayout;
 
         //Create New Invoice Card View interaction
         createNewInvoiceCardView = rootView.findViewById(R.id.createNewInvoiceCardView);
@@ -183,6 +186,63 @@ public class GenericNewDashboard extends Fragment {
                 startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
             }
         });
+
+        //Terms view interaction
+        termsLinearLayout = rootView.findViewById(R.id.termsLinearLayout);
+        termsLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
+                Intent termsWebViewIntent = new Intent(getActivity(), HelpActivity.class);
+                // Adding URL, title string in the intent and starting it
+                termsWebViewIntent.putExtra("URL", "https://payperbill.in/terms.html");
+                termsWebViewIntent.putExtra("ACTIVITY_TITLE", "Terms");
+                startActivity(termsWebViewIntent);
+            }
+        });
+
+        //Privacy Policy view interaction
+        privacyPolicyLinearLayout = rootView.findViewById(R.id.privacyPolicyLinearLayout);
+        privacyPolicyLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
+                Intent privacyPolicyWebViewIntent = new Intent(getActivity(), HelpActivity.class);
+                // Adding URL, title string in the intent and starting it
+                privacyPolicyWebViewIntent.putExtra("URL", "https://payperbill.in/privacy.html");
+                privacyPolicyWebViewIntent.putExtra("ACTIVITY_TITLE", "Privacy Policy");
+                startActivity(privacyPolicyWebViewIntent);
+            }
+        });
+
+        //About Us view interaction
+        aboutUsLinearLayout = rootView.findViewById(R.id.aboutUsLinearLayout);
+        aboutUsLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
+                Intent aboutUsWebViewIntent = new Intent(getActivity(), HelpActivity.class);
+                // Adding URL, title string in the intent and starting it
+                aboutUsWebViewIntent.putExtra("URL", "https://payperbill.in/");
+                aboutUsWebViewIntent.putExtra("ACTIVITY_TITLE", "About Us");
+                startActivity(aboutUsWebViewIntent);
+            }
+        });
+
+        //Help view interaction
+        helpLinearLayout = rootView.findViewById(R.id.helpLinearLayout);
+        helpLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
+                Intent helpWebViewIntent = new Intent(getActivity(), HelpActivity.class);
+                // Adding URL, title string in the intent and starting it
+                helpWebViewIntent.putExtra("URL", "https://payperbill.in/help/");
+                helpWebViewIntent.putExtra("ACTIVITY_TITLE", "Help");
+                startActivity(helpWebViewIntent);
+            }
+        });
+
 
         // Inflate the layout for this fragment
         return rootView;

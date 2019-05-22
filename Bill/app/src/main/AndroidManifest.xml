@@ -96,8 +96,9 @@
         <activity android:name=".SplashScreen" />
         <activity
             android:name=".HelpActivity"
-            android:label="@string/title_activity_help"
-            android:theme="@style/AppTheme" />
+            android:label="WebView"
+            android:parentActivityName=".generic.GenericDashboard"
+            android:theme="@style/ActivityTheme" />
         <activity
             android:name=".TermsNConditionsActivity"
             android:label="@string/title_activity_terms_nconditions"
