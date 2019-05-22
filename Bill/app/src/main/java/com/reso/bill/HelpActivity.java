@@ -9,6 +9,8 @@ import android.webkit.WebView;
 
 import com.reso.bill.components.MyBrowser;
 
+import util.Utility;
+
 public class HelpActivity extends AppCompatActivity {
 
     private WebView webView;
@@ -19,10 +21,10 @@ public class HelpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_help);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        setTitle("Help");
+        if (getSupportActionBar() != null) {
+            Utility.setActionBar("Help", getSupportActionBar());
+        }
 
         Intent intent = getIntent();
         intentUrl = intent.getStringExtra("URL");
