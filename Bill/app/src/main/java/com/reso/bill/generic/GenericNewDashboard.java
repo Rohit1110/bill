@@ -194,8 +194,9 @@ public class GenericNewDashboard extends Fragment {
             public void onClick(View v) {
 //                startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
                 Intent termsWebViewIntent = new Intent(getActivity(), HelpActivity.class);
-                // Adding URL string in the intent and starting it
+                // Adding URL, title string in the intent and starting it
                 termsWebViewIntent.putExtra("URL", "https://payperbill.in/terms.html");
+                termsWebViewIntent.putExtra("ACTIVITY_TITLE", "Terms");
                 startActivity(termsWebViewIntent);
             }
         });
@@ -207,8 +208,9 @@ public class GenericNewDashboard extends Fragment {
             public void onClick(View v) {
 //                startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
                 Intent termsWebViewIntent = new Intent(getActivity(), HelpActivity.class);
-                // Adding URL string in the intent and starting it
+                // Adding URL, title string in the intent and starting it
                 termsWebViewIntent.putExtra("URL", "https://payperbill.in/privacy.html");
+                termsWebViewIntent.putExtra("ACTIVITY_TITLE", "Privacy Policy");
                 startActivity(termsWebViewIntent);
             }
         });
@@ -220,8 +222,9 @@ public class GenericNewDashboard extends Fragment {
             public void onClick(View v) {
 //                startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
                 Intent termsWebViewIntent = new Intent(getActivity(), HelpActivity.class);
-                // Adding URL string in the intent and starting it
+                // Adding URL, title string in the intent and starting it
                 termsWebViewIntent.putExtra("URL", "https://payperbill.in/");
+                termsWebViewIntent.putExtra("ACTIVITY_TITLE", "About Us");
                 startActivity(termsWebViewIntent);
             }
         });
