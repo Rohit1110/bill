@@ -24,12 +24,11 @@ import android.widget.Toast;
 
 import com.reso.bill.AddBusinessLogo;
 import com.reso.bill.CustomerList;
-import com.reso.bill.DistributorsActivity;
 import com.reso.bill.FragmentInvoiceSummary;
-import com.reso.bill.HelpActivity;
 import com.reso.bill.HomeFragment;
 import com.reso.bill.LoginActivity;
 import com.reso.bill.R;
+import com.rns.web.billapp.service.bo.domain.BillPaymentSummary;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.util.BillConstants;
 import com.squareup.picasso.Picasso;
@@ -57,6 +56,7 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
     private Toolbar toolbar;
     private DrawerLayout drawer;
     private boolean drawerChanged = true;
+    private BillPaymentSummary summary;
     //private List<Class<?>> fragments = new ArrayList<Class<?>>();
 
     /*public BottomNavigationView getBottomNavigationView() {
@@ -104,6 +104,8 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
         drawer = (DrawerLayout) findViewById(R.id.drawertest_layout);
 
         user = (BillUser) Utility.readObject(GenericDashboard.this, Utility.USER_KEY);
+
+        summary = (BillPaymentSummary) Utility.readFromSharedPref(this, Utility.SUMMARY_KEY, BillPaymentSummary.class);
 
         if (!BillConstants.FRAMEWORK_RECURRING.equals(Utility.getFramework(user))) {
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -231,7 +233,7 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
 
         if (fragment == null) {
             //bottomNavigationView.setSelectedItemId(R.id.action_item1);
-            fragment = Utility.getHomeFragment(user);
+            fragment = Utility.getHomeFragment(user, summary);
             Utility.nextFragment(GenericDashboard.this, fragment);
         } else if (getSupportFragmentManager().getFragments() == null || getSupportFragmentManager().getFragments().size() == 0) {
             Utility.nextFragment(GenericDashboard.this, fragment);
@@ -277,7 +279,7 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
             case R.id.nav_dashboard:
                 //Toast.makeText(Dashboard.this, "Click", Toast.LENGTH_LONG).show();
 //                fragment = new GenericNewDashboard();
-                fragment = Utility.getHomeFragment(user);
+                fragment = Utility.getHomeFragment(user, summary);
                 break;
             case R.id.nav_myorder:
                 //Toast.makeText(Dashboard.this, "Click", Toast.LENGTH_LONG).show();

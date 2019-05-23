@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 
 public class BillPaymentSummary {
 
+    private Long totalCustomers;
     private BigDecimal totalPaid;
     private BigDecimal totalGenerated;
     private Long totalInvoices;
@@ -21,6 +22,11 @@ public class BillPaymentSummary {
     private Long offlineInvoices;
     private BigDecimal offlinePaid;
     private BigDecimal totalProfit;
+    private String timeSaved;
+    private String moneySaved;
+    private String totalCollection;
+    private String monthlyCollection;
+    private String pendingTotal;
 
     public BigDecimal getTotalPaid() {
         return totalPaid;
@@ -124,5 +130,53 @@ public class BillPaymentSummary {
 
     public void setTotalProfit(BigDecimal totalProfit) {
         this.totalProfit = totalProfit;
+    }
+
+    public String getMonthlyCollection() {
+        return monthlyCollection;
+    }
+
+    public void setMonthlyCollection(String monthlyCollection) {
+        this.monthlyCollection = monthlyCollection;
+    }
+
+    public String getTotalCollection() {
+        return totalCollection;
+    }
+
+    public String getMoneySaved() {
+        return moneySaved;
+    }
+
+    public void setMoneySaved(String moneySaved) {
+        this.moneySaved = moneySaved;
+    }
+
+    public String getTimeSaved() {
+        return timeSaved;
+    }
+
+    public void setTimeSaved(String timeSaved) {
+        this.timeSaved = timeSaved;
+    }
+
+    public void setTotalCollection(String totalCollection) {
+        this.totalCollection = totalCollection;
+    }
+
+    public String getPendingTotal() {
+        return pendingTotal;
+    }
+
+    public void setPendingTotal(String pendingTotal) {
+        this.pendingTotal = pendingTotal;
+    }
+
+    public Long getTotalCustomers() {
+        return totalCustomers;
+    }
+
+    public void setTotalCustomers(Long totalCustomers) {
+        this.totalCustomers = totalCustomers;
     }
 }

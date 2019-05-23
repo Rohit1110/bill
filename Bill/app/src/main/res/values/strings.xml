@@ -17,6 +17,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_dashboard">Dashboard</string>
     <color name="colorbackground">@color/bgcolor</color>
+    <string name="rupee">\u20B9</string>
 
     <string-array name="country_arrays">
         <item>2018</item>

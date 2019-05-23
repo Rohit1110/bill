@@ -47,12 +47,12 @@ import com.flurry.android.FlurryAgent;
 import com.reso.bill.R;
 import com.reso.bill.components.InputStreamVolleyRequest;
 import com.reso.bill.generic.GenericDashboard;
-import com.reso.bill.generic.GenericInvoices;
 import com.reso.bill.generic.GenericNewDashboard;
 import com.rns.web.billapp.service.bo.domain.BillBusiness;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillItem;
 import com.rns.web.billapp.service.bo.domain.BillLocation;
+import com.rns.web.billapp.service.bo.domain.BillPaymentSummary;
 import com.rns.web.billapp.service.bo.domain.BillSector;
 import com.rns.web.billapp.service.bo.domain.BillUser;
 import com.rns.web.billapp.service.util.BillConstants;
@@ -101,6 +101,7 @@ public class Utility {
     public static final int MY_PERMISSIONS_WRITE_STORAGE = 4;
     public static final int MY_PERMISSIONS_BLUETOOTH = 5;
     public static final String PREF_NAME = "PayPerBill";
+    public static final String SUMMARY_KEY = "Summary";
     private static int selectedElement = 0;
     public static int LIST_OPT_DELETE = 0;
     public static String[] LIST_OPTIONS = {"Delete"};
@@ -656,12 +657,12 @@ public class Utility {
         //return (Dashboard) activity;
     }
 
-    public static Fragment getHomeFragment(BillUser user) {
-        if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
+    public static Fragment getHomeFragment(BillUser user, BillPaymentSummary summary) {
+        /*if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
             return GenericInvoices.newInstance();
-        }
+        }*/
 //        return HomeFragment.newInstance(user);
-        return GenericNewDashboard.newInstance(user);
+        return GenericNewDashboard.newInstance(user, summary);
     }
 
     public static String getDecimalText(BigDecimal decimal) {
