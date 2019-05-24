@@ -34,10 +34,10 @@
 
             android:title="Pending Invoices"/>
 
-        <item
+       <!-- <item
             android:id="@+id/nav_quick_bill"
 
-            android:title="View All Invoices"/>
+            android:title="View All Invoices"/>-->
         <!--android:icon="@mipmap/inbox"-->
         <!--<item
             android:id="@+id/nav_activity"

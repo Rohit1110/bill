@@ -14,7 +14,6 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -108,9 +107,9 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
         summary = (BillPaymentSummary) Utility.readFromSharedPref(this, Utility.SUMMARY_KEY, BillPaymentSummary.class);
 
         if (!BillConstants.FRAMEWORK_RECURRING.equals(Utility.getFramework(user))) {
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            Menu nav_Menu = navigationView.getMenu();
-            nav_Menu.findItem(R.id.nav_quick_bill).setVisible(false);
+            //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            //Menu nav_Menu = navigationView.getMenu();
+            //nav_Menu.findItem(R.id.nav_quick_bill).setVisible(false);
         }
 
         //initFragments();
@@ -302,9 +301,9 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
             case R.id.nav_pending_invoices:
                 fragment = FragmentInvoiceSummary.newInstance(user);
                 break;
-            case R.id.nav_quick_bill:
+            /*case R.id.nav_quick_bill:
                 fragment = GenericInvoices.newInstance();
-                break;
+                break;*/
             case R.id.nav_logout:
                 new AlertDialog.Builder(GenericDashboard.this).setTitle("Logout?").setMessage("Do you really want to logout?")
 //                        .setIcon(android.R.drawable.ic_dialog_alert)

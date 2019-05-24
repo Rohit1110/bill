@@ -11,6 +11,10 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.reso.bill.BillSummaryActivity;
 import com.reso.bill.CustomerList;
 import com.reso.bill.DailySummaryActivity;
@@ -21,10 +25,15 @@ import com.reso.bill.HomeFragment;
 import com.reso.bill.ManageNewspapersActivity;
 import com.reso.bill.R;
 import com.reso.bill.SettingsActivity;
+import com.rns.web.billapp.service.bo.domain.BillBusiness;
 import com.rns.web.billapp.service.bo.domain.BillPaymentSummary;
 import com.rns.web.billapp.service.bo.domain.BillUser;
+import com.rns.web.billapp.service.domain.BillServiceRequest;
+import com.rns.web.billapp.service.domain.BillServiceResponse;
 import com.rns.web.billapp.service.util.BillConstants;
 
+import util.FirebaseUtil;
+import util.ServiceUtil;
 import util.Utility;
 
 /**
@@ -38,6 +47,8 @@ public class GenericNewDashboard extends Fragment {
     private static Fragment fragment = null;
     private BillPaymentSummary summary;
     private TextView timeSaved, moneySaved, totalRevenue, monthlyRevenue, pendingBills, pendingBillAmount, monthlyCollection;
+    private TextView noOfCustomersNumTextView, monthlyCollectionAmtTextView;
+
 
     public GenericNewDashboard() {
         // Required empty public constructor
@@ -260,7 +271,6 @@ public class GenericNewDashboard extends Fragment {
 
         TextView productsTitle = rootView.findViewById(R.id.productCatalogueTextView);
 
-        TextView noOfCustomersNumTextView,monthlyCollectionAmtTextView;
 
         if (!BillConstants.FRAMEWORK_RECURRING.equals(Utility.getFramework(user))) {
             totalNewspaperOrdersLinearLayout.setVisibility(View.GONE);
@@ -285,6 +295,13 @@ public class GenericNewDashboard extends Fragment {
 
         noOfCustomersNumTextView = rootView.findViewById(R.id.noOfCustomersNumTextView);
 
+        setValues();
+
+        // Inflate the layout for this fragment
+        return rootView;
+    }
+
+    private void setValues() {
         if (summary != null) {
             timeSaved.setText(summary.getTimeSaved());
             moneySaved.setText(getActivity().getString(R.string.rupee) + summary.getMoneySaved());
@@ -296,9 +313,45 @@ public class GenericNewDashboard extends Fragment {
             monthlyCollectionAmtTextView.setText(getActivity().getString(R.string.rupee) + summary.getMonthlyCollection());
             noOfCustomersNumTextView.setText(String.valueOf(summary.getTotalCustomers()));
         }
+    }
 
-        // Inflate the layout for this fragment
-        return rootView;
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadProfile();
+
+    }
+
+    void loadProfile() {
+
+        //pDialog = Utility.getProgressDialogue("Loading Profile", MainActivity.this);
+        BillServiceRequest request = new BillServiceRequest();
+        BillUser requestUser = new BillUser();
+        requestUser.setDeviceId(FirebaseUtil.getToken());
+        requestUser.setPhone(user.getPhone());
+        BillBusiness currBusiness = new BillBusiness();
+        currBusiness.setId(user.getCurrentBusiness().getId());
+        request.setBusiness(currBusiness);
+        request.setRequestType("DASHBOARD");
+        request.setUser(requestUser);
+        StringRequest myReq = ServiceUtil.getStringRequest("loadProfile", createMyReqSuccessListener(), ServiceUtil.createMyReqErrorListener(null, getActivity()), request);
+        RequestQueue queue = Volley.newRequestQueue(getActivity());
+        queue.add(myReq);
+    }
+
+    private Response.Listener<String> createMyReqSuccessListener() {
+        return new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                System.out.println("## response:" + response);
+//                pDialog.dismiss();
+                BillServiceResponse serviceResponse = (BillServiceResponse) ServiceUtil.fromJson(response, BillServiceResponse.class);
+                if (serviceResponse != null && serviceResponse.getStatus() == 200 && serviceResponse.getDashboard() != null) {
+                    summary = serviceResponse.getDashboard();
+                    setValues();
+                }
+            }
+        };
     }
 
     // TODO: Rename method, update argument and hook method into UI event

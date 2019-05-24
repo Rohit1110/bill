@@ -87,7 +87,7 @@
         app:layout_constraintWidth_percent="0.15" />
 
     <ImageView
-        android:id="@+id/img_gn_delete_inv_item"
+        android:id="@+id/img_delete_inv_item"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_centerVertical="true"

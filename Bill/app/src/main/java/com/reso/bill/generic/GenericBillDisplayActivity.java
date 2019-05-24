@@ -21,7 +21,6 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.reso.bill.EditInvoiceActivity;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -112,16 +111,16 @@ public class GenericBillDisplayActivity extends AppCompatActivity {
                 //startActivity(Utility.nextIntent(this, GenericCreateBillActivity.class, true, customer, Utility.CUSTOMER_KEY));
                 boolean isQuickBill = getIntent().getBooleanExtra(Utility.INTENT_QUICK_BILL, false);
 
-                if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user)) || (isQuickBill)) {
-                    customer.setCurrentInvoice(invoice);
+               /* if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user)) || (isQuickBill)) {*/
+                customer.setCurrentInvoice(invoice);
                     //Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(customer));
-                    startActivity(Utility.nextIntent(this, GenericCreateBillActivity.class, true, customer, Utility.CUSTOMER_KEY));
-                } else {
+                startActivity(Utility.nextIntent(this, GenericCreateEditInvoiceActivity.class, true, customer, Utility.CUSTOMER_KEY));
+                /*} else {
                     //Utility.nextFragment((FragmentActivity) activity, FragmentEditInvoice.newInstance(customer, invoice));
                     Intent intent = Utility.nextIntent(this, EditInvoiceActivity.class, true, invoice, Utility.INVOICE_KEY);
                     intent.putExtra(Utility.CUSTOMER_KEY, ServiceUtil.toJson(customer));
                     startActivity(intent);
-                }
+                }*/
 
                 return true;
         }

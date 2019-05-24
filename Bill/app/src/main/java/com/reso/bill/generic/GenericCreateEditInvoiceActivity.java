@@ -20,6 +20,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -95,6 +96,7 @@ public class GenericCreateEditInvoiceActivity extends AppCompatActivity {
     private Button moreDetails;
     private TextInputLayout pendingAmountLayout;
     private TextInputLayout creditAmountLayout;
+    private List<BillItem> backupItems = new ArrayList<>();
 
 
     @Override
@@ -106,7 +108,7 @@ public class GenericCreateEditInvoiceActivity extends AppCompatActivity {
             Utility.setActionBar("Create New Invoice", getSupportActionBar());
         }
 
-
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         // Invoice Month and Year Spinner Setup
         month = findViewById(R.id.monthSpinner);
         monthsArray = getResources().getStringArray(R.array.months_arrays);
@@ -515,21 +517,23 @@ public class GenericCreateEditInvoiceActivity extends AppCompatActivity {
         if (invoice.getInvoiceItems() == null || invoice.getInvoiceItems().size() == 0) {
             invoice.setInvoiceItems(invoiceItems);
         } else {
-            List<BillItem> deletedItems = new ArrayList<>();
-            for (BillItem old : invoice.getInvoiceItems()) {
-                boolean found = false;
-                for (BillItem newItem : invoiceItems) {
-                    if (newItem.getId() != null && old.getId() == newItem.getId()) {
-                        found = true;
-                        break;
+            if (backupItems != null && backupItems.size() > 0) {
+                List<BillItem> deletedItems = new ArrayList<>();
+                for (BillItem old : backupItems) {
+                    boolean found = false;
+                    for (BillItem newItem : invoiceItems) {
+                        if (newItem.getId() != null && old.getId() == newItem.getId()) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        old.setStatus(BillConstants.STATUS_DELETED);
+                        deletedItems.add(old);
                     }
                 }
-                if (!found) {
-                    old.setStatus(BillConstants.STATUS_DELETED);
-                    deletedItems.add(old);
-                }
+                invoiceItems.addAll(deletedItems);
             }
-            invoiceItems.addAll(deletedItems);
             invoice.setInvoiceItems(invoiceItems);
         }
         request.setInvoice(invoice);
@@ -779,7 +783,7 @@ public class GenericCreateEditInvoiceActivity extends AppCompatActivity {
             customerEmail.setText(user.getEmail());
             customerPhone.setText(user.getPhone());
             customerPhone.setEnabled(false);
-            if (user.getServiceCharge() != null) {
+            if (user.getServiceCharge() != null && (invoice == null || invoice.getId() == null)) {
                 serviceCharge.setText(Utility.getDecimalString(user.getServiceCharge()));
             }
             address.setText(user.getAddress());
@@ -810,6 +814,7 @@ public class GenericCreateEditInvoiceActivity extends AppCompatActivity {
 
             if (inv.getInvoiceItems() != null) {
                 invoiceItems = inv.getInvoiceItems();
+                copyAllItems(inv); //Backup for delete
                 prepareInvoiceItems();
             }
 
@@ -892,5 +897,21 @@ public class GenericCreateEditInvoiceActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+
+    private void copyAllItems(BillInvoice inv) {
+        if (inv.getInvoiceItems() != null && inv.getInvoiceItems().size() > 0) {
+            for (BillItem item : inv.getInvoiceItems()) {
+                try {
+                    backupItems.add((BillItem) item.clone());
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                    System.out.println("Cloning failed ..");
+                }
+            }
+
+        }
+
+
     }
 }
