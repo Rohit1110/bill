@@ -37,14 +37,7 @@ public class GenericNewDashboard extends Fragment {
     private BillUser user;
     private static Fragment fragment = null;
     private BillPaymentSummary summary;
-    private TextView timeSaved;
-    private TextView moneySaved;
-    private TextView totalRevenue;
-    private TextView monthlyRevenue;
-    private TextView pendingBills;
-    private TextView pendingBillAmount;
-    private TextView monthlyCollection;
-    private TextView noOfCustomers;
+    private TextView timeSaved, moneySaved, totalRevenue, monthlyRevenue, pendingBills, pendingBillAmount, monthlyCollection;
 
     public GenericNewDashboard() {
         // Required empty public constructor
@@ -267,6 +260,8 @@ public class GenericNewDashboard extends Fragment {
 
         TextView productsTitle = rootView.findViewById(R.id.productCatalogueTextView);
 
+        TextView noOfCustomersNumTextView,monthlyCollectionAmtTextView;
+
         if (!BillConstants.FRAMEWORK_RECURRING.equals(Utility.getFramework(user))) {
             totalNewspaperOrdersLinearLayout.setVisibility(View.GONE);
             purchasesWithDistributorsLinearLayout.setVisibility(View.GONE);
@@ -285,19 +280,21 @@ public class GenericNewDashboard extends Fragment {
         totalRevenue = rootView.findViewById(R.id.txtTotalRevenue);
         pendingBills = rootView.findViewById(R.id.pendingBillsTextView);
         pendingBillAmount = rootView.findViewById(R.id.pendingBillsAmtTextView);
-        monthlyCollection = rootView.findViewById(R.id.monthlyCollection);
-        noOfCustomers = rootView.findViewById(R.id.noOfCustomersTextView);
+        monthlyCollectionAmtTextView = rootView.findViewById(R.id.monthlyCollectionAmtTextView);
+
+
+        noOfCustomersNumTextView = rootView.findViewById(R.id.noOfCustomersNumTextView);
 
         if (summary != null) {
             timeSaved.setText(summary.getTimeSaved());
-            moneySaved.setText(summary.getMoneySaved());
-            totalRevenue.setText(summary.getTotalCollection());
+            moneySaved.setText(getActivity().getString(R.string.rupee) + summary.getMoneySaved());
+            totalRevenue.setText(getActivity().getString(R.string.rupee) + summary.getTotalCollection());
             if (summary.getPendingInvoices() != null) {
-                pendingBills.setText(summary.getPendingInvoices().toString() + " pending invoices");
+                pendingBills.setText(summary.getPendingInvoices().toString() + " Pending Invoices");
             }
             pendingBillAmount.setText(getActivity().getString(R.string.rupee) + summary.getPendingTotal());
-            monthlyCollection.setText(getActivity().getString(R.string.rupee) + summary.getMonthlyCollection() + " this month");
-            noOfCustomers.setText(summary.getTotalCustomers() + " customers");
+            monthlyCollectionAmtTextView.setText(getActivity().getString(R.string.rupee) + summary.getMonthlyCollection());
+            noOfCustomersNumTextView.setText(String.valueOf(summary.getTotalCustomers()));
         }
 
         // Inflate the layout for this fragment
