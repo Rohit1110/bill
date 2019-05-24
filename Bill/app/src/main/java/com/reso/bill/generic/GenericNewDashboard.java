@@ -290,7 +290,7 @@ public class GenericNewDashboard extends Fragment {
             moneySaved.setText(summary.getMoneySaved());
             totalRevenue.setText(summary.getTotalCollection());
             if (summary.getPendingInvoices() != null) {
-                pendingBills.setText(summary.getPendingInvoices().toString() + " pending invoices");
+                pendingBills.setText(summary.getPendingInvoices().toString() + " Pending Invoices");
             }
             pendingBillAmount.setText(getActivity().getString(R.string.rupee) + summary.getPendingTotal());
             monthlyCollectionAmtTextView.setText(getActivity().getString(R.string.rupee) + summary.getMonthlyCollection());

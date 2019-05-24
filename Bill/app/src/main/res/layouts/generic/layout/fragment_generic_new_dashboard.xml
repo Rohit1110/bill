@@ -170,7 +170,10 @@
                         android:id="@+id/imageView4"
                         android:layout_width="wrap_content"
                         android:layout_height="48dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
                         android:scaleType="fitCenter"
+                        app:layout_constraintBottom_toTopOf="@+id/textView53"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -180,15 +183,15 @@
                         android:id="@+id/textView53"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
                         android:gravity="center"
                         android:text="Create New Invoice"
                         android:textColor="@color/md_grey_700"
                         android:textSize="@dimen/list_text_main_text"
                         android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+                        app:layout_constraintStart_toStartOf="parent" />
 
                 </android.support.constraint.ConstraintLayout>
 
@@ -227,6 +230,7 @@
                         android:textColor="@color/md_red_500"
                         android:textSize="24sp"
                         android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/textView49"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -235,27 +239,27 @@
                         android:id="@+id/textView49"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
                         android:gravity="center"
                         android:text="Pending"
-                        android:textColor="@color/md_grey_700"
-                        android:textSize="@dimen/list_text_main_text"
-                        android:textStyle="bold"
+                        android:textColor="@color/md_grey_500"
+                        app:layout_constraintBottom_toTopOf="@+id/pendingBillsTextView"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/pendingBillsAmtTextView" />
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <TextView
                         android:id="@+id/pendingBillsTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
                         android:gravity="center"
-                        android:text="0 pending invoices"
-                        android:textColor="@color/md_red_300"
+                        android:text="0 Pending Invoices"
+                        android:textColor="@color/md_grey_700"
+                        android:textSize="@dimen/list_text_main_text"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView49" />
+                        app:layout_constraintStart_toStartOf="parent" />
                 </android.support.constraint.ConstraintLayout>
 
             </android.support.v7.widget.CardView>
