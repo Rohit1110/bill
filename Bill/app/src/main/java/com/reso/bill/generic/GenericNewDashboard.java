@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.reso.bill.BillSummaryActivity;
 import com.reso.bill.CustomerList;
@@ -17,9 +18,12 @@ import com.reso.bill.DistributorsActivity;
 import com.reso.bill.FragmentInvoiceSummary;
 import com.reso.bill.HelpActivity;
 import com.reso.bill.HomeFragment;
+import com.reso.bill.ManageNewspapersActivity;
 import com.reso.bill.R;
 import com.reso.bill.SettingsActivity;
+import com.rns.web.billapp.service.bo.domain.BillPaymentSummary;
 import com.rns.web.billapp.service.bo.domain.BillUser;
+import com.rns.web.billapp.service.util.BillConstants;
 
 import util.Utility;
 
@@ -32,7 +36,15 @@ public class GenericNewDashboard extends Fragment {
 
     private BillUser user;
     private static Fragment fragment = null;
-
+    private BillPaymentSummary summary;
+    private TextView timeSaved;
+    private TextView moneySaved;
+    private TextView totalRevenue;
+    private TextView monthlyRevenue;
+    private TextView pendingBills;
+    private TextView pendingBillAmount;
+    private TextView monthlyCollection;
+    private TextView noOfCustomers;
 
     public GenericNewDashboard() {
         // Required empty public constructor
@@ -43,9 +55,10 @@ public class GenericNewDashboard extends Fragment {
      * this fragment using the provided parameter.
      */
     // TODO: Rename and change types and number of parameters
-    public static GenericNewDashboard newInstance(BillUser user) {
+    public static GenericNewDashboard newInstance(BillUser user, BillPaymentSummary summary) {
         GenericNewDashboard fragment = new GenericNewDashboard();
         fragment.user = user;
+        fragment.summary = summary;
         return fragment;
     }
 
@@ -56,15 +69,14 @@ public class GenericNewDashboard extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Utility.AppBarTitle("Dashboard", getActivity());
 
         View rootView = inflater.inflate(R.layout.fragment_generic_new_dashboard, container, false);
 
         CardView createNewInvoiceCardView, pendingInvoicesCardView, manageCustomersCardView, allTransactionsCardView;
 
-        LinearLayout viewAllInvoicesLinearLayout, todaysDeliveriesLinearLayout, totalNewspaperOrdersLinearLayout, purchasesWithDistributorsLinearLayout, summaryOfInvoicesLinearLayout, paymentReportLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout, termsLinearLayout, privacyPolicyLinearLayout, aboutUsLinearLayout, helpLinearLayout;
+        LinearLayout viewAllInvoicesLinearLayout, todaysDeliveriesLinearLayout, totalNewspaperOrdersLinearLayout, purchasesWithDistributorsLinearLayout, summaryOfInvoicesLinearLayout, paymentReportLayout, bankInformationLinearLayout, manageCustomerGroupsLinearLayout, settingsLinearLayout, termsLinearLayout, privacyPolicyLinearLayout, aboutUsLinearLayout, helpLinearLayout, productsLayout;
 
         //Create New Invoice Card View interaction
         createNewInvoiceCardView = rootView.findViewById(R.id.createNewInvoiceCardView);
@@ -141,6 +153,7 @@ public class GenericNewDashboard extends Fragment {
                 startActivity(Utility.nextIntent(getActivity(), DistributorsActivity.class, true));
             }
         });
+
 
         //Summary of Your Invoices view interaction
         summaryOfInvoicesLinearLayout = rootView.findViewById(R.id.summaryOfInvoicesLinearLayout);
@@ -243,6 +256,49 @@ public class GenericNewDashboard extends Fragment {
             }
         });
 
+        //Products/ My newspapers layout
+        productsLayout = rootView.findViewById(R.id.productCatalogueLayout);
+        productsLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(Utility.nextIntent(getActivity(), ManageNewspapersActivity.class, true));
+            }
+        });
+
+        TextView productsTitle = rootView.findViewById(R.id.productCatalogueTextView);
+
+        if (!BillConstants.FRAMEWORK_RECURRING.equals(Utility.getFramework(user))) {
+            totalNewspaperOrdersLinearLayout.setVisibility(View.GONE);
+            purchasesWithDistributorsLinearLayout.setVisibility(View.GONE);
+            todaysDeliveriesLinearLayout.setVisibility(View.GONE);
+            settingsLinearLayout.setVisibility(View.GONE);
+            summaryOfInvoicesLinearLayout.setVisibility(View.GONE);
+        }
+        if (Utility.isNewspaper(user)) {
+            productsTitle.setText("Manage Newspapers");
+        }
+
+        viewAllInvoicesLinearLayout.setVisibility(View.GONE);
+
+        timeSaved = rootView.findViewById(R.id.txtTimeSaved);
+        moneySaved = rootView.findViewById(R.id.txtMoneySaved);
+        totalRevenue = rootView.findViewById(R.id.txtTotalRevenue);
+        pendingBills = rootView.findViewById(R.id.pendingBillsTextView);
+        pendingBillAmount = rootView.findViewById(R.id.pendingBillsAmtTextView);
+        monthlyCollection = rootView.findViewById(R.id.monthlyCollection);
+        noOfCustomers = rootView.findViewById(R.id.noOfCustomersTextView);
+
+        if (summary != null) {
+            timeSaved.setText(summary.getTimeSaved());
+            moneySaved.setText(summary.getMoneySaved());
+            totalRevenue.setText(summary.getTotalCollection());
+            if (summary.getPendingInvoices() != null) {
+                pendingBills.setText(summary.getPendingInvoices().toString() + " pending invoices");
+            }
+            pendingBillAmount.setText(getActivity().getString(R.string.rupee) + summary.getPendingTotal());
+            monthlyCollection.setText(getActivity().getString(R.string.rupee) + summary.getMonthlyCollection() + " this month");
+            noOfCustomers.setText(summary.getTotalCustomers() + " customers");
+        }
 
         // Inflate the layout for this fragment
         return rootView;

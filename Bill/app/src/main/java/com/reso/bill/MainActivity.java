@@ -137,6 +137,9 @@ public class MainActivity extends AppCompatActivity {
                             });*/
 
                     Utility.writeObject(MainActivity.this, Utility.USER_KEY, user);
+                    if(serviceResponse.getDashboard() != null) {
+                        Utility.writeObject(MainActivity.this, Utility.SUMMARY_KEY, serviceResponse.getDashboard());
+                    }
                     if (serviceResponse.getWarningCode() != null) {
 //                        //Utility.createAlert(MainActivity.this, serviceResponse.getWarningText(), "Warning");
 //                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(MainActivity.this);
