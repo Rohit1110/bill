@@ -287,8 +287,8 @@ public class GenericNewDashboard extends Fragment {
 
         if (summary != null) {
             timeSaved.setText(summary.getTimeSaved());
-            moneySaved.setText(summary.getMoneySaved());
-            totalRevenue.setText(summary.getTotalCollection());
+            moneySaved.setText(getActivity().getString(R.string.rupee) + summary.getMoneySaved());
+            totalRevenue.setText(getActivity().getString(R.string.rupee) + summary.getTotalCollection());
             if (summary.getPendingInvoices() != null) {
                 pendingBills.setText(summary.getPendingInvoices().toString() + " Pending Invoices");
             }
