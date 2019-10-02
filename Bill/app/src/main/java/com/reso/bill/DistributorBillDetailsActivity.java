@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -75,6 +76,9 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
     private TextView btnShowOptions;
     private TextView purchaseTotal;
     private TextView returnTotal;
+    private TextInputLayout phoneNumberLayout;
+    private EditText phoneNumber;
+
 
     int REQUEST_ENABLE_BT = 4, REQUEST_CONNECT_DEVICE = 6;
 
@@ -169,6 +173,9 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
         purchaseTotal = findViewById(R.id.txt_purchase_total);
         returnTotal = findViewById(R.id.txt_return_total);
 
+        phoneNumberLayout = findViewById(R.id.purchasePhoneNumber);
+        phoneNumber = findViewById(R.id.et_purchase_phone);
+
         /*totalBillAmount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -189,6 +196,19 @@ public class DistributorBillDetailsActivity extends AppCompatActivity {
                 showCommentDialog();
             }
         });*/
+
+        if (Utility.isDistributor(user)) {
+            /*if(selectedUser == null) {
+                if(TextUtils.isEmpty(selectedUser.getPhone())) {
+                    phoneNumber.setEnabled(true);
+                } else {
+                    phoneNumber.setEnabled(false);
+                }
+                phoneNumberLayout.setVisibility(View.VISIBLE);
+            } else {
+                phoneNumberLayout.setVisibility(View.GONE);
+            }*/
+        }
 
     }
 

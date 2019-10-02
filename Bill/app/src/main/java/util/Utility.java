@@ -115,6 +115,8 @@ public class Utility {
     public static final int MENU_ITEM_EXPORT = 3;
     public static final int MENU_ITEM_PRINT = 5;
 
+    public static final int LIST_MAX_SCROLL = 50;
+
     public static void createAlert(Context context, String message, String title) {
 
         try {

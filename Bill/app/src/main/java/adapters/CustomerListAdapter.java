@@ -24,11 +24,13 @@ import model.Listone;
 package adapters;
 
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.TextView;
 
 import com.reso.bill.R;
@@ -136,10 +138,114 @@ public class CustomerListAdapter extends RecyclerView.Adapter<CustomerListAdapte
         notifyDataSetChanged();
     }
 
-    public void updateCustomerList(List<BillCustomer> customers) {
-        //setUsers(customers);
+    public void updateCustomerList(final List<BillCustomer> customers) {
+        //setUsers(newList);
+
+        DiffUtil.DiffResult result = DiffUtil.calculateDiff(new CustomerCallback(customers, list));
+
+        //result.
+        result.dispatchUpdatesTo(this);
+
         this.list = customers;
-        notifyDataSetChanged();
+        //notifyDataSetChanged();
     }
+
+    public Filter getFilter(final List<BillCustomer> mainList) {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence text) {
+                List<BillCustomer> filtered = new ArrayList<>();
+                if (TextUtils.isEmpty(text)) {
+                    if (list.size() == mainList.size()) {
+                        return null;
+                    }
+                    filtered = mainList;
+                } else {
+                    // Iterate in the original List and add it to filter list...
+                    for (BillCustomer item : list) {
+                        if (item.getUser() == null) {
+                            continue;
+                        }
+                        System.out.println("Comparing " + item.getUser().getName() + " with " + text);
+                        if (item.getUser().getName() != null && item.getUser().getName().toLowerCase().contains(text.toString().toLowerCase()) /*|| comparePhone(item, text)*/) {
+                            // Adding Matched items
+                            filtered.add(item);
+                        } else if (item.getUser().getPhone() != null && item.getUser().getPhone().toLowerCase().contains(text.toString().toLowerCase())) {
+                            filtered.add(item);
+                        }
+
+                    }
+                }
+                FilterResults results = new FilterResults();
+                results.values = filtered;
+                return results;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+                if (filterResults == null) {
+                    return;
+                }
+
+
+                DiffUtil.DiffResult result = DiffUtil.calculateDiff(new CustomerCallback((List<BillCustomer>) filterResults.values, list));
+
+                //result.
+                result.dispatchUpdatesTo(CustomerListAdapter.this);
+
+                list = (List<BillCustomer>) filterResults.values;
+                //notifyDataSetChanged();
+            }
+        };
+    }
+
+    class CustomerCallback extends DiffUtil.Callback {
+
+        private List<BillCustomer> newList;
+        private List<BillCustomer> oldList;
+
+
+        public CustomerCallback(List<BillCustomer> nw, List<BillCustomer> old) {
+            this.newList = nw;
+            this.oldList = old;
+        }
+
+
+        @Override
+        public int getOldListSize() {
+            return oldList.size();
+        }
+
+        @Override
+        public int getNewListSize() {
+            return newList.size();
+        }
+
+        @Override
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+            BillCustomer oldItem = oldList.get(oldItemPosition);
+            BillCustomer newItem = newList.get(newItemPosition);
+            if (newItem != null && oldItem != null) {
+                if (newItem.getUser() != null && oldItem.getUser() != null && newItem.getUser().getId().intValue() == oldItem.getUser().getId().intValue()) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        @Override
+        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+            BillCustomer oldItem = oldList.get(oldItemPosition);
+            BillCustomer newItem = newList.get(newItemPosition);
+            if (newItem != null && oldItem != null) {
+                if (newItem.getUser() != null && oldItem.getUser() != null && newItem.getUser().getId().intValue() == oldItem.getUser().getId().intValue()) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    ;
 
 }

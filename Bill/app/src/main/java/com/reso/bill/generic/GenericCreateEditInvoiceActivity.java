@@ -56,6 +56,8 @@ import adapters.BillDetailsEditAdapter;
 import util.ServiceUtil;
 import util.Utility;
 
+import static com.rns.web.billapp.service.util.BillConstants.STATUS_ACTIVE;
+
 public class GenericCreateEditInvoiceActivity extends AppCompatActivity {
 
     private ProgressDialog pDialog;
@@ -220,6 +222,11 @@ public class GenericCreateEditInvoiceActivity extends AppCompatActivity {
             setCurrentMonthAndYear();
 
 
+        } else {
+            month.setVisibility(View.GONE);
+            year.setVisibility(View.GONE);
+            serviceCharge.setVisibility(View.GONE);
+            address.setVisibility(View.GONE);
         }
 
         billDetails.setOnClickListener(new View.OnClickListener() {
@@ -230,14 +237,14 @@ public class GenericCreateEditInvoiceActivity extends AppCompatActivity {
                 dialog.setTitle("Select product");
 
                 // set the custom dialog components - text, image and button
-                AutoCompleteTextView text = (AutoCompleteTextView) dialog.findViewById(R.id.et_dialog_select_product);
+                productName = (AutoCompleteTextView) dialog.findViewById(R.id.et_dialog_select_product);
                 if (items != null && items.size() > 0) {
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(GenericCreateEditInvoiceActivity.this, android.R.layout.select_dialog_item, Utility.convertToStringArrayList(items));
-                    text.setAdapter(adapter);
+                    productName.setAdapter(adapter);
                 }
 
 
-                text.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                productName.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                         try {
@@ -332,6 +339,9 @@ public class GenericCreateEditInvoiceActivity extends AppCompatActivity {
             }
         });
 
+        pendingAmountLayout.setVisibility(View.GONE);
+        creditAmountLayout.setVisibility(View.GONE);
+
         Utility.logFlurry("QuickBillCreate", user);
 
     }
@@ -348,6 +358,7 @@ public class GenericCreateEditInvoiceActivity extends AppCompatActivity {
         parent.setId(selectedItem.getId());
         parent.setName(Utility.getItemName(selectedItem));
         invoiceItem.setParentItem(parent);
+        invoiceItem.setStatus(STATUS_ACTIVE);
         invoiceItems.add(invoiceItem);
     }
 
@@ -514,7 +525,7 @@ public class GenericCreateEditInvoiceActivity extends AppCompatActivity {
         if (customer == null) return;
 
         BillServiceRequest request = new BillServiceRequest();
-        if (invoice.getInvoiceItems() == null || invoice.getInvoiceItems().size() == 0) {
+        /*if (invoice.getInvoiceItems() == null || invoice.getInvoiceItems().size() == 0) {
             invoice.setInvoiceItems(invoiceItems);
         } else {
             if (backupItems != null && backupItems.size() > 0) {
@@ -535,7 +546,7 @@ public class GenericCreateEditInvoiceActivity extends AppCompatActivity {
                 invoiceItems.addAll(deletedItems);
             }
             invoice.setInvoiceItems(invoiceItems);
-        }
+        }*/
         request.setInvoice(invoice);
         request.setUser(customer);
         request.setBusiness(user.getCurrentBusiness());
@@ -583,21 +594,23 @@ public class GenericCreateEditInvoiceActivity extends AppCompatActivity {
         if (invoice.getInvoiceItems() == null || invoice.getInvoiceItems().size() == 0) {
             invoice.setInvoiceItems(invoiceItems);
         } else {
-            List<BillItem> deletedItems = new ArrayList<>();
-            for (BillItem old : invoice.getInvoiceItems()) {
-                boolean found = false;
-                for (BillItem newItem : invoiceItems) {
-                    if (newItem.getId() != null && old.getId() == newItem.getId()) {
-                        found = true;
-                        break;
+            if (backupItems != null && backupItems.size() > 0) {
+                List<BillItem> deletedItems = new ArrayList<>();
+                for (BillItem old : backupItems) {
+                    boolean found = false;
+                    for (BillItem newItem : invoiceItems) {
+                        if (newItem.getId() != null && old.getId() == newItem.getId()) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        old.setStatus(BillConstants.STATUS_DELETED);
+                        deletedItems.add(old);
                     }
                 }
-                if (!found) {
-                    old.setStatus(BillConstants.STATUS_DELETED);
-                    deletedItems.add(old);
-                }
+                invoiceItems.addAll(deletedItems);
             }
-            invoiceItems.addAll(deletedItems);
             invoice.setInvoiceItems(invoiceItems);
         }
 
@@ -793,16 +806,17 @@ public class GenericCreateEditInvoiceActivity extends AppCompatActivity {
 
     private void prepareInvoice(BillInvoice inv) {
         if (inv != null) {
-            billAmount.setText(Utility.getDecimalText(inv.getAmount()));
-            pendingAmount.setText(Utility.getDecimalText(inv.getPendingBalance()));
-            creditAmount.setText(Utility.getDecimalText(inv.getCreditBalance()));
+            billAmount.setText(Utility.getDecimalString(inv.getAmount()));
+            pendingAmount.setText(Utility.getDecimalString(inv.getPendingBalance()));
+            creditAmount.setText(Utility.getDecimalString(inv.getCreditBalance()));
 
             if (inv.getServiceCharge() != null) {
                 serviceCharge.setText(Utility.getDecimalString(inv.getServiceCharge()));
             }
-            if (inv.getPendingBalance() == null && inv.getCreditBalance() == null) {
-                pendingAmountLayout.setVisibility(View.GONE);
-                creditAmountLayout.setVisibility(View.GONE);
+            if (inv.getPendingBalance() != null || inv.getCreditBalance() != null) {
+                pendingAmountLayout.setVisibility(View.VISIBLE);
+                creditAmountLayout.setVisibility(View.VISIBLE);
+                moreDetails.setText("+ Hide");
             }
 
             if (inv.getMonth() != null && inv.getYear() != null) {

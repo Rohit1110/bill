@@ -83,6 +83,29 @@
                 android:textSize="@dimen/list_text_main_text"/>
         </android.support.design.widget.TextInputLayout>
 
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/purchasePhoneNumber"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/purchaseDateInputLayout">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_purchase_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="Phone number"
+                android:textSize="@dimen/list_text_main_text"/>
+        </android.support.design.widget.TextInputLayout>
+
         <!--<Button
             android:id="@+id/gn_btn_add_customer_to_group"
             style="@style/basic_button"
@@ -105,7 +128,7 @@
             android:textColor="?android:attr/textColorSecondary"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/purchaseDateInputLayout"/>
+            app:layout_constraintTop_toBottomOf="@+id/purchasePhoneNumber"/>
 
         <TextView
             android:id="@+id/txt_purchase_show_options"

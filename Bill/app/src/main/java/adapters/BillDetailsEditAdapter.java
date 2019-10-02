@@ -91,12 +91,12 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
         final BillItem item = (BillItem) items.get(position);
         final ViewHolder1 gholder = (ViewHolder1) holder;
-        gholder.txtpaper.setText(item.getParentItem().getName());
+        gholder.txtpaper.setText(Utility.getItemName(item));
         if (item.getQuantity() != null) {
-            gholder.txtqty.setText(item.getQuantity().toString());
+            gholder.txtqty.setText(Utility.getDecimalString(item.getQuantity()));
         }
         if (item.getPrice() != null) {
-            gholder.txtAmount.setText(item.getPrice().toString());
+            gholder.txtAmount.setText(Utility.getDecimalString(item.getPrice()));
             gholder.txtAmount.addTextChangedListener(watcher);
         }
 
@@ -114,7 +114,7 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
 
                 // set the custom dialog components - text, image and button
                 TextView text = (TextView) dialog.findViewById(R.id.txt_dialog_invoice_item_name);
-                text.setText(item.getParentItem().getName());
+                text.setText(Utility.getItemName(item));
                 /*ImageView image = (ImageView) dialog.findViewById(R.id.image);
                 image.setImageResource(R.drawable.ic_launcher);*/
 
@@ -124,10 +124,10 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 amount.setText("0");
 
                 if (item.getQuantity() != null) {
-                    quantity.setText(item.getQuantity().toString());
+                    quantity.setText(Utility.getDecimalString(item.getQuantity()));
                 }
                 if (item.getPrice() != null) {
-                    amount.setText(item.getPrice().toString());
+                    amount.setText(Utility.getDecimalString(item.getPrice()));
                 }
 
 
@@ -187,16 +187,16 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
                 total = total.add(item.getPrice());
             }
         }
-        billAmount.setText(total.toString());
+        billAmount.setText(Utility.getDecimalString(total));
     }
 
     private void textEnabler(TextView txt, BillItem item, String type) {
         txt.setEnabled(!txt.isEnabled());
         if (!txt.isEnabled()) {
             if ("Q".equals(type)) {
-                item.setQuantity(new BigDecimal(txt.getText().toString()));
+                item.setQuantity(Utility.getDecimal(txt));
             } else {
-                item.setPrice(new BigDecimal(txt.getText().toString()));
+                item.setPrice(Utility.getDecimal(txt));
             }
         }
     }
@@ -241,7 +241,7 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public BigDecimal getPrice(int position) {
         ViewHolder1 gholder = (ViewHolder1) listView.findViewHolderForAdapterPosition(position);
         if (gholder != null && gholder.txtAmount != null) {
-            return new BigDecimal(gholder.txtAmount.getText().toString());
+            return Utility.getDecimal(gholder.txtAmount);
         }
         return null;
     }
@@ -249,7 +249,7 @@ public class BillDetailsEditAdapter extends RecyclerView.Adapter<RecyclerView.Vi
     public BigDecimal getQuantity(int position) {
         ViewHolder1 gholder = (ViewHolder1) listView.findViewHolderForAdapterPosition(position);
         if (gholder != null && gholder.txtqty != null) {
-            return new BigDecimal(gholder.txtqty.getText().toString());
+            return Utility.getDecimal(gholder.txtqty);
         }
         return null;
     }

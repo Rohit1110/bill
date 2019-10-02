@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -110,6 +111,10 @@ public class GenericDashboard extends AppCompatActivity implements NavigationVie
             //NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             //Menu nav_Menu = navigationView.getMenu();
             //nav_Menu.findItem(R.id.nav_quick_bill).setVisible(false);
+
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            Menu nav_Menu = navigationView.getMenu();
+            nav_Menu.findItem(R.id.nav_home).setVisible(false);
         }
 
         //initFragments();

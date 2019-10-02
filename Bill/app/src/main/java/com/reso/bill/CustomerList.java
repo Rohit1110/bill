@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,7 +15,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -39,7 +39,6 @@ import com.rns.web.billapp.service.domain.BillServiceResponse;
 import com.rns.web.billapp.service.util.BillConstants;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import adapters.CustomerListAdapter;
@@ -64,6 +63,7 @@ public class CustomerList extends Fragment {
     private BillFilter filter;
     private DialogInterface.OnDismissListener dismissListener;
     private TextView totalCustomersCount;
+    private SearchView searchView;
 
     public static CustomerList newInstance() {
         CustomerList fragment = new CustomerList();
@@ -81,7 +81,7 @@ public class CustomerList extends Fragment {
         menu.clear();
         inflater.inflate(R.menu.search, menu);
         MenuItem item = menu.findItem(R.id.action_search);
-        SearchView searchView = new SearchView((Utility.castActivity(getActivity())).getSupportActionBar().getThemedContext());
+        searchView = new SearchView((Utility.castActivity(getActivity())).getSupportActionBar().getThemedContext());
         MenuItemCompat.setShowAsAction(item, MenuItemCompat.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW | MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
         ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text)).setTextColor(getResources().getColor(R.color.md_black_1000));
         MenuItemCompat.setActionView(item, searchView);
@@ -236,11 +236,42 @@ public class CustomerList extends Fragment {
 
     private void loadCustomers() {
 
-        Date date = new Date();
-        //Load from Cache
-        List<BillUser> customers = BillCache.getCustomers(getActivity());
-        setCustomerList(customers);
-        Log.d("CustomerList", ".. Ended redering .." + (new Date().getTime() - date.getTime()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        AsyncTask task = new AsyncTask<Object, Void, Void>() {
+
+            private List<BillUser> customers;
+            private ProgressDialog progress;
+
+
+            @Override
+            protected void onPreExecute() {
+                //super.onPreExecute();
+                //progress = new ProgressDialog(getActivity());
+                //progress.setMessage("Loading ...");
+                //pDialog.setCancelable(false);
+                //progress.show();
+            }
+
+            @Override
+            protected Void doInBackground(Object... objects) {
+                //Date date = new Date();
+                //Load from Cache
+                customers = BillCache.getCustomers(getActivity());
+
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                //super.onPostExecute(aVoid);
+                //progress.dismiss();
+                setCustomerList(customers);
+                //Log.d("CustomerList", ".. Ended redering .." + (new Date().getTime() - date.getTime()));
+            }
+        };
+
+        task.execute();
 
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
@@ -291,7 +322,6 @@ public class CustomerList extends Fragment {
             }
         }
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new CustomerListAdapter(list, getActivity(), user);
         //recyclerView.setHasFixedSize(true);
         /*recyclerView.setItemViewCacheSize(50);
@@ -299,12 +329,19 @@ public class CustomerList extends Fragment {
         recyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);*/
         recyclerView.setAdapter(adapter);
         totalCustomersCount.setText("Total customers - " + list.size());
+        if (!TextUtils.isEmpty(searchView.getQuery())) {
+            adapter.getFilter(list).filter(searchView.getQuery());
+        }
+
     }
 
     public void filter(final String text) {
 
+        adapter.getFilter(list).filter(text);
+
+
         // Searching could be complex..so we will dispatch it to a different thread...
-        new Thread(new Runnable() {
+        /*new Thread(new Runnable() {
             @Override
             public void run() {
 
@@ -315,8 +352,8 @@ public class CustomerList extends Fragment {
                     // If there is no search value, then add all original list items to filter list
                     if (TextUtils.isEmpty(text)) {
 
-                        /*hideicon = true;
-                        invalidateOptionsMenu();*/
+                        *//*hideicon = true;
+                        invalidateOptionsMenu();*//*
 
                         filterList.addAll(list);
 
@@ -328,7 +365,7 @@ public class CustomerList extends Fragment {
                                 continue;
                             }
                             System.out.println("Comparing " + item.getUser().getName() + " with " + text);
-                            if (item.getUser().getName() != null && item.getUser().getName().toLowerCase().contains(text.toLowerCase()) /*|| comparePhone(item, text)*/) {
+                            if (item.getUser().getName() != null && item.getUser().getName().toLowerCase().contains(text.toLowerCase()) *//*|| comparePhone(item, text)*//*) {
                                 // Adding Matched items
                                 filterList.add(item);
                             } else if (item.getUser().getPhone() != null && item.getUser().getPhone().toLowerCase().contains(text.toLowerCase())) {
@@ -343,10 +380,10 @@ public class CustomerList extends Fragment {
                         @Override
                         public void run() {
                             // Notify the List that the DataSet has changed...
-                           /* adapter = new ContactListAdapter(SearchAppointmentActivity.this, filterList);
+                           *//* adapter = new ContactListAdapter(SearchAppointmentActivity.this, filterList);
                             RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(SearchAppointmentActivity.this, 1);
                             recyclerView_contact.setLayoutManager(mLayoutManager);
-                            recyclerView_contact.setAdapter(adapter);*/
+                            recyclerView_contact.setAdapter(adapter);*//*
                             //recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                             //adapter = new CustomerListAdapter(filterList, getActivity(), user);
                             System.out.println("Filtered list => " + filterList.size());
@@ -363,7 +400,7 @@ public class CustomerList extends Fragment {
 
 
             }
-        }).start();
+        }).start();*/
 
     }
 

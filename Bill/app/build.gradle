@@ -15,8 +15,8 @@ android {
         applicationId "com.reso.bill"
         minSdkVersion 16
         targetSdkVersion 27
-        versionCode 15
-        versionName "15.0"
+        versionCode 16
+        versionName "16.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled = true

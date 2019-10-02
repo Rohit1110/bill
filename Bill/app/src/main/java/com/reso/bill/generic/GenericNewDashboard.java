@@ -240,7 +240,7 @@ public class GenericNewDashboard extends Fragment {
 //                startActivity(Utility.nextIntent(getActivity(), SettingsActivity.class, true));
                 Intent aboutUsWebViewIntent = new Intent(getActivity(), HelpActivity.class);
                 // Adding URL, title string in the intent and starting it
-                aboutUsWebViewIntent.putExtra("URL", "https://payperbill.in/");
+                aboutUsWebViewIntent.putExtra("URL", "https://payperbill.in/aboutUs.html");
                 aboutUsWebViewIntent.putExtra("ACTIVITY_TITLE", "About Us");
                 startActivity(aboutUsWebViewIntent);
             }
@@ -265,7 +265,12 @@ public class GenericNewDashboard extends Fragment {
         productsLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(Utility.nextIntent(getActivity(), ManageNewspapersActivity.class, true));
+                if (Utility.isNewspaper(user)) {
+                    startActivity(Utility.nextIntent(getActivity(), ManageNewspapersActivity.class, true));
+                } else {
+                    startActivity(Utility.nextIntent(getActivity(), GenericMyProductsActivity.class, true));
+                }
+
             }
         });
 

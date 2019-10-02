@@ -24,7 +24,6 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.reso.bill.CustomerOrderHistoryActivity;
 import com.reso.bill.CustomerSubscriptionsActivity;
-import com.reso.bill.EditInvoiceActivity;
 import com.reso.bill.R;
 import com.rns.web.billapp.service.bo.domain.BillInvoice;
 import com.rns.web.billapp.service.bo.domain.BillUser;
@@ -168,14 +167,14 @@ public class GenericCustomerProfileActivity extends AppCompatActivity {
         addNewBill.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {
+                /*if (BillConstants.FRAMEWORK_GENERIC.equals(Utility.getFramework(user))) {*/
                     //customer.setCurrentInvoice(invoice);
                     //Utility.nextFragment((FragmentActivity) activity, GenericCreateBill.newInstance(customer));
-                    startActivity(Utility.nextIntent(GenericCustomerProfileActivity.this, GenericCreateBillActivity.class, true, selectedCustomer, Utility.CUSTOMER_KEY));
-                } else {
+                    startActivity(Utility.nextIntent(GenericCustomerProfileActivity.this, GenericCreateEditInvoiceActivity.class, true, selectedCustomer, Utility.CUSTOMER_KEY));
+                /*} else {
                     //Utility.nextFragment((FragmentActivity) activity, FragmentEditInvoice.newInstance(customer, invoice));
                     startActivity(Utility.nextIntent(GenericCustomerProfileActivity.this, EditInvoiceActivity.class, true, selectedCustomer, Utility.CUSTOMER_KEY));
-                }
+                }*/
             }
         });
 

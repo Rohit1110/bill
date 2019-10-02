@@ -3,11 +3,13 @@ package com.reso.bill;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -43,6 +45,7 @@ public class DistributorsActivity extends AppCompatActivity {
     private BillFilter filter;
     private DialogInterface.OnDismissListener dismissListener;
     private TextView totalPending;
+    private FloatingActionButton addDistributor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,21 @@ public class DistributorsActivity extends AppCompatActivity {
         user = (BillUser) Utility.readObject(this, Utility.USER_KEY);
 
         totalPending = (TextView) findViewById(R.id.txt_total_pending_amount);
+
+        addDistributor = (FloatingActionButton) findViewById(R.id.btn_add_distributor_vendor);
+
+        addDistributor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                BillUser distributor = new BillUser();
+                startActivity(Utility.nextIntent(DistributorsActivity.this, DistributorBillDetailsActivity.class, true, distributor, Utility.DISTRIBUTOR_KEY));
+
+            }
+        });
+
+        if (Utility.isDistributor(user)) {
+            //addDistributor.setVisibility(View.VISIBLE);
+        }
         /*totalProfit = findViewById(R.id.txt_daily_total_profit);
         totalCost = findViewById(R.id.txt_daily_total_cost);
         switchView = findViewById(R.id.btn_daily_summary_switch_view);

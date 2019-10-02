@@ -126,6 +126,9 @@ public class BillFilter {
     }
 
     private void loadCustomerGroups() {
+        if(user == null) {
+            return;
+        }
         BillServiceRequest request = new BillServiceRequest();
         request.setBusiness(user.getCurrentBusiness());
         //pDialog = Utility.getProgressDialogue("Loading ..", this);

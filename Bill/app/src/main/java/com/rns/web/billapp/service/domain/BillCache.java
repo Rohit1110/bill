@@ -67,7 +67,10 @@ public class BillCache implements Serializable {
     }
 
     public static List<BillUser> getDeliveries(Activity activity) {
+        long start = System.currentTimeMillis();
         BillCache cache = readCache(activity);
+        long end = System.currentTimeMillis();
+        System.out.println("Time => " + (end - start));
         if (cache == null) {
             return null;
         }
